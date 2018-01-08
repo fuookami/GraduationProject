@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="XSDAnalyzer::AttributeAnalyzer" Collapsed="true">
+    <Position X="30.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAQAAACAAAAAAABAAAAACABAACABAAAgAAQQQAA=</HashCode>
+      <FileName>AttributeAnalyzer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexTypeAnalyzer" Collapsed="true">
+    <Position X="27" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIEAAQAAAAAAAAAQACABAAIAAAAAAAEAAAgAAAAAAA=</HashCode>
+      <FileName>ComplexTypeAnalyzer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleTypeAnalyzer" Collapsed="true">
+    <Position X="32.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAQAAAEgEIAAAAAAAAQEAAAAYAAIIABAAmwDAAEAgA=</HashCode>
+      <FileName>SimpleTypeAnalyzer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::XSDAnalyzer" Collapsed="true">
+    <Position X="28.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABABAAIAAAAAAAAAACAAAAAAACAAAAAAAAAgAAQECAA=</HashCode>
+      <FileName>XSDAnalyzer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexType::AnyElement" Collapsed="true">
+    <Position X="22.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAASAAAAABACgAAAAAAAhAABAIIgABAAAAgBAIAAAA=</HashCode>
+      <FileName>AnyElement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexType::ComplexContent" Collapsed="true">
+    <Position X="3.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComplexContent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexType::ComplexType" Collapsed="true">
+    <Position X="32.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ComplexType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexType::IComplexTypeInterface" Collapsed="true">
+    <Position X="2" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAgAAAAIAA=</HashCode>
+      <FileName>ComplexTypeInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexType::Element" Collapsed="true">
+    <Position X="15" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAQIACBIAAAAAAAAAgIAAACARAQAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Element.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexType::ElementGroup" Collapsed="true">
+    <Position X="28.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ElementGroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexType::IElementInterface" Collapsed="true">
+    <Position X="22.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAAAAAAAAAAAAAAAAEAAEQAgAAAABAAiQABAAAA=</HashCode>
+      <FileName>ElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexType::SimpleContent" Collapsed="true">
+    <Position X="1" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimpleContent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::Attribute::AnyAttribute" Collapsed="true">
+    <Position X="24.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAgAAAAAQABAAAAIgAABAAAAgBAAAAAA=</HashCode>
+      <FileName>AnyAttribute.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::Attribute::Attribute" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAACAAAABAAAAAAAAAAAABAAAAWgAAAAQAA=</HashCode>
+      <FileName>Attribute.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::Attribute::AttributeGroup" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAABAQAAAEAAAACkAAEhgZggAgAAgQEAA=</HashCode>
+      <FileName>AttributeGroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::Attribute::IAttributeInterface" Collapsed="true">
+    <Position X="14.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAIAAAAAAAAAAAAAAAAQAAAAAAAAAkAAAAAAA=</HashCode>
+      <FileName>AttributeInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::ContainerType" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIEQAAAAAAAAAAQAAAgAAQAIAgAgAAEBAAA=</HashCode>
+      <FileName>ContainerType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::DataType" Collapsed="true">
+    <Position X="9.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAgAAAAAAAAAAAAABAAQAIAAAgAAABAAA=</HashCode>
+      <FileName>DataType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::DateTimeType" Collapsed="true">
+    <Position X="6.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAgAAAAAAAAAAAAAAAAwAIAAAgAAABAAA=</HashCode>
+      <FileName>DateTimeType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::NumberType" Collapsed="true">
+    <Position X="12.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAgAAABAAAAAAgBgAAAQAIgBAggAABAAA=</HashCode>
+      <FileName>NumberType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::ISimpleTypeInterface" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAIAABAQIAEAAAAAAAAAABABAAAIAIAgAAAJAAA=</HashCode>
+      <FileName>SimpleTypeInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::ValueEnumrationConfiguration&lt;T&gt;" Collapsed="true">
+    <Position X="3.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAABQAAAAACAAAAIABAAAAAQAAAAAABgEAAAAiA=</HashCode>
+      <FileName>SimpleTypeValueEnumrationConfiguration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::ValueLimitConfiguration&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAACISIAgCohIAAAAAAAiAAAAACIAEAEAgCACCQAA=</HashCode>
+      <FileName>SimpleTypeValueLimitConfiguration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::StringType" Collapsed="true">
+    <Position X="12.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgBAAAAAQABAAAAEAAQAIAAAgABABAQA=</HashCode>
+      <FileName>StringType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::LengthLimitConfiguration" Collapsed="true">
+    <Position X="17.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEQAAACAIgIAAAAiAAAAAAAAAAAAAAAAgAgAWAAA=</HashCode>
+      <FileName>SimpleTypeLengthLimitConfiguration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::XSDElementUtils::IXSDValueStatedElementInterface" Collapsed="true">
+    <Position X="16.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQCEAAACBCACBAAIQggIAAAgAkAAQBAAgJAAAAAE=</HashCode>
+      <FileName>XSDValueStatedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::XSDElementUtils::IXSDNamedElementInterface" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAgAAIAAAAAAAAAAIAAAABAAAAkAABBAAA=</HashCode>
+      <FileName>XSDNamedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::XSDElementUtils::IXSDNumberLimitedElementInterface" Collapsed="true">
+    <Position X="20" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAACAAAAAAACAAAAAAAAhAAJAAIgAAAAAAgAAAAAAA=</HashCode>
+      <FileName>XSDNumberLimitedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::XSDElementUtils::IXSDReferenceElementInterface&lt;T&gt;" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAEAAIAAAAAAAAAAAAQAAAgICCAAAI=</HashCode>
+      <FileName>XSDReferenceElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::XSDElementUtils::IXSDParentedElementInterface" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAEAAgAAUABAAiAABAAAA=</HashCode>
+      <FileName>XSDParentedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::XSDElementUtils::IXSDNamedTypedElementInterface" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAABAAIARAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>XSDNamedTypedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataUtils::_DataUtils" Collapsed="true">
+    <Position X="27" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACACAAABEIAAAAQAAACAAAAIAAEAAAAAAAAQSw=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DataUtils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndianUtils::_EndianUtils" Collapsed="true">
+    <Position X="28.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAEAAAIAAAAAAAAAgACAAAQAAAAABAA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\EndianUtils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NumberVariant" Collapsed="true">
+    <Position X="30.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IGCAMAAIgAAUQCQgEAQgRQACBAQFAAAEoRAiABIAAEA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\NumberVariant.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XMLUtils::XMLNode" Collapsed="true">
+    <Position X="27" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQgACIIgAAAAAACAZRAAAIgAAJiIEISAUAyAABgACA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\XMLUtils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="DateTimeUtils::Date" Collapsed="true">
+    <Position X="27" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAlAAAAAAAAAAAQAAAABAAAAAQAAAABCAAgAAAAAAA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DateTimeUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DateTimeUtils::TimeDuration" Collapsed="true">
+    <Position X="30.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAQAAAAABQAFAAAgAACAAAAAAAiAAEAAAA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DateTimeUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DateTimeUtils::DateTime" Collapsed="true">
+    <Position X="28.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAlAAAAAAAQAAAQAAQABQAAAAQAIAQAAAAiAQAAAAA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DateTimeUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="XSDAnalyzer::SimpleType::eSimpleType" Collapsed="true">
+    <Position X="28.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAQAAAAAAASAEAAAAAgAAAAAAAA=</HashCode>
+      <FileName>SimpleTypeInterface.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EndianUtils::Endian" Collapsed="true">
+    <Position X="27" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\EndianUtils.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="StringConvertUtils::StringCodeId" Collapsed="true">
+    <Position X="30.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABAg=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\StringConvertUtils.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="XSDAnalyzer::SimpleTypeAnalyzer" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAEgEAAAAAAAAAQAAAAAYAAIAAAAAkwDAAEAgA=</HashCode>
+      <FileName>SimpleTypeAnalyzer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::DataType" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAABQCIIgIAAAAiIABAAAABAAQAIAABgEgAXAiA=</HashCode>
+      <FileName>DataType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::DateTimeType" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kCAAACITYAACohIAAAAIABiAAAAAC4AIAEBgGACDQiA=</HashCode>
+      <FileName>DateTimeType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::ContainerType" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIEQAAAAAAAAAAQAAAgAAQAIAgAgAAEBAAA=</HashCode>
+      <FileName>ContainerType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::ISimpleTypeInterface" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAIAIAABAwIAMAAAAAAAAAABABAABIAIAkAABJAAA=</HashCode>
+      <FileName>SimpleTypeInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::NumberType" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECAAACITcAACohIABAAIABigBgAACYAIgFBgmAADQiA=</HashCode>
+      <FileName>NumberType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleType::StringType" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAABQCAIgJAAAAiYABAAAAEAAQAIAABgEhAXAyA=</HashCode>
+      <FileName>StringType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataUtils::_DataUtils" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACACAAABEIAAAAQAAACAAAAIAAEAAAAAAAAQSw=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DataUtils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EndianUtils::_EndianUtils" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAEAAAIAAAAAAAAAgACAAAQAAAAABAA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\EndianUtils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NumberVariant" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IGCAMAAIgAAUQCQgEAQgRQACBAQFAAAEoRAiABIAAEA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\NumberVariant.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="DateTimeUtils::Date" Collapsed="true">
+    <Position X="12" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAlAAAAAAAAAAAQAAAABAAAAAQAAAABCAAgAAAAAAA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DateTimeUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DateTimeUtils::TimeDuration" Collapsed="true">
+    <Position X="12" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAQAAAAABQAFAAAgAACAAAAAAAiAAEAAAA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DateTimeUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DateTimeUtils::DateTime" Collapsed="true">
+    <Position X="13.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAlAAAAAAAQAAAQAAQABQAAAAQAIAQAAAAiAQAAAAA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DateTimeUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="XSDAnalyzer::SimpleType::eSimpleType" Collapsed="true">
+    <Position X="13.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAQAAAAAAASAEAAAAAgAAAAAAAA=</HashCode>
+      <FileName>SimpleTypeInterface.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EndianUtils::Endian" Collapsed="true">
+    <Position X="12" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\EndianUtils.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="StringConvertUtils::StringCodeId" Collapsed="true">
+    <Position X="12" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABAg=</HashCode>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\StringConvertUtils.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>
