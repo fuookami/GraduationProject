@@ -44,9 +44,10 @@ namespace XSDFrontend
 		public:
 			virtual ~ISimpleTypeInterface(void);
 
+		public:
 			virtual void refreshValidator(const XMLUtils::XMLNode &node) = 0;
 
-			inline void setType(const eSimpleType type) { m_type = type; }
+			inline void setSimpleType(const eSimpleType type) { m_type = type; }
 			inline const eSimpleType getSimpleType(void) const { return m_type; }
 
 			inline void setWhiteSpace(const eWhiteSpace whiteSpace) { m_whiteSpace = whiteSpace; }

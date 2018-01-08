@@ -6,6 +6,12 @@ namespace XSDFrontend
 {
 	namespace ComplexType
 	{
+		enum class eComplexType
+		{
+			tSimpleContent,
+			tComplexContent
+		};
+
 		class IComplexTypeInterface abstract : public XSDElementUtils::IXSDNamedElementInterface
 		{
 		public:
@@ -17,7 +23,9 @@ namespace XSDFrontend
 			};
 
 		protected:
-			IComplexTypeInterface();
+			IComplexTypeInterface(const eComplexType type);
+			IComplexTypeInterface(const std::string &name, const eComplexType type);
+			IComplexTypeInterface(const std::string &&name, const eComplexType type);
 			IComplexTypeInterface(const IComplexTypeInterface &ano);
 			IComplexTypeInterface(const IComplexTypeInterface &&ano);
 			IComplexTypeInterface &operator=(const IComplexTypeInterface &rhs);
@@ -25,7 +33,24 @@ namespace XSDFrontend
 		public:
 			virtual ~IComplexTypeInterface(void);
 
+		public:
+			inline void setComplexType(const eComplexType type) { m_type = type; }
+			inline const eComplexType getComplexType(void) const { return m_type; }
+
+			inline void setMixed(const bool mixed) { m_mixed = mixed; }
+			inline const bool getMixed(void) const { return m_mixed; }
+
+			inline void setBaseType(const eDeriveType deriveType, const std::string &baseTypeName) { m_deriveType = deriveType; m_baseTypeName.assign(baseTypeName); }
+			inline void setBaseType(const eDeriveType deriveType, const std::string &&baseTypeName) { m_deriveType = deriveType; m_baseTypeName.assign(std::move(baseTypeName)); }
+			inline const eDeriveType getDeriveType(void) { return m_deriveType; }
+			inline const std::string &getBaseTypeName(void) { return m_baseTypeName; }
+
 		private:
+			eComplexType m_type;
+
+			bool m_mixed;
+
+			eDeriveType m_deriveType;
 			std::string m_baseTypeName;
 		};
 	};

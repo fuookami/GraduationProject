@@ -62,13 +62,17 @@ namespace XSDAnalyzer
 			{
 				m_attributeAnalyzer.scanAttributeGroup(childNode);
 			}
+			else if (childNode.getTag() == XSDFrontend::Token::ElementTag)
+			{
+				m_complexTypeAnalyzer.scanElement(childNode);
+			}
 			else if (childNode.getTag() == XSDFrontend::Token::GroupTag)
 			{
-
+				m_complexTypeAnalyzer.scanElementGroup(childNode);
 			}
 			else if (childNode.getTag() == XSDFrontend::Token::CompleyTypeTag)
 			{
-
+				m_complexTypeAnalyzer.scanComplexType(childNode);
 			}
 		}
 

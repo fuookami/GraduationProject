@@ -13,13 +13,7 @@
 			<xs:complexContent>
 				<xs:extension base="tBaseElement">
 					<xs:sequence>
-						<xs:element name="Header" type="tHeader">
-							<xs:unique name="uniqueHitem">
-								<xs:selector xpath="./scl:History/scl:Hitem"/>
-								<xs:field xpath="@version"/>
-								<xs:field xpath="@revision"/>
-							</xs:unique>
-						</xs:element>
+						<xs:element name="Header" type="tHeader"/>
 						<xs:element ref="Substation" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="Communication" minOccurs="0"/>
 						<xs:element ref="IED" minOccurs="0" maxOccurs="unbounded"/>

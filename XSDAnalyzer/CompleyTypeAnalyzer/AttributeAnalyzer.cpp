@@ -118,11 +118,13 @@ namespace XSDAnalyzer
 			{
 				std::string typeName(node.getAttr(XSDFrontend::Token::TypeAttr));
 
-				if (!XSDFrontend::SimpleTypeModel::isBaseType(typeName) && !m_simpleTypeModel->isTypeExist(typeName))
- 				{
- 					std::cerr << "属性'" << attrName << "'的类型'" << typeName << "'未定义" << std::endl;
- 					return nullptr;
- 				}
+				//! to do
+				//在全部读取完毕再检查类型是否定义
+// 				if (!XSDFrontend::SimpleTypeModel::isBaseType(typeName) && !m_simpleTypeModel->isTypeExist(typeName))
+//  			{
+//  				std::cerr << "属性'" << attrName << "'的类型'" << typeName << "'未定义" << std::endl;
+//  				return nullptr;
+//  			}
 
 				attribute.reset(new XSDFrontend::Attribute::Attribute(std::move(attrName), std::move(typeName)));
 			}
