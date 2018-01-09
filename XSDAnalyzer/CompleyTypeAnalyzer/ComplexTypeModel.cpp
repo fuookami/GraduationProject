@@ -3,12 +3,18 @@
 namespace XSDFrontend
 {
 	XSDFrontend::ComplexTypeModel::ComplexTypeModel(void)
-		: m_elements(), m_elementGroups(), m_simpleContent(), m_complexContent(), m_complexTypes()
+		: m_globalElements(), m_elementGroups(), m_simpleContent(), m_complexContent(), m_complexTypes()
 	{
 	}
 
 	XSDFrontend::ComplexTypeModel::~ComplexTypeModel(void)
 	{
+	}
+
+	const std::shared_ptr<ComplexType::Element> ComplexTypeModel::getGlobalElement(const std::string & name) const
+	{
+		auto it(m_globalElements.find(name));
+		return it != m_globalElements.cend() ? it->second : nullptr;
 	}
 
 	const std::shared_ptr<ComplexType::Element> ComplexTypeModel::getElement(const std::string & name) const

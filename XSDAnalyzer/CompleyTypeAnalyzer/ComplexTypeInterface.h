@@ -15,7 +15,7 @@ namespace XSDFrontend
 		class IComplexTypeInterface abstract : public XSDElementUtils::IXSDNamedElementInterface
 		{
 		public:
-			enum class eDeriveType
+			enum class eDerivedType
 			{
 				tNone,
 				tRestriction,
@@ -40,9 +40,9 @@ namespace XSDFrontend
 			inline void setMixed(const bool mixed) { m_mixed = mixed; }
 			inline const bool getMixed(void) const { return m_mixed; }
 
-			inline void setBaseType(const eDeriveType deriveType, const std::string &baseTypeName) { m_deriveType = deriveType; m_baseTypeName.assign(baseTypeName); }
-			inline void setBaseType(const eDeriveType deriveType, const std::string &&baseTypeName) { m_deriveType = deriveType; m_baseTypeName.assign(std::move(baseTypeName)); }
-			inline const eDeriveType getDeriveType(void) { return m_deriveType; }
+			inline void setBaseType(const eDerivedType deriveType, const std::string &baseTypeName) { m_deriveType = deriveType; m_baseTypeName.assign(baseTypeName); }
+			inline void setBaseType(const eDerivedType deriveType, const std::string &&baseTypeName) { m_deriveType = deriveType; m_baseTypeName.assign(std::move(baseTypeName)); }
+			inline const eDerivedType getDeriveType(void) { return m_deriveType; }
 			inline const std::string &getBaseTypeName(void) { return m_baseTypeName; }
 
 		private:
@@ -50,7 +50,7 @@ namespace XSDFrontend
 
 			bool m_mixed;
 
-			eDeriveType m_deriveType;
+			eDerivedType m_deriveType;
 			std::string m_baseTypeName;
 		};
 	};

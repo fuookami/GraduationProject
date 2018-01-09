@@ -46,6 +46,8 @@ namespace XSDFrontend
 		inline const bool isTypeExist(const std::string &typeName) const { return getType(typeName) != XSDFrontend::SimpleType::eSimpleType::tNonExist; }
 		static const bool isBaseType(const std::string &typeName);
 
+		inline void clear(void) { m_stringTypes.clear(); m_numberTypes.clear(); m_dateTimeTypes.clear(); m_dataTypes.clear(); m_containerTypes.clear(); m_simpleTypes.clear(); }
+
 		void checkAndEraseIlegalTypeInContainer(std::shared_ptr<XSDFrontend::SimpleType::ContainerType> type);
 
 	public:

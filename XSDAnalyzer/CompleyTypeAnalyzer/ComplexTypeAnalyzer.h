@@ -15,9 +15,19 @@ namespace XSDAnalyzer
 		ComplexTypeAnalyzer &operator=(const ComplexTypeAnalyzer &&rhs) = delete;
 		~ComplexTypeAnalyzer(void);
 
-		std::shared_ptr<XSDFrontend::ComplexType::Element> scanElement(const XMLUtils::XMLNode &node);
+		std::shared_ptr<XSDFrontend::ComplexType::Element> scanElement(const XMLUtils::XMLNode &node, const XSDFrontend::Attribute::IAttributeInterface::eParentType parentType = XSDFrontend::Attribute::Attribute::eParentType::tNonParent, const std::string &parentName = std::string(""));
 		std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> scanElementGroup(const XMLUtils::XMLNode &node);
 		const std::string scanComplexType(const XMLUtils::XMLNode &node);
+
+	private:
+		std::shared_ptr<XSDFrontend::ComplexType::Element> loadElement(const XMLUtils::XMLNode &node);
+
+		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> scanComplexContent(const XMLUtils::XMLNode &node);
+		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> scanDerivedComplexContent(const XMLUtils::XMLNode &node);
+		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> scanDerivedSimpleContent(const XMLUtils::XMLNode &node);
+
+	private:
+		static bool isElementNodeValid(const XMLUtils::XMLNode &node);
 
 	private:
 		std::shared_ptr<XSDFrontend::SimpleTypeModel> m_simpleTypeModel;

@@ -59,6 +59,9 @@ namespace XSDFrontend
 			Element &operator=(const Element &&rhs);
 			~Element(void);
 
+			inline void setCategory(const eCategory &category) { m_category = category; }
+			inline const eCategory getCategory(void) const { return m_category; }
+
 			inline void setForm(const eForm form) { m_form = form; }
 			inline const eForm getForm(void) const { return m_form; }
 

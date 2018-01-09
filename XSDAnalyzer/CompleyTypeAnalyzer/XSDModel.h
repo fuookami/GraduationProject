@@ -25,6 +25,8 @@ namespace XSDFrontend
 		inline const std::shared_ptr<AttributeModel> getAttributeTypeModel(void) const { return m_attributeTypeModel; }
 		inline const std::shared_ptr<ComplexTypeModel> getComplexTypeModel(void) const { return m_complexTypeMode; }
 
+		inline void clear(void) { m_simpleTypeModel->clear(); m_attributeTypeModel->clear(); m_complexTypeMode->clear(); }
+
 	private:
 		std::shared_ptr<SimpleTypeModel> m_simpleTypeModel;
 		std::shared_ptr<AttributeModel> m_attributeTypeModel;

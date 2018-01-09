@@ -25,9 +25,9 @@ namespace XSDAnalyzer
 			}
 			
 			auto attribute(loadAttribute(node));
-			attribute->setParent(parentType, parentName);
 			if (attribute != nullptr)
 			{
+				attribute->setParent(parentType, parentName);
 				m_attributeModel->getGlobalAttributes().insert(std::make_pair(attribute->getName(), attribute));
 			}
 			return attribute;
@@ -35,7 +35,10 @@ namespace XSDAnalyzer
 		else
 		{
 			auto attribute(loadAttribute(node));
-			attribute->setParent(parentType, parentName);
+			if (attribute != nullptr)
+			{
+				attribute->setParent(parentType, parentName);
+			}
 			return attribute;
 		}
 	}
@@ -43,7 +46,7 @@ namespace XSDAnalyzer
 	std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> AttributeAnalyzer::scanAttributeGroup(const XMLUtils::XMLNode & node)
 	{
 		auto attributeGroup(loadAttributeGroup(node));
-		if (attributeGroup->hasRef())
+		if (attributeGroup == nullptr || attributeGroup->hasRef())
 		{
 			return attributeGroup;
 		}

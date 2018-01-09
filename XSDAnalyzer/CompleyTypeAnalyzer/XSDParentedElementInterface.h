@@ -13,6 +13,7 @@ namespace XSDFrontend
 			{
 				tComplexType,
 				tAttributeGroup,
+				tElementGroup,
 				tNonParent
 			};
 

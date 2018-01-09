@@ -24,6 +24,8 @@ namespace XSDFrontend
 		inline std::map<std::string, std::shared_ptr<Attribute::AttributeGroup>> &getAttributeGroups(void) { return m_attributeGroups; }
 		inline const std::map<std::string, std::shared_ptr<Attribute::AttributeGroup>> &getAttributeGroups(void) const { return m_attributeGroups; }
 
+		inline void clear(void) { m_globalAttributes.clear(); m_attributeGroups.clear(); }
+
 	public:
 		static const std::string getNewDefaultAttributeGroupName(void);
 
