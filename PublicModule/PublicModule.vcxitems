@@ -20,6 +20,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EndianUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NumberVariant.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RandomUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StringConvertUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UuidUtils.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EndianUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FileUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NumberVariant.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RandomUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConvertUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UuidUtils.h" />

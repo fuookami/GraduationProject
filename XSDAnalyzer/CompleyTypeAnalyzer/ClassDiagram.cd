@@ -126,11 +126,11 @@
       <FileName>DataType.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="XSDAnalyzer::SimpleType::DateTimeType" Collapsed="true">
+  <Class Name="XSDAnalyzer::SimpleType::DatetimeType" Collapsed="true">
     <Position X="6.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAAAgAAAAAAAAAAAAAAAAwAIAAAgAAABAAA=</HashCode>
-      <FileName>DateTimeType.h</FileName>
+      <FileName>DatetimeType.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="XSDAnalyzer::SimpleType::NumberType" Collapsed="true">
@@ -245,25 +245,25 @@
       <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\XMLUtils.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Struct Name="DateTimeUtils::Date" Collapsed="true">
+  <Struct Name="DatetimeUtils::Date" Collapsed="true">
     <Position X="27" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAlAAAAAAAAAAAQAAAABAAAAAQAAAABCAAgAAAAAAA=</HashCode>
-      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DateTimeUtils.h</FileName>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DatetimeUtils.h</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="DateTimeUtils::TimeDuration" Collapsed="true">
+  <Struct Name="DatetimeUtils::TimeDuration" Collapsed="true">
     <Position X="30.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAQAAAAABQAFAAAgAACAAAAAAAiAAEAAAA=</HashCode>
-      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DateTimeUtils.h</FileName>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DatetimeUtils.h</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="DateTimeUtils::DateTime" Collapsed="true">
+  <Struct Name="DatetimeUtils::Datetime" Collapsed="true">
     <Position X="28.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAlAAAAAAAQAAAQAAQABQAAAAQAIAQAAAAiAQAAAAA=</HashCode>
-      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DateTimeUtils.h</FileName>
+      <FileName>D:\project\NiceChina\SSDConfigurator\SSDConfigurator\PublicModule\DatetimeUtils.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Enum Name="XSDAnalyzer::SimpleType::eSimpleType" Collapsed="true">

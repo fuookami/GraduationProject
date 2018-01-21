@@ -82,9 +82,9 @@ namespace XSDAnalyzer
 		if (XSDFrontend::Token::isInXSDNameSpace(baseTypeName))
 		{
 			/* 如果是，则在各个基础类词表中寻找类型名
-			* 如果任意一个找到了，则创建一个对应的新类型
-			* 如果没有找到，则抛出异常
-			*/
+			 * 如果任意一个找到了，则创建一个对应的新类型
+			 * 如果没有找到，则抛出异常
+			 */
 			std::vector<std::string> baseTypeParts;
 			boost::split(baseTypeParts, baseTypeName, boost::is_any_of(XSDFrontend::Token::NamespaceSeparator));
 
@@ -93,7 +93,7 @@ namespace XSDAnalyzer
 				// 查一下是不是原子类型
 				if (checkAndInsertType(m_simpleTypeModel->getStringTypes(), XSDFrontend::SimpleType::StringBaseTypeName2Type, typeName, baseTypeParts.back(), node)
 					|| checkAndInsertType(m_simpleTypeModel->getNumberTypes(), XSDFrontend::SimpleType::NumberBaseTypeName2Type, typeName, baseTypeParts.back(), node)
-					|| checkAndInsertType(m_simpleTypeModel->getDateTimeTypes(), XSDFrontend::SimpleType::DateTimeBaseTypeName2Type, typeName, baseTypeParts.back(), node)
+					|| checkAndInsertType(m_simpleTypeModel->getDatetimeTypes(), XSDFrontend::SimpleType::DatetimeBaseTypeName2Type, typeName, baseTypeParts.back(), node)
 					|| checkAndInsertType(m_simpleTypeModel->getDataTypes(), XSDFrontend::SimpleType::DataBaseTypeName2Type, typeName, baseTypeParts.back(), node)
 					)
 				{
@@ -101,22 +101,22 @@ namespace XSDAnalyzer
 				}
 				else
 				{
-					static const std::string ErrorPrefix("未定义的原子类型：");
+					static const std::string ErrorPrefix("未定义的基础类型：");
 					throw std::logic_error(ErrorPrefix + baseTypeName);
 				}
 			}
 			else
 			{
-				static const std::string ErrorPrefix("错误的原子类型：");
+				static const std::string ErrorPrefix("错误的基础类型：");
 				throw std::logic_error(ErrorPrefix + baseTypeName);
 			}
 		}
 		else
 		{
 			/* 如果否，检查是否已经在词表中
-			* 如果在，则衍生对应的类型，并进行增量处理
-			* 如果不在，抛出异常
-			*/
+			 * 如果在，则衍生对应的类型，并进行增量处理
+			 * 如果不在，抛出异常
+			 */
 			if (m_simpleTypeModel->isTypeExist(baseTypeName))
 			{
 				const XSDFrontend::SimpleType::ISimpleTypeInterface *prototypeSimpleType(m_simpleTypeModel->getSimpleTypes().find(baseTypeName)->second);
@@ -129,8 +129,8 @@ namespace XSDAnalyzer
 				case XSDFrontend::SimpleType::eSimpleType::tNumberType:
 					return checkAndInsertType(m_simpleTypeModel->getNumberTypes(), prototypeSimpleType, typeName, node);
 					break;
-				case XSDFrontend::SimpleType::eSimpleType::tDateTimeType:
-					return checkAndInsertType(m_simpleTypeModel->getDateTimeTypes(), prototypeSimpleType, typeName, node);
+				case XSDFrontend::SimpleType::eSimpleType::tDatetimeType:
+					return checkAndInsertType(m_simpleTypeModel->getDatetimeTypes(), prototypeSimpleType, typeName, node);
 					break;
 				case XSDFrontend::SimpleType::eSimpleType::tDataType:
 					return checkAndInsertType(m_simpleTypeModel->getDataTypes(), prototypeSimpleType, typeName, node);

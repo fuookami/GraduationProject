@@ -16,7 +16,7 @@ namespace XSDFrontend
 		{
 			tStringType,
 			tNumberType,
-			tDateTimeType,
+			tDatetimeType,
 			tDataType,
 			tContainerType,
 			tNonExist

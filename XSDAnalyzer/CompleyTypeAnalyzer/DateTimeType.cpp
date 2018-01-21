@@ -1,4 +1,4 @@
-#include "DateTimeType.h"
+#include "DatetimeType.h"
 
 #include <cstdint>
 
@@ -6,38 +6,38 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
-		const DateTimeUtils::DateTime ValueLimitConfiguration<DateTimeUtils::DateTime>::NoValueValidator(INT16_MIN, static_cast<unsigned char>(0), static_cast<unsigned char>(0), static_cast<unsigned char>(0), static_cast<unsigned char>(0), static_cast<unsigned char>(0));
+		const DatetimeUtils::Datetime ValueLimitConfiguration<DatetimeUtils::Datetime>::NoValueValidator(INT16_MIN, static_cast<unsigned char>(0), static_cast<unsigned char>(0), static_cast<unsigned char>(0), static_cast<unsigned char>(0), static_cast<unsigned char>(0));
 
-		DateTimeType::DateTimeType(void)
-			: DateTimeType("")
+		DatetimeType::DatetimeType(void)
+			: DatetimeType("")
 		{
 		}
 
-		DateTimeType::DateTimeType(const std::string & name, const eBaseType baseType)
-			: ISimpleTypeInterface(name, eSimpleType::tDateTimeType), ValueLimitConfiguration(), ValueEnumrationConfiguration(), 
+		DatetimeType::DatetimeType(const std::string & name, const eBaseType baseType)
+			: ISimpleTypeInterface(name, eSimpleType::tDatetimeType), ValueLimitConfiguration(), ValueEnumrationConfiguration(), 
 			m_baseType(baseType)
 		{
 		}
 
-		DateTimeType::DateTimeType(const std::string && name, const eBaseType baseType)
-			: ISimpleTypeInterface(std::move(name), eSimpleType::tDateTimeType), ValueLimitConfiguration(), ValueEnumrationConfiguration(),
+		DatetimeType::DatetimeType(const std::string && name, const eBaseType baseType)
+			: ISimpleTypeInterface(std::move(name), eSimpleType::tDatetimeType), ValueLimitConfiguration(), ValueEnumrationConfiguration(),
 			m_baseType(baseType)
 		{
 		}
 
-		DateTimeType::DateTimeType(const DateTimeType & ano)
+		DatetimeType::DatetimeType(const DatetimeType & ano)
 			: ISimpleTypeInterface(ano), ValueLimitConfiguration(ano), ValueEnumrationConfiguration(ano), 
 			m_baseType(ano.m_baseType)
 		{
 		}
 
-		DateTimeType::DateTimeType(const DateTimeType && ano)
+		DatetimeType::DatetimeType(const DatetimeType && ano)
 			: ISimpleTypeInterface(std::move(ano)), ValueLimitConfiguration(std::move(ano)), ValueEnumrationConfiguration(std::move(ano)),
 			m_baseType(ano.m_baseType)
 		{
 		}
 
-		DateTimeType & DateTimeType::operator=(const DateTimeType & rhs)
+		DatetimeType & DatetimeType::operator=(const DatetimeType & rhs)
 		{
 			m_baseType = rhs.m_baseType;
 
@@ -48,7 +48,7 @@ namespace XSDFrontend
 			return *this;
 		}
 
-		DateTimeType & DateTimeType::operator=(const DateTimeType && rhs)
+		DatetimeType & DatetimeType::operator=(const DatetimeType && rhs)
 		{
 			m_baseType = rhs.m_baseType;
 
@@ -59,11 +59,11 @@ namespace XSDFrontend
 			return *this;
 		}
 
-		DateTimeType::~DateTimeType(void)
+		DatetimeType::~DatetimeType(void)
 		{
 		}
 
-		void DateTimeType::refreshValidator(const XMLUtils::XMLNode & node)
+		void DatetimeType::refreshValidator(const XMLUtils::XMLNode & node)
 		{
 			//! to do
 		}

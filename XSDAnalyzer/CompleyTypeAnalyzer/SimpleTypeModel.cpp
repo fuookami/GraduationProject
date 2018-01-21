@@ -6,7 +6,7 @@
 namespace XSDFrontend
 {
 	SimpleTypeModel::SimpleTypeModel(void)
-		: m_stringTypes(), m_numberTypes(), m_dateTimeTypes(), m_dataTypes(), m_containerTypes(), m_simpleTypes()
+		: m_stringTypes(), m_numberTypes(), m_datetimeTypes(), m_dataTypes(), m_containerTypes(), m_simpleTypes()
 	{
 	}
 
@@ -26,10 +26,10 @@ namespace XSDFrontend
 		return it != m_numberTypes.cend() ? it->second : nullptr;
 	}
 
-	const std::shared_ptr<SimpleType::DateTimeType> SimpleTypeModel::getDateTimeType(const std::string & typeName) const
+	const std::shared_ptr<SimpleType::DatetimeType> SimpleTypeModel::getDatetimeType(const std::string & typeName) const
 	{
-		auto it(m_dateTimeTypes.find(typeName));
-		return it != m_dateTimeTypes.cend() ? it->second : nullptr;
+		auto it(m_datetimeTypes.find(typeName));
+		return it != m_datetimeTypes.cend() ? it->second : nullptr;
 	}
 
 	const std::shared_ptr<SimpleType::DataType> SimpleTypeModel::getDataType(const std::string & typeName) const
@@ -77,7 +77,7 @@ namespace XSDFrontend
 		return baseTypeParts.size() != 2 ? false :
 			(XSDFrontend::SimpleType::StringBaseTypeName2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::StringBaseTypeName2Type.cend()
 				|| XSDFrontend::SimpleType::NumberBaseTypeName2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::NumberBaseTypeName2Type.cend()
-				|| XSDFrontend::SimpleType::DateTimeBaseTypeName2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::DateTimeBaseTypeName2Type.cend()
+				|| XSDFrontend::SimpleType::DatetimeBaseTypeName2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::DatetimeBaseTypeName2Type.cend()
 				|| XSDFrontend::SimpleType::DataBaseTypeName2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::DataBaseTypeName2Type.cend());
 	}
 

@@ -50,17 +50,20 @@ namespace XSDAnalyzer
 
 	const std::string ComplexTypeAnalyzer::scanComplexType(const XMLUtils::XMLNode & node)
 	{
+		static const std::string EmptyString("");
 		if (node.hasChild(XSDFrontend::Token::AllTag) || node.hasChild(XSDFrontend::Token::SequenceTag) || node.hasChild(XSDFrontend::Token::AllTag))
 		{
-			scanComplexType(node);
+			return scanComplexType(node);
 		}
 		else if (node.hasChild(XSDFrontend::Token::ComplexContentTag))
 		{
-			scanDerivedComplexContent(node);
+			auto ptr = scanDerivedComplexContent(node);
+			return ptr == nullptr ? EmptyString : ptr->getName();
 		}
 		else if (node.hasChild(XSDFrontend::Token::SimpleContentTag))
 		{
-			scanDerivedSimpleContent(node);
+			auto ptr = scanDerivedSimpleContent(node);
+			return ptr == nullptr ? EmptyString : ptr->getName();
 		}
 	}
 
@@ -69,6 +72,15 @@ namespace XSDAnalyzer
 		if (isElementNodeValid(node))
 		{
 			return nullptr;
+		}
+
+		if (node.hasAttr(XSDFrontend::Token::ReferenceAttr))
+		{
+			std::string refName(node.getAttr(XSDFrontend::Token::ReferenceAttr));
+		}
+		else
+		{
+
 		}
 		return std::shared_ptr<XSDFrontend::ComplexType::Element>();
 	}
@@ -88,24 +100,58 @@ namespace XSDAnalyzer
 		return std::shared_ptr<XSDFrontend::ComplexType::SimpleContent>();
 	}
 
-	bool ComplexTypeAnalyzer::isElementNodeValid(const XMLUtils::XMLNode & node)
+	bool ComplexTypeAnalyzer::isElementNodeValid(const XMLUtils::XMLNode & node) const
 	{
-		int counter(0);
-		counter += node.hasChild(XSDFrontend::Token::CompleyTypeTag) ? 1 : 0;
-		counter += node.hasAttr(XSDFrontend::Token::ReferenceAttr) ? 1 : 0;
-
-		if (counter == 2)
+		if (node.hasAttr(XSDFrontend::Token::ReferenceAttr))
 		{
-			std::cerr << "元素内不能同时存在引用和匿名复合类型声明" << std::endl;
-			return false;
+			if (node.hasChild(XSDFrontend::Token::CompleyTypeTag) || node.hasChild(XSDFrontend::Token::SimpleTypeTag))
+			{
+				std::cerr << "带有引用声明的元素内不能有匿名类型声明" << std::endl;
+				return false;
+			}
+			else if (node.hasAttr(XSDFrontend::Token::NameAttr))
+			{
+				std::cerr << "带有引用声明的元素内不能有名称声明" << std::endl;
+				return false;
+			}
+			else if (node.hasAttr(XSDFrontend::Token::TypeAttr))
+			{
+				std::cerr << "带有引用声明的元素内不能有类型声明" << std::endl;
+				return false;
+			}
 		}
-		else if (counter == 0)
+		else if (node.hasAttr(XSDFrontend::Token::NameAttr))
 		{
-			std::cerr << "元素内不能同时没有引用和匿名符合类型声明" << std::endl;
-			return false;
+			if ((node.hasChild(XSDFrontend::Token::CompleyTypeTag) || node.hasChild(XSDFrontend::Token::SimpleTypeTag))
+				&& node.hasAttr(XSDFrontend::Token::TypeAttr))
+			{
+				std::cerr << "带有名称声明的元素内不能同时存在类型和匿名类型声明" << std::endl;
+				return false;
+			}
+			else if (!(node.hasChild(XSDFrontend::Token::CompleyTypeTag) || node.hasChild(XSDFrontend::Token::SimpleTypeTag))
+				&& !node.hasAttr(XSDFrontend::Token::TypeAttr))
+			{
+				std::cerr << "带有名称声明的元素内不能没有类型和匿名类型声明" << std::endl;
+				return false;
+			}
+			else if (node.hasChild(XSDFrontend::Token::CompleyTypeTag) && !m_simpleTypeModel->isSimpleType(node.getAttr(XSDFrontend::Token::TypeAttr)))
+			{
+				if (node.hasAttr(XSDFrontend::Token::DefaultAttr) || node.hasAttr(XSDFrontend::Token::FixedAttr))
+				{
+					std::cerr << "带有复合类型声明或匿名复合类型声明的元素内不能有固定值或默认值" << std::endl;
+					return false;
+				}
+			}
+			else if (node.hasChild(XSDFrontend::Token::SimpleTypeTag) || m_simpleTypeModel->isSimpleType(node.getAttr(XSDFrontend::Token::TypeAttr)))
+			{
+				if (node.hasAttr(XSDFrontend::Token::DefaultAttr) && node.hasAttr(XSDFrontend::Token::FixedAttr))
+				{
+					std::cerr << "带有简单类型声明或匿名简单类型声明的元素内不能同时有固定值和默认值" << std::endl;
+					return false;
+				}
+			}
 		}
-
-		if (!node.hasAttr(XSDFrontend::Token::ReferenceAttr) && !node.hasAttr(XSDFrontend::Token::NameAttr))
+		else
 		{
 			std::cerr << "元素内不能同时没有引用和名称声明" << std::endl;
 			return false;
