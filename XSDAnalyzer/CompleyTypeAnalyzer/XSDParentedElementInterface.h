@@ -18,13 +18,13 @@ namespace XSDFrontend
 			};
 
 		protected:
-			IXSDParentedElementInterface(void);
-			IXSDParentedElementInterface(const IXSDParentedElementInterface &ano);
-			IXSDParentedElementInterface(const IXSDParentedElementInterface &&ano);
-			IXSDParentedElementInterface &operator=(const IXSDParentedElementInterface &rhs);
-			IXSDParentedElementInterface &operator=(const IXSDParentedElementInterface &&rhs);
+			IXSDParentedElementInterface(void) = default;
+			IXSDParentedElementInterface(const IXSDParentedElementInterface &ano) = default;
+			IXSDParentedElementInterface(IXSDParentedElementInterface &&ano) = default;
+			IXSDParentedElementInterface &operator=(const IXSDParentedElementInterface &rhs) = default;
+			IXSDParentedElementInterface &operator=(IXSDParentedElementInterface &&rhs) = default;
 		public:
-			virtual ~IXSDParentedElementInterface(void);
+			virtual ~IXSDParentedElementInterface(void) = default;
 
 		public:
 			inline void setParent(const eParentType parentType, const std::string &parentName) { m_parentType = parentType; m_parentName.assign(parentName); }
@@ -34,7 +34,7 @@ namespace XSDFrontend
 			inline const std::string &getParentName(void) const { return m_parentName; }
 
 		private:
-			eParentType m_parentType;
+			eParentType m_parentType = eParentType::tNonParent;
 			std::string m_parentName;
 		};
 	};

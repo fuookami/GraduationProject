@@ -230,9 +230,6 @@
     <ClCompile Include="SimpleTypeLengthLimitConfiguration.cpp">
       <Filter>源文件\XSDFrontend\SimpleType</Filter>
     </ClCompile>
-    <ClCompile Include="XSDParentedElementInterface.cpp">
-      <Filter>源文件\XSDFrontend\Public</Filter>
-    </ClCompile>
     <ClCompile Include="XSDNamedTypedElementInterface.cpp">
       <Filter>源文件\XSDFrontend\Public</Filter>
     </ClCompile>

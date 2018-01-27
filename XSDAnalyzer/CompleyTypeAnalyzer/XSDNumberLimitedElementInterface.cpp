@@ -13,36 +13,6 @@ namespace XSDFrontend
 
 		}
 
-		IXSDNumberLimitedElementInterface::IXSDNumberLimitedElementInterface(const IXSDNumberLimitedElementInterface & ano)
-			: m_minOccurs(ano.m_minOccurs), m_maxOccurs(ano.m_maxOccurs)
-		{
-		}
-
-		IXSDNumberLimitedElementInterface::IXSDNumberLimitedElementInterface(const IXSDNumberLimitedElementInterface && ano)
-			: m_minOccurs(ano.m_minOccurs), m_maxOccurs(ano.m_maxOccurs)
-		{
-		}
-
-		IXSDNumberLimitedElementInterface & IXSDNumberLimitedElementInterface::operator=(const IXSDNumberLimitedElementInterface & rhs)
-		{
-			m_minOccurs = rhs.m_minOccurs;
-			m_maxOccurs = rhs.m_maxOccurs;
-
-			return *this;
-		}
-
-		IXSDNumberLimitedElementInterface & IXSDNumberLimitedElementInterface::operator=(const IXSDNumberLimitedElementInterface && rhs)
-		{
-			m_minOccurs = rhs.m_minOccurs;
-			m_maxOccurs = rhs.m_maxOccurs;
-
-			return *this;
-		}
-
-		IXSDNumberLimitedElementInterface::~IXSDNumberLimitedElementInterface(void)
-		{
-		}
-
 		const bool IXSDNumberLimitedElementInterface::setMinOccurs(const int newMinOccurs)
 		{
 			if (m_maxOccurs == MaxOccursUnbounded

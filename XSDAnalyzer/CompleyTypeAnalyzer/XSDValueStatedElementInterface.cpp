@@ -12,48 +12,6 @@ namespace XSDFrontend
 		{
 		}
 
-		IXSDValueStatedElementInterface::IXSDValueStatedElementInterface(const IXSDValueStatedElementInterface & ano)
-			: m_hasDefault(ano.m_hasDefault), m_defaultEnabled(ano.m_defaultEnabled), m_default(ano.m_default), 
-			m_hasFixed(ano.m_hasFixed), m_fixedEnabled(ano.m_fixedEnabled), m_fixed(ano.m_fixed)
-		{
-		}
-
-		IXSDValueStatedElementInterface::IXSDValueStatedElementInterface(const IXSDValueStatedElementInterface && ano)
-			: m_hasDefault(ano.m_hasDefault), m_defaultEnabled(ano.m_defaultEnabled), m_default(std::move(ano.m_default)),
-			m_hasFixed(ano.m_hasFixed), m_fixedEnabled(ano.m_fixedEnabled), m_fixed(std::move(ano.m_fixed))
-		{
-		}
-
-		IXSDValueStatedElementInterface & IXSDValueStatedElementInterface::operator=(const IXSDValueStatedElementInterface & rhs)
-		{
-			m_hasDefault = rhs.m_hasDefault;
-			m_defaultEnabled = rhs.m_defaultEnabled;
-			m_default.assign(rhs.m_default);
-
-			m_hasFixed = rhs.m_hasFixed;
-			m_fixedEnabled = rhs.m_fixedEnabled;
-			m_fixed.assign(rhs.m_fixed);
-
-			return *this;
-		}
-
-		IXSDValueStatedElementInterface & IXSDValueStatedElementInterface::operator=(const IXSDValueStatedElementInterface && rhs)
-		{
-			m_hasDefault = rhs.m_hasDefault;
-			m_defaultEnabled = rhs.m_defaultEnabled;
-			m_default.assign(std::move(rhs.m_default));
-
-			m_hasFixed = rhs.m_hasFixed;
-			m_fixedEnabled = rhs.m_fixedEnabled;
-			m_fixed.assign(std::move(rhs.m_fixed));
-
-			return *this;
-		}
-
-		IXSDValueStatedElementInterface::~IXSDValueStatedElementInterface(void)
-		{
-		}
-
 		const bool IXSDValueStatedElementInterface::setDefault(const std::string & defaultValue)
 		{
 			if (m_defaultEnabled)

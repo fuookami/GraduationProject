@@ -14,12 +14,12 @@ namespace XSDFrontend
 
 		protected:
 			IXSDValueStatedElementInterface(void);
-			IXSDValueStatedElementInterface(const IXSDValueStatedElementInterface &ano);
-			IXSDValueStatedElementInterface(const IXSDValueStatedElementInterface &&ano);
-			IXSDValueStatedElementInterface &operator=(const IXSDValueStatedElementInterface &rhs);
-			IXSDValueStatedElementInterface &operator=(const IXSDValueStatedElementInterface &&rhs);
+			IXSDValueStatedElementInterface(const IXSDValueStatedElementInterface &ano) = default;
+			IXSDValueStatedElementInterface(IXSDValueStatedElementInterface &&ano) = default;
+			IXSDValueStatedElementInterface &operator=(const IXSDValueStatedElementInterface &rhs) = default;
+			IXSDValueStatedElementInterface &operator=(IXSDValueStatedElementInterface &&rhs) = default;
 		public:
-			virtual ~IXSDValueStatedElementInterface(void);
+			virtual ~IXSDValueStatedElementInterface(void) = default;
 
 			const bool setDefault(const std::string &defaultValue);
 			const bool setDefault(const std::string &&defaultValue);

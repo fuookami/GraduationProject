@@ -9,19 +9,19 @@ namespace XSDFrontend
 		class IXSDNamedTypedElementInterface abstract : public IXSDNamedElementInterface
 		{
 		protected:
-			IXSDNamedTypedElementInterface(void);
+			IXSDNamedTypedElementInterface(void) = default;
 			IXSDNamedTypedElementInterface(const std::string &name);
-			IXSDNamedTypedElementInterface(const std::string &&name);
+			IXSDNamedTypedElementInterface(std::string &&name);
 			IXSDNamedTypedElementInterface(const std::string &name, const std::string &type);
-			IXSDNamedTypedElementInterface(const std::string &name, const std::string &&type);
-			IXSDNamedTypedElementInterface(const std::string &&name, const std::string &type);
-			IXSDNamedTypedElementInterface(const std::string &&name, const std::string &&type);
-			IXSDNamedTypedElementInterface(const IXSDNamedTypedElementInterface &ano);
-			IXSDNamedTypedElementInterface(const IXSDNamedTypedElementInterface &&ano);
-			IXSDNamedTypedElementInterface &operator=(const IXSDNamedTypedElementInterface &rhs);
-			IXSDNamedTypedElementInterface &operator=(const IXSDNamedTypedElementInterface &&rhs);
+			IXSDNamedTypedElementInterface(const std::string &name, std::string &&type);
+			IXSDNamedTypedElementInterface(std::string &&name, const std::string &type);
+			IXSDNamedTypedElementInterface(std::string &&name, std::string &&type);
+			IXSDNamedTypedElementInterface(const IXSDNamedTypedElementInterface &ano) = default;
+			IXSDNamedTypedElementInterface(IXSDNamedTypedElementInterface &&ano) = default;
+			IXSDNamedTypedElementInterface &operator=(const IXSDNamedTypedElementInterface &rhs) = default;
+			IXSDNamedTypedElementInterface &operator=(IXSDNamedTypedElementInterface &&rhs) = default;
 		public:
-			virtual ~IXSDNamedTypedElementInterface(void);
+			virtual ~IXSDNamedTypedElementInterface(void) = default;
 
 		public:
 			inline void setType(const std::string &type) { m_type.assign(type); }

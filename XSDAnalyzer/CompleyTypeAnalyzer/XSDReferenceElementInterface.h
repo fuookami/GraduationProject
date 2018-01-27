@@ -11,15 +11,15 @@ namespace XSDFrontend
 		class IXSDReferenceElementInterface abstract
 		{
 		protected:
-			IXSDReferenceElementInterface(void);
+			IXSDReferenceElementInterface(void) = default;
 			IXSDReferenceElementInterface(const std::string &refName, const std::shared_ptr<T> &spRef = nullptr);
-			IXSDReferenceElementInterface(const std::string &&refName, const std::shared_ptr<T> &spRef = nullptr);
-			IXSDReferenceElementInterface(const IXSDReferenceElementInterface &ano);
-			IXSDReferenceElementInterface(const IXSDReferenceElementInterface &&ano);
-			IXSDReferenceElementInterface &operator=(const IXSDReferenceElementInterface &rhs);
-			IXSDReferenceElementInterface &operator=(const IXSDReferenceElementInterface &&rhs);
+			IXSDReferenceElementInterface(std::string &&refName, const std::shared_ptr<T> &spRef = nullptr);
+			IXSDReferenceElementInterface(const IXSDReferenceElementInterface &ano) = default;
+			IXSDReferenceElementInterface(IXSDReferenceElementInterface &&ano);
+			IXSDReferenceElementInterface &operator=(const IXSDReferenceElementInterface &rhs) = default;
+			IXSDReferenceElementInterface &operator=(IXSDReferenceElementInterface &&rhs);
 		public:
-			virtual ~IXSDReferenceElementInterface(void);
+			virtual ~IXSDReferenceElementInterface(void) = default;
 
 			inline void setRef(const std::string &ref, const std::shared_ptr<T> &spRef = nullptr) { m_ref.assign(ref); m_refElement = spRef; }
 			inline void setRef(const std::string &&ref, const std::shared_ptr<T> &spRef = nullptr) { m_ref.assign(ref); m_refElement = spRef; }
@@ -33,56 +33,30 @@ namespace XSDFrontend
 		};
 
 		template<typename T>
-		inline IXSDReferenceElementInterface<T>::IXSDReferenceElementInterface(void)
-			: m_ref(), m_refElement(nullptr)
-		{
-		}
-
-		template<typename T>
 		inline IXSDReferenceElementInterface<T>::IXSDReferenceElementInterface(const std::string & refName, const std::shared_ptr<T>& spRef)
 			: m_ref(refName), m_refElement(spRef)
 		{
 		}
 
 		template<typename T>
-		inline IXSDReferenceElementInterface<T>::IXSDReferenceElementInterface(const std::string && refName, const std::shared_ptr<T>& spRef)
+		inline IXSDReferenceElementInterface<T>::IXSDReferenceElementInterface(std::string && refName, const std::shared_ptr<T>& spRef)
 			: m_ref(std::move(refName)), m_refElement(spRef)
 		{
 		}
 
 		template<typename T>
-		inline IXSDReferenceElementInterface<T>::IXSDReferenceElementInterface(const IXSDReferenceElementInterface & ano)
-			: m_ref(ano.m_ref), m_refElement(ano.m_refElement)
-		{
-		}
-
-		template<typename T>
-		inline IXSDReferenceElementInterface<T>::IXSDReferenceElementInterface(const IXSDReferenceElementInterface && ano)
+		inline IXSDReferenceElementInterface<T>::IXSDReferenceElementInterface(IXSDReferenceElementInterface && ano)
 			: m_ref(std::move(ano.m_ref)), m_refElement(ano.m_refElement)
 		{
 		}
 
 		template<typename T>
-		inline IXSDReferenceElementInterface<T> & IXSDReferenceElementInterface<T>::operator=(const IXSDReferenceElementInterface & rhs)
-		{
-			m_ref.assign(rhs.m_ref);
-			m_refElement = rhs.m_refElement;
-
-			return *this;
-		}
-
-		template<typename T>
-		inline IXSDReferenceElementInterface<T> & IXSDReferenceElementInterface<T>::operator=(const IXSDReferenceElementInterface && rhs)
+		inline IXSDReferenceElementInterface<T> & IXSDReferenceElementInterface<T>::operator=(IXSDReferenceElementInterface && rhs)
 		{
 			m_ref.assign(std::move(rhs.m_ref));
 			m_refElement = rhs.m_refElement;
 
 			return *this;
-		}
-
-		template<typename T>
-		inline IXSDReferenceElementInterface<T>::~IXSDReferenceElementInterface(void)
-		{
 		}
 	};
 };

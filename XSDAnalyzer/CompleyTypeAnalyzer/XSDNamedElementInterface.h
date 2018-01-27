@@ -9,15 +9,15 @@ namespace XSDFrontend
 		class IXSDNamedElementInterface abstract
 		{
 		protected:
-			IXSDNamedElementInterface(void);
+			IXSDNamedElementInterface(void) = default;
 			IXSDNamedElementInterface(const std::string &name);
-			IXSDNamedElementInterface(const std::string &&name);
-			IXSDNamedElementInterface(const IXSDNamedElementInterface &ano);
-			IXSDNamedElementInterface(const IXSDNamedElementInterface &&ano);
-			IXSDNamedElementInterface &operator=(const IXSDNamedElementInterface &rhs);
-			IXSDNamedElementInterface &operator=(const IXSDNamedElementInterface &&rhs);
+			IXSDNamedElementInterface(std::string &&name);
+			IXSDNamedElementInterface(const IXSDNamedElementInterface &ano) = default;
+			IXSDNamedElementInterface(IXSDNamedElementInterface &&ano) = default;
+			IXSDNamedElementInterface &operator=(const IXSDNamedElementInterface &rhs) = default;
+			IXSDNamedElementInterface &operator=(IXSDNamedElementInterface &&rhs) = default;
 		public:
-			virtual ~IXSDNamedElementInterface(void);
+			virtual ~IXSDNamedElementInterface(void) = default;
 
 			inline void setName(const std::string &name) { m_name.assign(name); }
 			inline void setName(const std::string &&name) { m_name.assign(std::move(name)); }

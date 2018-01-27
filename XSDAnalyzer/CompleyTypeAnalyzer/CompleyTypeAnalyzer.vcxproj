@@ -198,7 +198,6 @@
     <ClCompile Include="XSDNamedElementInterface.cpp" />
     <ClCompile Include="XSDNamedTypedElementInterface.cpp" />
     <ClCompile Include="XSDNumberLimitedElementInterface.cpp" />
-    <ClCompile Include="XSDParentedElementInterface.cpp" />
     <ClCompile Include="XSDToken.cpp" />
     <ClCompile Include="XSDValueStatedElementInterface.cpp" />
   </ItemGroup>

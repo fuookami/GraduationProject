@@ -14,12 +14,12 @@ namespace XSDFrontend
 
 		protected:
 			IXSDNumberLimitedElementInterface(const int minOccurs = 1, const int maxOccurs = 1);
-			IXSDNumberLimitedElementInterface(const IXSDNumberLimitedElementInterface &ano);
-			IXSDNumberLimitedElementInterface(const IXSDNumberLimitedElementInterface &&ano);
-			IXSDNumberLimitedElementInterface &operator=(const IXSDNumberLimitedElementInterface &rhs);
-			IXSDNumberLimitedElementInterface &operator=(const IXSDNumberLimitedElementInterface &&rhs);
+			IXSDNumberLimitedElementInterface(const IXSDNumberLimitedElementInterface &ano) = default;
+			IXSDNumberLimitedElementInterface(IXSDNumberLimitedElementInterface &&ano) = default;
+			IXSDNumberLimitedElementInterface &operator=(const IXSDNumberLimitedElementInterface &rhs) = default;
+			IXSDNumberLimitedElementInterface &operator=(IXSDNumberLimitedElementInterface &&rhs) = default;
 		public:
-			virtual ~IXSDNumberLimitedElementInterface(void);
+			virtual ~IXSDNumberLimitedElementInterface(void) = default;
 
 			const bool setMinOccurs(const int newMinOccurs);
 			inline const int getMinOccurs(void) const { return m_minOccurs; }
