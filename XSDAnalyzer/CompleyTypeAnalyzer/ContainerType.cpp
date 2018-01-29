@@ -16,42 +16,8 @@ namespace XSDFrontend
 		{
 		}
 
-		ContainerType::ContainerType(const std::string && name, const eBaseType baseType)
+		ContainerType::ContainerType(std::string && name, const eBaseType baseType)
 			: ISimpleTypeInterface(std::move(name), eSimpleType::tContainerType), m_baseType(baseType), m_baseTypeNames()
-		{
-		}
-
-		ContainerType::ContainerType(const ContainerType & ano)
-			: ISimpleTypeInterface(ano), m_baseType(ano.m_baseType), m_baseTypeNames(ano.m_baseTypeNames)
-		{
-		}
-
-		ContainerType::ContainerType(const ContainerType && ano)
-			: ISimpleTypeInterface(std::move(ano)), m_baseType(ano.m_baseType), m_baseTypeNames(std::move(ano.m_baseTypeNames))
-		{
-		}
-
-		ContainerType & ContainerType::operator=(const ContainerType & rhs)
-		{
-			m_baseType = rhs.m_baseType;
-			m_baseTypeNames = rhs.m_baseTypeNames;
-
-			ISimpleTypeInterface::operator=(rhs);
-
-			return *this;
-		}
-
-		ContainerType & ContainerType::operator=(const ContainerType && rhs)
-		{
-			m_baseType = rhs.m_baseType;
-			m_baseTypeNames = std::move(rhs.m_baseTypeNames);
-
-			ISimpleTypeInterface::operator=(rhs);
-
-			return *this;
-		}
-
-		ContainerType::~ContainerType(void)
 		{
 		}
 

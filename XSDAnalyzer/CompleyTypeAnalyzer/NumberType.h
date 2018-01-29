@@ -42,12 +42,12 @@ namespace XSDFrontend
 		public:
 			NumberType(void);
 			NumberType(const std::string &name, const eBaseType baseType = eBaseType::tDouble);
-			NumberType(const std::string &&name, const eBaseType baseType = eBaseType::tDouble);
-			NumberType(const NumberType &ano);
-			NumberType(const NumberType &&ano);
-			NumberType &operator=(const NumberType &rhs);
-			NumberType &operator=(const NumberType &&rhs);
-			~NumberType(void);
+			NumberType(std::string &&name, const eBaseType baseType = eBaseType::tDouble);
+			NumberType(const NumberType &ano) = default;
+			NumberType(NumberType &&ano) = default;
+			NumberType &operator=(const NumberType &rhs) = default;
+			NumberType &operator=(NumberType &&rhs) = default;
+			~NumberType(void) = default;
 
 			void refreshValidator(const XMLUtils::XMLNode &node) override;
 

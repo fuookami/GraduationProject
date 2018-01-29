@@ -32,12 +32,12 @@ namespace XSDFrontend
 		public:
 			DatetimeType(void);
 			DatetimeType(const std::string &name, const eBaseType baseType= eBaseType::tDatetime);
-			DatetimeType(const std::string &&name, const eBaseType baseType= eBaseType::tDatetime);
-			DatetimeType(const DatetimeType &ano);
-			DatetimeType(const DatetimeType &&ano);
-			DatetimeType &operator=(const DatetimeType &rhs);
-			DatetimeType &operator=(const DatetimeType &&rhs);
-			~DatetimeType(void);
+			DatetimeType(std::string &&name, const eBaseType baseType= eBaseType::tDatetime);
+			DatetimeType(const DatetimeType &ano) = default;
+			DatetimeType(DatetimeType &&ano) = default;
+			DatetimeType &operator=(const DatetimeType &rhs) = default;
+			DatetimeType &operator=(DatetimeType &&rhs) = default;
+			~DatetimeType(void) = default;
 
 			void refreshValidator(const XMLUtils::XMLNode &node) override;
 

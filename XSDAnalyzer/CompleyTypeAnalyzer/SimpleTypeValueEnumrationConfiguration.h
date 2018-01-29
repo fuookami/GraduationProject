@@ -12,17 +12,20 @@ namespace XSDFrontend
 		private:
 			struct _ValueTypeCompare
 			{
-				const bool operator()(const T &lhs, const T &rhs) const;
+				inline const bool operator()(const T &lhs, const T &rhs) const
+				{
+					return lhs < rhs;
+				}
 			};
 
 		protected:
-			ValueEnumrationConfiguration(void);
-			ValueEnumrationConfiguration(const ValueEnumrationConfiguration &ano);
-			ValueEnumrationConfiguration(const ValueEnumrationConfiguration &&ano);
-			ValueEnumrationConfiguration &operator=(const ValueEnumrationConfiguration &rhs);
-			ValueEnumrationConfiguration &operator=(const ValueEnumrationConfiguration &&rhs);
+			ValueEnumrationConfiguration(void) : m_isEnum(false), m_enumValues() {}
+			ValueEnumrationConfiguration(const ValueEnumrationConfiguration &ano) = default;
+			ValueEnumrationConfiguration(ValueEnumrationConfiguration &&ano) = default;
+			ValueEnumrationConfiguration &operator=(const ValueEnumrationConfiguration &rhs) = default;
+			ValueEnumrationConfiguration &operator=(ValueEnumrationConfiguration &&rhs) = default;
 		public:
-			virtual ~ValueEnumrationConfiguration(void);
+			virtual ~ValueEnumrationConfiguration(void) = default;
 
 		public:
 			inline void setIsEnum(const bool isEnum) { m_isEnum = isEnum; }
@@ -39,52 +42,5 @@ namespace XSDFrontend
 			bool m_isEnum;
 			std::set<T, _ValueTypeCompare> m_enumValues;
 		};
-
-		template<typename T>
-		inline ValueEnumrationConfiguration<T>::ValueEnumrationConfiguration(void)
-			: m_isEnum(false), m_enumValues()
-		{
-		}
-
-		template<typename T>
-		inline ValueEnumrationConfiguration<T>::ValueEnumrationConfiguration(const ValueEnumrationConfiguration & ano)
-			: m_isEnum(ano.m_isEnum), m_enumValues(ano.m_enumValues)
-		{
-		}
-
-		template<typename T>
-		inline ValueEnumrationConfiguration<T>::ValueEnumrationConfiguration(const ValueEnumrationConfiguration && ano)
-			: m_isEnum(ano.m_isEnum), m_enumValues(std::move(ano.m_enumValues))
-		{
-		}
-
-		template<typename T>
-		inline ValueEnumrationConfiguration<T> & ValueEnumrationConfiguration<T>::operator=(const ValueEnumrationConfiguration & rhs)
-		{
-			m_isEnum = rhs.m_isEnum;
-			m_enumValues = rhs.m_enumValues;
-
-			return *this;
-		}
-
-		template<typename T>
-		inline ValueEnumrationConfiguration<T> & ValueEnumrationConfiguration<T>::operator=(const ValueEnumrationConfiguration && rhs)
-		{
-			m_isEnum = rhs.m_isEnum;
-			m_enumValues = std::move(rhs.m_enumValues);
-
-			return *this;
-		}
-
-		template<typename T>
-		inline ValueEnumrationConfiguration<T>::~ValueEnumrationConfiguration(void)
-		{
-		}
-
-		template<typename T>
-		inline const bool ValueEnumrationConfiguration<T>::_ValueTypeCompare::operator()(const T & lhs, const T & rhs) const
-		{
-			return lhs < rhs;
-		}
 	};
 };

@@ -38,12 +38,12 @@ namespace XSDFrontend
 		public:
 			StringType(void);
 			StringType(const std::string &name, const eBaseType baseType = eBaseType::tString);
-			StringType(const std::string &&name, const eBaseType baseType = eBaseType::tString);
-			StringType(const StringType &ano);
-			StringType(const StringType &&ano);
-			StringType &operator=(const StringType &rhs);
-			StringType &operator=(const StringType &&rhs);
-			~StringType(void);
+			StringType(std::string &&name, const eBaseType baseType = eBaseType::tString);
+			StringType(const StringType &ano) = default;
+			StringType(StringType &&ano) = default;
+			StringType &operator=(const StringType &rhs) = default;
+			StringType &operator=(StringType &&rhs) = default;
+			~StringType(void) = default;
 
 			void refreshValidator(const XMLUtils::XMLNode &node) override;
 

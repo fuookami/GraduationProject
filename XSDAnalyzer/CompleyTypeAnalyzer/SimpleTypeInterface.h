@@ -35,14 +35,14 @@ namespace XSDFrontend
 		protected:
 			ISimpleTypeInterface(const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::Preserve);
 			ISimpleTypeInterface(const std::string &name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::Preserve);
-			ISimpleTypeInterface(const std::string &&name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::Preserve);
-			ISimpleTypeInterface(const ISimpleTypeInterface &ano);
-			ISimpleTypeInterface(const ISimpleTypeInterface &&ano);
-			ISimpleTypeInterface &operator=(const ISimpleTypeInterface &rhs);
-			ISimpleTypeInterface &operator=(const ISimpleTypeInterface &&rhs);
+			ISimpleTypeInterface(std::string &&name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::Preserve);
+			ISimpleTypeInterface(const ISimpleTypeInterface &ano) = default;
+			ISimpleTypeInterface(ISimpleTypeInterface &&ano) = default;
+			ISimpleTypeInterface &operator=(const ISimpleTypeInterface &rhs) = default;
+			ISimpleTypeInterface &operator=(ISimpleTypeInterface &&rhs) = default;
 
 		public:
-			virtual ~ISimpleTypeInterface(void);
+			virtual ~ISimpleTypeInterface(void) = default;
 
 		public:
 			virtual void refreshValidator(const XMLUtils::XMLNode &node) = 0;

@@ -11,12 +11,12 @@ namespace XSDFrontend
 
 		protected:
 			LengthLimitConfiguration(const int minLength = NoLengthValidator, const int maxLength = NoLengthValidator);
-			LengthLimitConfiguration(const LengthLimitConfiguration &ano);
-			LengthLimitConfiguration(const LengthLimitConfiguration &&ano);
-			LengthLimitConfiguration &operator=(const LengthLimitConfiguration &rhs);
-			LengthLimitConfiguration &operator=(const LengthLimitConfiguration &&rhs);
+			LengthLimitConfiguration(const LengthLimitConfiguration &ano) = default;
+			LengthLimitConfiguration(LengthLimitConfiguration &&ano) = default;
+			LengthLimitConfiguration &operator=(const LengthLimitConfiguration &rhs) = default;
+			LengthLimitConfiguration &operator=(LengthLimitConfiguration &&rhs) = default;
 		public:
-			virtual ~LengthLimitConfiguration(void);
+			virtual ~LengthLimitConfiguration(void) = default;
 			
 		public:
 			inline void setLengthValidator(const int lenth) { m_minLength = m_maxLength = lenth; }

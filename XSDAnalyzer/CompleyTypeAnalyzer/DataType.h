@@ -39,12 +39,12 @@ namespace XSDFrontend
 		public:
 			DataType(void);
 			DataType(const std::string &name, const eBaseType baseType = eBaseType::tBase64Binary);
-			DataType(const std::string &&name, const eBaseType baseType = eBaseType::tBase64Binary);
-			DataType(const DataType &ano);
-			DataType(const DataType &&ano);
-			DataType &operator=(const DataType &rhs);
-			DataType &operator=(const DataType &&rhs);
-			~DataType(void);
+			DataType(std::string &&name, const eBaseType baseType = eBaseType::tBase64Binary);
+			DataType(const DataType &ano) = default;
+			DataType(DataType &&ano) = default;
+			DataType &operator=(const DataType &rhs) = default;
+			DataType &operator=(DataType &&rhs) = default;
+			~DataType(void) = default;
 
 			void refreshValidator(const XMLUtils::XMLNode &node) override;
 

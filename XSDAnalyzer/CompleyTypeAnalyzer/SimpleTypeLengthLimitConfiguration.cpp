@@ -9,36 +9,6 @@ namespace XSDFrontend
 		{
 		}
 
-		LengthLimitConfiguration::LengthLimitConfiguration(const LengthLimitConfiguration & ano)
-			: m_minLength(ano.m_minLength), m_maxLength(ano.m_maxLength)
-		{
-		}
-
-		LengthLimitConfiguration::LengthLimitConfiguration(const LengthLimitConfiguration && ano)
-			: m_minLength(ano.m_minLength), m_maxLength(ano.m_maxLength)
-		{
-		}
-
-		LengthLimitConfiguration & LengthLimitConfiguration::operator=(const LengthLimitConfiguration & rhs)
-		{
-			m_minLength = rhs.m_minLength;
-			m_maxLength = rhs.m_maxLength;
-
-			return *this;
-		}
-
-		LengthLimitConfiguration & LengthLimitConfiguration::operator=(const LengthLimitConfiguration && rhs)
-		{
-			m_minLength = rhs.m_minLength;
-			m_maxLength = rhs.m_maxLength;
-
-			return *this;
-		}
-
-		LengthLimitConfiguration::~LengthLimitConfiguration(void)
-		{
-		}
-
 		const bool LengthLimitConfiguration::setMinLengthValidator(const int minLength)
 		{
 			if (m_maxLength == NoLengthValidator
