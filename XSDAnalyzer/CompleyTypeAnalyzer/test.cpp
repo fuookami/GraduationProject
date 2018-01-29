@@ -26,7 +26,7 @@ void testXMLUtils(void)
 	}
 	*/
 
-	auto nodes(XMLUtils::scanXMLFile(fileUrl));
+	auto nodes(XMLUtils::scanXMLFile<StringConvertUtils::StringCodeId::UTF8>(fileUrl));
 
 	return;
 }

@@ -34,12 +34,6 @@ namespace XSDFrontend
 		{
 		}
 
-		AttributeGroup::AttributeGroup(const AttributeGroup & ano)
-			: IXSDNamedElementInterface(ano), IXSDReferenceElementInterface(ano), 
-			m_attributes(ano.m_attributes), m_attributeGroups(ano.m_attributeGroups), m_anyAttribute(new AnyAttribute(*ano.m_anyAttribute)), m_baseAttributeGroup(ano.m_baseAttributeGroup)
-		{
-		}
-
 		inline const std::shared_ptr<Attribute> AttributeGroup::getAttribute(const std::string & name) const
 		{
 			auto it(m_attributes.find(name));

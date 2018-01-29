@@ -14,7 +14,7 @@ namespace XSDFrontend
 				bool enabled;
 				T value;
 
-				ValueType(void) : enabled(ano.enabled), value(ano.value) {}
+				ValueType(void) : enabled(false), value() {}
 				ValueType(const ValueType &ano) = default;
 				ValueType(ValueType &&ano) = default;
 				ValueType &operator=(const ValueType &rhs) = default;

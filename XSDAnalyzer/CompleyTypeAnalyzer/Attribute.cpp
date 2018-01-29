@@ -27,11 +27,5 @@ namespace XSDFrontend
 			m_form(form), m_use(use)
 		{
 		}
-
-		Attribute::Attribute(const Attribute & ano)
-			: IAttributeInterface(ano), IXSDNamedTypedElementInterface(ano), IXSDValueStatedElementInterface(ano), IXSDReferenceElementInterface(ano), 
-			m_form(ano.m_form), m_use(ano.m_use)
-		{
-		}
 	};
 };

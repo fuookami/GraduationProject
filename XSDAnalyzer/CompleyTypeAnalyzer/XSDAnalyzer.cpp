@@ -33,8 +33,8 @@ namespace XSDAnalyzer
 			return false;
 		}
 
-		auto xml(XMLUtils::scanXMLFile(fileUrl));
-
+		auto xml(XMLUtils::scanXMLFile<StringConvertUtils::StringCodeId::UTF8>(fileUrl));
+		
 		if (!(xml.size() == 1) || !(xml.front().getTag() == XSDFrontend::Token::SchemaTag))
 		{
 			std::cerr << "文件'" << fileUrl << "'不是xsd文件" << std::endl;

@@ -51,9 +51,11 @@ namespace XSDAnalyzer
 	const std::string ComplexTypeAnalyzer::scanComplexType(const XMLUtils::XMLNode & node)
 	{
 		static const std::string EmptyString("");
-		if (node.hasChild(XSDFrontend::Token::AllTag) || node.hasChild(XSDFrontend::Token::SequenceTag) || node.hasChild(XSDFrontend::Token::AllTag))
+		if (node.hasChild(XSDFrontend::Token::AllTag) || node.hasChild(XSDFrontend::Token::SequenceTag) || node.hasChild(XSDFrontend::Token::ChoiceTag))
 		{
-			return scanComplexType(node);
+			// 这里会导致无限迭代，查一下是不是调用错了
+			// return scanComplexType(node);
+			return EmptyString;
 		}
 		else if (node.hasChild(XSDFrontend::Token::ComplexContentTag))
 		{
@@ -65,6 +67,8 @@ namespace XSDAnalyzer
 			auto ptr = scanDerivedSimpleContent(node);
 			return ptr == nullptr ? EmptyString : ptr->getName();
 		}
+
+		return EmptyString;
 	}
 
 	std::shared_ptr<XSDFrontend::ComplexType::Element> ComplexTypeAnalyzer::loadElement(const XMLUtils::XMLNode & node)
