@@ -69,5 +69,25 @@ namespace XSDFrontend
 			ValueType m_minExclusive;
 			ValueType m_minInclusive;
 		};
+
+		template<typename T>
+		inline void ValueLimitConfiguration<T>::ValueType::set(const T & _value)
+		{
+			enabled = true;
+			value = _value;
+		}
+
+		template<typename T>
+		inline void ValueLimitConfiguration<T>::ValueType::set(const T && _value)
+		{
+			enabled = true;
+			value = std::move(_value);
+		}
+
+		template<typename T>
+		inline void typename ValueLimitConfiguration<T>::ValueType::clear(void)
+		{
+			enabled = false;
+		}
 	};
 };

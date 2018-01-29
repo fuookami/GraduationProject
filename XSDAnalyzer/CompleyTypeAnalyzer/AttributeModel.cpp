@@ -2,15 +2,6 @@
 
 namespace XSDFrontend
 {
-	AttributeModel::AttributeModel(void)
-		: m_globalAttributes(), m_attributeGroups()
-	{
-	}
-
-	AttributeModel::~AttributeModel(void)
-	{
-	}
-
 	const std::shared_ptr<Attribute::Attribute> AttributeModel::getGlobalAttribute(const std::string & name) const
 	{
 		auto it(m_globalAttributes.find(name));

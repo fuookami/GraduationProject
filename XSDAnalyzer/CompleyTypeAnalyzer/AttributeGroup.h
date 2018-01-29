@@ -16,14 +16,14 @@ namespace XSDFrontend
 		public:
 			AttributeGroup(void);
 			AttributeGroup(const std::string &name);
-			AttributeGroup(const std::string &&name);
+			AttributeGroup(std::string &&name);
 			AttributeGroup(const std::string &name, const std::shared_ptr<AttributeGroup> &base);
-			AttributeGroup(const std::string &&name, const std::shared_ptr<AttributeGroup> &base);
-			AttributeGroup(const AttributeGroup &ano);
-			AttributeGroup(const AttributeGroup &&ano);
-			AttributeGroup &operator=(const AttributeGroup &rhs);
-			AttributeGroup &operator=(const AttributeGroup &&rhs);
-			~AttributeGroup(void);
+			AttributeGroup(std::string &&name, const std::shared_ptr<AttributeGroup> &base);
+			AttributeGroup(const AttributeGroup &ano) = default;
+			AttributeGroup(AttributeGroup &&ano) = default;
+			AttributeGroup &operator=(const AttributeGroup &rhs) = default;
+			AttributeGroup &operator=(AttributeGroup &&rhs) = default;
+			~AttributeGroup(void) = default;
 
 			inline void setOrAddAttribute(const std::shared_ptr<Attribute> attr) { m_attributes[attr->hasRef() ? attr->getRefName() : attr->getName()] = attr; }
 			inline void removeAttribute(const std::string &name) { if (hasAttribute(name)) m_attributes.erase(name); }

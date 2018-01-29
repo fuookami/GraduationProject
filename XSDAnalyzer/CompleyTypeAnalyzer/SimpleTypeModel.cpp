@@ -5,15 +5,6 @@
 
 namespace XSDFrontend
 {
-	SimpleTypeModel::SimpleTypeModel(void)
-		: m_stringTypes(), m_numberTypes(), m_datetimeTypes(), m_dataTypes(), m_containerTypes(), m_simpleTypes()
-	{
-	}
-
-	SimpleTypeModel::~SimpleTypeModel(void)
-	{
-	}
-
 	const std::shared_ptr<SimpleType::StringType> SimpleTypeModel::getStringType(const std::string & typeName) const
 	{
 		auto it(m_stringTypes.find(typeName));

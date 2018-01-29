@@ -17,13 +17,13 @@ namespace XSDFrontend
 			};
 
 		protected:
-			IAttributeInterface(const eAttributeType type = eAttributeType::tAttribute);
-			IAttributeInterface(const IAttributeInterface &ano);
-			IAttributeInterface(const IAttributeInterface &&ano);
-			IAttributeInterface &operator=(const IAttributeInterface &rhs);
-			IAttributeInterface &operator=(const IAttributeInterface &&rhs);
+			IAttributeInterface(const eAttributeType type = eAttributeType::tAttribute) : IXSDParentedElementInterface(), m_type(type) {};
+			IAttributeInterface(const IAttributeInterface &ano) = default;
+			IAttributeInterface(IAttributeInterface &&ano) = default;
+			IAttributeInterface &operator=(const IAttributeInterface &rhs) = default;
+			IAttributeInterface &operator=(IAttributeInterface &&rhs) = default;
 		public:
-			virtual ~IAttributeInterface(void);
+			virtual ~IAttributeInterface(void) = default;
 
 			inline eAttributeType getAttributeType(void) const { return m_type; }
 

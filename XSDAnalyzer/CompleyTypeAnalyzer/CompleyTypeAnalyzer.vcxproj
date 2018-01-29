@@ -167,12 +167,10 @@
     <ClInclude Include="XSDToken.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AnyAttribute.cpp" />
     <ClCompile Include="AnyElement.cpp" />
     <ClCompile Include="AttributeGroup.cpp" />
     <ClCompile Include="Attribute.cpp" />
     <ClCompile Include="AttributeAnalyzer.cpp" />
-    <ClCompile Include="AttributeInterface.cpp" />
     <ClCompile Include="AttributeModel.cpp" />
     <ClCompile Include="ComplexContent.cpp" />
     <ClCompile Include="ComplexTypeModel.cpp" />

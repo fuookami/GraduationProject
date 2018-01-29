@@ -31,13 +31,13 @@ namespace XSDFrontend
 		public:
 			Attribute(const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
 			Attribute(const std::string &name, const std::string &type, const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
-			Attribute(const std::string &&name, const std::string &type, const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
-			Attribute(const std::string &&name, const std::string &&type, const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
-			Attribute(const Attribute &ano);
-			Attribute(const Attribute &&ano);
-			Attribute &operator=(const Attribute &rhs);
-			Attribute &operator=(const Attribute &&rhs);
-			~Attribute(void);
+			Attribute(std::string &&name, const std::string &type, const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
+			Attribute(std::string &&name, std::string &&type, const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
+			Attribute(const Attribute &ano) = default;
+			Attribute(Attribute &&ano) = default;
+			Attribute &operator=(const Attribute &rhs) = default;
+			Attribute &operator=(Attribute &&rhs) = default;
+			~Attribute(void) = default;
 
 			inline void setForm(const eForm form) { m_form = form; }
 			inline const eForm getForm(void) const { return m_form; }

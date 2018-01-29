@@ -27,12 +27,12 @@ namespace XSDFrontend
 			};
 
 		public:
-			AnyAttribute(const eNamespaceValidator namesapceValidator = eNamespaceValidator::Any, const eProcessContents processContents = eProcessContents::Skip);
-			AnyAttribute(const AnyAttribute &ano);
-			AnyAttribute(const AnyAttribute &&ano);
-			AnyAttribute &operator=(const AnyAttribute &rhs);
-			AnyAttribute &operator=(const AnyAttribute &&rhs);
-			~AnyAttribute(void);
+			AnyAttribute(const eNamespaceValidator namesapceValidator = eNamespaceValidator::Any, const eProcessContents processContents = eProcessContents::Skip) : IAttributeInterface(IAttributeInterface::eAttributeType::tAnyAttribute), m_namespaceValidator(namesapceValidator), m_processContents(processContents) {};
+			AnyAttribute(const AnyAttribute &ano) = default;
+			AnyAttribute(AnyAttribute &&ano) = default;
+			AnyAttribute &operator=(const AnyAttribute &rhs) = default;
+			AnyAttribute &operator=(AnyAttribute &&rhs) = default;
+			~AnyAttribute(void) = default;
 
 			inline void setNamespaceValidator(const eNamespaceValidator namespaceValidator) { m_namespaceValidator = namespaceValidator; }
 			const eNamespaceValidator getNamesapceValidator(void) const { return m_namespaceValidator; }

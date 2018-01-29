@@ -9,12 +9,12 @@ namespace XSDFrontend
 	class AttributeModel
 	{
 	public:
-		AttributeModel(void);
+		AttributeModel(void) = default;
 		AttributeModel(const AttributeModel &ano) = delete;
-		AttributeModel(const AttributeModel &&ano) = delete;
+		AttributeModel(AttributeModel &&ano) = delete;
 		AttributeModel &operator=(const AttributeModel &rhs) = delete;
-		AttributeModel &operator=(const AttributeModel &&rhs) = delete;
-		~AttributeModel(void);
+		AttributeModel &operator=(AttributeModel &&rhs) = delete;
+		~AttributeModel(void) = default;
 
 		const std::shared_ptr<Attribute::Attribute> getGlobalAttribute(const std::string &name) const;
 		inline std::map<std::string, std::shared_ptr<Attribute::Attribute>> &getGlobalAttributes(void) { return m_globalAttributes; }

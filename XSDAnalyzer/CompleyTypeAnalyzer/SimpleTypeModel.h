@@ -11,12 +11,12 @@ namespace XSDFrontend
 	class SimpleTypeModel
 	{
 	public:
-		SimpleTypeModel(void);
+		SimpleTypeModel(void) = default;
 		SimpleTypeModel(const SimpleTypeModel &ano) = delete;
-		SimpleTypeModel(const SimpleTypeModel &&ano) = delete;
+		SimpleTypeModel(SimpleTypeModel &&ano) = delete;
 		SimpleTypeModel &operator=(const SimpleTypeModel &rhs) = delete;
-		SimpleTypeModel &operator=(const SimpleTypeModel &&rhs) = delete;
-		~SimpleTypeModel(void);
+		SimpleTypeModel &operator=(SimpleTypeModel &&rhs) = delete;
+		~SimpleTypeModel(void) = default;
 
 		const std::shared_ptr<SimpleType::StringType> getStringType(const std::string &typeName) const;
 		inline std::map<std::string, std::shared_ptr<SimpleType::StringType>> &getStringTypes(void) { return m_stringTypes; }
