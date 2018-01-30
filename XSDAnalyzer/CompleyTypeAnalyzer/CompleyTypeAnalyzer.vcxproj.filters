@@ -203,9 +203,6 @@
     <ClCompile Include="Attribute.cpp">
       <Filter>源文件\XSDFrontend\Attribute</Filter>
     </ClCompile>
-    <ClCompile Include="ElementInterface.cpp">
-      <Filter>源文件\XSDFrontend\ComplexType</Filter>
-    </ClCompile>
     <ClCompile Include="AnyElement.cpp">
       <Filter>源文件\XSDFrontend\ComplexType</Filter>
     </ClCompile>

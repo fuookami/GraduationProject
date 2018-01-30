@@ -49,15 +49,15 @@ namespace XSDFrontend
 		public:
 			Element(const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
 			Element(const std::string &name, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(const std::string &&name, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
+			Element(std::string &&name, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
 			Element(const std::string &name, const std::string &type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(const std::string &&name, const std::string &type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(const std::string &&name, const std::string &&type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(const Element &ano);
-			Element(const Element &&ano);
-			Element &operator=(const Element &rhs);
-			Element &operator=(const Element &&rhs);
-			~Element(void);
+			Element(std::string &&name, const std::string &type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
+			Element(std::string &&name, std::string &&type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
+			Element(const Element &ano) = default;
+			Element(Element &&ano) = default;
+			Element &operator=(const Element &rhs) = default;
+			Element &operator=(Element &&rhs) = default;
+			~Element(void) = default;
 
 			inline void setCategory(const eCategory &category) { m_category = category; }
 			inline const eCategory getCategory(void) const { return m_category; }

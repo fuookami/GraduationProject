@@ -11,12 +11,12 @@ namespace XSDFrontend
 		public:
 			ComplexContent(void);
 			ComplexContent(const std::string &name);
-			ComplexContent(const std::string &&name);
-			ComplexContent(const ComplexContent &ano);
-			ComplexContent(const ComplexContent &&ano);
-			ComplexContent &operator=(const ComplexContent &rhs);
-			ComplexContent &operator=(const ComplexContent &&rhs);
-			~ComplexContent(void);
+			ComplexContent(std::string &&name);
+			ComplexContent(const ComplexContent &ano) = default;
+			ComplexContent(ComplexContent &&ano) = default;
+			ComplexContent &operator=(const ComplexContent &rhs) = default;
+			ComplexContent &operator=(ComplexContent &&rhs) = default;
+			~ComplexContent(void) = default;
 
 			inline void setElementGroupName(const std::string &elementGroupName) { m_elementGroup.assign(elementGroupName); }
 			inline void setElementGroupName(const std::string &&elementGroupName) { m_elementGroup.assign(std::move(elementGroupName)); }

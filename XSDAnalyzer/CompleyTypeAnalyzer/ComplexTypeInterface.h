@@ -25,13 +25,13 @@ namespace XSDFrontend
 		protected:
 			IComplexTypeInterface(const eComplexType type);
 			IComplexTypeInterface(const std::string &name, const eComplexType type);
-			IComplexTypeInterface(const std::string &&name, const eComplexType type);
-			IComplexTypeInterface(const IComplexTypeInterface &ano);
-			IComplexTypeInterface(const IComplexTypeInterface &&ano);
-			IComplexTypeInterface &operator=(const IComplexTypeInterface &rhs);
-			IComplexTypeInterface &operator=(const IComplexTypeInterface &&rhs);
+			IComplexTypeInterface(std::string &&name, const eComplexType type);
+			IComplexTypeInterface(const IComplexTypeInterface &ano) = default;
+			IComplexTypeInterface(IComplexTypeInterface &&ano) = default;
+			IComplexTypeInterface &operator=(const IComplexTypeInterface &rhs) = default;
+			IComplexTypeInterface &operator=(IComplexTypeInterface &&rhs) = default;
 		public:
-			virtual ~IComplexTypeInterface(void);
+			virtual ~IComplexTypeInterface(void) = default;
 
 		public:
 			inline void setComplexType(const eComplexType type) { m_type = type; }

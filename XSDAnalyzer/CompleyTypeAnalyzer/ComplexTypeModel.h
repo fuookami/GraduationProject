@@ -11,12 +11,12 @@ namespace XSDFrontend
 	class ComplexTypeModel
 	{
 	public:
-		ComplexTypeModel(void);
+		ComplexTypeModel(void) = default;
 		ComplexTypeModel(const ComplexTypeModel &ano) = delete;
-		ComplexTypeModel(const ComplexTypeModel &&ano) = delete;
+		ComplexTypeModel(ComplexTypeModel &&ano) = delete;
 		ComplexTypeModel &operator=(const ComplexTypeModel &rhs) = delete;
-		ComplexTypeModel &operator=(const ComplexTypeModel &&rhs) = delete;
-		~ComplexTypeModel(void);
+		ComplexTypeModel &operator=(ComplexTypeModel &&rhs) = delete;
+		~ComplexTypeModel(void) = default;
 
 		const std::shared_ptr<ComplexType::Element> getGlobalElement(const std::string &name) const;
 		inline std::map<std::string, std::shared_ptr<ComplexType::Element>> &getGlobalElements(void) { return m_globalElements; }

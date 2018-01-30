@@ -10,42 +10,8 @@ namespace XSDFrontend
 			: IElementInterface(IElementInterface::eElementType::tAnyElement), 
 			m_namespaceValidator(namesapceValidator), m_processContents(processContents)
 		{
-		}
-
-		AnyElement::AnyElement(const AnyElement & ano)
-			: IElementInterface(ano), 
-			m_namespaceValidator(ano.m_namespaceValidator), m_processContents(ano.m_processContents)
-		{
-		}
-
-		AnyElement::AnyElement(const AnyElement && ano)
-			: IElementInterface(std::move(ano)), 
-			m_namespaceValidator(ano.m_namespaceValidator), m_processContents(ano.m_processContents)
-		{
-		}
-
-		AnyElement & AnyElement::operator=(const AnyElement & rhs)
-		{
-			m_namespaceValidator = rhs.m_namespaceValidator;
-			m_processContents = rhs.m_processContents;
-
-			IElementInterface::operator=(rhs);
-
-			return *this;
-		}
-
-		AnyElement & AnyElement::operator=(const AnyElement && rhs)
-		{
-			m_namespaceValidator = rhs.m_namespaceValidator;
-			m_processContents = rhs.m_processContents;
-
-			IElementInterface::operator=(std::move(rhs));
-
-			return *this;
-		}
-
-		AnyElement::~AnyElement(void)
-		{
+			setMinOccurs(minOccurs);
+			setMaxOccurs(maxOccurs);
 		}
 	};
 };

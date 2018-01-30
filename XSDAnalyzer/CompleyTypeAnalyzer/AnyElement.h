@@ -31,11 +31,11 @@ namespace XSDFrontend
 
 		public:
 			AnyElement(const int minOccurs = 1, const int maxOccurs = 1, const eNamespaceValidator namesapceValidator = eNamespaceValidator::Any, const eProcessContents processContents = eProcessContents::Skip);
-			AnyElement(const AnyElement &ano);
-			AnyElement(const AnyElement &&ano);
-			AnyElement &operator=(const AnyElement &rhs);
-			AnyElement &operator=(const AnyElement &&rhs);
-			~AnyElement(void);
+			AnyElement(const AnyElement &ano) = default;
+			AnyElement(AnyElement &&ano) = default;
+			AnyElement &operator=(const AnyElement &rhs) = default;
+			AnyElement &operator=(AnyElement &&rhs) = default;
+			~AnyElement(void) = default;
 
 			inline void setNamespaceValidator(const eNamespaceValidator namespaceValidator) { m_namespaceValidator = namespaceValidator; }
 			const eNamespaceValidator getNamesapceValidator(void) const { return m_namespaceValidator; }

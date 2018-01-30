@@ -30,90 +30,26 @@ namespace XSDFrontend
 		{
 		}
 
-		ElementGroup::ValueType::ValueType(const ValueType &&ano)
-			: flag(ano.flag), element(ano.element), anyElement(ano.anyElement), elementGroup(ano.elementGroup)
-		{
-		}
-
-		ElementGroup::ValueType &ElementGroup::ValueType::operator=(const ValueType &rhs)
-		{
-			flag = rhs.flag;
-			element = rhs.element;
-			anyElement = rhs.anyElement;
-			elementGroup = rhs.elementGroup;
-
-			return *this;
-		}
-
-		ElementGroup::ValueType &ElementGroup::ValueType::operator=(const ValueType &&rhs)
-		{
-			flag = rhs.flag;
-			element = rhs.element;
-			anyElement = rhs.anyElement;
-			elementGroup = rhs.elementGroup;
-
-			return *this;
-		}
-
-		ElementGroup::ValueType::~ValueType(void)
-		{
-
-		}
-
 		ElementGroup::ElementGroup(const eElementGroupType type)
 			: ElementGroup("", type)
 		{
 		}
 
 		ElementGroup::ElementGroup(const std::string & name, const eElementGroupType type)
-			: IXSDNamedElementInterface(), IXSDReferenceElementInterface(), IXSDNumberLimitedElementInterface(), 
+			: IXSDNamedElementInterface(), IXSDReferenceElementInterface(), IXSDNumberLimitedElementInterface(),
 			m_type(type), m_vals()
 		{
 		}
 
-		ElementGroup::ElementGroup(const std::string && name, const eElementGroupType type)
-			: IXSDNamedElementInterface(), IXSDReferenceElementInterface(), IXSDNumberLimitedElementInterface(), 
+		ElementGroup::ElementGroup(std::string && name, const eElementGroupType type)
+			: IXSDNamedElementInterface(), IXSDReferenceElementInterface(), IXSDNumberLimitedElementInterface(),
 			m_type(type), m_vals()
 		{
 		}
 
 		ElementGroup::ElementGroup(const ElementGroup & ano)
-			: IXSDNamedElementInterface(ano), IXSDReferenceElementInterface(ano), IXSDNumberLimitedElementInterface(ano), 
+			: IXSDNamedElementInterface(ano), IXSDReferenceElementInterface(ano), IXSDNumberLimitedElementInterface(ano),
 			m_type(ano.m_type), m_vals(ano.m_vals)
-		{
-		}
-
-		ElementGroup::ElementGroup(const ElementGroup && ano)
-			: IXSDNamedElementInterface(std::move(ano)), IXSDReferenceElementInterface(std::move(ano)), IXSDNumberLimitedElementInterface(std::move(ano)),
-			m_type(ano.m_type), m_vals(ano.m_vals)
-		{
-		}
-
-		ElementGroup & ElementGroup::operator=(const ElementGroup & rhs)
-		{
-			m_type = rhs.m_type;
-			m_vals = rhs.m_vals;
-
-			IXSDNamedElementInterface::operator=(rhs);
-			IXSDReferenceElementInterface::operator=(rhs);
-			IXSDNumberLimitedElementInterface::operator=(rhs);
-
-			return *this;
-		}
-
-		ElementGroup & ElementGroup::operator=(const ElementGroup && rhs)
-		{
-			m_type = rhs.m_type;
-			m_vals = rhs.m_vals;
-
-			IXSDNamedElementInterface::operator=(std::move(rhs));
-			IXSDReferenceElementInterface::operator=(std::move(rhs));
-			IXSDNumberLimitedElementInterface::operator=(std::move(rhs));
-
-			return *this;
-		}
-
-		ElementGroup::~ElementGroup(void)
 		{
 		}
 	};

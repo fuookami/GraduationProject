@@ -181,7 +181,6 @@
     <ClCompile Include="DateTimeType.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="ElementGroup.cpp" />
-    <ClCompile Include="ElementInterface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NumberType.cpp" />
     <ClCompile Include="SimpleContent.cpp" />

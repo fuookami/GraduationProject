@@ -41,11 +41,11 @@ namespace XSDFrontend
 				ValueType(const std::shared_ptr<Element> &ele);
 				ValueType(const std::shared_ptr<AnyElement> &anyElement);
 				ValueType(const std::shared_ptr<ElementGroup> &group);
-				ValueType(const ValueType &ano);
-				ValueType(const ValueType &&ano);
-				ValueType &operator=(const ValueType &rhs);
-				ValueType &operator=(const ValueType &&rhs);
-				~ValueType(void);
+				ValueType(const ValueType &ano) = default;
+				ValueType(ValueType &&ano) = default;
+				ValueType &operator=(const ValueType &rhs) = default;
+				ValueType &operator=(ValueType &&rhs) = default;
+				~ValueType(void) = default;
 
 				inline void setElement(const std::shared_ptr<Element> &ele) { flag = eValueType::tElement; element = ele; anyElement.reset(); elementGroup.reset(); }
 				inline void setAnyElement(const std::shared_ptr<AnyElement> &anyEle) { flag = eValueType::tAnyElement; element.reset(); anyElement = anyEle; elementGroup.reset(); }
@@ -59,12 +59,12 @@ namespace XSDFrontend
 		public:
 			ElementGroup(const eElementGroupType type = eElementGroupType::tSequence);
 			ElementGroup(const std::string &name, const eElementGroupType type = eElementGroupType::tSequence);
-			ElementGroup(const std::string &&name, const eElementGroupType type = eElementGroupType::tSequence);
-			ElementGroup(const ElementGroup &ano);
-			ElementGroup(const ElementGroup &&ano);
-			ElementGroup &operator=(const ElementGroup &rhs);
-			ElementGroup &operator=(const ElementGroup &&rhs);
-			~ElementGroup(void);
+			ElementGroup(std::string &&name, const eElementGroupType type = eElementGroupType::tSequence);
+			ElementGroup(const ElementGroup &ano) = default;
+			ElementGroup(ElementGroup &&ano) = default;
+			ElementGroup &operator=(const ElementGroup &rhs) = default;
+			ElementGroup &operator=(ElementGroup &&rhs) = default;
+			~ElementGroup(void) = default;
 
 			inline void setElementGroupType(const eElementGroupType type) { m_type = type; }
 			inline const eElementGroupType getElementGroupType(void) const { return m_type; }

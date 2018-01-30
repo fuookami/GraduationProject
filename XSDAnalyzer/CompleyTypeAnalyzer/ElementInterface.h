@@ -18,13 +18,13 @@ namespace XSDFrontend
 			};
 
 		protected:
-			IElementInterface(const eElementType type = eElementType::tElement);
-			IElementInterface(const IElementInterface &ano);
-			IElementInterface(const IElementInterface &&ano);
-			IElementInterface &operator=(const IElementInterface &rhs);
-			IElementInterface &operator=(const IElementInterface &&rhs);
+			IElementInterface(const eElementType type = eElementType::tElement) : IXSDParentedElementInterface(), IXSDNumberLimitedElementInterface(), m_type(type) {};
+			IElementInterface(const IElementInterface &ano) = default;
+			IElementInterface(IElementInterface &&ano) = default;
+			IElementInterface &operator=(const IElementInterface &rhs) = default;
+			IElementInterface &operator=(IElementInterface &&rhs) = default;
 		public:
-			virtual ~IElementInterface(void);
+			virtual ~IElementInterface(void) = default;
 
 			inline eElementType getElementType(void) const { return m_type; }
 
