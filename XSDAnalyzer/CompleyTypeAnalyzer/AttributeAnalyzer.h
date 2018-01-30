@@ -14,10 +14,10 @@ namespace XSDAnalyzer
 	public:
 		AttributeAnalyzer(const std::shared_ptr<XSDFrontend::SimpleTypeModel> &simpleTypeModel, const std::shared_ptr<XSDFrontend::AttributeModel> &attributeModel, const std::reference_wrapper<SimpleTypeAnalyzer> &simpleTypeAnalyzer);
 		AttributeAnalyzer(const AttributeAnalyzer &ano) = delete;
-		AttributeAnalyzer(const AttributeAnalyzer &&ano) = delete;
+		AttributeAnalyzer(AttributeAnalyzer &&ano) = delete;
 		AttributeAnalyzer &operator=(const AttributeAnalyzer &rhs) = delete;
-		AttributeAnalyzer &operator=(const AttributeAnalyzer &&rhs) = delete;
-		~AttributeAnalyzer(void);
+		AttributeAnalyzer &operator=(AttributeAnalyzer &&rhs) = delete;
+		~AttributeAnalyzer(void) = default;
 
 		std::shared_ptr<XSDFrontend::Attribute::Attribute> scanAttribute(const XMLUtils::XMLNode &node, const XSDFrontend::Attribute::IAttributeInterface::eParentType parentType = XSDFrontend::Attribute::Attribute::eParentType::tNonParent, const std::string &parentName = std::string(""));
 		std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> scanAttributeGroup(const XMLUtils::XMLNode &node);

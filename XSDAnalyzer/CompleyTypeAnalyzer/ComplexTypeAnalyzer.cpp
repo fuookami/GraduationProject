@@ -10,10 +10,6 @@ namespace XSDAnalyzer
 	{
 	}
 
-	ComplexTypeAnalyzer::~ComplexTypeAnalyzer(void)
-	{
-	}
-
 	std::shared_ptr<XSDFrontend::ComplexType::Element> ComplexTypeAnalyzer::scanElement(const XMLUtils::XMLNode & node, const XSDFrontend::Attribute::IAttributeInterface::eParentType parentType, const std::string & parentName)
 	{
 		if (parentType == XSDFrontend::Attribute::IAttributeInterface::eParentType::tNonParent)

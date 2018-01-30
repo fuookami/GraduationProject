@@ -16,10 +16,10 @@ namespace XSDAnalyzer
 	public:
 		SimpleTypeAnalyzer(const std::shared_ptr<XSDFrontend::SimpleTypeModel> &simpleTypeModel);
 		SimpleTypeAnalyzer(const SimpleTypeAnalyzer &ano) = delete;
-		SimpleTypeAnalyzer(const SimpleTypeAnalyzer &&ano) = delete;
+		SimpleTypeAnalyzer(SimpleTypeAnalyzer &&ano) = delete;
 		SimpleTypeAnalyzer &operator=(const SimpleTypeAnalyzer &rhs) = delete;
-		SimpleTypeAnalyzer &operator=(const SimpleTypeAnalyzer &&rhs) = delete;
-		~SimpleTypeAnalyzer(void);
+		SimpleTypeAnalyzer &operator=(SimpleTypeAnalyzer &&rhs) = delete;
+		~SimpleTypeAnalyzer(void) = default;
 
 		const std::string scan(const XMLUtils::XMLNode &node);
 

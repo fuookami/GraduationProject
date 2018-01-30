@@ -32,7 +32,7 @@ namespace XSDFrontend
 			inline const bool getIsEnum(void) const { return m_isEnum; }
 
 			inline void addEnumValue(const T &enumValue) { m_enumValues.insert(enumValue); }
-			inline void addEnumValue(const T &&enumValue) { m_enumValues.insert(std::move(enumValue)); }
+			inline void addEnumValue(T &&enumValue) { m_enumValues.insert(std::move(enumValue)); }
 			inline void eraseEnumValue(const T &enumValue) { m_enumValues.erase(enumValue); }
 			inline void clearEnumValue(void) { m_enumValues.clear(); }
 			inline const bool hasEnumValue(const T &enumValue) const { return m_enumValues.find(enumValue) != m_enumValues.cend(); }

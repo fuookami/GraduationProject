@@ -39,25 +39,25 @@ namespace XSDFrontend
 
 		public:
 			inline void setMaxExclusive(const T &maxExclusive) { m_maxExclusive.set(maxExclusive); m_maxInclusive.clear(); }
-			inline void setMaxExclusive(const T &&maxExclusive) { m_maxExclusive.set(std::move(maxExclusive)); m_maxInclusive.clear(); }
+			inline void setMaxExclusive(T &&maxExclusive) { m_maxExclusive.set(std::move(maxExclusive)); m_maxInclusive.clear(); }
 			inline void removeMaxExclusive(void) { m_maxExclusive.clear(); m_maxExclusive = NoValueValidator; }
 			inline const bool hasMaxExclusive(void) const { return m_minInclusive.enabled; }
 			inline const T &getMaxExclusive(void) const { return m_maxExclusive.value; }
 
 			inline void setMaxInclusive(const T &maxInclusive) { m_maxInclusive.set(maxInclusive); m_maxExclusive.clear(); }
-			inline void setMaxInclusive(const T &&maxInclusive) { m_maxInclusive.set(std::move(maxInclusive)); m_maxExclusive.clear(); }
+			inline void setMaxInclusive(T &&maxInclusive) { m_maxInclusive.set(std::move(maxInclusive)); m_maxExclusive.clear(); }
 			inline void removeMaxInclusive(void) { m_maxInclusive.clear(); m_maxInclusive = NoValueValidator; }
 			inline const bool hasMaxInclusive(void) const { return m_minInclusive.enabled; }
 			inline const T &getMaxInclusive(void) const { return m_maxInclusive.value; }
 
 			inline void setMinExclusive(const T &minExclusive) { m_minExclusive.set(minExclusive); m_minInclusive.clear(); }
-			inline void setMinExclusive(const T &&minExclusive) { m_minExclusive.set(std::move(minExclusive)); m_minInclusive.clear(); }
+			inline void setMinExclusive(T &&minExclusive) { m_minExclusive.set(std::move(minExclusive)); m_minInclusive.clear(); }
 			inline void removeMinExclusive(void) { m_minExclusive.clear(); m_minExclusive = NoValueValidator; }
 			inline const bool hasMinExclusive(void) const { return m_minExclusive.enabled; }
 			inline const T &getMinExclusive(void) const { return m_minExclusive.value; }
 
 			inline void setMinInclusive(const T &minInclusive) { m_minInclusive.set(minInclusive); m_minExclusive.clear(); }
-			inline void setMinInclusive(const T &&minInclusive) { m_minInclusive.set(std::move(minInclusive)); m_minExclusive.clear(); }
+			inline void setMinInclusive(T &&minInclusive) { m_minInclusive.set(std::move(minInclusive)); m_minExclusive.clear(); }
 			inline void removeMinInclusive(void) { m_minInclusive.clear(); m_minInclusive = NoValueValidator; }
 			inline const bool hasMinInclusive(void) const { return m_minInclusive.enabled; }
 			inline const T &getMinInclusive(void) const { return m_minInclusive.value; }

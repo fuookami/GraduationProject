@@ -14,10 +14,10 @@ namespace XSDAnalyzer
 	public:
 		XSDAnalyzer(void);
 		XSDAnalyzer(const XSDAnalyzer &ano) = delete;
-		XSDAnalyzer(const XSDAnalyzer &&ano) = delete;
+		XSDAnalyzer(XSDAnalyzer &&ano) = delete;
 		XSDAnalyzer &operator=(const XSDAnalyzer &rhs) = delete;
-		XSDAnalyzer &operator=(const XSDAnalyzer &&rhs) = delete;
-		~XSDAnalyzer(void);
+		XSDAnalyzer &operator=(XSDAnalyzer &&rhs) = delete;
+		~XSDAnalyzer(void) = default;
 
 		const bool scan(const std::string &fileUrl);
 

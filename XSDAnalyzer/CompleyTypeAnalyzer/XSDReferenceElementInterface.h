@@ -22,7 +22,7 @@ namespace XSDFrontend
 			virtual ~IXSDReferenceElementInterface(void) = default;
 
 			inline void setRef(const std::string &ref, const std::shared_ptr<T> &spRef = nullptr) { m_ref.assign(ref); m_refElement = spRef; }
-			inline void setRef(const std::string &&ref, const std::shared_ptr<T> &spRef = nullptr) { m_ref.assign(ref); m_refElement = spRef; }
+			inline void setRef(std::string &&ref, const std::shared_ptr<T> &spRef = nullptr) { m_ref.assign(ref); m_refElement = spRef; }
 			inline const bool hasRef(void) const { return !m_ref.empty(); }
 			inline const std::string &getRefName(void) const { return m_ref; }
 			inline const std::shared_ptr<T> &getRef(void) const { return m_refElement; }

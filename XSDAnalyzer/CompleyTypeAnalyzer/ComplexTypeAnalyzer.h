@@ -10,10 +10,10 @@ namespace XSDAnalyzer
 	public:
 		ComplexTypeAnalyzer(const std::shared_ptr<XSDFrontend::SimpleTypeModel> &simpleTypeModel, const std::shared_ptr<XSDFrontend::AttributeModel> &attributeModel, const std::shared_ptr<XSDFrontend::ComplexTypeModel> &complexTypeModel, const std::reference_wrapper<SimpleTypeAnalyzer> &simpleTypeAnalyzer, const std::reference_wrapper<AttributeAnalyzer> &attributeAnalyzer);
 		ComplexTypeAnalyzer(const ComplexTypeAnalyzer &ano) = delete;
-		ComplexTypeAnalyzer(const ComplexTypeAnalyzer &&ano) = delete;
+		ComplexTypeAnalyzer(ComplexTypeAnalyzer &&ano) = delete;
 		ComplexTypeAnalyzer &operator=(const ComplexTypeAnalyzer &rhs) = delete;
-		ComplexTypeAnalyzer &operator=(const ComplexTypeAnalyzer &&rhs) = delete;
-		~ComplexTypeAnalyzer(void);
+		ComplexTypeAnalyzer &operator=(ComplexTypeAnalyzer &&rhs) = delete;
+		~ComplexTypeAnalyzer(void) = default;
 
 		std::shared_ptr<XSDFrontend::ComplexType::Element> scanElement(const XMLUtils::XMLNode &node, const XSDFrontend::Attribute::IAttributeInterface::eParentType parentType = XSDFrontend::Attribute::Attribute::eParentType::tNonParent, const std::string &parentName = std::string(""));
 		std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> scanElementGroup(const XMLUtils::XMLNode &node);

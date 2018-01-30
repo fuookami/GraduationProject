@@ -28,7 +28,7 @@ namespace XSDFrontend
 
 		public:
 			inline void setParent(const eParentType parentType, const std::string &parentName) { m_parentType = parentType; m_parentName.assign(parentName); }
-			inline void setParent(const eParentType parentType, const std::string &&parentName) { m_parentType = parentType; m_parentName.assign(std::move(parentName)); }
+			inline void setParent(const eParentType parentType, std::string &&parentName) { m_parentType = parentType; m_parentName.assign(std::move(parentName)); }
 			inline const bool hasParent(void) const { return m_parentType != eParentType::tNonParent; }
 			inline const eParentType getParentType(void) const { return m_parentType; }
 			inline const std::string &getParentName(void) const { return m_parentName; }

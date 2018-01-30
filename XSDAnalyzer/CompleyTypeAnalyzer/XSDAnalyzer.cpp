@@ -18,10 +18,6 @@ namespace XSDAnalyzer
 	{
 	}
 
-	XSDAnalyzer::~XSDAnalyzer(void)
-	{
-	}
-
 	const bool XSDAnalyzer::scan(const std::string &fileUrl)
 	{
 		std::string filePath(FileUtils::getPathOfUrl(fileUrl));

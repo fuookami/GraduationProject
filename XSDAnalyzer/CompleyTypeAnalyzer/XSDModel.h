@@ -15,10 +15,10 @@ namespace XSDFrontend
 		XSDModel(void);
 	public:
 		XSDModel(const XSDModel &ano) = delete;
-		XSDModel(const XSDModel &&ano) = delete;
+		XSDModel(XSDModel &&ano) = delete;
 		XSDModel &operator=(const XSDModel &rhs) = delete;
-		XSDModel &operator=(const XSDModel &&rhs) = delete;
-		~XSDModel(void);
+		XSDModel &operator=(XSDModel &&rhs) = delete;
+		~XSDModel(void) = default;
 
 	public:
 		inline const std::shared_ptr<SimpleTypeModel> getSimpleTypeModel(void) const { return m_simpleTypeModel; }

@@ -25,7 +25,7 @@ namespace XSDFrontend
 
 		public:
 			inline void setType(const std::string &type) { m_type.assign(type); }
-			inline void setType(const std::string &&type) { m_type.assign(std::move(type)); }
+			inline void setType(std::string &&type) { m_type.assign(std::move(type)); }
 			inline const std::string &getType(void) const { return m_type; }
 
 		private:

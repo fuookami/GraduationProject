@@ -10,10 +10,6 @@ namespace XSDAnalyzer
 	{
 	}
 
-	AttributeAnalyzer::~AttributeAnalyzer(void)
-	{
-	}
-
 	std::shared_ptr<XSDFrontend::Attribute::Attribute> AttributeAnalyzer::scanAttribute(const XMLUtils::XMLNode & node, const XSDFrontend::Attribute::IAttributeInterface::eParentType parentType, const std::string & parentName)
 	{
 		if (parentType == XSDFrontend::Attribute::IAttributeInterface::eParentType::tNonParent)

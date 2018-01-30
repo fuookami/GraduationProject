@@ -13,10 +13,6 @@ namespace XSDAnalyzer
 	{
 	}
 
-	SimpleTypeAnalyzer::~SimpleTypeAnalyzer(void)
-	{
-	}
-
 	const std::string SimpleTypeAnalyzer::scan(const XMLUtils::XMLNode & node)
 	{
 		static const std::string EmptyString("");

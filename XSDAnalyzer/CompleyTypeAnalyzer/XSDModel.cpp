@@ -11,8 +11,4 @@ namespace XSDFrontend
 		: m_simpleTypeModel(new SimpleTypeModel()), m_attributeTypeModel(new AttributeModel()), m_complexTypeMode(new ComplexTypeModel())
 	{
 	}
-
-	XSDModel::~XSDModel(void)
-	{
-	}
 };

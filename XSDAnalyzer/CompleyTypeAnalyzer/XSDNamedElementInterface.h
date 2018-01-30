@@ -20,11 +20,11 @@ namespace XSDFrontend
 			virtual ~IXSDNamedElementInterface(void) = default;
 
 			inline void setName(const std::string &name) { m_name.assign(name); }
-			inline void setName(const std::string &&name) { m_name.assign(std::move(name)); }
+			inline void setName(std::string &&name) { m_name.assign(std::move(name)); }
 			inline const std::string &getName(void) const { return m_name; }
 
 			inline void setDescription(const std::string &description) { m_description.assign(description); }
-			inline void setDescription(const std::string &&description) { m_description.assign(description); }
+			inline void setDescription(std::string &&description) { m_description.assign(description); }
 			inline const std::string &getDescription(void) const { return m_description; }
 
 		private:
