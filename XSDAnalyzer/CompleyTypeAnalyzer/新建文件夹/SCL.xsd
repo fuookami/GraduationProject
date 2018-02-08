@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:scl="http://www.iec.ch/61850/2003/SCL" xmlns="http://www.iec.ch/61850/2003/SCL" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iec.ch/61850/2003/SCL" elementFormDefault="qualified" attributeFormDefault="unqualified" finalDefault="extension" version="3.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">Revised SCL schema - TC57 WG10 internal version. Version 3.1. (SCL language version "2007" revision "B"). Draft 2011/04/13.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="SCL_Substation.xsd"/>
+	<xs:include schemaLocation="SCL_IED.xsd"/>
+	<xs:include schemaLocation="SCL_Communication.xsd"/>
+	<xs:include schemaLocation="SCL_DataTypeTemplates.xsd"/>
+
+	<xs:element name="SCL">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tBaseElement">
+					<xs:sequence>
+						<xs:element name="Header" type="tHeader"/>
+						<xs:element ref="Substation" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="Communication" minOccurs="0"/>
+						<xs:element ref="IED" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="DataTypeTemplates" minOccurs="0"/>
+					</xs:sequence>
+					<xs:attribute name="version" type="tSclVersion" use="required" fixed="2007"/>
+					<xs:attribute name="revision" type="tSclRevision" use="required" fixed="B"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

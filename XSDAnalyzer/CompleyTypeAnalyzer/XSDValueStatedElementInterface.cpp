@@ -1,4 +1,6 @@
 #include "XSDValueStatedElementInterface.h"
+#include "XSDToken.h"
+
 namespace XSDFrontend
 {
 	namespace XSDElementUtils
@@ -25,7 +27,7 @@ namespace XSDFrontend
 			return false;
 		}
 
-		const bool IXSDValueStatedElementInterface::setDefault(const std::string && defaultValue)
+		const bool IXSDValueStatedElementInterface::setDefault(std::string && defaultValue)
 		{
 			if (m_defaultEnabled)
 			{
@@ -51,7 +53,7 @@ namespace XSDFrontend
 			return false;
 		}
 		
-		const bool IXSDValueStatedElementInterface::setFixed(const std::string && fixedValue)
+		const bool IXSDValueStatedElementInterface::setFixed(std::string && fixedValue)
 		{
 			if (m_fixedEnabled)
 			{
@@ -62,6 +64,27 @@ namespace XSDFrontend
 			}
 
 			return false;
+		}
+
+		const bool IXSDValueStatedElementInterface::loadValueStatement(const XMLUtils::XMLNode & node)
+		{
+			bool ret(true);
+			if (node.hasAttr(XSDFrontend::Token::DefaultAttr) && node.hasAttr(XSDFrontend::Token::FixedAttr))
+			{
+				return false;
+			}
+
+			if (node.hasAttr(XSDFrontend::Token::DefaultAttr))
+			{
+				ret &= setDefault(node.getAttr(XSDFrontend::Token::DefaultAttr));
+			}
+
+			if (node.hasAttr(XSDFrontend::Token::FixedAttr))
+			{
+				ret &= setFixed(node.getAttr(XSDFrontend::Token::FixedAttr));
+			}
+
+			return ret;
 		}
 
 		void IXSDValueStatedElementInterface::setDefaultEnabled(const bool enabled)

@@ -2,6 +2,7 @@
 
 #include "Element.h"
 #include "AnyElement.h"
+#include "XSDToken.h"
 
 #include <vector>
 #include <memory>
@@ -76,6 +77,7 @@ namespace XSDFrontend
 
 			inline void erase(const int pos) { m_vals.erase(m_vals.begin() + pos); }
 
+			inline const bool empty(void) const { return m_vals.empty(); }
 			inline const unsigned int size(void) const { return m_vals.size(); }
 
 			inline ValueType &getValue(const int pos) { return m_vals[pos]; }
@@ -87,6 +89,13 @@ namespace XSDFrontend
 			eElementGroupType m_type;
 
 			std::vector<ValueType> m_vals;
+		};
+
+		static const std::map<std::string, ElementGroup::eElementGroupType> ElementGroupTag2Type = 
+		{
+			std::make_pair(Token::SequenceTag, ElementGroup::eElementGroupType::tSequence),
+			std::make_pair(Token::ChoiceTag, ElementGroup::eElementGroupType::tChoice),
+			std::make_pair(Token::AllTag, ElementGroup::eElementGroupType::tAll)
 		};
 	};
 };

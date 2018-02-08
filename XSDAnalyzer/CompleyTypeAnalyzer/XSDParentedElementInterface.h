@@ -11,8 +11,8 @@ namespace XSDFrontend
 		public:
 			enum class eParentType
 			{
-				tComplexType,
 				tAttributeGroup,
+				tComplexType,
 				tElementGroup,
 				tNonParent
 			};

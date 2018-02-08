@@ -89,12 +89,16 @@ namespace XSDFrontend
 		}
 	}
 
-	const std::string SimpleTypeModel::getNewDefaultName(void)
+	std::string SimpleTypeModel::getNewDefaultSimpleTypeName(void) const
 	{
 		static unsigned int defaultNameNumber(0);
 		static const std::string SimpleTypeNamePrefix("simple_type_");
 
-		++defaultNameNumber;
+		do
+		{
+			++defaultNameNumber;
+		} while (isTypeExist(SimpleTypeNamePrefix + std::to_string(defaultNameNumber)));
+		
 		return SimpleTypeNamePrefix + std::to_string(defaultNameNumber);
 	}
 };

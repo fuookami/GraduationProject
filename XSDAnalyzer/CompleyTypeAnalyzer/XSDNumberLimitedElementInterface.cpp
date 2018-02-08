@@ -1,4 +1,5 @@
 #include "XSDNumberLimitedElementInterface.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -13,7 +14,7 @@ namespace XSDFrontend
 
 		}
 
-		const bool IXSDNumberLimitedElementInterface::setMinOccurs(const int newMinOccurs)
+		const bool IXSDNumberLimitedElementInterface::setMinOccurs(const unsigned int newMinOccurs)
 		{
 			if (m_maxOccurs == MaxOccursUnbounded
 				|| (newMinOccurs >= 0 && newMinOccurs <= m_maxOccurs))
@@ -25,7 +26,7 @@ namespace XSDFrontend
 			return false;
 		}
 
-		const bool IXSDNumberLimitedElementInterface::setMaxOccurs(const int newMaxOccurs)
+		const bool IXSDNumberLimitedElementInterface::setMaxOccurs(const unsigned int newMaxOccurs)
 		{
 			if (newMaxOccurs == MaxOccursUnbounded
 				|| (newMaxOccurs >= 0 && m_minOccurs <= newMaxOccurs))
@@ -35,6 +36,23 @@ namespace XSDFrontend
 			}
 
 			return false;
+		}
+
+		const bool IXSDNumberLimitedElementInterface::loadNumberLimitation(const XMLUtils::XMLNode & node)
+		{
+			bool ret(true);
+			if (node.hasAttr(XSDFrontend::Token::MinOccursAttr))
+			{
+				ret &= setMinOccurs(std::stoul(node.getAttr(XSDFrontend::Token::MinOccursAttr)));
+			}
+
+			if (node.hasAttr(XSDFrontend::Token::MaxOccursAttr))
+			{
+				ret &= setMaxOccurs(node.getAttr(XSDFrontend::Token::MaxOccursAttr) == MaxOccursUnboundedString 
+					? MaxOccursUnbounded
+					: std::stoul(node.getAttr(XSDFrontend::Token::MaxOccursAttr)));
+			}
+			return ret;
 		}
 	};
 };

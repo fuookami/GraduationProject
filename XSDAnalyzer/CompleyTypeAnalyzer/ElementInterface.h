@@ -26,7 +26,7 @@ namespace XSDFrontend
 		public:
 			virtual ~IElementInterface(void) = default;
 
-			inline eElementType getElementType(void) const { return m_type; }
+			inline const eElementType getElementType(void) const { return m_type; }
 
 		private:
 			eElementType m_type;

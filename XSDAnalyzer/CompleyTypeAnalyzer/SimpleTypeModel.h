@@ -52,7 +52,7 @@ namespace XSDFrontend
 		void checkAndEraseIlegalTypeInContainer(std::shared_ptr<XSDFrontend::SimpleType::ContainerType> type);
 
 	public:
-		static const std::string getNewDefaultName(void);
+		std::string getNewDefaultSimpleTypeName(void) const;
 
 	private:
 		std::map<std::string, std::shared_ptr<SimpleType::StringType>> m_stringTypes;

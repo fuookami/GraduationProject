@@ -25,6 +25,9 @@ namespace XSDAnalyzer
 	private:
 		std::shared_ptr<XSDFrontend::Attribute::Attribute> loadAttribute(const XMLUtils::XMLNode &node);
 		std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> loadAttributeGroup(const XMLUtils::XMLNode &node);
+		std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> loadAttributeGroup(const XMLUtils::XMLNode &node, const std::string &groupName);
+
+		const bool isAttributeNodeValid(const XMLUtils::XMLNode &node) const;
 
 	private:
 		std::shared_ptr<XSDFrontend::SimpleTypeModel> m_simpleTypeModel;

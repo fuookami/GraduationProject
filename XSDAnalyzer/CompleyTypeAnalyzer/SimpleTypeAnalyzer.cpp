@@ -13,7 +13,7 @@ namespace XSDAnalyzer
 	{
 	}
 
-	const std::string SimpleTypeAnalyzer::scan(const XMLUtils::XMLNode & node)
+	std::string SimpleTypeAnalyzer::scanSimpleType(const XMLUtils::XMLNode & node)
 	{
 		static const std::string EmptyString("");
 		
@@ -27,10 +27,7 @@ namespace XSDAnalyzer
 
 			if (typeName.empty())
 			{
-				do
-				{
-					typeName = XSDFrontend::SimpleTypeModel::getNewDefaultName();
-				} while (m_simpleTypeModel->isTypeExist(typeName));
+				typeName = m_simpleTypeModel->getNewDefaultSimpleTypeName();
 			}
 
 			for (const auto &node : node.getChildren())
@@ -145,7 +142,7 @@ namespace XSDAnalyzer
 			}
 			else
 			{
-				static const std::string ErrorPrefix("未定义的用户类型：");
+				static const std::string ErrorPrefix("未定义的简单类型：");
 				throw std::logic_error(ErrorPrefix + baseTypeName);
 			}
 		}

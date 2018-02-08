@@ -24,10 +24,12 @@ namespace XSDFrontend
 		inline std::map<std::string, std::shared_ptr<Attribute::AttributeGroup>> &getAttributeGroups(void) { return m_attributeGroups; }
 		inline const std::map<std::string, std::shared_ptr<Attribute::AttributeGroup>> &getAttributeGroups(void) const { return m_attributeGroups; }
 
+		inline const bool isAttributeGroupExist(const std::string &name) const { return m_attributeGroups.find(name) != m_attributeGroups.cend(); }
+
 		inline void clear(void) { m_globalAttributes.clear(); m_attributeGroups.clear(); }
 
 	public:
-		static const std::string getNewDefaultAttributeGroupName(void);
+		std::string getNewDefaultAttributeGroupName(void) const;
 
 	private:
 		std::map<std::string, std::shared_ptr<Attribute::Attribute>> m_globalAttributes;

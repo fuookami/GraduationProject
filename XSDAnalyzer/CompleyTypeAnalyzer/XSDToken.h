@@ -29,6 +29,7 @@ namespace XSDFrontend
 		static const std::string SimpleContentTag = XSDTagPrefix + "simpleContent";
 		static const std::string ComplexContentTag = XSDTagPrefix + "complexContent";
 		static const std::string ElementTag = XSDTagPrefix + "element";
+		static const std::string AnyTag = XSDTagPrefix + "any";
 
 		static const std::string TypeTag = XSDTagPrefix + "restriction";
 		static const std::string ListTag = XSDTagPrefix + "list";
@@ -54,6 +55,8 @@ namespace XSDFrontend
 		static const std::string UseAttr("use");
 		static const std::string NamesapceAttr("namespace");
 		static const std::string ProcessContentsAttr("processContents");
+		static const std::string MinOccursAttr("minOccurs");
+		static const std::string MaxOccursAttr("maxOccurs");
 
 		const bool isInXSDNameSpace(const std::string &token);
 	};

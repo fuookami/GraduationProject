@@ -8,12 +8,6 @@ namespace XSDFrontend
 		return it != m_globalElements.cend() ? it->second : nullptr;
 	}
 
-	const std::shared_ptr<ComplexType::Element> ComplexTypeModel::getElement(const std::string & name) const
-	{
-		auto it(m_elements.find(name));
-		return it != m_elements.cend() ? it->second : nullptr;
-	}
-
 	const std::shared_ptr<ComplexType::ElementGroup> ComplexTypeModel::getElementGroup(const std::string & name) const
 	{
 		auto it(m_elementGroups.find(name));
@@ -38,21 +32,29 @@ namespace XSDFrontend
 		return it != m_complexTypes.cend() ? it->second : nullptr;
 	}
 
-	const std::string ComplexTypeModel::getNewDefaultElementGroupName(void)
+	std::string ComplexTypeModel::getNewDefaultElementGroupName(void) const
 	{
 		static unsigned int defaultNameNumber(0);
-		static const std::string SimpleTypeNamePrefix("element_group_");
+		static const std::string ElementGroupNamePrefix("element_group_");
 
-		++defaultNameNumber;
-		return SimpleTypeNamePrefix + std::to_string(defaultNameNumber);
+		do
+		{
+			++defaultNameNumber;
+		} while (isElementGroupExist(ElementGroupNamePrefix + std::to_string(defaultNameNumber)));
+		
+		return ElementGroupNamePrefix + std::to_string(defaultNameNumber);
 	}
 
-	const std::string ComplexTypeModel::getNewDefaultComplexTypeName(void)
+	std::string ComplexTypeModel::getNewDefaultComplexTypeName(void) const
 	{
 		static unsigned int defaultNameNumber(0);
-		static const std::string SimpleTypeNamePrefix("complex_type_");
+		static const std::string ComplexTypeNamePrefix("complex_type_");
 
-		++defaultNameNumber;
-		return SimpleTypeNamePrefix + std::to_string(defaultNameNumber);
+		do
+		{
+			++defaultNameNumber;
+		} while (isElementGroupExist(ComplexTypeNamePrefix + std::to_string(defaultNameNumber)));
+
+		return ComplexTypeNamePrefix + std::to_string(defaultNameNumber);
 	}
 };

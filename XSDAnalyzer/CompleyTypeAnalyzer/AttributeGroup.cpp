@@ -46,6 +46,12 @@ namespace XSDFrontend
 			return it != m_attributeGroups.cend() ? it->second : nullptr;
 		}
 
+		const bool AttributeGroup::empty(void) const
+		{
+			return m_attributes.empty() && m_attributeGroups.empty() && m_anyAttribute == nullptr 
+				&& (m_baseAttributeGroup == nullptr || m_baseAttributeGroup->empty());
+		}
+
 		const bool AttributeGroup::isAttrExist(const std::string & name) const
 		{
 			for (const auto &attrPair : m_attributes)

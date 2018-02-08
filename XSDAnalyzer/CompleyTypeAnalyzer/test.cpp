@@ -11,21 +11,6 @@ void testXMLUtils(void)
 
 	std::string fileUrl("SCL_Enums.xsd");
 
-	/*
-	ptree pt;
-	xml_parser::read_xml(fileUrl, pt);
-
-	std::vector<XMLUtils::XMLNode> nodes;
-	for (const auto &root : pt)
-	{
-		auto node(XMLUtils::getTree(root));
-		std::cout << node.tag() << std::endl;
-
-		nodes.push_back(std::move(node));
-		nodes.back().tidyStruct();
-	}
-	*/
-
 	auto nodes(XMLUtils::scanXMLFile<StringConvertUtils::StringCodeId::UTF8>(fileUrl));
 
 	return;

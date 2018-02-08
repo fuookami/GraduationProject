@@ -25,7 +25,7 @@ namespace XSDFrontend
 		public:
 			virtual ~IAttributeInterface(void) = default;
 
-			inline eAttributeType getAttributeType(void) const { return m_type; }
+			inline const eAttributeType getAttributeType(void) const { return m_type; }
 
 		private:
 			eAttributeType m_type;

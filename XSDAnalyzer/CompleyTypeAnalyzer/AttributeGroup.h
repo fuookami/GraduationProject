@@ -35,8 +35,7 @@ namespace XSDFrontend
 			inline const bool hasAttributeGroup(const std::string &name) const { return isAttrGourpExist(name); }
 			inline const std::shared_ptr<AttributeGroup> getAttributeGroup(const std::string &name) const;
 
-			inline void setAnyAttribute(const AnyAttribute &anyAttribute) { m_anyAttribute.reset(new AnyAttribute(anyAttribute)); }
-			inline void setAnyAttribute(const AnyAttribute &&anyAttribute) { m_anyAttribute.reset(new AnyAttribute(std::move(anyAttribute))); }
+			inline void setAnyAttribute(const std::shared_ptr<AnyAttribute> &anyAttribute) { m_anyAttribute = anyAttribute; }
 			inline void removeAnyAttribute(void) { return m_anyAttribute.reset(); }
 			inline const bool hasAnyAttribute(void) const { return m_anyAttribute != nullptr; }
 			inline const std::shared_ptr<const AnyAttribute> getAnyAttribute(void) const { return m_anyAttribute; }
@@ -44,7 +43,9 @@ namespace XSDFrontend
 			inline void setBaseAttributeGroup(const std::shared_ptr<AttributeGroup> &baseGroup) { m_baseAttributeGroup = baseGroup; }
 			inline void removeBaseAttributeGroup(void) { m_baseAttributeGroup.reset(); }
 			inline const bool hasBaseAttributeGroup(void) const { return m_baseAttributeGroup != nullptr; }
-			inline const std::shared_ptr<AttributeGroup> getAttributeGroup(void) const { return m_baseAttributeGroup; }
+			inline const std::shared_ptr<AttributeGroup> getBaseAttributeGroup(void) const { return m_baseAttributeGroup; }
+
+			const bool empty(void) const;
 
 		private:
 			const bool isAttrExist(const std::string &name) const;
@@ -53,7 +54,7 @@ namespace XSDFrontend
 		private:
 			std::map<std::string, std::shared_ptr<Attribute>> m_attributes;
 			std::map<std::string, std::shared_ptr<AttributeGroup>> m_attributeGroups;
-			std::shared_ptr<const AnyAttribute> m_anyAttribute;
+			std::shared_ptr<AnyAttribute> m_anyAttribute;
 
 			std::shared_ptr<AttributeGroup> m_baseAttributeGroup;
 		};

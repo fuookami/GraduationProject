@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "XMLUtils.h"
 
 namespace XSDFrontend
 {
@@ -22,16 +23,18 @@ namespace XSDFrontend
 			virtual ~IXSDValueStatedElementInterface(void) = default;
 
 			const bool setDefault(const std::string &defaultValue);
-			const bool setDefault(const std::string &&defaultValue);
+			const bool setDefault(std::string &&defaultValue);
 			inline const bool hasDefault(void) const { return m_hasDefault; }
 			inline const bool defaultEnabled(void) const { return m_defaultEnabled; }
 			inline const std::string &getDefault(const std::string &defaultValue) const { return m_default; }
 
 			const bool setFixed(const std::string &fixedValue);
-			const bool setFixed(const std::string &&fixedValue);
+			const bool setFixed(std::string &&fixedValue);
 			inline const bool hasFixed(void) const { return m_hasFixed; }
 			inline const bool fixedEnabled(void) const { return m_fixedEnabled; }
 			inline const std::string &getFixed(const std::string &fixedValue) const { return m_fixed; }
+
+			const bool loadValueStatement(const XMLUtils::XMLNode &node);
 
 		protected:
 			inline void setValueStatedEnabled(const bool enabled) { setDefaultEnabled(enabled); setFixedEnabled(enabled); }

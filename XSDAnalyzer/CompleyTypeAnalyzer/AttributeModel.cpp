@@ -14,12 +14,16 @@ namespace XSDFrontend
 		return it != m_attributeGroups.cend() ? it->second : nullptr;
 	}
 
-	const std::string AttributeModel::getNewDefaultAttributeGroupName(void)
+	std::string AttributeModel::getNewDefaultAttributeGroupName(void) const
 	{
 		static unsigned int defaultNameNumber(0);
-		static const std::string SimpleTypeNamePrefix("attribute_group_");
+		static const std::string AttrubuteGroupNamePrefix("attribute_group_");
 
-		++defaultNameNumber;
-		return SimpleTypeNamePrefix + std::to_string(defaultNameNumber);
+		do
+		{
+			++defaultNameNumber;
+		} while (isAttributeGroupExist(AttrubuteGroupNamePrefix + std::to_string(defaultNameNumber)));
+		
+		return AttrubuteGroupNamePrefix + std::to_string(defaultNameNumber);
 	}
 };

@@ -21,7 +21,7 @@ namespace XSDAnalyzer
 		SimpleTypeAnalyzer &operator=(SimpleTypeAnalyzer &&rhs) = delete;
 		~SimpleTypeAnalyzer(void) = default;
 
-		const std::string scan(const XMLUtils::XMLNode &node);
+		std::string scanSimpleType(const XMLUtils::XMLNode &node);
 
 	private:
 		const bool analyseType(const std::string &typeName, const XMLUtils::XMLNode &node);

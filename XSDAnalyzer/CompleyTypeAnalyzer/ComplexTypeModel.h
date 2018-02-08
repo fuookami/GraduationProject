@@ -22,10 +22,6 @@ namespace XSDFrontend
 		inline std::map<std::string, std::shared_ptr<ComplexType::Element>> &getGlobalElements(void) { return m_globalElements; }
 		inline const std::map<std::string, std::shared_ptr<ComplexType::Element>> &getGlobalElements(void) const { return m_globalElements; }
 
-		const std::shared_ptr<ComplexType::Element> getElement(const std::string &name) const;
-		inline std::map<std::string, std::shared_ptr<ComplexType::Element>> &getElements(void) { return m_elements; }
-		inline const std::map<std::string, std::shared_ptr<ComplexType::Element>> &getElements(void) const { return m_elements; }
-
 		const std::shared_ptr<ComplexType::ElementGroup> getElementGroup(const std::string &name) const;
 		inline std::map<std::string, std::shared_ptr<ComplexType::ElementGroup>> &getElementGroups(void) { return m_elementGroups; }
 		inline const std::map<std::string, std::shared_ptr<ComplexType::ElementGroup>> &getElementGroups(void) const { return m_elementGroups; }
@@ -44,13 +40,18 @@ namespace XSDFrontend
 
 		inline void clear(void) { m_globalElements.clear(); m_elementGroups.clear(); m_simpleContent.clear(); m_complexContent.clear(); m_complexTypes.clear(); }
 
+		inline const bool isElementGroupExist(const std::string &name) const { return m_elementGroups.find(name) != m_elementGroups.cend(); }
+
+		inline const bool isComplexTypeExist(const std::string &name) const { return m_complexTypes.find(name) != m_complexTypes.cend(); }
+		inline const bool isSimpleContent(const std::string &name) const { return m_simpleContent.find(name) != m_simpleContent.cend(); }
+		inline const bool isComplexContent(const std::string &name) const { return m_complexContent.find(name) != m_complexContent.cend(); }
+
 	public:
-		static const std::string getNewDefaultElementGroupName(void);
-		static const std::string getNewDefaultComplexTypeName(void);
+		std::string getNewDefaultElementGroupName(void) const;
+		std::string getNewDefaultComplexTypeName(void) const;
 
 	private:
 		std::map<std::string, std::shared_ptr<ComplexType::Element>> m_globalElements;
-		std::map<std::string, std::shared_ptr<ComplexType::Element>> m_elements;
 		std::map<std::string, std::shared_ptr<ComplexType::ElementGroup>> m_elementGroups;
 
 		std::map<std::string, std::shared_ptr<ComplexType::SimpleContent>> m_simpleContent;

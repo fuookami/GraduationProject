@@ -37,6 +37,13 @@ namespace XSDAnalyzer
 			return false;
 		}
 
+		const auto topologicalOrder(topologicalSort(generateTopologicalTable(xml.front())));
+		const auto childrens(xml.front().getChildren());
+		for (const auto order : topologicalOrder)
+		{
+
+		}
+
 		for (const auto &childNode : xml.front().getChildren())
 		{
 			if (childNode.getTag() == XSDFrontend::Token::IncludeTag)
@@ -48,7 +55,7 @@ namespace XSDAnalyzer
 			}
 			else if (childNode.getTag() == XSDFrontend::Token::SimpleTypeTag)
 			{
-				m_simpleTypeAnalyzer.scan(childNode);
+				m_simpleTypeAnalyzer.scanSimpleType(childNode);
 			}
 			else if (childNode.getTag() == XSDFrontend::Token::AttributeTag)
 			{
@@ -103,5 +110,15 @@ namespace XSDAnalyzer
 		{
 			return false;
 		}
+	}
+
+	std::vector<std::vector<int>> XSDAnalyzer::generateTopologicalTable(const XMLUtils::XMLNode & root)
+	{
+		return std::vector<std::vector<int>>();
+	}
+
+	std::vector<int> XSDAnalyzer::topologicalSort(const std::vector<std::vector<int>>& table)
+	{
+		return std::vector<int>();
 	}
 };

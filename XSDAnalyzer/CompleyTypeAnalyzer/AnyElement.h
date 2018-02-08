@@ -38,10 +38,10 @@ namespace XSDFrontend
 			~AnyElement(void) = default;
 
 			inline void setNamespaceValidator(const eNamespaceValidator namespaceValidator) { m_namespaceValidator = namespaceValidator; }
-			const eNamespaceValidator getNamesapceValidator(void) const { return m_namespaceValidator; }
+			inline const eNamespaceValidator getNamesapceValidator(void) const { return m_namespaceValidator; }
 
 			inline void setProcessContents(const eProcessContents processContents) { m_processContents = processContents; }
-			const eProcessContents getProcessContents(void) const { return m_processContents; }
+			inline const eProcessContents getProcessContents(void) const { return m_processContents; }
 
 		private:
 			eNamespaceValidator m_namespaceValidator;

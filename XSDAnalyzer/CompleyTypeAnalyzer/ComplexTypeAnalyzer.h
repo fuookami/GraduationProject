@@ -21,13 +21,15 @@ namespace XSDAnalyzer
 
 	private:
 		std::shared_ptr<XSDFrontend::ComplexType::Element> loadElement(const XMLUtils::XMLNode &node);
+		std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> loadElementGroup(const XMLUtils::XMLNode &node);
+		std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> loadElementGroup(const XMLUtils::XMLNode &node, const std::string &groupName);
 
 		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> scanComplexContent(const XMLUtils::XMLNode &node);
 		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> scanDerivedComplexContent(const XMLUtils::XMLNode &node);
 		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> scanDerivedSimpleContent(const XMLUtils::XMLNode &node);
 
 	private:
-		bool isElementNodeValid(const XMLUtils::XMLNode &node) const;
+		const bool isElementNodeValid(const XMLUtils::XMLNode &node) const;
 
 	private:
 		std::shared_ptr<XSDFrontend::SimpleTypeModel> m_simpleTypeModel;
