@@ -7,6 +7,7 @@
 #include <boost/property_tree/xml_parser.hpp>
 
 #include <iostream>
+#include <deque>
 
 namespace XSDAnalyzer
 {
@@ -41,11 +42,8 @@ namespace XSDAnalyzer
 		const auto childrens(xml.front().getChildren());
 		for (const auto order : topologicalOrder)
 		{
+			const auto &childNode(childrens[order]);
 
-		}
-
-		for (const auto &childNode : xml.front().getChildren())
-		{
 			if (childNode.getTag() == XSDFrontend::Token::IncludeTag)
 			{
 				if (!scanIncludeTag(fileName, filePath, childNode))
@@ -112,13 +110,111 @@ namespace XSDAnalyzer
 		}
 	}
 
-	std::vector<std::vector<int>> XSDAnalyzer::generateTopologicalTable(const XMLUtils::XMLNode & root)
+	std::vector<std::set<int>> XSDAnalyzer::generateTopologicalTable(const XMLUtils::XMLNode & root)
 	{
-		return std::vector<std::vector<int>>();
+		static const std::set<std::string> ProvideTokenAttrs = 
+		{
+			XSDFrontend::Token::NameAttr
+		};
+
+		static const std::set<std::string> NeedTokenAttrs = 
+		{
+			XSDFrontend::Token::TypeAttr, XSDFrontend::Token::ReferenceAttr
+		};
+
+		std::vector<std::pair<std::set<std::string>, std::set<std::string>>> tokens;
+
+		for (const auto &node : root.getChildren())
+		{
+			decltype(tokens)::value_type thisTokens;
+			std::deque<std::reference_wrapper<const XMLUtils::XMLNode>> nextNodes;
+			nextNodes.push_back(node);
+
+			while (!nextNodes.empty())
+			{
+				const auto &node(nextNodes.front().get());
+				nextNodes.pop_front();
+
+				for (const auto &attr : ProvideTokenAttrs)
+				{
+					if (node.hasAttr(attr))
+					{
+						thisTokens.first.insert(node.getAttr(attr));
+					}
+				}
+
+				for (const auto &attr : NeedTokenAttrs)
+				{
+					if (node.hasAttr(attr))
+					{
+						thisTokens.second.insert(node.getAttr(attr));
+					}
+				}
+
+				std::copy(node.getChildren().cbegin(), node.getChildren().cend(), std::back_inserter(nextNodes));
+			}
+
+			tokens.emplace_back(std::move(thisTokens));
+		}
+
+		std::vector<std::set<int>> ret(root.getChildren().size());
+		for (int i(0), k(root.getChildren().size()); i != k; ++i)
+		{
+			for (int j(i + 1); j != k; ++j)
+			{
+				for (const auto &needToken : tokens[i].second)
+				{
+					if (tokens[j].first.find(needToken) != tokens[j].first.cend())
+					{
+						ret[i].insert(j);
+					}
+				}
+			}
+		}
+
+		return ret;
 	}
 
-	std::vector<int> XSDAnalyzer::topologicalSort(const std::vector<std::vector<int>>& table)
+	std::vector<int> XSDAnalyzer::topologicalSort(const std::vector<std::set<int>>& table)
 	{
-		return std::vector<int>();
+		std::vector<int> inDegrees;
+		std::transform(table.cbegin(), table.cend(), std::back_inserter(inDegrees),
+			[](const std::set<int> &item) -> int
+		{
+			return item.size();
+		});
+
+		std::deque<int> items;
+		for (int i(0), j(inDegrees.size()); i != j; ++i)
+		{
+			if (inDegrees[i] == 0)
+			{
+				items.push_back(i);
+			}
+		}
+
+		std::vector<int> ret;
+		while (!items.empty())
+		{
+			int item(items.front());
+			items.pop_front();
+
+			for (int i(0), j(table.size()); i != j; ++i)
+			{
+				if (table[i].find(item) != table[i].cend())
+				{
+					--inDegrees[i];
+
+					if (inDegrees[i] == 0)
+					{
+						items.push_back(i);
+					}
+				}
+			}
+
+			ret.push_back(item);
+		}
+
+		return ret;
 	}
 };
