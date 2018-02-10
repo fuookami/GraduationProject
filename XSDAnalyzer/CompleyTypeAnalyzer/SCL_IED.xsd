@@ -104,7 +104,7 @@
 			<xs:element name="GSEDir" type="tServiceYesNo" minOccurs="0"/>
 			<xs:element name="GOOSE" type="tServiceWithMax" minOccurs="0"/>
 			<xs:element name="GSSE" type="tServiceWithMax" minOccurs="0"/>
-			<xs:element name="SMVsc" type="scl:tServiceWithMax" minOccurs="0"/>
+			<xs:element name="SMVsc" type="tServiceWithMax" minOccurs="0"/>
 			<xs:element name="FileHandling" type="tServiceYesNo" minOccurs="0"/>
 			<xs:element name="ConfLNs" type="tConfLNs" minOccurs="0"/>
 			<xs:element name="ClientServices" type="tClientServices" minOccurs="0"/>
@@ -422,7 +422,7 @@
 	</xs:complexType>
 
 	<xs:complexType name="tExtRef">
-		<xs:attributeGroup ref="scl:agDesc"/>
+		<xs:attributeGroup ref="agDesc"/>
 		<xs:attribute name="iedName" type="tIEDName" use="optional"/>
 		<xs:attribute name="ldInst" type="tLDInst" use="optional"/>
 		<xs:attribute name="prefix" type="tPrefix" use="optional"/>

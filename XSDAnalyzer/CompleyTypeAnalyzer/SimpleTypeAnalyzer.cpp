@@ -17,52 +17,48 @@ namespace XSDAnalyzer
 	{
 		static const std::string EmptyString("");
 		
-		if (node.getTag() == XSDFrontend::Token::SimpleTypeTag)
+		if (node.getParent()->getTag() == XSDFrontend::Token::SchemaTag && !node.hasAttr(XSDFrontend::Token::NameAttr))
 		{
-			std::string typeName(node.getAttr(XSDFrontend::Token::NameAttr, EmptyString));
-			if (m_simpleTypeModel->isTypeExist(typeName))
-			{
-				return EmptyString;
-			}
-
-			if (typeName.empty())
-			{
-				typeName = m_simpleTypeModel->getNewDefaultSimpleTypeName();
-			}
-
-			for (const auto &node : node.getChildren())
-			{
-				if (node.getTag() == XSDFrontend::Token::TypeTag)
-				{
-					if (!analyseType(typeName, node))
-					{
-						return EmptyString;
-					}
-				}
-				else if (node.getTag() == XSDFrontend::Token::ListTag)
-				{
-					if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tList, typeName, "", node))
-					{
-						return EmptyString;
-					}
-					m_simpleTypeModel->checkAndEraseIlegalTypeInContainer(m_simpleTypeModel->getContainerTypes().find(typeName)->second);
-				}
-				else if (node.getTag() == XSDFrontend::Token::UnionTag)
-				{
-					if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tUnion, typeName, "", node))
-					{
-						return EmptyString;
-					}
-					m_simpleTypeModel->checkAndEraseIlegalTypeInContainer(m_simpleTypeModel->getContainerTypes().find(typeName)->second);
-				}
-			}
-
-			return typeName;
+			std::cerr << "定义全局类型时应当有声明名字。" << std::endl;
+			return EmptyString;
 		}
-		else
+
+		std::string typeName(node.hasAttr(XSDFrontend::Token::NameAttr)
+			? node.getAttr(XSDFrontend::Token::NameAttr, EmptyString)
+			: m_simpleTypeModel->getNewDefaultSimpleTypeName());
+		if (m_simpleTypeModel->isTypeExist(typeName))
 		{
 			return EmptyString;
 		}
+
+		for (const auto &node : node.getChildren())
+		{
+			if (node.getTag() == XSDFrontend::Token::TypeTag)
+			{
+				if (!analyseType(typeName, node))
+				{
+					return EmptyString;
+				}
+			}
+			else if (node.getTag() == XSDFrontend::Token::ListTag)
+			{
+				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tList, typeName, "", node))
+				{
+					return EmptyString;
+				}
+				m_simpleTypeModel->checkAndEraseIlegalTypeInContainer(m_simpleTypeModel->getContainerTypes().find(typeName)->second);
+			}
+			else if (node.getTag() == XSDFrontend::Token::UnionTag)
+			{
+				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tUnion, typeName, "", node))
+				{
+					return EmptyString;
+				}
+				m_simpleTypeModel->checkAndEraseIlegalTypeInContainer(m_simpleTypeModel->getContainerTypes().find(typeName)->second);
+			}
+		}
+
+		return typeName;
 	}
 
 	const bool SimpleTypeAnalyzer::analyseType(const std::string & typeName, const XMLUtils::XMLNode & node)

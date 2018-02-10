@@ -26,7 +26,7 @@ namespace XSDAnalyzer
 	private:
 		const bool scanIncludeTag(const std::string &fileName, const std::string &filePath, const XMLUtils::XMLNode &node);
 		
-		static std::vector<std::set<int>> generateTopologicalTable(const XMLUtils::XMLNode &root);
+		std::vector<std::set<int>> generateTopologicalTable(const XMLUtils::XMLNode &root);
 		static std::vector<int> topologicalSort(const std::vector<std::set<int>> &table);
 
 	private:

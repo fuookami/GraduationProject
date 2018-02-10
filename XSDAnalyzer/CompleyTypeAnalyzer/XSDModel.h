@@ -25,6 +25,7 @@ namespace XSDFrontend
 		inline const std::shared_ptr<AttributeModel> getAttributeTypeModel(void) const { return m_attributeTypeModel; }
 		inline const std::shared_ptr<ComplexTypeModel> getComplexTypeModel(void) const { return m_complexTypeMode; }
 
+		inline const bool hasToken(const std::string &token) { return m_simpleTypeModel->hasToken(token) || m_attributeTypeModel->hasToken(token) || m_complexTypeMode->hasToken(token); }
 		inline void clear(void) { m_simpleTypeModel->clear(); m_attributeTypeModel->clear(); m_complexTypeMode->clear(); }
 
 	private:

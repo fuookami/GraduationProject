@@ -68,6 +68,7 @@ namespace XMLUtils
 		inline void setParent(XMLNode &parent) { m_parent = std::addressof(parent); }
 		inline void removeParent(void) { m_parent = nullptr; }
 		inline const bool hasParent(void) const { return m_parent == nullptr; }
+		inline const XMLNode *getParent(void) const { return m_parent; }
 		inline XMLNode *getParent(void) { return m_parent; }
 
 	public:

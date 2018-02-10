@@ -38,13 +38,15 @@ namespace XSDFrontend
 		inline std::map<std::string, ComplexType::IComplexTypeInterface *> &getComplexTypes(void) { return m_complexTypes; }
 		inline const std::map<std::string, ComplexType::IComplexTypeInterface *> &getComplexTypes(void) const { return m_complexTypes; }
 
-		inline void clear(void) { m_globalElements.clear(); m_elementGroups.clear(); m_simpleContent.clear(); m_complexContent.clear(); m_complexTypes.clear(); }
-
+		inline const bool isGlobalElementExist(const std::string &name) const { return m_globalElements.find(name) != m_globalElements.cend(); }
 		inline const bool isElementGroupExist(const std::string &name) const { return m_elementGroups.find(name) != m_elementGroups.cend(); }
 
 		inline const bool isComplexTypeExist(const std::string &name) const { return m_complexTypes.find(name) != m_complexTypes.cend(); }
 		inline const bool isSimpleContent(const std::string &name) const { return m_simpleContent.find(name) != m_simpleContent.cend(); }
 		inline const bool isComplexContent(const std::string &name) const { return m_complexContent.find(name) != m_complexContent.cend(); }
+
+		inline const bool hasToken(const std::string &token) const { return isGlobalElementExist(token) || isElementGroupExist(token) || isComplexTypeExist(token); }
+		inline void clear(void) { m_globalElements.clear(); m_elementGroups.clear(); m_simpleContent.clear(); m_complexContent.clear(); m_complexTypes.clear(); }
 
 	public:
 		std::string getNewDefaultElementGroupName(void) const;

@@ -25,6 +25,7 @@ namespace XSDAnalyzer
 		std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> loadElementGroup(const XMLUtils::XMLNode &node, const std::string &groupName);
 
 		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> scanComplexContent(const XMLUtils::XMLNode &node);
+		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> scanSimpleContent(const XMLUtils::XMLNode &node);
 		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> scanDerivedComplexContent(const XMLUtils::XMLNode &node);
 		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> scanDerivedSimpleContent(const XMLUtils::XMLNode &node);
 

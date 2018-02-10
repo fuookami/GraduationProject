@@ -38,12 +38,8 @@ namespace XSDAnalyzer
 			return false;
 		}
 
-		const auto topologicalOrder(topologicalSort(generateTopologicalTable(xml.front())));
-		const auto childrens(xml.front().getChildren());
-		for (const auto order : topologicalOrder)
+		for (const auto &childNode : xml.front().getChildren())
 		{
-			const auto &childNode(childrens[order]);
-
 			if (childNode.getTag() == XSDFrontend::Token::IncludeTag)
 			{
 				if (!scanIncludeTag(fileName, filePath, childNode))
@@ -51,7 +47,15 @@ namespace XSDAnalyzer
 					return false;
 				}
 			}
-			else if (childNode.getTag() == XSDFrontend::Token::SimpleTypeTag)
+		}
+
+		const auto topologicalOrder(topologicalSort(generateTopologicalTable(xml.front())));
+		const auto childrens(xml.front().getChildren());
+		for (const auto order : topologicalOrder)
+		{
+			const auto &childNode(childrens[order]);
+
+			if (childNode.getTag() == XSDFrontend::Token::SimpleTypeTag)
 			{
 				m_simpleTypeAnalyzer.scanSimpleType(childNode);
 			}
@@ -119,7 +123,7 @@ namespace XSDAnalyzer
 
 		static const std::set<std::string> NeedTokenAttrs = 
 		{
-			XSDFrontend::Token::TypeAttr, XSDFrontend::Token::ReferenceAttr
+			XSDFrontend::Token::TypeAttr, XSDFrontend::Token::ReferenceAttr, XSDFrontend::Token::BaseTypeAttr
 		};
 
 		std::vector<std::pair<std::set<std::string>, std::set<std::string>>> tokens;
@@ -160,14 +164,26 @@ namespace XSDAnalyzer
 		std::vector<std::set<int>> ret(root.getChildren().size());
 		for (int i(0), k(root.getChildren().size()); i != k; ++i)
 		{
-			for (int j(i + 1); j != k; ++j)
+			for (int j(0); j != k; ++j)
 			{
-				for (const auto &needToken : tokens[i].second)
+				if (i != j)
 				{
-					if (tokens[j].first.find(needToken) != tokens[j].first.cend())
+					for (const auto &needToken : tokens[i].second)
 					{
-						ret[i].insert(j);
+						if (tokens[j].first.find(needToken) != tokens[j].first.cend())
+						{
+							ret[i].insert(j);
+						}
 					}
+				}
+			}
+
+			for (const auto &needToken : tokens[i].second)
+			{
+				if (m_xsdModel->hasToken(needToken))
+				{
+					ret[i].insert(-1);
+					break;
 				}
 			}
 		}
@@ -187,7 +203,7 @@ namespace XSDAnalyzer
 		std::deque<int> items;
 		for (int i(0), j(inDegrees.size()); i != j; ++i)
 		{
-			if (inDegrees[i] == 0)
+			if (inDegrees[i] == 0 || (inDegrees[i] == 1 && *table[i].cbegin() == -1))
 			{
 				items.push_back(i);
 			}
