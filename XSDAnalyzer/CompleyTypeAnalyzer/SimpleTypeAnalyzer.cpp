@@ -33,7 +33,7 @@ namespace XSDAnalyzer
 
 		for (const auto &node : node.getChildren())
 		{
-			if (node.getTag() == XSDFrontend::Token::TypeTag)
+			if (node.getTag() == XSDFrontend::Token::RestrictionTag)
 			{
 				if (!analyseType(typeName, node))
 				{

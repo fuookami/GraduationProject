@@ -31,7 +31,8 @@ namespace XSDFrontend
 		static const std::string ElementTag = XSDTagPrefix + "element";
 		static const std::string AnyTag = XSDTagPrefix + "any";
 
-		static const std::string TypeTag = XSDTagPrefix + "restriction";
+		static const std::string RestrictionTag = XSDTagPrefix + "restriction";
+		static const std::string ExtensionTag = XSDTagPrefix + "extension";
 		static const std::string ListTag = XSDTagPrefix + "list";
 		static const std::string UnionTag = XSDTagPrefix + "union";
 

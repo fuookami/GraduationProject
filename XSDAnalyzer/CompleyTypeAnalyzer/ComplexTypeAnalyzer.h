@@ -26,8 +26,12 @@ namespace XSDAnalyzer
 
 		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> scanComplexContent(const XMLUtils::XMLNode &node);
 		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> scanSimpleContent(const XMLUtils::XMLNode &node);
-		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> scanDerivedComplexContent(const XMLUtils::XMLNode &node);
-		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> scanDerivedSimpleContent(const XMLUtils::XMLNode &node);
+		const bool loadComplexType(XSDFrontend::ComplexType::IComplexTypeInterface *type, const XMLUtils::XMLNode
+			&node);
+		const bool loadDerivedComplexType(XSDFrontend::ComplexType::IComplexTypeInterface *type, const XMLUtils::XMLNode
+			&node);
+		const bool loadComplexContent(std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> type, const XMLUtils::XMLNode &node);
+		const bool loadSimpleContent(std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> type, const XMLUtils::XMLNode &node);
 
 	private:
 		const bool isElementNodeValid(const XMLUtils::XMLNode &node) const;

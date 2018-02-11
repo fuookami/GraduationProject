@@ -58,35 +58,8 @@ namespace XSDAnalyzer
 	const std::string ComplexTypeAnalyzer::scanComplexType(const XMLUtils::XMLNode & node)
 	{
 		static const std::string EmptyString("");
-		if (node.hasChild(XSDFrontend::Token::ComplexContentTag))
-		{
-			auto ptr = scanDerivedComplexContent(node);
-			if (ptr == nullptr)
-			{
-				return EmptyString;
-			}
-			else
-			{
-				m_complexTypeModel->getComplexContents().insert(std::make_pair(ptr->getName(), ptr));
-				m_complexTypeModel->getComplexTypes().insert(std::make_pair(ptr->getName(), dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ptr.get())));
-				return ptr->getName();
-			}
-		}
-		else if (node.hasChild(XSDFrontend::Token::SimpleContentTag))
-		{
-			auto ptr = scanDerivedSimpleContent(node);
-			if (ptr == nullptr)
-			{
-				return EmptyString;
-			}
-			else
-			{
-				m_complexTypeModel->getSimpleContents().insert(std::make_pair(ptr->getName(), ptr));
-				m_complexTypeModel->getComplexTypes().insert(std::make_pair(ptr->getName(), dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ptr.get())));
-				return ptr->getName();
-			}
-		}
-		else if (node.hasChild(XSDFrontend::Token::AllTag) || node.hasChild(XSDFrontend::Token::SequenceTag) || node.hasChild(XSDFrontend::Token::ChoiceTag))
+		if (node.hasChild(XSDFrontend::Token::AllTag) || node.hasChild(XSDFrontend::Token::SequenceTag) || node.hasChild(XSDFrontend::Token::ChoiceTag) 
+			|| node.hasChild(XSDFrontend::Token::ComplexContentTag))
 		{
 			auto ptr = scanComplexContent(node);
 			if (ptr == nullptr)
@@ -329,33 +302,38 @@ namespace XSDAnalyzer
 
 	std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> ComplexTypeAnalyzer::scanComplexContent(const XMLUtils::XMLNode & node)
 	{
-		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> ret(new XSDFrontend::ComplexType::ComplexContent());
-		
 		if (node.getParent()->getTag() == XSDFrontend::Token::SchemaTag && !node.hasAttr(XSDFrontend::Token::NameAttr))
 		{
 			std::cerr << "定义全局类型时应当有声明名字。" << std::endl;
 			return nullptr;
 		}
 
-		std::string typeName(node.hasAttr(XSDFrontend::Token::NameAttr)
-			? node.getAttr(XSDFrontend::Token::NameAttr)
-			: m_complexTypeModel->getNewDefaultComplexTypeName());
-		if (m_complexTypeModel->isComplexTypeExist(typeName))
+		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> ret(new XSDFrontend::ComplexType::ComplexContent());
+
+		if (!loadComplexType(dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ret.get()), node))
 		{
 			return nullptr;
 		}
-		ret->setName(typeName);
 
-		auto attributeGroup(ref_attributeAnalyzer.get().scanAttributeGroup(node));
-		if (attributeGroup != nullptr)
+		if (node.hasChild(XSDFrontend::Token::ComplexContentTag))
 		{
-			ret->setAttributeGroupName(attributeGroup->getName());
+			if (node.getChildren().size() != 1)
+			{
+				std::cerr << "在复合内容的派生复合类型声明中，应当只有一个complexContent子节点" << std::endl;
+				return false;
+			}
+
+			if (!loadDerivedComplexType(dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ret.get())
+				, node.getChildren()[node.findChild(XSDFrontend::Token::ComplexContentTag)]))
+			{
+				return nullptr;
+			}
+
+			loadComplexContent(ret, node.getChildren().front());
 		}
-
-		auto elementGroup(scanElementGroup(node));
-		if (elementGroup != nullptr)
+		else
 		{
-			ret->setElementGroupName(elementGroup->hasRef() ? elementGroup->getRefName() : std::move(typeName));
+			loadComplexContent(ret, node);
 		}
 
 		return ret;
@@ -363,54 +341,117 @@ namespace XSDAnalyzer
 
 	std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> ComplexTypeAnalyzer::scanSimpleContent(const XMLUtils::XMLNode & node)
 	{
-		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> ret(new XSDFrontend::ComplexType::SimpleContent());
-
 		if (node.getParent()->getTag() == XSDFrontend::Token::SchemaTag && !node.hasAttr(XSDFrontend::Token::NameAttr))
 		{
 			std::cerr << "定义全局类型时应当有声明名字。" << std::endl;
 			return nullptr;
 		}
 
+		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> ret(new XSDFrontend::ComplexType::SimpleContent());
+
+		if (!loadComplexType(dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ret.get()), node))
+		{
+			return nullptr;
+		}
+
+		if (node.hasChild(XSDFrontend::Token::SimpleContentTag))
+		{
+			if (node.getChildren().size() != 1)
+			{
+				std::cerr << "在简单内容的派生复合类型声明中，应当只有一个simpleContent子节点" << std::endl;
+				return false;
+			}
+
+			if (!loadDerivedComplexType(dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ret.get())
+				, node.getChildren()[node.findChild(XSDFrontend::Token::SimpleContentTag)]))
+			{
+				return nullptr;
+			}
+
+			loadSimpleContent(ret, node.getChildren().front());
+		}
+		else
+		{
+			loadSimpleContent(ret, node);
+		}
+
+		return ret;
+	}
+
+	const bool ComplexTypeAnalyzer::loadComplexType(XSDFrontend::ComplexType::IComplexTypeInterface * type, const XMLUtils::XMLNode & node)
+	{
 		std::string typeName(node.hasAttr(XSDFrontend::Token::NameAttr)
 			? node.getAttr(XSDFrontend::Token::NameAttr)
 			: m_complexTypeModel->getNewDefaultComplexTypeName());
 		if (m_complexTypeModel->isComplexTypeExist(typeName))
 		{
-			return nullptr;
+			return false;
 		}
-		ret->setName(typeName);
+		type->setName(typeName);
 
+		return true;
+	}
+
+	const bool ComplexTypeAnalyzer::loadDerivedComplexType(XSDFrontend::ComplexType::IComplexTypeInterface * type, const XMLUtils::XMLNode & node)
+	{
+		if (node.getChildren().size() != 1
+			|| (node.getChildren().front().getTag() != XSDFrontend::Token::ExtensionTag
+				&& node.getChildren().front().getTag() != XSDFrontend::Token::RestrictionTag))
+		{
+			std::cerr << "在派生复合类型声明中，应当有且只有extension子节点或restriction子节点" << std::endl;
+			return false;
+		}
+
+		const auto &derivedNode(node.getChildren().front());
+		if (!derivedNode.hasAttr(XSDFrontend::Token::BaseTypeAttr))
+		{
+			std::cerr << "在派生复合类型声明中，extension子节点或restriction子节点应当要声明基类型" << std::endl;
+			return false;
+		}
+
+		const std::string &baseTypeName(derivedNode.getAttr(XSDFrontend::Token::BaseTypeAttr));
+		if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tSimpleContent)
+		{
+
+		}
+		else if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tComplexContent)
+		{
+
+		}
+
+		type->setBaseType(derivedNode.getTag() == XSDFrontend::Token::ExtensionTag
+			? XSDFrontend::ComplexType::IComplexTypeInterface::eDerivedType::tExtension
+			: XSDFrontend::ComplexType::IComplexTypeInterface::eDerivedType::tRestriction
+			, baseTypeName);
+		return true;
+	}
+
+	const bool ComplexTypeAnalyzer::loadComplexContent(std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> type, const XMLUtils::XMLNode & node)
+	{
 		auto attributeGroup(ref_attributeAnalyzer.get().scanAttributeGroup(node));
 		if (attributeGroup != nullptr)
 		{
-			ret->setAttributeGroupName(attributeGroup->getName());
+			type->setAttributeGroupName(attributeGroup->getName());
 		}
 
-		return ret;
+		auto elementGroup(scanElementGroup(node));
+		if (elementGroup != nullptr)
+		{
+			type->setElementGroupName(elementGroup->hasRef() ? elementGroup->getRefName() : elementGroup->getName());
+		}
+
+		return true;
 	}
 
-	std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> ComplexTypeAnalyzer::scanDerivedComplexContent(const XMLUtils::XMLNode & node)
+	const bool ComplexTypeAnalyzer::loadSimpleContent(std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> type, const XMLUtils::XMLNode & node)
 	{
-		std::string typeName(node.hasAttr(XSDFrontend::Token::NameAttr) 
-			? node.getAttr(XSDFrontend::Token::NameAttr) 
-			: m_complexTypeModel->getNewDefaultComplexTypeName());
-		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> ret(new XSDFrontend::ComplexType::ComplexContent(typeName));
+		auto attributeGroup(ref_attributeAnalyzer.get().scanAttributeGroup(node));
+		if (attributeGroup != nullptr)
+		{
+			type->setAttributeGroupName(attributeGroup->getName());
+		}
 
-		//! to do
-
-		return ret;
-	}
-
-	std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> ComplexTypeAnalyzer::scanDerivedSimpleContent(const XMLUtils::XMLNode & node)
-	{
-		std::string typeName(node.hasAttr(XSDFrontend::Token::NameAttr)
-			? node.getAttr(XSDFrontend::Token::NameAttr)
-			: m_complexTypeModel->getNewDefaultComplexTypeName());
-		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> ret(new XSDFrontend::ComplexType::SimpleContent(typeName));
-
-		//! to do
-
-		return ret;
+		return true;
 	}
 
 	const bool ComplexTypeAnalyzer::isElementNodeValid(const XMLUtils::XMLNode & node) const
