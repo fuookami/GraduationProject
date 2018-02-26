@@ -77,7 +77,7 @@
 			<xs:extension base="tEquipment">
 				<xs:sequence>
 					<xs:element name="TransformerWinding" type="tTransformerWinding" maxOccurs="unbounded" />
-					<xs:element name="SubEquipment" type="scl:tSubEquipment" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="SubEquipment" type="tSubEquipment" minOccurs="0" maxOccurs="unbounded" />
 				</xs:sequence>
 				<xs:attribute name="type" type="tPowerTransformerEnum" use="required" fixed="PTR"/>
 			</xs:extension>
@@ -100,7 +100,7 @@
 		<xs:complexContent>
 			<xs:extension base="tPowerSystemResource">
 				<xs:sequence>
-					<xs:element name="SubEquipment" type="scl:tSubEquipment" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="SubEquipment" type="tSubEquipment" minOccurs="0" maxOccurs="unbounded" />
 				</xs:sequence>
 				<xs:attribute name="type" type="xs:Name" use="required" fixed="LTC"/>
 				<xs:attributeGroup ref="agVirtual"/>
@@ -133,7 +133,7 @@
 				<xs:sequence>
 					<xs:element name="Voltage" type="tVoltage" minOccurs="0" />
 					<xs:element name="Bay" type="tBay" maxOccurs="unbounded" />
-					<xs:element name="Function" type="scl:tFunction" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="Function" type="tFunction" minOccurs="0" maxOccurs="unbounded" />
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -145,7 +145,7 @@
 				<xs:sequence>
 					<xs:element name="ConductingEquipment" type="tConductingEquipment" minOccurs="0" maxOccurs="unbounded" />
 					<xs:element name="ConnectivityNode" type="tConnectivityNode" minOccurs="0" maxOccurs="unbounded" />
-					<xs:element name="Function" type="scl:tFunction" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="Function" type="tFunction" minOccurs="0" maxOccurs="unbounded" />
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>

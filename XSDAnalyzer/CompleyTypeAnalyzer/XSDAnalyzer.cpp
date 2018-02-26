@@ -75,7 +75,7 @@ namespace XSDAnalyzer
 			{
 				m_complexTypeAnalyzer.scanElementGroup(childNode);
 			}
-			else if (childNode.getTag() == XSDFrontend::Token::CompleyTypeTag)
+			else if (childNode.getTag() == XSDFrontend::Token::ComplexTypeTag)
 			{
 				m_complexTypeAnalyzer.scanComplexType(childNode);
 			}
@@ -178,14 +178,14 @@ namespace XSDAnalyzer
 				}
 			}
 
-			for (const auto &needToken : tokens[i].second)
-			{
-				if (m_xsdModel->hasToken(needToken))
-				{
-					ret[i].insert(-1);
-					break;
-				}
-			}
+// 			for (const auto &needToken : tokens[i].second)
+// 			{
+// 				if (m_xsdModel->hasToken(needToken))
+// 				{
+// 					ret[i].insert(-1);
+// 					break;
+// 				}
+// 			}
 		}
 
 		return ret;

@@ -43,9 +43,9 @@ namespace XSDFrontend
 		inline const std::map<std::string, SimpleType::ISimpleTypeInterface *> &getSimpleTypes(void) const { return m_simpleTypes; }
 
 		const XSDFrontend::SimpleType::eSimpleType getType(const std::string &typeName) const;
-		inline const bool isTypeExist(const std::string &typeName) const { return getType(typeName) != XSDFrontend::SimpleType::eSimpleType::tNonExist; }
+		inline const bool isTypeExist(const std::string &typeName) const { return isSimpleType(typeName) || isBaseType(typeName); }
 		static const bool isBaseType(const std::string &typeName);
-		inline const bool isSimpleType(const std::string &typeName) const { return isTypeExist(typeName) || isBaseType(typeName); }
+		inline const bool isSimpleType(const std::string &typeName) const { return getType(typeName) != XSDFrontend::SimpleType::eSimpleType::tNonExist; }
 
 		inline const bool hasToken(const std::string &token) { return isTypeExist(token); }
 		inline void clear(void) { m_stringTypes.clear(); m_numberTypes.clear(); m_datetimeTypes.clear(); m_dataTypes.clear(); m_containerTypes.clear(); m_simpleTypes.clear(); }

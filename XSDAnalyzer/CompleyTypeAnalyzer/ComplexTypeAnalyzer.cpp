@@ -141,8 +141,7 @@ namespace XSDAnalyzer
 				}
 				else
 				{
-					std::cerr << "未定义的基础类型、简单类型或复合类型：" << typeName << std::endl;
-					return nullptr;
+					element.reset(new XSDFrontend::ComplexType::Element(std::move(name)));
 				}
 
 				element->setType(std::move(typeName));
@@ -158,9 +157,9 @@ namespace XSDAnalyzer
 				element.reset(new XSDFrontend::ComplexType::Element(name, XSDFrontend::ComplexType::Element::eCategory::tSimpleType));
 				element->setType(typeName);
 			}
-			else if (node.hasChild(XSDFrontend::Token::CompleyTypeTag))
+			else if (node.hasChild(XSDFrontend::Token::ComplexTypeTag))
 			{
-				std::string typeName(scanComplexType(node.getChildren()[node.findChild(XSDFrontend::Token::CompleyTypeTag)]));
+				std::string typeName(scanComplexType(node.getChildren()[node.findChild(XSDFrontend::Token::ComplexTypeTag)]));
 				if (typeName.empty())
 				{
 					return nullptr;
@@ -243,9 +242,13 @@ namespace XSDAnalyzer
 			}
 		}
 
-		if (counter != 1)
+		if (counter > 1)
 		{
-			std::cerr << std::endl;
+			std::cerr << "不能在同一个节点下定义复数个elementGroup" << std::endl;
+			return nullptr;
+		}
+		else if (counter == 0)
+		{
 			return nullptr;
 		}
 
@@ -253,7 +256,7 @@ namespace XSDAnalyzer
 		const auto groupTypeIt(XSDFrontend::ComplexType::ElementGroupTag2Type.find(groupBody.getTag()));
 		if (groupTypeIt == XSDFrontend::ComplexType::ElementGroupTag2Type.cend())
 		{
-			std::cerr << std::endl;
+			std::cerr << "不存在的elementGroup类型tag" << std::endl;
 			return nullptr;
 		}
 
@@ -329,7 +332,12 @@ namespace XSDAnalyzer
 				return nullptr;
 			}
 
-			loadComplexContent(ret, node.getChildren().front());
+			loadComplexContent(ret, node.getChildren().front().getChildren().front());
+
+			if (!isDerivedComplexContentValid(ret))
+			{
+				return nullptr;
+			}
 		}
 		else
 		{
@@ -369,6 +377,11 @@ namespace XSDAnalyzer
 			}
 
 			loadSimpleContent(ret, node.getChildren().front());
+
+			if (!isDerivedSimpleContentValid(ret))
+			{
+				return nullptr;
+			}
 		}
 		else
 		{
@@ -412,11 +425,28 @@ namespace XSDAnalyzer
 		const std::string &baseTypeName(derivedNode.getAttr(XSDFrontend::Token::BaseTypeAttr));
 		if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tSimpleContent)
 		{
+			if (!m_simpleTypeModel->isTypeExist(baseTypeName) && !m_complexTypeModel->isSimpleContent(baseTypeName))
+			{
+				std::cerr << baseTypeName << "既不是基础类型或简单类型，也不是简单内容的复合类型，不能作为派生简单内容的复合类型的基类型" << std::endl;
+				return false;
+			}
 
+			if (m_simpleTypeModel->isTypeExist(baseTypeName))
+			{
+
+			}
+			else
+			{
+
+			}
 		}
-		else if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tComplexContent)
+		else // if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tComplexContent)
 		{
-
+			if (!m_complexTypeModel->isSimpleContent(baseTypeName) && !m_complexTypeModel->isComplexContent(baseTypeName))
+			{
+				std::cerr << baseTypeName << "不是简单内容或复杂内容的复合类型，不能作为派生复杂内容的复合类型的基类型" << std::endl;
+				return false;
+			}
 		}
 
 		type->setBaseType(derivedNode.getTag() == XSDFrontend::Token::ExtensionTag
@@ -458,17 +488,17 @@ namespace XSDAnalyzer
 	{
 		if (node.hasAttr(XSDFrontend::Token::ReferenceAttr))
 		{
-			if (node.hasChild(XSDFrontend::Token::CompleyTypeTag) || node.hasChild(XSDFrontend::Token::SimpleTypeTag))
+			if (node.hasChild(XSDFrontend::Token::ComplexTypeTag) || node.hasChild(XSDFrontend::Token::SimpleTypeTag))
 			{
 				std::cerr << "带有引用声明的元素内不能有匿名类型声明" << std::endl;
 				return false;
 			}
-			else if (node.hasAttr(XSDFrontend::Token::NameAttr))
+			if (node.hasAttr(XSDFrontend::Token::NameAttr))
 			{
 				std::cerr << "带有引用声明的元素内不能有名称声明" << std::endl;
 				return false;
 			}
-			else if (node.hasAttr(XSDFrontend::Token::TypeAttr))
+			if (node.hasAttr(XSDFrontend::Token::TypeAttr))
 			{
 				std::cerr << "带有引用声明的元素内不能有类型声明" << std::endl;
 				return false;
@@ -476,32 +506,41 @@ namespace XSDAnalyzer
 		}
 		else if (node.hasAttr(XSDFrontend::Token::NameAttr))
 		{
-			if ((node.hasChild(XSDFrontend::Token::CompleyTypeTag) || node.hasChild(XSDFrontend::Token::SimpleTypeTag))
+			if ((node.hasChild(XSDFrontend::Token::ComplexTypeTag) || node.hasChild(XSDFrontend::Token::SimpleTypeTag))
 				&& node.hasAttr(XSDFrontend::Token::TypeAttr))
 			{
 				std::cerr << "带有名称声明的元素内不能同时存在类型和匿名类型声明" << std::endl;
 				return false;
 			}
-			else if (!(node.hasChild(XSDFrontend::Token::CompleyTypeTag) || node.hasChild(XSDFrontend::Token::SimpleTypeTag))
+			if (!(node.hasChild(XSDFrontend::Token::ComplexTypeTag) || node.hasChild(XSDFrontend::Token::SimpleTypeTag))
 				&& !node.hasAttr(XSDFrontend::Token::TypeAttr))
 			{
 				std::cerr << "带有名称声明的元素内不能没有类型和匿名类型声明" << std::endl;
 				return false;
 			}
-			else if (node.hasChild(XSDFrontend::Token::CompleyTypeTag) && !m_simpleTypeModel->isSimpleType(node.getAttr(XSDFrontend::Token::TypeAttr)))
+			if (node.hasChild(XSDFrontend::Token::ComplexTypeTag))
 			{
-				if (node.hasAttr(XSDFrontend::Token::DefaultAttr) || node.hasAttr(XSDFrontend::Token::FixedAttr))
+				const auto &complexTypeNode(node.getChildren()[node.findChild(XSDFrontend::Token::ComplexTypeTag)]);
+				if (node.hasChild(XSDFrontend::Token::AllTag) || node.hasChild(XSDFrontend::Token::SequenceTag) || node.hasChild(XSDFrontend::Token::ChoiceTag)
+					|| node.hasChild(XSDFrontend::Token::ComplexContentTag))
 				{
-					std::cerr << "带有复合类型声明或匿名复合类型声明的元素内不能有固定值或默认值" << std::endl;
-					return false;
+					if (node.hasAttr(XSDFrontend::Token::DefaultAttr) || node.hasAttr(XSDFrontend::Token::FixedAttr))
+					{
+						std::cerr << "带有派生复杂内容的复合类型声明的元素内不能有固定值或默认值" << std::endl;
+						return false;
+					}
 				}
 			}
-			else if (node.hasChild(XSDFrontend::Token::SimpleTypeTag) || m_simpleTypeModel->isSimpleType(node.getAttr(XSDFrontend::Token::TypeAttr)))
+			if (node.hasAttr(XSDFrontend::Token::TypeAttr))
 			{
-				if (node.hasAttr(XSDFrontend::Token::DefaultAttr) && node.hasAttr(XSDFrontend::Token::FixedAttr))
+				if (!m_simpleTypeModel->isTypeExist(node.getAttr(XSDFrontend::Token::TypeAttr))
+					&& !m_complexTypeModel->isSimpleContent(node.getAttr(XSDFrontend::Token::TypeAttr)))
 				{
-					std::cerr << "带有简单类型声明或匿名简单类型声明的元素内不能同时有固定值和默认值" << std::endl;
-					return false;
+					if (node.hasAttr(XSDFrontend::Token::DefaultAttr) || node.hasAttr(XSDFrontend::Token::FixedAttr))
+					{
+						std::cerr << "只有类型为基础类型、简单类型和派生简单内容的复合类型的元素内才能有固定值或默认值" << std::endl;
+						return false;
+					}
 				}
 			}
 		}
@@ -511,6 +550,16 @@ namespace XSDAnalyzer
 			return false;
 		}
 
+		return true;
+	}
+
+	const bool ComplexTypeAnalyzer::isDerivedComplexContentValid(std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> type)
+	{
+		return true;
+	}
+
+	const bool ComplexTypeAnalyzer::isDerivedSimpleContentValid(std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> type)
+	{
 		return true;
 	}
 };

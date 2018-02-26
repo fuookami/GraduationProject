@@ -35,6 +35,8 @@ namespace XSDAnalyzer
 
 	private:
 		const bool isElementNodeValid(const XMLUtils::XMLNode &node) const;
+		const bool isDerivedComplexContentValid(std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> type);
+		const bool isDerivedSimpleContentValid(std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> type);
 
 	private:
 		std::shared_ptr<XSDFrontend::SimpleTypeModel> m_simpleTypeModel;

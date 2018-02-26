@@ -51,14 +51,7 @@
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
 					<xs:element name="Services" type="tServices" minOccurs="0"/>
-					<xs:element name="AccessPoint" type="tAccessPoint" maxOccurs="unbounded">
-						<xs:unique name="uniqueLNInAccessPoint">
-							<xs:selector xpath="./scl:LN"/>
-							<xs:field xpath="@inst"/>
-							<xs:field xpath="@lnClass"/>
-							<xs:field xpath="@prefix"/>
-						</xs:unique>
-					</xs:element>
+					<xs:element name="AccessPoint" type="tAccessPoint" maxOccurs="unbounded"/>
 					<xs:element name="KDC" type="tKDC" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 				<xs:attribute name="name" type="tIEDName" use="required"/>
@@ -127,18 +120,11 @@
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
 					<xs:choice minOccurs="0">
-						<xs:element name="Server" type="scl:tServer">
-							<xs:unique name="uniqueAssociationInServer">
-								<xs:selector xpath="./scl:Association"/>
-								<xs:field xpath="@associationID"/>
-							</xs:unique>
-						</xs:element>
-
-						<xs:element ref="scl:LN" maxOccurs="unbounded"/>
-
+						<xs:element name="Server" type="tServer"/>
+						<xs:element ref="LN" maxOccurs="unbounded"/>
 						<xs:element name="ServerAt" type="tServerAt"/>
 					</xs:choice>
-					<xs:element name="Services" type="scl:tServices" minOccurs="0"/>
+					<xs:element name="Services" type="tServices" minOccurs="0"/>
 					<xs:element name="GOOSESecurity" type="tCertificate" minOccurs="0" maxOccurs="7"/>
 					<xs:element name="SMVSecurity" type="tCertificate" minOccurs="0" maxOccurs="7"/>
 				</xs:sequence>
@@ -259,27 +245,9 @@
 					<xs:element name="DataSet" type="tDataSet" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="ReportControl" type="tReportControl" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="LogControl" type="tLogControl" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="DOI" type="tDOI" minOccurs="0" maxOccurs="unbounded">
-						<xs:unique name="uniqueSDI_DAIinDOI">
-							<xs:selector xpath="./scl:DAI|./scl:SDI"/>
-							<xs:field xpath="@name"/>
-							<xs:field xpath="@ix"/>
-						</xs:unique>
-					</xs:element>
-					<xs:element name="Inputs" type="tInputs" minOccurs="0">
-						<xs:unique name="uniqueExtRefInInputs">
-							<xs:selector xpath="./scl:ExtRef"/>
-							<xs:field xpath="@iedName"/>
-							<xs:field xpath="@ldInst"/>
-							<xs:field xpath="@prefix"/>
-							<xs:field xpath="@lnClass"/>
-							<xs:field xpath="@lnInst"/>
-							<xs:field xpath="@doName"/>
-							<xs:field xpath="@daName"/>
-							<xs:field xpath="@intAddr"/>
-						</xs:unique>
-					</xs:element>
-					<xs:element name="Log" type="scl:tLog" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="DOI" type="tDOI" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Inputs" type="tInputs" minOccurs="0"/>
+					<xs:element name="Log" type="tLog" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 				<xs:attribute name="lnType" type="tName" use="required"/>
 			</xs:extension>
@@ -487,7 +455,7 @@
 				<xs:attribute name="type" type="tGSEControlTypeEnum" use="optional" default="GOOSE"/>
 				<xs:attribute name="appID" type="tMessageID" use="required"/>
 				<xs:attribute name="fixedOffs" type="xs:boolean" use="optional" default="false"/>
-				<xs:attribute name="securityEnable" type="scl:tPredefinedTypeOfSecurityEnum" use="optional" default="None"/>
+				<xs:attribute name="securityEnable" type="tPredefinedTypeOfSecurityEnum" use="optional" default="None"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -547,13 +515,7 @@
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:choice minOccurs="0" maxOccurs="unbounded">
-					<xs:element name="SDI" type="tSDI">
-						<xs:unique name="uniqueSDI_DAIinSDI">
-							<xs:selector xpath="./scl:DAI|./scl:SDI"/>
-							<xs:field xpath="@name"/>
-							<xs:field xpath="@ix"/>
-						</xs:unique>
-					</xs:element>
+					<xs:element name="SDI" type="tSDI"/>
 					<xs:element name="DAI" type="tDAI"/>
 				</xs:choice>
 				<xs:attribute name="name" type="tDataName" use="required"/>

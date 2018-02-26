@@ -20,7 +20,8 @@ namespace XSDFrontend
 				tBaseType,
 				tSimpleType,
 				tSimpleContent,
-				tComplexContent
+				tComplexContent,
+				tUnknown
 			};
 
 			enum class eForm
@@ -47,9 +48,9 @@ namespace XSDFrontend
 			};
 
 		public:
-			Element(const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(const std::string &name, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(std::string &&name, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
+			Element(const eCategory category = eCategory::tUnknown, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
+			Element(const std::string &name, const eCategory category = eCategory::tUnknown, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
+			Element(std::string &&name, const eCategory category = eCategory::tUnknown, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
 			Element(const std::string &name, const std::string &type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
 			Element(std::string &&name, const std::string &type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
 			Element(std::string &&name, std::string &&type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
@@ -61,6 +62,10 @@ namespace XSDFrontend
 
 			inline void setCategory(const eCategory &category) { m_category = category; }
 			inline const eCategory getCategory(void) const { return m_category; }
+
+			inline void setSubstitutionGroup(const std::string &name) { m_substitutionGroup.assign(name); }
+			inline void setSubstitutionGroup(std::string &&name) { m_substitutionGroup.assign(std::move(name)); }
+			inline const std::string &getSubstitutionGroup(void) const { return m_substitutionGroup; }
 
 			inline void setForm(const eForm form) { m_form = form; }
 			inline const eForm getForm(void) const { return m_form; }
@@ -82,6 +87,7 @@ namespace XSDFrontend
 
 		private:
 			eCategory m_category;
+			std::string m_substitutionGroup;
 
 			eForm m_form;
 			bool m_nillable;

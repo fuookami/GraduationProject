@@ -25,7 +25,7 @@ namespace XSDFrontend
 		static const std::string AllTag = XSDTagPrefix + "all";
 		static const std::string ChoiceTag = XSDTagPrefix + "choice";
 		static const std::string SequenceTag = XSDTagPrefix + "sequence";
-		static const std::string CompleyTypeTag = XSDTagPrefix + "complexType";
+		static const std::string ComplexTypeTag = XSDTagPrefix + "complexType";
 		static const std::string SimpleContentTag = XSDTagPrefix + "simpleContent";
 		static const std::string ComplexContentTag = XSDTagPrefix + "complexContent";
 		static const std::string ElementTag = XSDTagPrefix + "element";
