@@ -1,5 +1,7 @@
 #pragma once
 
+#include "XMLUtils.h"
+
 namespace XSDFrontend
 {
 	namespace SimpleType
@@ -30,6 +32,8 @@ namespace XSDFrontend
 			const bool setMaxLengthValidator(const int maxLength);
 			inline void removeMaxLengthValidator(void) { setMaxLengthValidator(NoLengthValidator); }
 			inline const int getMaxLengthValidator(void) const { return m_maxLength; }
+
+			void refreshLengthLimitConfiguration(const XMLUtils::XMLNode &node);
 
 		private:
 			int m_minLength;

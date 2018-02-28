@@ -36,10 +36,17 @@ namespace XSDFrontend
 		static const std::string ListTag = XSDTagPrefix + "list";
 		static const std::string UnionTag = XSDTagPrefix + "union";
 
+		static const std::string MinExclusiveTag = XSDTagPrefix + "minExclusive";
+		static const std::string MinInclusiveTag = XSDTagPrefix + "minInclusive";
+		static const std::string MaxExclusiveTag = XSDTagPrefix + "maxExclusive";
+		static const std::string MaxInclusiveTag = XSDTagPrefix + "maxInclusive";
+		static const std::string TotalDigitsTag = XSDTagPrefix + "totalDigits";
+		static const std::string FractionDigitsTag = XSDTagPrefix + "FractionDigits";
 		static const std::string LengthValidatorTag = XSDTagPrefix + "length";
 		static const std::string MinLengthValidatorTag = XSDTagPrefix + "minLength";
 		static const std::string MaxLengthValidatorTag = XSDTagPrefix + "maxLength";
 		static const std::string EnumValidatorTag = XSDTagPrefix + "enumeration";
+		static const std::string WhiteSpaceTag = XSDTagPrefix + "whiteSpace";
 		static const std::string PatternTag = XSDTagPrefix + "pattern";
 
 		static const std::string NameAttr("name");
@@ -47,6 +54,7 @@ namespace XSDFrontend
 		static const std::string BaseTypeAttr("base");
 		static const std::string ReferenceAttr("ref");
 		static const std::string SchemaLocationAttr("schemaLocation");
+		static const std::string ValueAttr("value");
 
 		static const std::string ListItemTypeAttr("itemTypes");
 		static const std::string UnionItemTypeAttr("memberTypes");

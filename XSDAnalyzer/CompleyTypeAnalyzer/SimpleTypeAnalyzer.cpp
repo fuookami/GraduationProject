@@ -39,6 +39,17 @@ namespace XSDAnalyzer
 				{
 					return EmptyString;
 				}
+
+				auto type(m_simpleTypeModel->getSimpleType(typeName));
+				if (type != nullptr
+					&& node.hasChild(XSDFrontend::Token::WhiteSpaceTag))
+				{
+					const auto &whiteSpaceNode(node.getChildren()[node.findChild(typeName)]);
+					if (whiteSpaceNode.hasAttr(XSDFrontend::Token::ValueAttr))
+					{
+						type->setWhiteSpace(XSDFrontend::SimpleType::WhiteSpaceString2WhiteSpace.find(whiteSpaceNode.getAttr(XSDFrontend::Token::ValueAttr))->second);
+					}
+				}
 			}
 			else if (node.getTag() == XSDFrontend::Token::ListTag)
 			{

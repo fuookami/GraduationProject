@@ -70,6 +70,10 @@ namespace XSDFrontend
 			inline const eDerivedType getDeriveType(void) { return m_deriveType; }
 			inline const std::string &getBaseTypeName(void) { return m_baseTypeName; }
 
+			inline void setAttributeGroupName(const std::string &attributeGroupName) { m_attributeGroup.assign(attributeGroupName); }
+			inline void setAttributeGroupName(const std::string &&attributeGroupName) { m_attributeGroup.assign(std::move(attributeGroupName)); }
+			inline const std::string &getAttributeGroupName(void) const { return m_attributeGroup; }
+
 		private:
 			eComplexType m_type;
 
@@ -81,6 +85,7 @@ namespace XSDFrontend
 
 			eDerivedType m_deriveType;
 			std::string m_baseTypeName;
+			std::string m_attributeGroup;
 		};
 	};
 };

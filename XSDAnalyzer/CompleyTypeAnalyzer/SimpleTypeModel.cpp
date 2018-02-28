@@ -5,10 +5,20 @@
 
 namespace XSDFrontend
 {
+	std::shared_ptr<SimpleType::StringType> SimpleTypeModel::getStringType(const std::string & typeName)
+	{
+		auto it(m_stringTypes.find(typeName));
+		return it != m_stringTypes.cend() ? it->second : nullptr;
+	}
 	const std::shared_ptr<SimpleType::StringType> SimpleTypeModel::getStringType(const std::string & typeName) const
 	{
 		auto it(m_stringTypes.find(typeName));
 		return it != m_stringTypes.cend() ? it->second : nullptr;
+	}
+
+	std::shared_ptr<SimpleType::NumberType> SimpleTypeModel::getNumberType(const std::string & typeName)
+	{
+		return std::shared_ptr<SimpleType::NumberType>();
 	}
 
 	const std::shared_ptr<SimpleType::NumberType> SimpleTypeModel::getNumberType(const std::string & typeName) const
@@ -17,10 +27,20 @@ namespace XSDFrontend
 		return it != m_numberTypes.cend() ? it->second : nullptr;
 	}
 
+	std::shared_ptr<SimpleType::DatetimeType> SimpleTypeModel::getDatetimeType(const std::string & typeName)
+	{
+		return std::shared_ptr<SimpleType::DatetimeType>();
+	}
+
 	const std::shared_ptr<SimpleType::DatetimeType> SimpleTypeModel::getDatetimeType(const std::string & typeName) const
 	{
 		auto it(m_datetimeTypes.find(typeName));
 		return it != m_datetimeTypes.cend() ? it->second : nullptr;
+	}
+
+	std::shared_ptr<SimpleType::DataType> SimpleTypeModel::getDataType(const std::string & typeName)
+	{
+		return std::shared_ptr<SimpleType::DataType>();
 	}
 
 	const std::shared_ptr<SimpleType::DataType> SimpleTypeModel::getDataType(const std::string & typeName) const
@@ -29,10 +49,20 @@ namespace XSDFrontend
 		return it != m_dataTypes.cend() ? it->second : nullptr;
 	}
 
+	std::shared_ptr<SimpleType::ContainerType> SimpleTypeModel::getContainerType(const std::string & typeName)
+	{
+		return std::shared_ptr<SimpleType::ContainerType>();
+	}
+
 	const std::shared_ptr<SimpleType::ContainerType> SimpleTypeModel::getContainerType(const std::string & typeName) const
 	{
 		auto it(m_containerTypes.find(typeName));
 		return it != m_containerTypes.cend() ? it->second : nullptr;
+	}
+
+	SimpleType::ISimpleTypeInterface * SimpleTypeModel::getSimpleType(const std::string & typeName)
+	{
+		return nullptr;
 	}
 
 	const SimpleType::ISimpleTypeInterface * SimpleTypeModel::getSimpleType(const std::string & typeName) const

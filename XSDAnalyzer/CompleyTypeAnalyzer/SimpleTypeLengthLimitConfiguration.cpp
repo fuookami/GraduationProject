@@ -32,5 +32,9 @@ namespace XSDFrontend
 
 			return false;
 		}
+
+		void LengthLimitConfiguration::refreshLengthLimitConfiguration(const XMLUtils::XMLNode & node)
+		{
+		}
 	};
 };

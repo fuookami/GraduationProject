@@ -6,19 +6,19 @@ namespace XSDFrontend
 	{
 		SimpleContent::SimpleContent(void)
 			: IComplexTypeInterface(eComplexType::tSimpleContent), 
-			m_simpleTypeName(), m_attributeGroupName()
+			m_simpleTypeName()
 		{
 		}
 
 		SimpleContent::SimpleContent(const std::string & name)
 			: IComplexTypeInterface(name, eComplexType::tSimpleContent), 
-			m_simpleTypeName(), m_attributeGroupName()
+			m_simpleTypeName()
 		{
 		}
 
 		SimpleContent::SimpleContent(std::string && name)
 			: IComplexTypeInterface(std::move(name), eComplexType::tSimpleContent), 
-			m_simpleTypeName(), m_attributeGroupName()
+			m_simpleTypeName()
 		{
 		}
 	};

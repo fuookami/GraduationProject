@@ -30,7 +30,7 @@ namespace XSDAnalyzer
 			return false;
 		}
 
-		auto xml(XMLUtils::scanXMLFile<StringConvertUtils::StringCodeId::UTF8>(fileUrl));
+		auto xml(XMLUtils::scanXMLFile<StringConvertUtils::CharType::UTF8>(fileUrl));
 		
 		if (!(xml.size() == 1) || !(xml.front().getTag() == XSDFrontend::Token::SchemaTag))
 		{
@@ -177,15 +177,6 @@ namespace XSDAnalyzer
 					}
 				}
 			}
-
-// 			for (const auto &needToken : tokens[i].second)
-// 			{
-// 				if (m_xsdModel->hasToken(needToken))
-// 				{
-// 					ret[i].insert(-1);
-// 					break;
-// 				}
-// 			}
 		}
 
 		return ret;

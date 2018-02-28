@@ -453,6 +453,12 @@ namespace XSDAnalyzer
 			? XSDFrontend::ComplexType::IComplexTypeInterface::eDerivedType::tExtension
 			: XSDFrontend::ComplexType::IComplexTypeInterface::eDerivedType::tRestriction
 			, baseTypeName);
+
+		auto attributeGroup(ref_attributeAnalyzer.get().scanAttributeGroup(node));
+		if (attributeGroup != nullptr)
+		{
+			type->setAttributeGroupName(attributeGroup->getName());
+		}
 		return true;
 	}
 
@@ -475,11 +481,7 @@ namespace XSDAnalyzer
 
 	const bool ComplexTypeAnalyzer::loadSimpleContent(std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> type, const XMLUtils::XMLNode & node)
 	{
-		auto attributeGroup(ref_attributeAnalyzer.get().scanAttributeGroup(node));
-		if (attributeGroup != nullptr)
-		{
-			type->setAttributeGroupName(attributeGroup->getName());
-		}
+
 
 		return true;
 	}

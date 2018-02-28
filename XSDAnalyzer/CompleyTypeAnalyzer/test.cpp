@@ -11,7 +11,7 @@ void testXMLUtils(void)
 
 	std::string fileUrl("SCL_Enums.xsd");
 
-	auto nodes(XMLUtils::scanXMLFile<StringConvertUtils::StringCodeId::UTF8>(fileUrl));
+	auto nodes(XMLUtils::scanXMLFile<StringConvertUtils::CharType::UTF8>(fileUrl));
 
 	return;
 }

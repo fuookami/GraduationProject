@@ -23,7 +23,7 @@ namespace XSDFrontend
 
 		void StringType::refreshValidator(const XMLUtils::XMLNode & node)
 		{
-			//! to do
+			refreshLengthLimitConfiguration(node);
 		}
 	};
 };

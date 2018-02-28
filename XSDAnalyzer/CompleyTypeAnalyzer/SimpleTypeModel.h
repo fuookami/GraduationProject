@@ -18,26 +18,32 @@ namespace XSDFrontend
 		SimpleTypeModel &operator=(SimpleTypeModel &&rhs) = delete;
 		~SimpleTypeModel(void) = default;
 
+		std::shared_ptr<SimpleType::StringType> getStringType(const std::string &typeName);
 		const std::shared_ptr<SimpleType::StringType> getStringType(const std::string &typeName) const;
 		inline std::map<std::string, std::shared_ptr<SimpleType::StringType>> &getStringTypes(void) { return m_stringTypes; }
 		inline const std::map<std::string, std::shared_ptr<SimpleType::StringType>> &getStringTypes(void) const { return m_stringTypes; }
 
+		std::shared_ptr<SimpleType::NumberType> getNumberType(const std::string &typeName);
 		const std::shared_ptr<SimpleType::NumberType> getNumberType(const std::string &typeName) const;
 		inline std::map<std::string, std::shared_ptr<SimpleType::NumberType>> &getNumberTypes(void) { return m_numberTypes; }
 		inline const std::map<std::string, std::shared_ptr<SimpleType::NumberType>> &getNumberTypes(void) const { return m_numberTypes; }
 
+		std::shared_ptr<SimpleType::DatetimeType> getDatetimeType(const std::string &typeName);
 		const std::shared_ptr<SimpleType::DatetimeType> getDatetimeType(const std::string &typeName) const;
 		inline std::map<std::string, std::shared_ptr<SimpleType::DatetimeType>> &getDatetimeTypes(void) { return m_datetimeTypes; }
 		inline const std::map<std::string, std::shared_ptr<SimpleType::DatetimeType>> &getDatetimeTypes(void) const { return m_datetimeTypes; }
 
+		std::shared_ptr<SimpleType::DataType> getDataType(const std::string &typeName);
 		const std::shared_ptr<SimpleType::DataType> getDataType(const std::string &typeName) const;
 		inline std::map<std::string, std::shared_ptr<SimpleType::DataType>> &getDataTypes(void) { return m_dataTypes; }
 		inline const std::map<std::string, std::shared_ptr<SimpleType::DataType>> &getDataTypes(void) const { return m_dataTypes; }
 
+		std::shared_ptr<SimpleType::ContainerType> getContainerType(const std::string &typeName);
 		const std::shared_ptr<SimpleType::ContainerType> getContainerType(const std::string &typeName) const;
 		inline std::map<std::string, std::shared_ptr<SimpleType::ContainerType>> &getContainerTypes(void) { return m_containerTypes; }
 		inline const std::map<std::string, std::shared_ptr<SimpleType::ContainerType>> &getContainerTypes(void) const { return m_containerTypes; }
 
+		SimpleType::ISimpleTypeInterface *getSimpleType(const std::string &typeName);
 		const SimpleType::ISimpleTypeInterface *getSimpleType(const std::string &typeName) const;
 		inline std::map<std::string, SimpleType::ISimpleTypeInterface *> &getSimpleTypes(void) { return m_simpleTypes; }
 		inline const std::map<std::string, SimpleType::ISimpleTypeInterface *> &getSimpleTypes(void) const { return m_simpleTypes; }

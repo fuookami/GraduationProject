@@ -8,7 +8,7 @@ namespace XSDFrontend
 			: IXSDNamedElementInterface(), 
 			m_type(type), m_abstract(false), m_mixed(false), 
 			m_block(eBlock::tNone), m_final(eFinal::tNone), 
-			m_deriveType(eDerivedType::tNone), m_baseTypeName()
+			m_deriveType(eDerivedType::tNone), m_baseTypeName(), m_attributeGroup()
 		{
 		}
 
@@ -16,7 +16,7 @@ namespace XSDFrontend
 			: IXSDNamedElementInterface(name), 
 			m_type(type), m_abstract(false), m_mixed(false),
 			m_block(eBlock::tNone), m_final(eFinal::tNone), 
-			m_deriveType(eDerivedType::tNone), m_baseTypeName()
+			m_deriveType(eDerivedType::tNone), m_baseTypeName(), m_attributeGroup()
 		{
 		}
 
@@ -24,7 +24,7 @@ namespace XSDFrontend
 			: IXSDNamedElementInterface(std::move(name)), 
 			m_type(type), m_abstract(false), m_mixed(false),
 			m_block(eBlock::tNone), m_final(eFinal::tNone), 
-			m_deriveType(eDerivedType::tNone), m_baseTypeName()
+			m_deriveType(eDerivedType::tNone), m_baseTypeName(), m_attributeGroup()
 		{
 		}
 	};
