@@ -1,6 +1,8 @@
 #pragma once
 
 #include <set>
+#include <functional>
+#include "XMLUtils.h"
 
 namespace XSDFrontend
 {
@@ -28,6 +30,10 @@ namespace XSDFrontend
 			virtual ~ValueEnumrationConfiguration(void) = default;
 
 		public:
+			using TranslateFunction = std::function<T(const std::string &)>;
+			static const TranslateFunction translator;
+
+		public:
 			inline void setIsEnum(const bool isEnum) { m_isEnum = isEnum; }
 			inline const bool getIsEnum(void) const { return m_isEnum; }
 
@@ -38,9 +44,17 @@ namespace XSDFrontend
 			inline const bool hasEnumValue(const T &enumValue) const { return m_enumValues.find(enumValue) != m_enumValues.cend(); }
 			inline const std::set<T, _ValueTypeCompare> &getEnumValues(void) const { return m_enumValues; }
 
+			
+			void refreshValueEnumrationConfiguration(const XMLUtils::XMLNode &node);
+
 		private:
 			bool m_isEnum;
 			std::set<T, _ValueTypeCompare> m_enumValues;
 		};
+
+		template<typename T>
+		inline void ValueEnumrationConfiguration<T>::refreshValueEnumrationConfiguration(const XMLUtils::XMLNode & node)
+		{
+		}
 	};
 };

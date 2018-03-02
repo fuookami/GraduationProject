@@ -1,5 +1,6 @@
-#include "ElementGroup.h"
 #pragma once
+
+#include "XMLUtils.h"
 
 namespace XSDFrontend
 {
@@ -38,6 +39,10 @@ namespace XSDFrontend
 			virtual ~ValueLimitConfiguration(void) = default;
 
 		public:
+			using TranslateFunction = std::function<T(const std::string &)>;
+			static const TranslateFunction translator;
+
+		public:
 			inline void setMaxExclusive(const T &maxExclusive) { m_maxExclusive.set(maxExclusive); m_maxInclusive.clear(); }
 			inline void setMaxExclusive(T &&maxExclusive) { m_maxExclusive.set(std::move(maxExclusive)); m_maxInclusive.clear(); }
 			inline void removeMaxExclusive(void) { m_maxExclusive.clear(); m_maxExclusive = NoValueValidator; }
@@ -61,6 +66,8 @@ namespace XSDFrontend
 			inline void removeMinInclusive(void) { m_minInclusive.clear(); m_minInclusive = NoValueValidator; }
 			inline const bool hasMinInclusive(void) const { return m_minInclusive.enabled; }
 			inline const T &getMinInclusive(void) const { return m_minInclusive.value; }
+
+			void refreshValueLimitConfiguration(const XMLUtils::XMLNode &node);
 
 		private:
 			ValueType m_maxExclusive;
@@ -88,6 +95,11 @@ namespace XSDFrontend
 		inline void typename ValueLimitConfiguration<T>::ValueType::clear(void)
 		{
 			enabled = false;
+		}
+
+		template<typename T>
+		inline void ValueLimitConfiguration<T>::refreshValueLimitConfiguration(const XMLUtils::XMLNode & node)
+		{
 		}
 	};
 };

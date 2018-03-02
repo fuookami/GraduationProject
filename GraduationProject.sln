@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SSDConfigurator", "SSDConfigurator\SSDConfigurator.vcxproj", "{D6B791D1-A971-4627-BAE7-7DE92A12254D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XSDAnalyzer", "XSDAnalyzer", "{A3ACD77C-83D9-439B-B186-163D7AFA91D0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BaseTypeAnalyzer", "XSDAnalyzer\BaseTypeAnalyzer\BaseTypeAnalyzer.vcxproj", "{12454E6C-F7B1-4798-9918-AD85728D90CF}"
@@ -26,14 +24,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D6B791D1-A971-4627-BAE7-7DE92A12254D}.Debug|x64.ActiveCfg = Debug|x64
-		{D6B791D1-A971-4627-BAE7-7DE92A12254D}.Debug|x64.Build.0 = Debug|x64
-		{D6B791D1-A971-4627-BAE7-7DE92A12254D}.Debug|x86.ActiveCfg = Debug|Win32
-		{D6B791D1-A971-4627-BAE7-7DE92A12254D}.Debug|x86.Build.0 = Debug|Win32
-		{D6B791D1-A971-4627-BAE7-7DE92A12254D}.Release|x64.ActiveCfg = Release|x64
-		{D6B791D1-A971-4627-BAE7-7DE92A12254D}.Release|x64.Build.0 = Release|x64
-		{D6B791D1-A971-4627-BAE7-7DE92A12254D}.Release|x86.ActiveCfg = Release|Win32
-		{D6B791D1-A971-4627-BAE7-7DE92A12254D}.Release|x86.Build.0 = Release|Win32
 		{12454E6C-F7B1-4798-9918-AD85728D90CF}.Debug|x64.ActiveCfg = Debug|x64
 		{12454E6C-F7B1-4798-9918-AD85728D90CF}.Debug|x64.Build.0 = Debug|x64
 		{12454E6C-F7B1-4798-9918-AD85728D90CF}.Debug|x86.ActiveCfg = Debug|Win32

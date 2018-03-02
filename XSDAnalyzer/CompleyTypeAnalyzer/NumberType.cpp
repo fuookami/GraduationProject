@@ -6,6 +6,9 @@ namespace XSDFrontend
 	{
 		const NumberVariant ValueLimitConfiguration<NumberVariant>::NoValueValidator = NumberVariant();
 
+		const ValueLimitConfiguration<NumberVariant>::TranslateFunction ValueLimitConfiguration<NumberVariant>::translator = XSDString2NumberVairant;
+		const ValueEnumrationConfiguration<NumberVariant>::TranslateFunction ValueEnumrationConfiguration<NumberVariant>::translator = XSDString2NumberVairant;
+
 		NumberType::NumberType(void)
 			: NumberType("")
 		{
@@ -26,6 +29,12 @@ namespace XSDFrontend
 		void NumberType::refreshValidator(const XMLUtils::XMLNode & node)
 		{
 			//! to do
+		}
+
+		NumberVariant XSDString2NumberVairant(const std::string & str)
+		{
+			//! to do
+			return NumberVariant();
 		}
 	};
 };

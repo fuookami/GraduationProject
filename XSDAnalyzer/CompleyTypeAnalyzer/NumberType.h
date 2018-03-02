@@ -85,5 +85,7 @@ namespace XSDFrontend
 			std::make_pair(std::string("unsignedShort"), NumberType::eBaseType::tUnsignedShort),
 			std::make_pair(std::string("unsignedBytes"), NumberType::eBaseType::tUnsignedByte)
 		};
+
+		NumberVariant XSDString2NumberVairant(const std::string &str);
 	}
 };

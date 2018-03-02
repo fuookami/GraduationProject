@@ -1,4 +1,5 @@
 #include "StringType.h"
+#include "StringUtils.h"
 
 namespace XSDFrontend
 {

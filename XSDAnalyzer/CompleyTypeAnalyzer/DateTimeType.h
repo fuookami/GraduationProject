@@ -60,5 +60,7 @@ namespace XSDFrontend
 			std::make_pair(std::string("gDay"), DatetimeType::eBaseType::gDay),
 			std::make_pair(std::string("duration"), DatetimeType::eBaseType::tDuration)
 		};
+
+		DatetimeUtils::Datetime XSDString2Datetime(const std::string &str);
 	};
 };

@@ -6,7 +6,10 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
-		const DatetimeUtils::Datetime ValueLimitConfiguration<DatetimeUtils::Datetime>::NoValueValidator(INT16_MIN, static_cast<unsigned char>(0), static_cast<unsigned char>(0), static_cast<unsigned char>(0), static_cast<unsigned char>(0), static_cast<unsigned char>(0));
+		const DatetimeUtils::Datetime ValueLimitConfiguration<DatetimeUtils::Datetime>::NoValueValidator(DatetimeUtils::Datetime::EmptyDatetime);
+
+		const ValueLimitConfiguration<DatetimeUtils::Datetime>::TranslateFunction ValueLimitConfiguration<DatetimeUtils::Datetime>::translator = XSDString2NumberVairant;
+		const ValueEnumrationConfiguration<DatetimeUtils::Datetime>::TranslateFunction ValueEnumrationConfiguration<DatetimeUtils::Datetime>::translator = XSDString2NumberVairant;
 
 		DatetimeType::DatetimeType(void)
 			: DatetimeType("")
@@ -28,6 +31,12 @@ namespace XSDFrontend
 		void DatetimeType::refreshValidator(const XMLUtils::XMLNode & node)
 		{
 			//! to do
+		}
+
+		DatetimeUtils::Datetime XSDString2Datetime(const std::string & str)
+		{
+			//! to do
+			return DatetimeUtils::Datetime();
 		}
 	};
 };
