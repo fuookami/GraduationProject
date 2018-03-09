@@ -45,7 +45,7 @@ namespace XSDFrontend
 			StringType &operator=(StringType &&rhs) = default;
 			~StringType(void) = default;
 
-			void refreshValidator(const XMLUtils::XMLNode &node) override;
+			const bool refreshValidator(const XMLUtils::XMLNode &node) override;
 
 			inline void setBaseType(const eBaseType baseType) { m_baseType = baseType; }
 			inline const eBaseType getBaseType(void) const { return m_baseType; }
@@ -79,5 +79,7 @@ namespace XSDFrontend
 			std::make_pair(std::string("NMTOKENS"), StringType::eBaseType::tNMTokens),
 			std::make_pair(std::string("anyURI"), StringType::eBaseType::tAnyURI)
 		};
+
+		std::string XSDString2String(const std::string &str);
 	};
 };

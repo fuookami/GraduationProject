@@ -44,7 +44,6 @@ namespace XSDFrontend
 			inline const bool hasEnumValue(const T &enumValue) const { return m_enumValues.find(enumValue) != m_enumValues.cend(); }
 			inline const std::set<T, _ValueTypeCompare> &getEnumValues(void) const { return m_enumValues; }
 
-			
 			void refreshValueEnumrationConfiguration(const XMLUtils::XMLNode &node);
 
 		private:
@@ -55,6 +54,20 @@ namespace XSDFrontend
 		template<typename T>
 		inline void ValueEnumrationConfiguration<T>::refreshValueEnumrationConfiguration(const XMLUtils::XMLNode & node)
 		{
+			if (node.hasChild(XSDFrontend::Token::EnumValidatorTag))
+			{
+				m_isEnum = true;
+
+				std::for_each(node.getChildren().cbegin(), node.getChildren().cend(), 
+					[this](const XMLUtils::XMLNode &node) 
+				{
+					if (node.getTag() == XSDFrontend::Token::EnumValidatorTag
+						&& node.hasAttr(XSDFrontend::Token::ValueAttr))
+					{
+						this->addEnumValue(node.getAttr(XSDFrontend::Token::ValueAttr));
+					}
+				});
+			}
 		}
 	};
 };

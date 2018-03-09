@@ -53,11 +53,14 @@ namespace XSDAnalyzer
 
 			std::shared_ptr<T> newType(new T(typeName, type));
 			XSDFrontend::SimpleType::ISimpleTypeInterface *INewType(dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(newType.get()));
-			INewType->refreshValidator(node);
+			bool ok(INewType->refreshValidator(node)));
+			if (ok)
+			{
+				types.insert(std::make_pair(typeName, newType));
+				m_simpleTypeModel->getSimpleTypes().insert(std::make_pair(typeName, INewType));
+			}
 
-			types.insert(std::make_pair(typeName, newType));
-			m_simpleTypeModel->getSimpleTypes().insert(std::make_pair(typeName, INewType));
-			return true;
+			return ok;
 		}
 
 		template<typename T, typename U>
@@ -90,12 +93,14 @@ namespace XSDAnalyzer
 			std::shared_ptr<T> newType(new T(typeName, (dynamic_cast<const T *>(prototypeSimpleType))->getBaseType()));
 			XSDFrontend::SimpleType::ISimpleTypeInterface *INewType(dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(newType.get()));
 			INewType->setBaseTypeName(prototypeSimpleType->getName());
-			INewType->refreshValidator(node);
+			bool ok(INewType->refreshValidator(node)));
+			if (ok)
+			{
+				types.insert(std::make_pair(typeName, newType));
+				m_simpleTypeModel->getSimpleTypes().insert(std::make_pair(typeName, INewType));
+			}
 
-			types.insert(std::make_pair(typeName, newType));
-			m_simpleTypeModel->getSimpleTypes().insert(std::make_pair(typeName, INewType));
-
-			return true;
+			return ok;
 		}
 
 	private:

@@ -21,7 +21,7 @@ namespace XSDFrontend
 		{
 		}
 
-		void ContainerType::refreshValidator(const XMLUtils::XMLNode & node)
+		const bool ContainerType::refreshValidator(const XMLUtils::XMLNode & node)
 		{
 			static const std::string EmptyString("");
 			static const std::map<eBaseType, std::string> ItemTypeAttrName =
@@ -35,6 +35,8 @@ namespace XSDFrontend
 
 			boost::split(baseTypeNames, baseTypeNamesPrototype, boost::is_any_of(StringUtils::getSpaceChars()));
 			m_baseTypeNames.insert(baseTypeNames.cbegin(), baseTypeNames.cend());
+
+			return true;
 		}
 	};
 };

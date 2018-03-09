@@ -152,11 +152,6 @@ NumberVariant::NumberVariant(const DataUtils::Data & data)
 {
 }
 
-const bool NumberVariant::set(const std::string & value)
-{
-	return false;
-}
-
 const bool NumberVariant::getBool(void) const
 {
 	try

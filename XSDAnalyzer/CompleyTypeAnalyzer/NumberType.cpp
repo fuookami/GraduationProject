@@ -1,4 +1,5 @@
 #include "NumberType.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -26,9 +27,33 @@ namespace XSDFrontend
 		{
 		}
 
-		void NumberType::refreshValidator(const XMLUtils::XMLNode & node)
+		const bool NumberType::refreshValidator(const XMLUtils::XMLNode & node)
 		{
-			//! to do
+			if (!refreshValueLimitConfiguration(node))
+			{
+				return false;
+			}
+			refreshValueEnumrationConfiguration(node);
+
+			if (node.hasChild(XSDFrontend::Token::FractionDigitsTag))
+			{
+				const auto &fractionDigitNode(node.getChildren()[node.findChild(XSDFrontend::Token::FractionDigitsTag)]);
+				if (fractionDigitNode.hasAttr(XSDFrontend::Token::ValueAttr))
+				{
+					setFractionDigits(std::stoi(fractionDigitNode.getAttr(XSDFrontend::Token::ValueAttr)));
+				}
+			}
+
+			if (node.hasChild(XSDFrontend::Token::TotalDigitsTag))
+			{
+				const auto &totalDigitNode(node.getChildren()[node.findChild(XSDFrontend::Token::TotalDigitsTag)]);
+				if (totalDigitNode.hasAttr(XSDFrontend::Token::ValueAttr))
+				{
+					setTotalDigits(std::stoi(totalDigitNode.getAttr(XSDFrontend::Token::ValueAttr)));
+				}
+			}
+
+			return true;
 		}
 
 		NumberVariant XSDString2NumberVairant(const std::string & str)

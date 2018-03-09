@@ -33,7 +33,7 @@ namespace XSDFrontend
 			inline void removeMaxLengthValidator(void) { setMaxLengthValidator(NoLengthValidator); }
 			inline const int getMaxLengthValidator(void) const { return m_maxLength; }
 
-			void refreshLengthLimitConfiguration(const XMLUtils::XMLNode &node);
+			const bool refreshLengthLimitConfiguration(const XMLUtils::XMLNode &node);
 
 		private:
 			int m_minLength;

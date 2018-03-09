@@ -21,9 +21,15 @@ namespace XSDFrontend
 		{
 		}
 
-		void DataType::refreshValidator(const XMLUtils::XMLNode & node)
+		const bool DataType::refreshValidator(const XMLUtils::XMLNode & node)
 		{
-			//! to do
+			if (!refreshLengthLimitConfiguration(node))
+			{
+				return false;
+			}
+			refreshValueEnumrationConfiguration(node);
+
+			return true;
 		}
 	};
 };

@@ -39,7 +39,7 @@ namespace XSDFrontend
 			DatetimeType &operator=(DatetimeType &&rhs) = default;
 			~DatetimeType(void) = default;
 
-			void refreshValidator(const XMLUtils::XMLNode &node) override;
+			const bool refreshValidator(const XMLUtils::XMLNode &node) override;
 
 			inline void setBaseType(const eBaseType baseType) { m_baseType = baseType; }
 			inline const eBaseType getBaseType(void) const { return m_baseType; }

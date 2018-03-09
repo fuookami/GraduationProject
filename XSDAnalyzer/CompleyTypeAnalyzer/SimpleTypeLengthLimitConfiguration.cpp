@@ -1,4 +1,5 @@
 #include "SimpleTypeLengthLimitConfiguration.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -33,8 +34,40 @@ namespace XSDFrontend
 			return false;
 		}
 
-		void LengthLimitConfiguration::refreshLengthLimitConfiguration(const XMLUtils::XMLNode & node)
+		const bool LengthLimitConfiguration::refreshLengthLimitConfiguration(const XMLUtils::XMLNode & node)
 		{
+			bool hasMaxLength(false);
+			int maxLength(NoLengthValidator);
+
+			bool hasMinLength(false);
+			int minLength(NoLengthValidator);
+
+			if (node.hasChild(XSDFrontend::Token::MaxLengthValidatorTag))
+			{
+				hasMaxLength = true;
+				maxLength = std::stoi(node.getChildren()[node.findChild(XSDFrontend::Token::MaxLengthValidatorTag)].getAttr(XSDFrontend::Token::ValueAttr));
+			}
+			if (node.hasChild(XSDFrontend::Token::MinLengthValidatorTag))
+			{
+				hasMinLength = true;
+				minLength = std::stoi(node.getChildren()[node.findChild(XSDFrontend::Token::MinLengthValidatorTag)].getAttr(XSDFrontend::Token::ValueAttr));
+			}
+
+			if (maxLength != NoLengthValidator && minLength > maxLength)
+			{
+				std::cerr << "定义的最小长度(" << minLength << ")大于最大值(" << maxLength << ")。";
+				return false;
+			}
+
+			if (hasMaxLength)
+			{
+				setMaxLengthValidator(maxLength);
+			}
+			if (hasMinLength)
+			{
+				setMinLengthValidator(minLength);
+			}
+			return true;
 		}
 	};
 };

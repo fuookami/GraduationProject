@@ -1,10 +1,13 @@
 #include "StringType.h"
 #include "StringUtils.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
 	namespace SimpleType
 	{
+		const ValueEnumrationConfiguration<std::string>::TranslateFunction ValueEnumrationConfiguration<std::string>::translator = XSDString2String;
+
 		StringType::StringType(void)
 			: StringType("")
 		{
@@ -22,9 +25,28 @@ namespace XSDFrontend
 		{
 		}
 
-		void StringType::refreshValidator(const XMLUtils::XMLNode & node)
+		const bool StringType::refreshValidator(const XMLUtils::XMLNode & node)
 		{
-			refreshLengthLimitConfiguration(node);
+			if (!refreshLengthLimitConfiguration(node))
+			{
+				return false;
+			}
+			refreshValueEnumrationConfiguration(node);
+			if (node.hasChild(XSDFrontend::Token::PatternTag))
+			{
+				const auto &patternNode(node.getChildren()[node.findChild(XSDFrontend::Token::PatternTag)]);
+				if (patternNode.hasAttr(XSDFrontend::Token::ValueAttr))
+				{
+					m_pattern.assign(patternNode.getAttr(XSDFrontend::Token::ValueAttr));
+				}
+			}
+
+			return true;
+		}
+
+		std::string XSDString2String(const std::string & str)
+		{
+			return str;
 		}
 	};
 };

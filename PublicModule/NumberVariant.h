@@ -231,7 +231,7 @@ public:
 	inline const bool set(const uint32 value) { return set(*this, value); }
 	inline const bool set(const int64 value) { return set(*this, value); }
 	inline const bool set(const uint64 value) { return set(*this, value); }
-	inline const bool set(const std::string &str) { assign(fromValueString(str)); }
+	inline const bool set(const std::string &str) { assign(fromValueString(str)); return true; }
 
 	template<typename T>
 	inline const T get(void) const { return get<T>(*this); }

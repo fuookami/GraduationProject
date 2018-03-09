@@ -8,8 +8,8 @@ namespace XSDFrontend
 	{
 		const DatetimeUtils::Datetime ValueLimitConfiguration<DatetimeUtils::Datetime>::NoValueValidator(DatetimeUtils::Datetime::EmptyDatetime);
 
-		const ValueLimitConfiguration<DatetimeUtils::Datetime>::TranslateFunction ValueLimitConfiguration<DatetimeUtils::Datetime>::translator = XSDString2NumberVairant;
-		const ValueEnumrationConfiguration<DatetimeUtils::Datetime>::TranslateFunction ValueEnumrationConfiguration<DatetimeUtils::Datetime>::translator = XSDString2NumberVairant;
+		const ValueLimitConfiguration<DatetimeUtils::Datetime>::TranslateFunction ValueLimitConfiguration<DatetimeUtils::Datetime>::translator = XSDString2Datetime;
+		const ValueEnumrationConfiguration<DatetimeUtils::Datetime>::TranslateFunction ValueEnumrationConfiguration<DatetimeUtils::Datetime>::translator = XSDString2Datetime;
 
 		DatetimeType::DatetimeType(void)
 			: DatetimeType("")
@@ -28,9 +28,15 @@ namespace XSDFrontend
 		{
 		}
 
-		void DatetimeType::refreshValidator(const XMLUtils::XMLNode & node)
+		const bool DatetimeType::refreshValidator(const XMLUtils::XMLNode & node)
 		{
-			//! to do
+			if (!refreshValueLimitConfiguration(node))
+			{
+				return false;
+			}
+			refreshValueEnumrationConfiguration(node);
+
+			return true;
 		}
 
 		DatetimeUtils::Datetime XSDString2Datetime(const std::string & str)
