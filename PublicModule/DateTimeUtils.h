@@ -7,32 +7,16 @@
 
 namespace DatetimeUtils
 {
-	static const std::array<unsigned char, 12> DaysOfMonth = 
-	{
-		31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
-	};
+	extern const std::array<unsigned char, 12> DaysOfMonth;
+	extern const std::array<std::string, 12> MonthShortName;
+	extern const std::array<std::string, 7> DayInWeekChineseName;
 
-	static const std::array<std::string, 12> MonthShortName = 
-	{
-		std::string("Jan"), std::string("Feb"), std::string("Mar"),
-		std::string("Apr"), std::string("May"), std::string("Jun"),
-		std::string("Jul"), std::string("Aug"), std::string("Sep"),
-		std::string("Oct"), std::string("Nov"), std::string("Dec")
-	};
-
-	static const std::array<std::string, 7> DayInWeekChineseName =
-	{
-		std::string("星期日"), std::string("星期一"), std::string("星期二"),
-		std::string("星期三"), std::string("星期四"), std::string("星期五"),
-		std::string("星期六")
-	};
-
-	static const unsigned short MillisecondsPerSecond = 1000;
-	static const unsigned short MicrosecondsPerMillisecond = 1000;
-	static const unsigned short SecondsPerHour = 3600;
-	static const unsigned short SecondsPerMinute = 60;
-	static const unsigned short MinutesPerHour = 60;
-	static const unsigned short HoursPerDay = 24;
+	extern const unsigned short MillisecondsPerSecond;
+	extern const unsigned short MicrosecondsPerMillisecond;
+	extern const unsigned short SecondsPerHour;
+	extern const unsigned short SecondsPerMinute;
+	extern const unsigned short MinutesPerHour;
+	extern const unsigned short HoursPerDay;
 
 	struct Date;
 	struct Time;
