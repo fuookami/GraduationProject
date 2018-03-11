@@ -4,6 +4,8 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
+		const ValueEnumrationConfiguration<DataUtils::Data>::TranslateFunction ValueEnumrationConfiguration<DataUtils::Data>::translator = XSDString2Data;
+
 		DataType::DataType(void)
 			: DataType("")
 		{
@@ -30,6 +32,11 @@ namespace XSDFrontend
 			refreshValueEnumrationConfiguration(node);
 
 			return true;
+		}
+
+		DataUtils::Data XSDString2Data(const std::string & str)
+		{
+			return DataUtils::Data(str.cbegin(), str.cend());
 		}
 	};
 };

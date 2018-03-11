@@ -53,7 +53,7 @@ namespace XSDAnalyzer
 
 			std::shared_ptr<T> newType(new T(typeName, type));
 			XSDFrontend::SimpleType::ISimpleTypeInterface *INewType(dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(newType.get()));
-			bool ok(INewType->refreshValidator(node)));
+			bool ok(INewType->refreshValidator(node));
 			if (ok)
 			{
 				types.insert(std::make_pair(typeName, newType));
@@ -93,7 +93,7 @@ namespace XSDAnalyzer
 			std::shared_ptr<T> newType(new T(typeName, (dynamic_cast<const T *>(prototypeSimpleType))->getBaseType()));
 			XSDFrontend::SimpleType::ISimpleTypeInterface *INewType(dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(newType.get()));
 			INewType->setBaseTypeName(prototypeSimpleType->getName());
-			bool ok(INewType->refreshValidator(node)));
+			bool ok(INewType->refreshValidator(node));
 			if (ok)
 			{
 				types.insert(std::make_pair(typeName, newType));

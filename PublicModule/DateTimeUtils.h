@@ -3,6 +3,7 @@
 #include <string>
 #include <array>
 #include <tuple>
+#include <ostream>
 
 namespace DatetimeUtils
 {
@@ -324,3 +325,6 @@ DatetimeUtils::TimeMs operator-(const DatetimeUtils::TimeMs &lhs, const Datetime
 const int operator-(const DatetimeUtils::Date &lhs, const DatetimeUtils::Date &rhs);
 DatetimeUtils::Time operator-(const DatetimeUtils::Datetime &lhs, const DatetimeUtils::Datetime &rhs);
 DatetimeUtils::TimeMs operator-(const DatetimeUtils::DatetimeMs &lhs, const DatetimeUtils::DatetimeMs &rhs);
+
+std::ostream &operator<<(std::ostream &os, const DatetimeUtils::Date &date);
+std::ostream &operator<<(std::ostream &os, const DatetimeUtils::Time &time);

@@ -6,6 +6,7 @@
 #include <boost/variant.hpp>
 #include <boost/numeric/conversion/cast.hpp>
 
+#include <ostream>
 #include <sstream>
 #include <typeinfo>
 #include <map>
@@ -276,3 +277,5 @@ private:
 	static const uint8 ValueDataOffset = 8;
 	static const uint8 ValueDataLength = 8;
 };
+
+std::ostream &operator<<(std::ostream &os, const NumberVariant &number);

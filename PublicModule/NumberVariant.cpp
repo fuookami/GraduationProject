@@ -717,3 +717,9 @@ const int operator!=(const NumberVariant & lhs, const NumberVariant & rhs)
 {
 	return lhs.m_value != rhs.m_value;
 }
+
+std::ostream & operator<<(std::ostream & os, const NumberVariant & number)
+{
+	os << number.getValueString();
+	return os;
+}

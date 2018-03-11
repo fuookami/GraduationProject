@@ -1,6 +1,7 @@
 #pragma once
 
 #include "XMLUtils.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -103,7 +104,7 @@ namespace XSDFrontend
 				}
 				else
 				{
-					maxValue=translator(node.getChildren()[node.findChild(XSDFrontend::Token::MaxInclusiveTag)].getAttr(XSDFrontend::Token::ValueAttr))
+					maxValue = translator(node.getChildren()[node.findChild(XSDFrontend::Token::MaxInclusiveTag)].getAttr(XSDFrontend::Token::ValueAttr));
 				}
 			}
 			

@@ -6,10 +6,10 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
-		const DatetimeUtils::Datetime ValueLimitConfiguration<DatetimeUtils::Datetime>::NoValueValidator(DatetimeUtils::Datetime::EmptyDatetime);
+		const DatetimeUtils::DatetimeMs ValueLimitConfiguration<DatetimeUtils::DatetimeMs>::NoValueValidator(DatetimeUtils::DatetimeMs::EmptyDatetime);
 
-		const ValueLimitConfiguration<DatetimeUtils::Datetime>::TranslateFunction ValueLimitConfiguration<DatetimeUtils::Datetime>::translator = XSDString2Datetime;
-		const ValueEnumrationConfiguration<DatetimeUtils::Datetime>::TranslateFunction ValueEnumrationConfiguration<DatetimeUtils::Datetime>::translator = XSDString2Datetime;
+		const ValueLimitConfiguration<DatetimeUtils::DatetimeMs>::TranslateFunction ValueLimitConfiguration<DatetimeUtils::DatetimeMs>::translator = XSDString2Datetime;
+		const ValueEnumrationConfiguration<DatetimeUtils::DatetimeMs>::TranslateFunction ValueEnumrationConfiguration<DatetimeUtils::DatetimeMs>::translator = XSDString2Datetime;
 
 		DatetimeType::DatetimeType(void)
 			: DatetimeType("")

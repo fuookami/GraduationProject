@@ -55,6 +55,8 @@ namespace XSDFrontend
 			eBaseType m_baseType;
 		};
 
+		DataUtils::Data XSDString2Data(const std::string &str);
+
 		static const std::map<std::string, DataType::eBaseType> DataBaseTypeName2Type =
 		{
 			std::make_pair(std::string("hexBinary"), DataType::eBaseType::tHexBinary),

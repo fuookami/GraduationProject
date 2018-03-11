@@ -3,6 +3,7 @@
 #include <set>
 #include <functional>
 #include "XMLUtils.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -64,7 +65,7 @@ namespace XSDFrontend
 					if (node.getTag() == XSDFrontend::Token::EnumValidatorTag
 						&& node.hasAttr(XSDFrontend::Token::ValueAttr))
 					{
-						this->addEnumValue(node.getAttr(XSDFrontend::Token::ValueAttr));
+						this->addEnumValue(translator(node.getAttr(XSDFrontend::Token::ValueAttr)));
 					}
 				});
 			}

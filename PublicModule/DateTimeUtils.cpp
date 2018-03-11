@@ -1303,3 +1303,15 @@ DatetimeUtils::TimeMs operator-(const DatetimeUtils::DatetimeMs & lhs, const Dat
 
 	return DatetimeUtils::TimeMs(static_cast<unsigned short>(disTime.hours()), static_cast<unsigned char>(disTime.minutes()), static_cast<unsigned char>(disTime.seconds()), static_cast<unsigned short>(disTime.fractional_seconds() / DatetimeUtils::MicrosecondsPerMillisecond));
 }
+
+std::ostream & operator<<(std::ostream & os, const DatetimeUtils::Date & date)
+{
+	os << date.toString();
+	return os;
+}
+
+std::ostream & operator<<(std::ostream & os, const DatetimeUtils::Time & time)
+{
+	os << time.toString();
+	return os;
+}
