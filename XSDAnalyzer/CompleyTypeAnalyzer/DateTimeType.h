@@ -48,18 +48,7 @@ namespace XSDFrontend
 			eBaseType m_baseType;
 		};
 
-		static const std::map<std::string, DatetimeType::eBaseType> DatetimeBaseTypeName2Type =
-		{
-			std::make_pair(std::string("date"), DatetimeType::eBaseType::tDate),
-			std::make_pair(std::string("time"), DatetimeType::eBaseType::tTime),
-			std::make_pair(std::string("dateTime"), DatetimeType::eBaseType::tDatetime),
-			std::make_pair(std::string("gYear"), DatetimeType::eBaseType::gYear),
-			std::make_pair(std::string("gYearMonth"), DatetimeType::eBaseType::gYearMonth),
-			std::make_pair(std::string("gMonth"), DatetimeType::eBaseType::gMonth),
-			std::make_pair(std::string("gMonthDay"), DatetimeType::eBaseType::gMonthDay),
-			std::make_pair(std::string("gDay"), DatetimeType::eBaseType::gDay),
-			std::make_pair(std::string("duration"), DatetimeType::eBaseType::tDuration)
-		};
+		extern const std::map<std::string, DatetimeType::eBaseType> DatetimeBaseTypeName2Type;
 
 		DatetimeUtils::Datetime XSDString2Datetime(const std::string &str);
 	};

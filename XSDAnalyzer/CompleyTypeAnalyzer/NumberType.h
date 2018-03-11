@@ -69,26 +69,7 @@ namespace XSDFrontend
 			int m_totalDigits;
 		};
 
-		static const std::map<std::string, NumberType::eBaseType> NumberBaseTypeName2Type = 
-		{
-			std::make_pair(std::string("boolean"), NumberType::eBaseType::tBoolean),
-			std::make_pair(std::string("float"), NumberType::eBaseType::tFloat),
-			std::make_pair(std::string("double"), NumberType::eBaseType::tDouble),
-			std::make_pair(std::string("decimal"), NumberType::eBaseType::tDecimal),
-			std::make_pair(std::string("integer"), NumberType::eBaseType::tInteger),
-			std::make_pair(std::string("nonPositiveInteger"), NumberType::eBaseType::tNonPositiveInteger),
-			std::make_pair(std::string("negativeInteger"), NumberType::eBaseType::tNegativeInteger),
-			std::make_pair(std::string("long"), NumberType::eBaseType::tLong),
-			std::make_pair(std::string("int"), NumberType::eBaseType::tInt),
-			std::make_pair(std::string("short"), NumberType::eBaseType::tShort),
-			std::make_pair(std::string("byte"), NumberType::eBaseType::tByte),
-			std::make_pair(std::string("nonNegativeInteger"), NumberType::eBaseType::tNonNegativeInteger),
-			std::make_pair(std::string("positiveInteger"), NumberType::eBaseType::tPositiveInteger),
-			std::make_pair(std::string("unsignedLong"), NumberType::eBaseType::tUnsignedLong),
-			std::make_pair(std::string("unsignedInt"), NumberType::eBaseType::tUnsignedInt),
-			std::make_pair(std::string("unsignedShort"), NumberType::eBaseType::tUnsignedShort),
-			std::make_pair(std::string("unsignedBytes"), NumberType::eBaseType::tUnsignedByte)
-		};
+		extern const std::map<std::string, NumberType::eBaseType> NumberBaseTypeName2Type;
 
 		NumberVariant XSDString2NumberVairant(const std::string &str);
 	}

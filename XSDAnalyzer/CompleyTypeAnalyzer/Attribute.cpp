@@ -27,5 +27,18 @@ namespace XSDFrontend
 			m_form(form), m_use(use)
 		{
 		}
+
+		const std::map<std::string, Attribute::eForm> FormString2Form =
+		{
+			std::make_pair(std::string("qualified"), Attribute::eForm::Qualified),
+			std::make_pair(std::string("unqualified"), Attribute::eForm::Unqualified)
+		};
+
+		const std::map<std::string, Attribute::eUse> UseString2Use =
+		{
+			std::make_pair(std::string("optional"), Attribute::eUse::Optional),
+			std::make_pair(std::string("required"), Attribute::eUse::Required),
+			std::make_pair(std::string("prohibited"), Attribute::eUse::Prohibited),
+		};
 	};
 };

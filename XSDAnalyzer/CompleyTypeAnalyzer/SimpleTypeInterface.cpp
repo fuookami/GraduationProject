@@ -21,5 +21,12 @@ namespace XSDFrontend
 			m_type(type), m_whiteSpace(whitSpace), m_baseTypeName()
 		{
 		}
+
+		const std::map<std::string, ISimpleTypeInterface::eWhiteSpace> WhiteSpaceString2WhiteSpace =
+		{
+			std::make_pair(std::string("preserve"), ISimpleTypeInterface::eWhiteSpace::Preserve),
+			std::make_pair(std::string("replace"), ISimpleTypeInterface::eWhiteSpace::Replace),
+			std::make_pair(std::string("collapse"), ISimpleTypeInterface::eWhiteSpace::Collapse)
+		};
 	};
 };

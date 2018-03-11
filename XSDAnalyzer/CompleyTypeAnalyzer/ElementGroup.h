@@ -91,11 +91,6 @@ namespace XSDFrontend
 			std::vector<ValueType> m_vals;
 		};
 
-		static const std::map<std::string, ElementGroup::eElementGroupType> ElementGroupTag2Type = 
-		{
-			std::make_pair(Token::SequenceTag, ElementGroup::eElementGroupType::tSequence),
-			std::make_pair(Token::ChoiceTag, ElementGroup::eElementGroupType::tChoice),
-			std::make_pair(Token::AllTag, ElementGroup::eElementGroupType::tAll)
-		};
+		extern const std::map<std::string, ElementGroup::eElementGroupType> ElementGroupTag2Type;
 	};
 };

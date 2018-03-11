@@ -254,6 +254,9 @@
     <ClCompile Include="ComplexTypeModel.cpp">
       <Filter>源文件\XSDFrontend\ComplexType</Filter>
     </ClCompile>
+    <ClCompile Include="AnyAttribute.cpp">
+      <Filter>源文件\XSDFrontend\Attribute</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

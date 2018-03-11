@@ -34,6 +34,12 @@ namespace XSDFrontend
 			return true;
 		}
 
+		const std::map<std::string, DataType::eBaseType> DataBaseTypeName2Type =
+		{
+			std::make_pair(std::string("hexBinary"), DataType::eBaseType::tHexBinary),
+			std::make_pair(std::string("base64Binary"), DataType::eBaseType::tBase64Binary)
+		};
+
 		DataUtils::Data XSDString2Data(const std::string & str)
 		{
 			return DataUtils::Data(str.cbegin(), str.cend());

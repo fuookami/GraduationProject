@@ -167,6 +167,7 @@
     <ClInclude Include="XSDToken.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnyAttribute.cpp" />
     <ClCompile Include="AnyElement.cpp" />
     <ClCompile Include="AttributeGroup.cpp" />
     <ClCompile Include="Attribute.cpp" />
