@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XSDAnalyzer", "XSDAnalyzer", "{A3ACD77C-83D9-439B-B186-163D7AFA91D0}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PublicModule", "PublicModule\PublicModule.vcxitems", "{A38F60FE-2AE0-4543-B0D4-D9E2173B74A0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CompleyTypeAnalyzer", "XSDAnalyzer\CompleyTypeAnalyzer\CompleyTypeAnalyzer.vcxproj", "{4233E0A3-B03D-4E69-92DA-6AA2E17DADD7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisualExperimentalDesignAids", "VisualExperimentalDesignAids\VisualExperimentalDesignAids.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -40,6 +42,12 @@ Global
 		{4233E0A3-B03D-4E69-92DA-6AA2E17DADD7}.Release|x64.Build.0 = Release|x64
 		{4233E0A3-B03D-4E69-92DA-6AA2E17DADD7}.Release|x86.ActiveCfg = Release|Win32
 		{4233E0A3-B03D-4E69-92DA-6AA2E17DADD7}.Release|x86.Build.0 = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.ActiveCfg = Debug|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x64.Build.0 = Debug|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|x86.ActiveCfg = Debug|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.ActiveCfg = Release|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x64.Build.0 = Release|x64
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
