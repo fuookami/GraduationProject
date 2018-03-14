@@ -14,6 +14,17 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChineseNumberUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EndianUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FileUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NumberVariant.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RandomUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringConvertUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UuidUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)ChineseNumberUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DataUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DateTimeUtils.cpp" />
@@ -25,18 +36,5 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UuidUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ChineseNumberUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DataUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DateTimeUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EndianUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)FileUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)NumberVariant.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)RandomUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StringConvertUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)UuidUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils.h" />
   </ItemGroup>
 </Project>

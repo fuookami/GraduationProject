@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0'/>
+
+    <link href='/WebRoot/css/materialize.min.css' type='text/css' rel='stylesheet' media='screen, projection'/>
+    <link href='/WebRoot/css/materialize.supplement.css' type='text/css' rel='stylesheet' media='screen, projection'/>
+    <link href='/WebRoot/css/main.css' type="text/css" rel="stylesheet" media='screen, projection'/>
+</head>
+<body>
+    <!-- Header: begin -->
+    <ul id='MainHandlerDropDown' class='dropdown-content'>
+        <li><a id="init_project_btn">新建</a></li>
+        <li><a id="open_project_btn">打开</a></li>
+        <li><a id="save_project_btn">保存</a></li>
+        <li><a id="save_as_project_btn">另存为</a></li>
+        <li><a id="close_project_btn">关闭</a></li>
+        <li><a id="quit_btn">退出</a></li>
+    </ul>
+
+    <ul id='HelpDropDown' class='dropdown-content'>
+        <li><a id="about_btn">关于</a></li>
+    </ul>
+
+    <header>
+        <nav class="nav-extended">
+            <div class='nav-wrapper'>
+                <a href="#" class="brand-logo">Logo</a>
+                <ul class="right">
+                    <li><a>－</a></li>
+                    <li><a>□</a></li>
+                    <li><a>Ｘ</a></li>
+                </ul>
+            </div>
+            <div class='nav-wrapper'>
+                <ul>
+                    <li><a class='dropdown-button' data-activates='MainHandlerDropDown' style="width: 6em;">文件</a></li>
+                    <li><a class='dropdown-button' data-activates='HelpDropDown' style="width: 6em;">帮助</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Other / Dialogs: begin -->
+    <div id="InformationDialog" class="modal">
+        <div class="modal-content">
+            <h5 id="InformationTitle" style="text-align: center"></h5>
+            <p id="InformationText" style="text-align: center"></p>
+        </div>
+        <div class="modal-footer grey lighten-2" style="text-align: center;">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">关闭</a>
+        </div>
+    </div>
+
+    <div id="BooleanSelectDialog" class="modal">
+        <div class="modal-content">
+            <h5 id="BooleanSelectTitle" style="text-align: center"></h5>
+            <p id="BooleanSelectText" style="text-align: center"></p>
+        </div>
+        <div class="modal-footer grey lighten-2" style="text-align: center;">
+            <a id="boolean_select_btn1" class="modal-action modal-close waves-effect waves-green btn-flat">是</a>
+            <a id="boolean_select_btn2" class="modal-action modal-close waves-effect waves-green btn-flat">否</a>
+        </div>
+    </div>
+
+    <div id="ComfirmDialog" class="modal">
+        <div class="modal-content">
+            <h5 id="ComfirmTitle" style="text-align: center"></h5>
+            <p id="ComfirmText" style="text-align: center"></p>
+        </div>
+        <div class="modal-footer grey lighten-2" style="text-align: center;">
+            <a id="comfirm_btn" class="modal-action modal-close waves-effect waves-green btn-flat">确认</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">取消</a>
+        </div>
+    </div>
+
+    <div id="TriComfirmDialog" class="modal">
+        <div class="modal-content">
+            <h5 id="TriComfirmTitle" style="text-align: center"></h5>
+            <p id="TriComfirmText" style="text-align: center"></p>
+        </div>
+        <div class="modal-footer grey lighten-2" style="text-align: center;">
+            <a id="tri_comfirm_btn1" class="modal-action modal-close waves-effect waves-green btn-flat"></a>
+            <a id="tri_comfirm_btn2" class="modal-action modal-close waves-effect waves-green btn-flat"></a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">取消</a>
+        </div>
+    </div>
+
+    <div id="AboutDialog" class="modal">
+        <div class="modal-content">
+            <h5 style="text-align: center"></h5>
+            <ul style="padding-left: 25%; margin-top: 2em; ">
+                <li id="Version"></li>
+                <li id="BuildDatetime"></li>
+            </ul>
+        </div>
+        <div class="modal-footer grey lighten-2">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">关闭</a>
+        </div>
+    </div>
+
+    <div id="loader" class="valign-wrapper">
+        <div class="preloader-wrapper big active center valign">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="loader-background"></div>
+    </div>
+    <!-- Other / Dialogs: end -->
+
+    <!-- Scripts -->
+    <script src='/WebRoot/js/libs/jquery-3.2.1.min.js' type='text/javascript'></script>
+    <script src='/WebRoot/js/libs/materialize.min.js' type='text/javascript'></script>
+    <script src='/WebRoot/js/libs/qwebchannel.js' type='text/javascript'></script>
+
+    <script src='/WebRoot/js/public.js' type="text/javascript"></script>
+    <script src='/WebRoot/js/main.js' type='text/javascript'></script>
+</body>
+</html>
