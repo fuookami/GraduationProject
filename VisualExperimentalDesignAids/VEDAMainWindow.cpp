@@ -2,23 +2,24 @@
 #include "VEDAGlobal.h"
 #include "VEDAVersion.h"
 #include "QWebEngineWidget.h"
+#include "ui_VEDAMainWindow.h"
 #include <QtWidgets/QMessageBox>
+#include <QtWidgets/QDesktopWidget>
 
 namespace VEDA
 {
 	VEDAMainWindow::VEDAMainWindow(QWidget * parent)
-		: QMainWindow(parent), m_web(new QWebEngineWidget(this))
+		: QMainWindow(parent), m_ui(new Ui::VEDAMainWindow), m_web(new QWebEngineWidget(nullptr))
 	{
+		m_ui->setupUi(this);
+		this->setCentralWidget(m_web);
+
 		setMinimumSize(QSize(MinimumWidth, MinimumHeight));
+
 		registerContents();
 		m_web->load(QString::fromLocal8Bit(GUIEntrance.c_str()));
 
 		connect(m_web->view(), &QWebEngineView::loadFinished, this, &VEDAMainWindow::onLoadFinished);
-	}
-
-	void VEDAMainWindow::resizeEvent(QResizeEvent * event)
-	{
-		m_web->setGeometry(0, 0, this->width(), this->height());
 	}
 
 	void VEDAMainWindow::onLoadFinished(bool ok)

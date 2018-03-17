@@ -48,7 +48,15 @@ public:
 		tInt32,
 		tUInt32,
 		tInt64,
-		tUInt64
+		tUInt64,
+		tSpecial
+	};
+
+	enum class eSpecial
+	{
+		NegativeInf,
+		PositiveInf,
+		NaN
 	};
 
 private:
@@ -274,6 +282,7 @@ private:
 	eValidType m_type;
 
 	ValueType m_value;
+	eSpecial m_special;
 	static const uint8 ValueDataOffset = 8;
 	static const uint8 ValueDataLength = 8;
 };

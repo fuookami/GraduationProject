@@ -130,6 +130,9 @@
     <ClInclude Include="VEDAVersion.h" />
     <QtMoc Include="VEDAMainWindow.h" />
   </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Resources\VEDAMainWindow.ui" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

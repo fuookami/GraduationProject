@@ -12,21 +12,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)QWebEngineWidget.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DraggableFlatteningDialog.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)QDraggableFlatteningDialog.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DraggableFlatteningWidget.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)QDraggableFlatteningWidget.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)QWebEngineWidget.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DraggableFlatteningDialog.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DraggableFlatteningWidget.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

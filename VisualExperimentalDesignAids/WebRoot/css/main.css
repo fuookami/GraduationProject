@@ -31,10 +31,16 @@ main, main * {
     opacity: 0.25;
 }
 
-.dropdown-content {
-    margin-top: 4.5em;
+.nav-wrapper > li a {
+    text-align: center;
 }
 
-.nav-wrapper li a {
-    text-align: center;
+.dropdown-content li {
+    min-height: 1.5em;
+    height: 1.5em;
+}
+
+.dropdown-content li a {
+    padding: 0 0 0 .75em;
+    color: white;
 }

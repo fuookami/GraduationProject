@@ -54,7 +54,16 @@ namespace XSDFrontend
 
 		DatetimeUtils::Datetime XSDString2Datetime(const std::string & str)
 		{
-			//! to do
+			// 正则匹配（记得要加终止符）
+			// YYYY-MM-DD
+			// hh:mm:ss.sss
+			// YYYY-MM-DDThh:mm:ss.sss
+			// YYYY
+			// YYYY-MM
+			// --MM
+			// --MM-DD
+			// ---DDD
+			// PnYnMnDTnHnMnS
 			return DatetimeUtils::Datetime();
 		}
 	};

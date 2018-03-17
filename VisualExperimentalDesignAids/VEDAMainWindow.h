@@ -1,8 +1,13 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <memory>
 
 class QWebEngineWidget;
+namespace Ui
+{
+	class VEDAMainWindow;
+};
 
 namespace VEDA
 {
@@ -17,9 +22,6 @@ namespace VEDA
 		explicit VEDAMainWindow(QWidget * parent = nullptr);
 		~VEDAMainWindow(void) = default;
 
-	protected:
-		void resizeEvent(QResizeEvent *event);
-
 	private:
 		void onLoadFinished(bool);
 
@@ -29,5 +31,6 @@ namespace VEDA
 
 	private:
 		QWebEngineWidget * m_web;
+		std::shared_ptr<Ui::VEDAMainWindow> m_ui;
 	};
 };
