@@ -1,15 +1,20 @@
 #include "VEDAMainWindow.h"
 #include "VEDAGlobal.h"
 #include "VEDAVersion.h"
-#include "QWebEngineWidget.h"
 #include "ui_VEDAMainWindow.h"
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QDesktopWidget>
 
 namespace VEDA
 {
-	VEDAMainWindow::VEDAMainWindow(QWidget * parent)
-		: QMainWindow(parent), m_ui(new Ui::VEDAMainWindow), m_web(new QWebEngineWidget(nullptr))
+	std::shared_ptr<VEDAMainWindow> VEDAMainWindow::getInstance(void)
+	{
+		static std::shared_ptr<VEDAMainWindow> instance(new VEDAMainWindow());
+		return instance;
+	}
+
+	VEDAMainWindow::VEDAMainWindow(void)
+		: QMainWindow(nullptr), m_ui(new Ui::VEDAMainWindow), m_web(new QWebEngineWidget(nullptr))
 	{
 		m_ui->setupUi(this);
 		this->setCentralWidget(m_web);

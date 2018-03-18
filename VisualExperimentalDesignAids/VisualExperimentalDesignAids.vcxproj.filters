@@ -28,6 +28,9 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Header Files\MenuBar">
+      <UniqueIdentifier>{33f1a28f-202f-4f32-83de-b23da4d2ac07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VEDAMainWindow.cpp">
@@ -49,6 +52,18 @@
     </ClInclude>
     <ClInclude Include="VEDAVersion.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBar.h">
+      <Filter>Header Files\MenuBar</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBarFile.h">
+      <Filter>Header Files\MenuBar</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBarExport.h">
+      <Filter>Header Files\MenuBar</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBarHelp.h">
+      <Filter>Header Files\MenuBar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

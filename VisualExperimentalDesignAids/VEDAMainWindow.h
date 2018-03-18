@@ -1,9 +1,9 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include "QWebEngineWidget.h"
 #include <memory>
 
-class QWebEngineWidget;
 namespace Ui
 {
 	class VEDAMainWindow;
@@ -19,8 +19,18 @@ namespace VEDA
 		static const int MinimumHeight = MinimumWidth * 9 / 16;
 
 	public:
-		explicit VEDAMainWindow(QWidget * parent = nullptr);
+		static std::shared_ptr<VEDAMainWindow> getInstance(void);
+
+	private:
+		explicit VEDAMainWindow(void);
+
+	public:
+		VEDAMainWindow(const VEDAMainWindow &ano) = delete;
+		VEDAMainWindow(VEDAMainWindow &&ano) = delete;
 		~VEDAMainWindow(void) = default;
+
+	public:
+		inline QWebEngineView *web(void) { return m_web->view(); }
 
 	private:
 		void onLoadFinished(bool);

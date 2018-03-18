@@ -4,7 +4,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	VEDA::VEDAMainWindow *w(new VEDA::VEDAMainWindow());
+	auto w(VEDA::VEDAMainWindow::getInstance());
 	w->show();
 	return a.exec();
 }
