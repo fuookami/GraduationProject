@@ -1,6 +1,6 @@
 #include "VEDAMainWindow.h"
 #include "VEDAGlobal.h"
-#include "VEDAVersion.h"
+#include "VEDAMenuBar.h"
 #include "ui_VEDAMainWindow.h"
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QDesktopWidget>
@@ -38,9 +38,6 @@ namespace VEDA
 		else
 		{
 			initConnections();
-
-			m_web->view()->page()->runJavaScript(QString("setVersion('%1');").arg(QString(Version.c_str())));
-			m_web->view()->page()->runJavaScript(QString("setBuildDatetime('%1');").arg(QString(BuildDatetime.c_str())));
 		}
 	}
 
@@ -50,5 +47,10 @@ namespace VEDA
 
 	void VEDAMainWindow::initConnections(void)
 	{
+		// menu bar: file
+		connect(m_ui->ExitBtn, &QAction::triggered, MenuBar::onExitBtnClicked);
+
+		// menu bar: help
+		connect(m_ui->AboutBtn, &QAction::triggered, MenuBar::onAboutBtnClicked);
 	}
 };

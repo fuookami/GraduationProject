@@ -6,10 +6,6 @@ function setBuildDatetime(buildDatetime) {
     $('#BuildDatetime').html("软件生成日期：" + buildDatetime);
 }
 
-function showAbout() {
-    $('#AboutDialog').modal('open');
-}
-
 function setLoading(loading) {
     if (loading) {
         $('#loader').show();

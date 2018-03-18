@@ -31,6 +31,9 @@
     <Filter Include="Header Files\MenuBar">
       <UniqueIdentifier>{33f1a28f-202f-4f32-83de-b23da4d2ac07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Dialogs">
+      <UniqueIdentifier>{787c17a4-47db-4b01-99b5-c11c5eca00c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VEDAMainWindow.cpp">
@@ -45,6 +48,15 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VEDAMenuBarHelp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAAboutDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuBarFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGlobal.h">
@@ -53,16 +65,19 @@
     <ClInclude Include="VEDAVersion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MenuBar.h">
+    <ClInclude Include="VEDAAboutDialog.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAMenuBar.h">
       <Filter>Header Files\MenuBar</Filter>
     </ClInclude>
-    <ClInclude Include="MenuBarFile.h">
+    <ClInclude Include="VEDAMenuBarExport.h">
       <Filter>Header Files\MenuBar</Filter>
     </ClInclude>
-    <ClInclude Include="MenuBarExport.h">
+    <ClInclude Include="VEDAMenuBarFile.h">
       <Filter>Header Files\MenuBar</Filter>
     </ClInclude>
-    <ClInclude Include="MenuBarHelp.h">
+    <ClInclude Include="VEDAMenuBarHelp.h">
       <Filter>Header Files\MenuBar</Filter>
     </ClInclude>
   </ItemGroup>
@@ -73,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Resources\VEDAMainWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Resources\VEDAAboutDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
