@@ -34,6 +34,9 @@
     <Filter Include="Header Files\Dialogs">
       <UniqueIdentifier>{787c17a4-47db-4b01-99b5-c11c5eca00c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MenuBar">
+      <UniqueIdentifier>{8d22a5f0-334c-41b4-a8ac-c035cf9e034f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VEDAMainWindow.cpp">
@@ -48,14 +51,17 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VEDAMenuBarHelp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VEDAAboutDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MenuBarFile.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="VEDAMenuBarFile.cpp">
+      <Filter>Source Files\MenuBar</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAMenuBarHelp.cpp">
+      <Filter>Source Files\MenuBar</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAMenuBarExport.cpp">
+      <Filter>Source Files\MenuBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,5 @@
 #include "VEDAMenuBarHelp.h"
 #include "VEDAAboutDialog.h"
-#include <QtCore/QDebug>
 
 namespace VEDA
 {

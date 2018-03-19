@@ -121,7 +121,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MenuBarFile.cpp" />
+    <ClCompile Include="VEDAMenuBarExport.cpp" />
+    <ClCompile Include="VEDAMenuBarFile.cpp" />
     <ClCompile Include="VEDAAboutDialog.cpp" />
     <ClCompile Include="VEDAMenuBarHelp.cpp" />
     <ClCompile Include="VEDAGlobal.cpp" />
