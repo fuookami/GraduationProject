@@ -30,7 +30,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
-    <number>10</number>
+    <number>0</number>
    </property>
    <property name="leftMargin">
     <number>0</number>
@@ -46,6 +46,19 @@
    </property>
    <item>
     <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_7">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -89,6 +102,19 @@
     </widget>
    </item>
    <item>
+    <spacer name="verticalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
@@ -108,7 +134,7 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_7">
+    <spacer name="verticalSpacer_4">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -121,117 +147,160 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
      <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>125</width>
+         <width>40</width>
          <height>20</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="Version">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>16</height>
-        </size>
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0">
+       <property name="spacing">
+        <number>14</number>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Adobe 黑体 Std R</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(150, 145, 141);</string>
-       </property>
-       <property name="text">
-        <string>软件版本：</string>
-       </property>
-      </widget>
+       <item>
+        <widget class="QLabel" name="Version">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(150, 145, 141);</string>
+         </property>
+         <property name="text">
+          <string>软件版本：</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="BuildDatetime">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(150, 145, 141);</string>
+         </property>
+         <property name="text">
+          <string>生成时间：</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="Name">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(150, 145, 141);</string>
+         </property>
+         <property name="text">
+          <string>姓名：李伟文</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="Code">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(150, 145, 141);</string>
+         </property>
+         <property name="text">
+          <string>学号：161430229</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>569</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <spacer name="horizontalSpacer_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>125</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="BuildDatetime">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>16</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Adobe 黑体 Std R</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(150, 145, 141);</string>
-       </property>
-       <property name="text">
-        <string>生成时间：</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
        <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
@@ -243,126 +312,30 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <spacer name="horizontalSpacer_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>125</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="Name">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>16</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Adobe 黑体 Std R</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(150, 145, 141);</string>
-       </property>
-       <property name="text">
-        <string>姓名：李伟文</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_6">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
+    <spacer name="verticalSpacer_8">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <spacer name="horizontalSpacer_7">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>125</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="Code">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>16</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>16</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Adobe 黑体 Std R</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(150, 145, 141);</string>
-       </property>
-       <property name="text">
-        <string>学号：161430229</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_8">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item>
     <spacer name="verticalSpacer_6">

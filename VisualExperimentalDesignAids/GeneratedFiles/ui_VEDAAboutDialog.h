@@ -27,25 +27,22 @@ class Ui_VEDAAboutDialog
 public:
     QVBoxLayout *verticalLayout;
     QSpacerItem *verticalSpacer_2;
-    QLabel *MainTitle;
-    QLabel *label;
     QSpacerItem *verticalSpacer_7;
-    QHBoxLayout *horizontalLayout;
+    QLabel *MainTitle;
+    QSpacerItem *verticalSpacer_5;
+    QLabel *label;
+    QSpacerItem *verticalSpacer_4;
+    QSpacerItem *verticalSpacer_3;
+    QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_2;
+    QVBoxLayout *verticalLayout_3;
     QLabel *Version;
-    QSpacerItem *horizontalSpacer;
-    QHBoxLayout *horizontalLayout_2;
-    QSpacerItem *horizontalSpacer_3;
     QLabel *BuildDatetime;
-    QSpacerItem *horizontalSpacer_4;
-    QHBoxLayout *horizontalLayout_3;
-    QSpacerItem *horizontalSpacer_5;
     QLabel *Name;
-    QSpacerItem *horizontalSpacer_6;
-    QHBoxLayout *horizontalLayout_4;
-    QSpacerItem *horizontalSpacer_7;
     QLabel *Code;
-    QSpacerItem *horizontalSpacer_8;
+    QSpacerItem *horizontalSpacer_3;
+    QSpacerItem *verticalSpacer_8;
+    QSpacerItem *verticalSpacer;
     QSpacerItem *verticalSpacer_6;
 
     void setupUi(QDialog *VEDAAboutDialog)
@@ -57,12 +54,16 @@ public:
         VEDAAboutDialog->setMaximumSize(QSize(572, 287));
         VEDAAboutDialog->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         verticalLayout = new QVBoxLayout(VEDAAboutDialog);
-        verticalLayout->setSpacing(10);
+        verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer_2);
+
+        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_7);
 
         MainTitle = new QLabel(VEDAAboutDialog);
         MainTitle->setObjectName(QStringLiteral("MainTitle"));
@@ -77,6 +78,10 @@ public:
 
         verticalLayout->addWidget(MainTitle);
 
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_5);
+
         label = new QLabel(VEDAAboutDialog);
         label->setObjectName(QStringLiteral("label"));
         QFont font1;
@@ -88,16 +93,24 @@ public:
 
         verticalLayout->addWidget(label);
 
-        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout->addItem(verticalSpacer_7);
+        verticalLayout->addItem(verticalSpacer_4);
 
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalSpacer_2 = new QSpacerItem(125, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        horizontalLayout->addItem(horizontalSpacer_2);
+        verticalLayout->addItem(verticalSpacer_3);
 
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(-1, -1, -1, 0);
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_2);
+
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(14);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         Version = new QLabel(VEDAAboutDialog);
         Version->setObjectName(QStringLiteral("Version"));
         Version->setMinimumSize(QSize(0, 16));
@@ -108,20 +121,7 @@ public:
         Version->setFont(font2);
         Version->setStyleSheet(QStringLiteral("color: rgb(150, 145, 141);"));
 
-        horizontalLayout->addWidget(Version);
-
-        horizontalSpacer = new QSpacerItem(569, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer);
-
-
-        verticalLayout->addLayout(horizontalLayout);
-
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        horizontalSpacer_3 = new QSpacerItem(125, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_3);
+        verticalLayout_3->addWidget(Version);
 
         BuildDatetime = new QLabel(VEDAAboutDialog);
         BuildDatetime->setObjectName(QStringLiteral("BuildDatetime"));
@@ -130,20 +130,7 @@ public:
         BuildDatetime->setFont(font2);
         BuildDatetime->setStyleSheet(QStringLiteral("color: rgb(150, 145, 141);"));
 
-        horizontalLayout_2->addWidget(BuildDatetime);
-
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_4);
-
-
-        verticalLayout->addLayout(horizontalLayout_2);
-
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        horizontalSpacer_5 = new QSpacerItem(125, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_3->addItem(horizontalSpacer_5);
+        verticalLayout_3->addWidget(BuildDatetime);
 
         Name = new QLabel(VEDAAboutDialog);
         Name->setObjectName(QStringLiteral("Name"));
@@ -152,20 +139,7 @@ public:
         Name->setFont(font2);
         Name->setStyleSheet(QStringLiteral("color: rgb(150, 145, 141);"));
 
-        horizontalLayout_3->addWidget(Name);
-
-        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_3->addItem(horizontalSpacer_6);
-
-
-        verticalLayout->addLayout(horizontalLayout_3);
-
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        horizontalSpacer_7 = new QSpacerItem(125, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_4->addItem(horizontalSpacer_7);
+        verticalLayout_3->addWidget(Name);
 
         Code = new QLabel(VEDAAboutDialog);
         Code->setObjectName(QStringLiteral("Code"));
@@ -174,14 +148,25 @@ public:
         Code->setFont(font2);
         Code->setStyleSheet(QStringLiteral("color: rgb(150, 145, 141);"));
 
-        horizontalLayout_4->addWidget(Code);
-
-        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_4->addItem(horizontalSpacer_8);
+        verticalLayout_3->addWidget(Code);
 
 
-        verticalLayout->addLayout(horizontalLayout_4);
+        horizontalLayout_5->addLayout(verticalLayout_3);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_3);
+
+
+        verticalLayout->addLayout(horizontalLayout_5);
+
+        verticalSpacer_8 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_8);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
 
         verticalSpacer_6 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
