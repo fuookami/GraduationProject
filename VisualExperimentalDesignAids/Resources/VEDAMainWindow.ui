@@ -106,15 +106,18 @@
   </action>
   <action name="InitProcessBtn">
    <property name="text">
-    <string>新建实验过程</string>
+    <string>新建实验批次</string>
    </property>
    <property name="toolTip">
-    <string>新建实验过程</string>
+    <string>新建实验批次</string>
    </property>
   </action>
   <action name="ImportProcessBtn">
    <property name="text">
-    <string>现有实验过程</string>
+    <string>现有实验批次</string>
+   </property>
+   <property name="toolTip">
+    <string>现有实验批次</string>
    </property>
   </action>
   <action name="ExportReportBtn">
