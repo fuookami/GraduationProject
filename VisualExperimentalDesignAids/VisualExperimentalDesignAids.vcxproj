@@ -121,6 +121,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="VEDAInitProjectDialog.cpp" />
     <ClCompile Include="VEDAMenuBarExport.cpp" />
     <ClCompile Include="VEDAMenuBarFile.cpp" />
     <ClCompile Include="VEDAAboutDialog.cpp" />
@@ -130,6 +131,7 @@
     <ClCompile Include="VEDAVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="VEDAInitProjectDialog.h" />
     <ClInclude Include="VEDAMenuBar.h" />
     <ClInclude Include="VEDAMenuBarExport.h" />
     <ClInclude Include="VEDAMenuBarFile.h" />
@@ -141,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Resources\VEDAAboutDialog.ui" />
+    <QtUic Include="Resources\VEDAInitProjectDialog.ui" />
     <QtUic Include="Resources\VEDAMainWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

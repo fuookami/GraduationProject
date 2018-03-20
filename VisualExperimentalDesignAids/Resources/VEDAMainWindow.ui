@@ -66,12 +66,18 @@
   </widget>
   <action name="InitProjectBtn">
    <property name="text">
-    <string>新建实验</string>
+    <string>新建实验项目</string>
+   </property>
+   <property name="toolTip">
+    <string>新建实验项目</string>
    </property>
   </action>
   <action name="OpenProjectBtn">
    <property name="text">
-    <string>打开实验</string>
+    <string>打开实验项目</string>
+   </property>
+   <property name="toolTip">
+    <string>打开实验项目</string>
    </property>
   </action>
   <action name="CloseBtn">

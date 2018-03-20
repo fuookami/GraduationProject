@@ -1,4 +1,5 @@
 #include "VEDAMenuBarFile.h"
+#include "VEDAInitProjectDialog.h"
 #include <QtWidgets/QApplication>
 #include <QtCore/QDebug>
 
@@ -8,7 +9,8 @@ namespace VEDA
 	{
 		void onInitProjectBtnClicked(void)
 		{
-			qDebug() << "to do: on init protject btn clicked.";
+			auto dialog(VEDAInitProjectDialog::getInstance());
+			dialog->exec();
 		}
 
 		void onOpenProjectBtnClicked(void)

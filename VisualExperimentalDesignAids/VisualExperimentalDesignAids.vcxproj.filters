@@ -31,11 +31,14 @@
     <Filter Include="Header Files\MenuBar">
       <UniqueIdentifier>{33f1a28f-202f-4f32-83de-b23da4d2ac07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Dialogs">
-      <UniqueIdentifier>{787c17a4-47db-4b01-99b5-c11c5eca00c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\MenuBar">
       <UniqueIdentifier>{8d22a5f0-334c-41b4-a8ac-c035cf9e034f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialog">
+      <UniqueIdentifier>{12f903f7-0a4b-428c-85e1-67b8e7aa7964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dialog">
+      <UniqueIdentifier>{787c17a4-47db-4b01-99b5-c11c5eca00c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,9 +54,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VEDAAboutDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VEDAMenuBarFile.cpp">
       <Filter>Source Files\MenuBar</Filter>
     </ClCompile>
@@ -62,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="VEDAMenuBarExport.cpp">
       <Filter>Source Files\MenuBar</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAAboutDialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAInitProjectDialog.cpp">
+      <Filter>Source Files\Dialog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +78,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VEDAAboutDialog.h">
-      <Filter>Header Files\Dialogs</Filter>
+      <Filter>Header Files\Dialog</Filter>
     </ClInclude>
     <ClInclude Include="VEDAMenuBar.h">
       <Filter>Header Files\MenuBar</Filter>
@@ -86,6 +92,9 @@
     <ClInclude Include="VEDAMenuBarHelp.h">
       <Filter>Header Files\MenuBar</Filter>
     </ClInclude>
+    <ClInclude Include="VEDAInitProjectDialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VEDAMainWindow.h">
@@ -97,6 +106,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Resources\VEDAAboutDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Resources\VEDAInitProjectDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
