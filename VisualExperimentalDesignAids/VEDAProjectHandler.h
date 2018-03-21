@@ -28,7 +28,7 @@ namespace VEDA
 
 	public:
 		static const std::pair<bool, std::string> initProject(const std::string &name, const std::string &location, const bool newDir);
-		void openProject(const std::string &projectFileUrl);
+		void openProject(const std::string &projectFileUrl, const bool save = true);
 		void closeCurrProject(const bool save = true);
 
 		inline const bool isProjectOpen(void) { return m_currProject != nullptr; }

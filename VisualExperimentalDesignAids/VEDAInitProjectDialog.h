@@ -24,6 +24,11 @@ namespace VEDA
 		~VEDAInitProjectDialog(void) = default;
 
 	private:
+		void onSelectLocationBtnClicked(void);
+		void onComfirmBtnClicked(void);
+		void onCancelBtnClicked(void);
+
+	private:
 		std::shared_ptr<Ui::VEDAInitProjectDialog> m_ui;
 	};
 }
