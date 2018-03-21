@@ -24,6 +24,9 @@ namespace VEDA
 		~VEDAAboutDialog(void) = default;
 
 	private:
+		void onComfirmBtnClicked(void);
+
+	private:
 		std::shared_ptr<Ui::VEDAAboutDialog> m_ui;
 	};
 };
