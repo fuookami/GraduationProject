@@ -21,12 +21,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IWebEngineDialogWidget.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)QMessageBoxUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)QWebEngineWidget.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)IWebEngineDialogWidget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)QMessageBoxUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
