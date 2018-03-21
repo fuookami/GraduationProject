@@ -128,6 +128,7 @@
     <ClCompile Include="VEDAMenuBarHelp.cpp" />
     <ClCompile Include="VEDAGlobal.cpp" />
     <ClCompile Include="VEDAMainWindow.cpp" />
+    <ClCompile Include="VEDAProjectHandler.cpp" />
     <ClCompile Include="VEDAVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +139,10 @@
     <ClInclude Include="VEDAMenuBarHelp.h" />
     <ClInclude Include="VEDAAboutDialog.h" />
     <ClInclude Include="VEDAGlobal.h" />
+    <QtMoc Include="VEDAProjectHandler.h" />
+    <ClInclude Include="VEDAOperation.h" />
+    <ClInclude Include="VEDAProcess.h" />
+    <ClInclude Include="VEDAProject.h" />
     <ClInclude Include="VEDAVersion.h" />
     <QtMoc Include="VEDAMainWindow.h" />
   </ItemGroup>

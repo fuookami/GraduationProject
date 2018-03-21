@@ -40,6 +40,12 @@
     <Filter Include="Header Files\Dialog">
       <UniqueIdentifier>{787c17a4-47db-4b01-99b5-c11c5eca00c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ProjectHandler">
+      <UniqueIdentifier>{64b170a2-5d66-46cd-8479-4edaf6ba2d04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ProjectHandler">
+      <UniqueIdentifier>{88a46f46-eb39-40d1-8534-c3f064b68105}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VEDAMainWindow.cpp">
@@ -69,6 +75,9 @@
     <ClCompile Include="VEDAInitProjectDialog.cpp">
       <Filter>Source Files\Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="VEDAProjectHandler.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGlobal.h">
@@ -95,10 +104,22 @@
     <ClInclude Include="VEDAInitProjectDialog.h">
       <Filter>Header Files\Dialog</Filter>
     </ClInclude>
+    <ClInclude Include="VEDAOperation.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAProcess.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAProject.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VEDAMainWindow.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VEDAProjectHandler.h">
+      <Filter>Header Files\ProjectHandler</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
