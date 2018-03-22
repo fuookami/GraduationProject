@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <iomanip>
+#include <regex>
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -26,6 +27,9 @@ namespace StringUtils
 
 	const std::string True("true");
 	const std::string False("false");
+
+	const check_string_t NaturalNumberChecker("^(0|[1-9]\\d*)$");
+	const check_string_t PositiveIntegerChecker("^[1-9]\\d*$");
 
 	const std::string &getSpaceChars(void)
 	{

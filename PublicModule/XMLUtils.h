@@ -28,8 +28,8 @@ namespace XMLUtils
 	public:
 		XMLNode(const std::string &tag);
 		XMLNode(std::string &&tag);
-		XMLNode(const XMLNode &rhs) = default;
-		XMLNode(XMLNode &&rhs) = default;
+		XMLNode(const XMLNode &rhs);
+		XMLNode(XMLNode &&rhs);
 		XMLNode &operator=(const XMLNode &rhs) = default;
 		XMLNode &operator=(XMLNode &&rhs) = default;
 		~XMLNode(void) = default;
@@ -122,6 +122,7 @@ namespace XMLUtils
 		XMLNode ret(root.first);
 		getAttrs<code>(ret, root);
 		getContent<code>(ret, root);
+		
 
 		return ret;
 	}
@@ -194,7 +195,13 @@ namespace XMLUtils
 	{
 		if (FileUtils::checkFileExist(fileUrl))
 		{
-			boost::property_tree::xml_parser::read_xml(fileUrl, pt);
+			try {
+				boost::property_tree::xml_parser::read_xml(fileUrl, pt);
+			}
+			catch (const boost::property_tree::xml_parser::xml_parser_error &ex) {
+				std::cerr << "error in file " << ex.filename() << " line " << ex.line() << std::endl;
+				return false;
+			}
 			return true;
 		}
 		else

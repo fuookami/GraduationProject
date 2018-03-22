@@ -22,6 +22,18 @@ namespace XMLUtils
 	{
 	}
 
+	XMLNode::XMLNode(const XMLNode & rhs)
+		: m_tag(rhs.m_tag), m_path(rhs.m_path), m_content(rhs.m_content), m_attrs(rhs.m_attrs), m_children(rhs.m_children), m_parent(nullptr)
+	{
+		tidyStruct();
+	}
+
+	XMLNode::XMLNode(XMLNode && rhs)
+		: m_tag(std::move(rhs.m_tag)), m_path(std::move(rhs.m_path)), m_content(std::move(rhs.m_content)), m_attrs(std::move(rhs.m_attrs)), m_children(std::move(rhs.m_children)), m_parent(nullptr)
+	{
+		tidyStruct();
+	}
+
 	const std::string &XMLNode::getAttr(const std::string & key, const std::string & defaultValue) const
 	{
 		auto it(m_attrs.find(key));

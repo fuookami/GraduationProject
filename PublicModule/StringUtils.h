@@ -4,6 +4,7 @@
 #include <string>
 #include <numeric>
 #include <sstream>
+#include <regex>
 
 namespace StringUtils
 {
@@ -52,6 +53,29 @@ namespace StringUtils
 			return val;
 		}
 	};
+
+	struct check_string_t
+	{
+		check_string_t(const std::string &_pattern) : pattern(_pattern), reg(pattern) {};
+		check_string_t(std::string &&_pattern) : pattern(std::move(_pattern)), reg(pattern) {};
+		check_string_t(const check_string_t &ano) = delete;
+		check_string_t(check_string_t &&ano) = delete;
+		~check_string_t(void) = default;
+
+		const std::string pattern;
+		const std::regex reg;
+
+		const bool operator()(const std::string &src) const
+		{
+			std::smatch result;
+			return std::regex_match(src, result, reg);
+		};
+	};
+
+	extern const check_string_t NaturalNumberChecker;
+	inline const bool isNaturalNumber(const std::string &src) { return NaturalNumberChecker(src); }
+	extern const check_string_t PositiveIntegerChecker;
+	inline const bool isPositiveInteger(const std::string &src) { return PositiveIntegerChecker(src); }
 
 	std::string base64Encode(const std::string &str, const char fillCharacter = '=');
 	std::string base64Decode(const std::string &str);
