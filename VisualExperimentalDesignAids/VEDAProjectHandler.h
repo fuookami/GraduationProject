@@ -26,6 +26,10 @@ namespace VEDA
 		void openProjectFinished(bool, QString);
 		void closeProjectFinished(bool, QString);
 
+	private:
+		void emitOpenProjectFinished(const bool ok, const QString &info);
+		void emitCloseProjectFinished(const bool ok, const QString &info);
+
 	public:
 		static const std::pair<bool, std::string> initProject(const std::string &name, const std::string &location, const bool newDir);
 		void openProject(const std::string &projectFileUrl, const bool save = true);
@@ -33,7 +37,6 @@ namespace VEDA
 
 		inline const bool isProjectOpen(void) { return m_currProject != nullptr; }
 		inline std::shared_ptr<VEDAProject> currProject(void)const { return m_currProject; }
-
 
 	private:
 		std::shared_ptr<VEDAProject> m_currProject;

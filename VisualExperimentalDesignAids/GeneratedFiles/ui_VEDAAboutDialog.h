@@ -39,6 +39,7 @@ public:
     QLabel *BuildDatetime;
     QLabel *Name;
     QLabel *Code;
+    QLabel *label_2;
     QSpacerItem *horizontalSpacer_3;
     QSpacerItem *verticalSpacer_8;
     QSpacerItem *verticalSpacer;
@@ -52,9 +53,9 @@ public:
     {
         if (VEDAAboutDialog->objectName().isEmpty())
             VEDAAboutDialog->setObjectName(QStringLiteral("VEDAAboutDialog"));
-        VEDAAboutDialog->resize(572, 287);
-        VEDAAboutDialog->setMinimumSize(QSize(572, 287));
-        VEDAAboutDialog->setMaximumSize(QSize(572, 287));
+        VEDAAboutDialog->resize(572, 322);
+        VEDAAboutDialog->setMinimumSize(QSize(572, 322));
+        VEDAAboutDialog->setMaximumSize(QSize(572, 322));
         VEDAAboutDialog->setStyleSheet(QLatin1String("#VEDAAboutDialog {\n"
 "	background-color: rgb(255, 255, 255);\n"
 "}"));
@@ -147,6 +148,14 @@ public:
 
         verticalLayout_3->addWidget(Code);
 
+        label_2 = new QLabel(VEDAAboutDialog);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setFont(font2);
+        label_2->setStyleSheet(QStringLiteral("color: rgb(150, 145, 141);"));
+        label_2->setOpenExternalLinks(true);
+
+        verticalLayout_3->addWidget(label_2);
+
 
         horizontalLayout_5->addLayout(verticalLayout_3);
 
@@ -200,11 +209,12 @@ public:
     {
         VEDAAboutDialog->setWindowTitle(QApplication::translate("VEDAAboutDialog", "\345\205\263\344\272\216 \345\217\257\350\247\206\345\214\226\345\256\236\351\252\214\350\256\276\350\256\241\350\276\205\345\212\251\345\267\245\345\205\267", Q_NULLPTR));
         MainTitle->setText(QApplication::translate("VEDAAboutDialog", "\345\217\257\350\247\206\345\214\226\345\256\236\351\252\214\350\256\276\350\256\241\350\276\205\345\212\251\345\267\245\345\205\267", Q_NULLPTR));
-        label->setText(QApplication::translate("VEDAAboutDialog", "\357\274\210\346\257\225\344\270\232\350\256\276\350\256\241\357\274\211", Q_NULLPTR));
+        label->setText(QApplication::translate("VEDAAboutDialog", "<html><head/><body><p>\357\274\210\346\257\225\344\270\232\350\256\276\350\256\241\357\274\211</p></body></html>", Q_NULLPTR));
         Version->setText(QApplication::translate("VEDAAboutDialog", "\350\275\257\344\273\266\347\211\210\346\234\254\357\274\232", Q_NULLPTR));
         BuildDatetime->setText(QApplication::translate("VEDAAboutDialog", "\347\224\237\346\210\220\346\227\266\351\227\264\357\274\232", Q_NULLPTR));
-        Name->setText(QApplication::translate("VEDAAboutDialog", "\345\247\223\345\220\215\357\274\232\346\235\216\344\274\237\346\226\207", Q_NULLPTR));
+        Name->setText(QApplication::translate("VEDAAboutDialog", "<html><head/><body><p>\345\247\223\345\220\215\357\274\232\346\235\216\344\274\237\346\226\207</p></body></html>", Q_NULLPTR));
         Code->setText(QApplication::translate("VEDAAboutDialog", "\345\255\246\345\217\267\357\274\232161430229", Q_NULLPTR));
+        label_2->setText(QApplication::translate("VEDAAboutDialog", "<p>Git\344\273\223\345\272\223\357\274\232 <a href=\"https://github.com/fuookami/GraduationProject\">Github</a>    , <a href=\"https://coding.net/u/fuookami/p/GraduationProject/git?public=true\">Coding</a></p>", Q_NULLPTR));
         ComfirmBtn->setText(QApplication::translate("VEDAAboutDialog", "\347\241\256\345\256\232", Q_NULLPTR));
     } // retranslateUi
 

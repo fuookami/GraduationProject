@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>572</width>
-    <height>287</height>
+    <height>322</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>572</width>
-    <height>287</height>
+    <height>322</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>572</width>
-    <height>287</height>
+    <height>322</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -102,7 +102,7 @@
       <string notr="true">color: rgb(150, 145, 141);</string>
      </property>
      <property name="text">
-      <string>（毕业设计）</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;（毕业设计）&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -154,7 +154,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0,0">
        <property name="spacing">
         <number>8</number>
        </property>
@@ -238,7 +238,7 @@
           <string notr="true">color: rgb(150, 145, 141);</string>
          </property>
          <property name="text">
-          <string>姓名：李伟文</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;姓名：李伟文&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -267,6 +267,25 @@
          </property>
          <property name="text">
           <string>学号：161430229</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <family>微软雅黑</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(150, 145, 141);</string>
+         </property>
+         <property name="text">
+          <string>&lt;p&gt;Git仓库： &lt;a href=&quot;https://github.com/fuookami/GraduationProject&quot;&gt;Github&lt;/a&gt;    , &lt;a href=&quot;https://coding.net/u/fuookami/p/GraduationProject/git?public=true&quot;&gt;Coding&lt;/a&gt;&lt;/p&gt;</string>
+         </property>
+         <property name="openExternalLinks">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
