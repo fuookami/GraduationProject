@@ -1,7 +1,6 @@
 #include "QMessageBoxUtils.h"
 #include <QtWidgets/QMessageBox>
 #include <memory>
-#include <boost/version.hpp>
 
 namespace QMessageBoxUtils
 {

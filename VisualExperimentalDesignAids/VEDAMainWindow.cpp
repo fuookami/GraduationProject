@@ -62,6 +62,9 @@ namespace VEDA
 		connect(m_ui->ExportReportBtn, &QAction::triggered, MenuBar::onExportReportBtnClicked);
 
 		// menu bar: help
+		connect(m_ui->AboutQtBtn, &QAction::triggered, MenuBar::onAboutQtBtnClicked);
+		connect(m_ui->AboutBoostBtn, &QAction::triggered, MenuBar::onAboutBoostBtnClicked);
+		connect(m_ui->AboutMaterializeBtn, &QAction::triggered, MenuBar::onAboutMaterializeBtnClicked);
 		connect(m_ui->AboutBtn, &QAction::triggered, MenuBar::onAboutBtnClicked);
 	}
 };
