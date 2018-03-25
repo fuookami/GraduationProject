@@ -78,6 +78,9 @@
     <ClCompile Include="VEDAProjectHandler.cpp">
       <Filter>Source Files\ProjectHandler</Filter>
     </ClCompile>
+    <ClCompile Include="VEDAGuiEntrance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGlobal.h">
@@ -85,9 +88,6 @@
     </ClInclude>
     <ClInclude Include="VEDAVersion.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VEDAAboutDialog.h">
-      <Filter>Header Files\Dialog</Filter>
     </ClInclude>
     <ClInclude Include="VEDAMenuBar.h">
       <Filter>Header Files\MenuBar</Filter>
@@ -113,6 +113,9 @@
     <ClInclude Include="VEDAProject.h">
       <Filter>Header Files\ProjectHandler</Filter>
     </ClInclude>
+    <ClInclude Include="VEDAGUIEnterence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="VEDAMainWindow.h">
@@ -121,12 +124,12 @@
     <QtMoc Include="VEDAProjectHandler.h">
       <Filter>Header Files\ProjectHandler</Filter>
     </QtMoc>
+    <QtMoc Include="VEDAAboutDialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Resources\VEDAMainWindow.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="Resources\VEDAAboutDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Resources\VEDAInitProjectDialog.ui">

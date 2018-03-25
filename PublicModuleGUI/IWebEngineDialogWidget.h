@@ -1,38 +1,46 @@
 #pragma once
 
+#include "QWebEngineWidget.h"
+#include <QtCore/QObject>
 #include <QtWidgets/QWidget>
 #include <QtGui/QCloseEvent>
 
-class QWebEngineView;
-class QWebEngineWidget;
-
-namespace NSSPCDCreator
+class IWebEngineDialogWidget;
+template <typename T, typename std::enable_if<std::is_base_of<IWebEngineDialogWidget, T>::value, T>::type* = nullptr>
+class IWebEngineDialogInterface : public QObject
 {
-	class IWebEngineDialogWidget : public QWidget
-	{
-		Q_OBJECT;
+protected:
+	IWebEngineDialogInterface(T *dialog)
+		: QObject(nullptr), m_dialog(dialog) {};
 
-		static const int MinimumWidth = 992 + 21; // desktop device width > 992px + 20px
-		static const int MinimumHeight = MinimumWidth * 9 / 16;
+public:
+	IWebEngineDialogInterface(const IWebEngineDialogInterface &ano) = delete;
+	IWebEngineDialogInterface(IWebEngineDialogInterface &&ano) = delete;
+	virtual ~IWebEngineDialogInterface(void) = default;
 
-	public:
-		explicit IWebEngineDialogWidget(const QString &guiEntrance, QWidget *parent = nullptr);
-		virtual ~IWebEngineDialogWidget(void) = default;
+protected:
+	T * m_dialog;
+};
 
-	protected:
-		void resizeEvent(QResizeEvent *event) override;
-		virtual void initGUI(void) = 0;
-		virtual void registerContents(void) = 0;
+class IWebEngineDialogWidget : public QWidget
+{
+public:
+	explicit IWebEngineDialogWidget(const QString &guiEntrance, QWidget *parent = nullptr);
+	virtual ~IWebEngineDialogWidget(void) = default;
 
-		void showEvent(QShowEvent *event);
-		void closeEvent(QCloseEvent *event);
+protected:
+	void resizeEvent(QResizeEvent *event) override;
+	virtual void initGUI(void) = 0;
+	virtual void registerContents(void) = 0;
 
-	private:
-		void onLoadFinished(bool);
+	void showEvent(QShowEvent *event);
+	void closeEvent(QCloseEvent *event);
 
-	protected:
-		QWebEngineWidget * m_webWidget;
-		QWebEngineView * m_web;
-		QString m_guiEntrance;
-	};
+private:
+	void onLoadFinished(bool);
+
+protected:
+	QWebEngineWidget * m_webWidget;
+	QWebEngineView * m_web;
+	QString m_guiEntrance;
 };

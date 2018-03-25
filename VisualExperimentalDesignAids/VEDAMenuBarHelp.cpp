@@ -35,8 +35,8 @@ namespace VEDA
 
 		void onAboutBtnClicked(void)
 		{
-			static auto aboutDialog(VEDAAboutDialog::getInstance());
-			aboutDialog->exec();
+			auto aboutDialog(VEDAAboutDialog::getInstance());
+			aboutDialog->show();
 		}
 	};
 };

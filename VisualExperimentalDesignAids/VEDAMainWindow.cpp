@@ -1,5 +1,6 @@
 #include "VEDAMainWindow.h"
 #include "VEDAGlobal.h"
+#include "VEDAGUIEnterence.h"
 #include "VEDAMenuBar.h"
 #include "ui_VEDAMainWindow.h"
 #include <QtWidgets/QMessageBox>
@@ -22,7 +23,7 @@ namespace VEDA
 		setMinimumSize(QSize(MinimumWidth, MinimumHeight));
 
 		registerContents();
-		m_web->load(QString::fromLocal8Bit(GUIEntrance.c_str()));
+		m_web->load(QString::fromLocal8Bit(GUIEntrance::MainViewUrl.c_str()));
 
 		connect(m_web->view(), &QWebEngineView::loadFinished, this, &VEDAMainWindow::onLoadFinished);
 	}
@@ -32,7 +33,7 @@ namespace VEDA
 		if (!ok)
 		{
 			QMessageBox::information(this, QString::fromLocal8Bit("错误"),
-				QString::fromLocal8Bit("无法打开GUI入口：%1，请确认是否错误。").arg(QString::fromLocal8Bit(GUIEntrance.c_str())));
+				QString::fromLocal8Bit("无法打开GUI入口：%1，请确认是否错误。").arg(QString::fromLocal8Bit(GUIEntrance::MainViewUrl.c_str())));
 			this->close();
 		}
 		else
