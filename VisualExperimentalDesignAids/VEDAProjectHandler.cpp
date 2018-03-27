@@ -23,9 +23,9 @@ namespace VEDA
 		emit closeProjectFinished(ok, info);
 	}
 
-	const std::pair<bool, std::string> VEDAProjectHandler::initProject(const std::string & name, const std::string & location, const bool newDir)
+	const std::pair<bool, std::string> VEDAProjectHandler::initProject(const std::string & name, const std::string & path, const bool newDir)
 	{
-		return std::make_pair(false, std::string(""));
+		return std::make_pair(false, std::string("创建新实验项目未实现"));
 	}
 
 	void VEDAProjectHandler::openProject(const std::string & projectFileUrl, const bool save)

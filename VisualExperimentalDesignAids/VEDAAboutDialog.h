@@ -8,7 +8,7 @@ namespace VEDA
 {
 	class VEDAAboutDialogInterface;
 
-	class VEDAAboutDialog : public IWebEngineDialogWidget
+	class VEDAAboutDialog final : public IWebEngineDialogWidget
 	{
 		static const int Width = 650;
 		static const int Height = 375;

@@ -134,7 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGUIEnterence.h" />
-    <ClInclude Include="VEDAInitProjectDialog.h" />
+    <QtMoc Include="VEDAInitProjectDialog.h" />
     <ClInclude Include="VEDAMenuBar.h" />
     <ClInclude Include="VEDAMenuBarExport.h" />
     <ClInclude Include="VEDAMenuBarFile.h" />
@@ -149,7 +149,6 @@
     <QtMoc Include="VEDAMainWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Resources\VEDAInitProjectDialog.ui" />
     <QtUic Include="Resources\VEDAMainWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

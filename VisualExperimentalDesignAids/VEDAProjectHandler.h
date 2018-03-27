@@ -31,7 +31,7 @@ namespace VEDA
 		void emitCloseProjectFinished(const bool ok, const QString &info);
 
 	public:
-		static const std::pair<bool, std::string> initProject(const std::string &name, const std::string &location, const bool newDir);
+		static const std::pair<bool, std::string> initProject(const std::string &name, const std::string &path, const bool newDir);
 		void openProject(const std::string &projectFileUrl, const bool save = true);
 		void closeCurrProject(const bool save = true);
 

@@ -2,6 +2,7 @@
 #include "VEDAGlobal.h"
 #include "VEDAGUIEnterence.h"
 #include "VEDAMenuBar.h"
+#include "VEDAProjectHandler.h"
 #include "ui_VEDAMainWindow.h"
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QDesktopWidget>

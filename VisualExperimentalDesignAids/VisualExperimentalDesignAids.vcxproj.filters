@@ -101,9 +101,6 @@
     <ClInclude Include="VEDAMenuBarHelp.h">
       <Filter>Header Files\MenuBar</Filter>
     </ClInclude>
-    <ClInclude Include="VEDAInitProjectDialog.h">
-      <Filter>Header Files\Dialog</Filter>
-    </ClInclude>
     <ClInclude Include="VEDAOperation.h">
       <Filter>Header Files\ProjectHandler</Filter>
     </ClInclude>
@@ -127,12 +124,12 @@
     <QtMoc Include="VEDAAboutDialog.h">
       <Filter>Header Files\Dialog</Filter>
     </QtMoc>
+    <QtMoc Include="VEDAInitProjectDialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Resources\VEDAMainWindow.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="Resources\VEDAInitProjectDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

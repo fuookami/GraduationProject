@@ -10,7 +10,7 @@ namespace VEDA
 		void onInitProjectBtnClicked(void)
 		{
 			auto dialog(VEDAInitProjectDialog::getInstance());
-			dialog->exec();
+			dialog->show();
 		}
 
 		void onOpenProjectBtnClicked(void)

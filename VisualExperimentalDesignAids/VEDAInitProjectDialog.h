@@ -1,34 +1,68 @@
 #pragma once
 
-#include <QtWidgets/QDialog>
+#include "IWebEngineDialogWidget.h"
+#include <QtCore/QObject>
+#include <QtCore/QJsonValue>
 #include <memory>
-
-namespace Ui
-{
-	class VEDAInitProjectDialog;
-};
+#include <thread>
 
 namespace VEDA
 {
-	class VEDAInitProjectDialog : public QDialog
+	class VEDAInitProjectDialogInterface;
+
+	class VEDAInitProjectDialog final : public IWebEngineDialogWidget
 	{
+		static const int Width = 650;
+		static const int Height = 375;
+		static const std::string DialogTitle;
+
 	public:
-		static std::shared_ptr<VEDAInitProjectDialog> getInstance(void);
+		static VEDAInitProjectDialog *getInstance(void);
 
 	private:
-		explicit VEDAInitProjectDialog(void);
+		VEDAInitProjectDialog(void);
 
 	public:
 		VEDAInitProjectDialog(const VEDAInitProjectDialog &ano) = delete;
 		VEDAInitProjectDialog(VEDAInitProjectDialog &&ano) = delete;
 		~VEDAInitProjectDialog(void) = default;
 
-	private:
-		void onSelectLocationBtnClicked(void);
-		void onComfirmBtnClicked(void);
-		void onCancelBtnClicked(void);
+	protected:
+		void registerContents(void) override;
+		void initGUI(void) override;
 
 	private:
-		std::shared_ptr<Ui::VEDAInitProjectDialog> m_ui;
+		std::shared_ptr<VEDAInitProjectDialogInterface> m_interface;
+	};
+
+	class VEDAInitProjectDialogInterface : public IWebEngineDialogInterface<VEDAInitProjectDialog>
+	{
+		Q_OBJECT;
+		friend class VEDAInitProjectDialog;
+
+	private:
+		explicit VEDAInitProjectDialogInterface(VEDAInitProjectDialog *dialog);
+
+	public:
+		VEDAInitProjectDialogInterface(const VEDAInitProjectDialogInterface &ano) = delete;
+		VEDAInitProjectDialogInterface(VEDAInitProjectDialogInterface &&ano) = delete;
+		~VEDAInitProjectDialogInterface(void) = default;
+
+	signals:
+		void savePathSelected(QString);
+		void initProjectFailed(QString);
+		void initProjectSucceeded(std::string);
+
+	public:
+		void emitInitProjectFailed(const QString &info);
+		void emitInitProjectSucceeded(const std::string &newProjectUrl);
+
+	private:
+		void onInitProjectSucceeded(std::string newProjectUrl);
+
+	public:
+		Q_INVOKABLE void onSelectSavePathBtnClicked(void);
+		Q_INVOKABLE void onConfirmBtnClicked(QJsonValue nameValue, QJsonValue savePathValue, bool newDir);
+		Q_INVOKABLE void onCancelBtnClicked(void);
 	};
 }

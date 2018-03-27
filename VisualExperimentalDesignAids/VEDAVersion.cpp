@@ -6,7 +6,7 @@ namespace VEDA
 {
 	const int MajorVersion(0);
 	const int SubVersion(1);
-	const int ModifyVersion(7);
+	const int ModifyVersion(8);
 
 	const std::string Version = StringUtils::getVersion(MajorVersion, SubVersion, ModifyVersion);
 	const std::string BuildDatetime = DatetimeUtils::getBuildDatetime(__DATE__, __TIME__).toString();

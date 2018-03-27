@@ -11,6 +11,8 @@ namespace Ui
 
 namespace VEDA
 {
+	class VEDAProjectHandler;
+
 	class VEDAMainWindow : public QMainWindow
 	{
 		Q_OBJECT;
@@ -42,5 +44,6 @@ namespace VEDA
 	private:
 		QWebEngineWidget * m_web;
 		std::shared_ptr<Ui::VEDAMainWindow> m_ui;
+		std::shared_ptr<VEDAProjectHandler> m_projectHandler;
 	};
 };
