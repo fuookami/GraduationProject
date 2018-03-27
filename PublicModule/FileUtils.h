@@ -28,6 +28,7 @@ namespace FileUtils
 	std::vector<std::string> getAllDirectoryPathsOfPath(const std::string &targetPath);
 	
 	std::vector<unsigned char> loadFile(const std::string &targetUrl);
+	std::vector<std::string> loadFileByLine(const std::string &targetUrl);
 	void saveFile(const std::string &targetUrl, const DataUtils::Data &fileData);
 	void saveFile(const std::string &targetUrl, const std::string &fileData);
 	template<typename iter>

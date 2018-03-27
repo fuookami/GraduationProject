@@ -129,6 +129,26 @@ namespace FileUtils
 		}
 	}
 
+	std::vector<std::string> loadFileByLine(const std::string & targetUrl)
+	{
+		if (checkFileExist(targetUrl))
+		{
+			std::ifstream fin(targetUrl);
+			std::string line;
+			std::vector<std::string> ret;
+
+			while (std::getline(fin, line))
+			{
+				ret.push_back(line);
+			}
+			return ret;
+		}
+		else
+		{
+			return {};
+		}
+	}
+
 	void saveFile(const std::string & targetUrl, const DataUtils::Data& fileData)
 	{
 		insurePathExist(getPathOfUrl(targetUrl));
