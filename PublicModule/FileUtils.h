@@ -10,11 +10,8 @@
 
 namespace FileUtils
 {
-#ifdef _WIN32
-	static const std::string PathSeperator("\\");
-#else
-	static const std::string PathSeperator("/");
-#endif
+	extern const std::string PathSeperator;
+	extern const std::string SuffixSeperator;
 
 	const std::string &initailPath();
 

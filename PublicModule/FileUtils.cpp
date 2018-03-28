@@ -10,6 +10,13 @@
 
 namespace FileUtils
 {
+#ifdef _WIN32
+	const std::string PathSeperator("\\");
+#else
+	const std::string PathSeperator("/");
+#endif
+	const std::string SuffixSeperator(".");
+
 	const std::string & initailPath()
 	{
 		static const std::string initailPath(boost::filesystem::initial_path().string());
