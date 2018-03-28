@@ -9,6 +9,12 @@
       <UniqueIdentifier>{42260899-baec-47f8-b427-ca87a52aae23}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="头文件\SystemUtils">
+      <UniqueIdentifier>{9fbf2fb6-59f6-4647-bcc1-60654270b556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\SystemUtils">
+      <UniqueIdentifier>{bc0115d9-6def-4a82-9a18-eb281db3b2b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)ChineseNumberUtils.h">
@@ -44,6 +50,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_cpu_id.h">
+      <Filter>头文件\SystemUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SystemUtils.h">
+      <Filter>头文件\SystemUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_global.h">
+      <Filter>头文件\SystemUtils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)ChineseNumberUtils.cpp">
@@ -70,14 +88,20 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StringConvertUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UuidUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SystemUtils.cpp">
+      <Filter>源文件\SystemUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_cpu_id.cpp">
+      <Filter>源文件\SystemUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
