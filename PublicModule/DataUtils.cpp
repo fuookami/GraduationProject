@@ -1,4 +1,5 @@
 #include "DataUtils.h"
+#include "RandomUtils.h"
 
 #include <boost/archive/iterators/base64_from_binary.hpp>
 #include <boost/archive/iterators/binary_from_base64.hpp>
@@ -77,5 +78,18 @@ namespace DataUtils
 	Data fromString(const std::string & str)
 	{
 		return Data(str.cbegin(), str.cend());
+	}
+
+	Data generateRandomBlock(const uint32 length)
+	{
+		Data ret(length, 0);
+		auto gen(RandomUtils::generateNewRandomGenerator_64());
+		std::uniform_int_distribution<> dis(0, 0xff);
+		for (uint32 i(0); i != length; ++i)
+		{
+			ret[i] = static_cast<byte>(dis(gen));
+		}
+
+		return ret;
 	}
 };

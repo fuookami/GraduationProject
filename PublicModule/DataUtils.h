@@ -150,4 +150,6 @@ namespace DataUtils
 
 	std::string toString(const Data &data);
 	Data fromString(const std::string &str);
+
+	Data generateRandomBlock(const uint32 length = 8);
 };

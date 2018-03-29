@@ -18,6 +18,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DataUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DateTimeUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtil.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_global.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_rsa.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EndianUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FileUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NumberVariant.h" />
@@ -34,6 +36,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ChineseNumberUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DataUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DateTimeUtils.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_global.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_rsa.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EndianUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NumberVariant.cpp" />

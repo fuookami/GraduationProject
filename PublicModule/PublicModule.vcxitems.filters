@@ -15,6 +15,12 @@
     <Filter Include="源文件\SystemUtils">
       <UniqueIdentifier>{bc0115d9-6def-4a82-9a18-eb281db3b2b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\EncryptionUtils">
+      <UniqueIdentifier>{2896bb55-8537-4449-9fdc-9d2a2b7c825a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\EncryptionUtils">
+      <UniqueIdentifier>{54d4b9d3-c530-40e6-95b0-bf6f905549d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)ChineseNumberUtils.h">
@@ -50,9 +56,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtil.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_cpu_id.h">
       <Filter>头文件\SystemUtils</Filter>
     </ClInclude>
@@ -61,6 +64,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_global.h">
       <Filter>头文件\SystemUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_rsa.h">
+      <Filter>头文件\EncryptionUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtil.h">
+      <Filter>头文件\EncryptionUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_global.h">
+      <Filter>头文件\EncryptionUtils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +114,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_cpu_id.cpp">
       <Filter>源文件\SystemUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_rsa.cpp">
+      <Filter>源文件\EncryptionUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_global.cpp">
+      <Filter>源文件\EncryptionUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
