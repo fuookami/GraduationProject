@@ -1,5 +1,6 @@
 #include "_pri_rsa.h"
 #include "_pri_global.h"
+#include "StringUtils.h"
 #include <cryptopp/rsa.h>
 #include <cryptopp/hex.h>
 #include <numeric>
@@ -34,7 +35,7 @@ namespace FuUtils
 				return ret;
 			}
 
-			std::string encryptStringRSA(const std::string & publicKey, const std::string & origin, const std::string & seed)
+			std::string encrypt(const std::string & publicKey, const std::string & origin, const std::string & seed)
 			{
 				CryptoPP::StringSource PublicKeySrc(publicKey, true, new CryptoPP::HexDecoder);
 				CryptoPP::RSAES_OAEP_SHA_Encryptor pubEncryptor(PublicKeySrc);
@@ -64,7 +65,7 @@ namespace FuUtils
 				return std::accumulate(subCiphers.cbegin(), subCiphers.cend(), std::string(""));
 			}
 
-			std::string decryptStringRSA(const std::string & privateKey, const std::string & cipher)
+			std::string decrypt(const std::string & privateKey, const std::string & cipher)
 			{
 				CryptoPP::StringSource priKeySrc(privateKey, new CryptoPP::HexDecoder());
 				CryptoPP::RSAES_OAEP_SHA_Decryptor priDecryptor(priKeySrc);
@@ -89,10 +90,10 @@ namespace FuUtils
 					currIt += thisLen;
 				}
 
-				return std::accumulate(subDecrypts.cbegin(), subDecrypts.cend(), std::string(""));
+				return DataUtils::toString(DataUtils::fromHexString(std::accumulate(subDecrypts.cbegin(), subDecrypts.cend(), std::string(""))));
 			}
 
-			std::string signFileRSA(const std::string & privateKey, const std::string & msg)
+			std::string sign(const std::string & privateKey, const std::string & msg)
 			{
 				CryptoPP::StringSource privSrc(privateKey, true, new CryptoPP::HexDecoder());
 				CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Signer priSinger(privSrc);
@@ -105,7 +106,7 @@ namespace FuUtils
 				return signature;
 			}
 
-			const bool verifyFileRSA(const std::string & publicKey, const std::string & msg, const std::string & signature)
+			const bool verify(const std::string & publicKey, const std::string & msg, const std::string & signature)
 			{
 				CryptoPP::StringSource pubSrc(publicKey, true, new CryptoPP::HexDecoder());
 				CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Verifier pubVerifier(pubSrc);
@@ -120,6 +121,46 @@ namespace FuUtils
 
 				return true;
 			}
-		};
+
+			encrypter::encrypter(const std::string & _publicKey, const std::string & _seed)
+				: publicKey(_publicKey), seed(_seed)
+			{
+			}
+
+			inline std::string encrypter::operator()(const std::string & origin)
+			{
+				return publicKey.empty() ? StringUtils::EmptyString : encrypt(publicKey, origin, seed);
+			}
+
+			decrypter::decrypter(const std::string & _privateKey)
+				: privateKey(_privateKey)
+			{
+			}
+
+			inline std::string decrypter::operator()(const std::string & cipher)
+			{
+				return privateKey.empty() ? StringUtils::EmptyString : decrypt(privateKey, cipher);
+			}
+
+			signer::signer(const std::string & _privateKey)
+				: privateKey(_privateKey)
+			{
+			}
+
+			inline std::string signer::operator()(const std::string & msg)
+			{
+				return privateKey.empty() ? StringUtils::EmptyString : sign(privateKey, msg);
+			}
+
+			verifier::verifier(const std::string & _publicKey)
+				: publicKey(_publicKey)
+			{
+			}
+
+			inline const bool verifier::operator()(const std::string & msg, const std::string & signature)
+			{
+				return publicKey.empty() ? false : verify(publicKey, msg, signature);
+			}
+};
 	};
 };
