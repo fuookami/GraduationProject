@@ -10,8 +10,11 @@
 
 namespace FileUtils
 {
-	extern const std::string PathSeperator;
-	extern const std::string SuffixSeperator;
+#ifdef _WIN32
+	static const std::string PathSeperator("\\");
+#else
+	static const std::string PathSeperator("/");
+#endif
 
 	const std::string &initailPath();
 
@@ -21,7 +24,9 @@ namespace FileUtils
 
 	std::string getPathOfUrl(const std::string &targetUrl);
 	std::string getFileNameOfUrl(const std::string &targetUrl);
-	std::vector<std::string> getAllFilesNameOfPath(const std::string &targetPath);
+	std::string getFileMainNameOfUrl(const std::string &targetUrl);
+	std::string getFileExtensionOfUrl(const std::string &targetUrl);
+	std::vector<std::string> getAllFilesUrlsOfPath(const std::string &targetPath);
 	std::vector<std::string> getAllDirectoryPathsOfPath(const std::string &targetPath);
 	
 	std::vector<unsigned char> loadFile(const std::string &targetUrl);

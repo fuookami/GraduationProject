@@ -10,13 +10,6 @@
 
 namespace FileUtils
 {
-#ifdef _WIN32
-	const std::string PathSeperator("\\");
-#else
-	const std::string PathSeperator("/");
-#endif
-	const std::string SuffixSeperator(".");
-
 	const std::string & initailPath()
 	{
 		static const std::string initailPath(boost::filesystem::initial_path().string());
@@ -73,7 +66,18 @@ namespace FileUtils
 		return std::string(targetUrl.cbegin() + targetUrl.find_last_of("\\/") + 1, targetUrl.cend());
 	}
 
-	std::vector<std::string> getAllFilesNameOfPath(const std::string & targetPath)
+	std::string getFileMainNameOfUrl(const std::string & targetUrl)
+	{
+		return std::string(targetUrl.cbegin() + targetUrl.find_last_of("\\/") + 1, 
+			targetUrl.cbegin() + targetUrl.find_last_of(','));
+	}
+
+	std::string getFileExtensionOfUrl(const std::string & targetUrl)
+	{
+		return std::string(targetUrl.cbegin() + targetUrl.find_last_of('.') + 1, targetUrl.cend());
+	}
+
+	std::vector<std::string> getAllFilesUrlsOfPath(const std::string & targetPath)
 	{
 		using namespace boost::filesystem;
 

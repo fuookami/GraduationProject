@@ -9,6 +9,9 @@ class IWebEngineDialogWidget;
 template <typename T, typename std::enable_if<std::is_base_of<IWebEngineDialogWidget, T>::value, T>::type* = nullptr>
 class IWebEngineDialogInterface : public QObject
 {
+public:
+	using DialogType = T;
+
 protected:
 	IWebEngineDialogInterface(T *dialog)
 		: QObject(nullptr), m_dialog(dialog) {};
