@@ -32,9 +32,12 @@ namespace FuUtils
 
 			struct encrypter
 			{
+				encrypter(const std::string &_seed = DataUtils::toString(DataUtils::generateRandomBlock()));
 				encrypter(const std::string &_publicKey, const std::string &_seed = DataUtils::toString(DataUtils::generateRandomBlock()));
 				encrypter(const encrypter &ano) = default;
 				encrypter(encrypter &&ano) = default;
+				encrypter &operator=(const encrypter &rhs) = default;
+				encrypter &operator=(encrypter &&rhs) = default;
 				~encrypter(void) = default;
 
 				inline std::string operator()(const std::string &origin);
@@ -54,9 +57,12 @@ namespace FuUtils
 
 			struct decrypter
 			{
+				decrypter(void) = default;
 				decrypter(const std::string &_privateKey);
 				decrypter(const decrypter &ano) = default;
 				decrypter(decrypter &&ano) = default;
+				decrypter &operator=(const decrypter &rhs) = default;
+				decrypter &operator=(decrypter &&rhs) = default;
 				~decrypter(void) = default;
 
 				inline std::string operator()(const std::string &cipher);
@@ -75,9 +81,12 @@ namespace FuUtils
 
 			struct signer
 			{
+				signer(void) = default;
 				signer(const std::string &_privateKey);
 				signer(const signer &ano) = default;
 				signer(signer &&ano) = default;
+				signer &operator=(const signer &rhs) = default;
+				signer &operator=(signer &&rhs) = default;
 				~signer(void) = default;
 
 				inline std::string operator()(const std::string &msg);
@@ -97,9 +106,12 @@ namespace FuUtils
 
 			struct verifier
 			{
+				verifier(void) = default;
 				verifier(const std::string &_publicKey);
 				verifier(const verifier &ano) = default;
 				verifier(verifier &&ano) = default;
+				verifier &operator=(const verifier &rhs) = default;
+				verifier &operator=(verifier &&rhs) = default;
 				~verifier(void) = default;
 
 				inline const bool operator()(const std::string &msg, const std::string &signature);

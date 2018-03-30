@@ -68,10 +68,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_rsa.h">
       <Filter>头文件\EncryptionUtils</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtil.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_global.h">
       <Filter>头文件\EncryptionUtils</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_global.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils.h">
       <Filter>头文件\EncryptionUtils</Filter>
     </ClInclude>
   </ItemGroup>

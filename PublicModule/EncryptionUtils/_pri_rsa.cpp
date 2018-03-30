@@ -122,12 +122,17 @@ namespace FuUtils
 				return true;
 			}
 
+			encrypter::encrypter(const std::string & _seed)
+				: encrypter("", _seed)
+			{
+			}
+
 			encrypter::encrypter(const std::string & _publicKey, const std::string & _seed)
 				: publicKey(_publicKey), seed(_seed)
 			{
 			}
 
-			inline std::string encrypter::operator()(const std::string & origin)
+			std::string encrypter::operator()(const std::string & origin)
 			{
 				return publicKey.empty() ? StringUtils::EmptyString : encrypt(publicKey, origin, seed);
 			}
@@ -137,7 +142,7 @@ namespace FuUtils
 			{
 			}
 
-			inline std::string decrypter::operator()(const std::string & cipher)
+			std::string decrypter::operator()(const std::string & cipher)
 			{
 				return privateKey.empty() ? StringUtils::EmptyString : decrypt(privateKey, cipher);
 			}
@@ -147,7 +152,7 @@ namespace FuUtils
 			{
 			}
 
-			inline std::string signer::operator()(const std::string & msg)
+			std::string signer::operator()(const std::string & msg)
 			{
 				return privateKey.empty() ? StringUtils::EmptyString : sign(privateKey, msg);
 			}
@@ -157,7 +162,7 @@ namespace FuUtils
 			{
 			}
 
-			inline const bool verifier::operator()(const std::string & msg, const std::string & signature)
+			const bool verifier::operator()(const std::string & msg, const std::string & signature)
 			{
 				return publicKey.empty() ? false : verify(publicKey, msg, signature);
 			}
