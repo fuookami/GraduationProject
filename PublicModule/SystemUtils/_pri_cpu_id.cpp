@@ -20,7 +20,7 @@
 #endif // _MSC_VER
 #endif // PC_PLATFORM
 
-namespace FuUtils
+namespace SSUtils
 {
 	namespace System
 	{
@@ -44,7 +44,7 @@ namespace FuUtils
 			return cpuId;
 		}
 
-		void _getCPUId(unsigned int CPUInfo[4], unsigned int infoType)
+		void _getCPUId(uint32  CPUInfo[4], uint32 infoType)
 		{
 #if defined(PC_PLATFORM)
 #if defined(__GNUC__)    // GCC
@@ -59,14 +59,14 @@ namespace FuUtils
 #endif
 		}
 
-		void _getCPUIdEx(unsigned int CPUInfo[4], unsigned int infoType, unsigned int ecxValue)
+		void _getCPUIdEx(uint32 CPUInfo[4], uint32 infoType, uint32 ecxValue)
 		{
 #if defined(PC_PLATFORM)
 #if defined(__GNUC__)    // GCC
 			__cpuid_count(infoType, ecxValue, CPUInfo[0], CPUInfo[1], CPUInfo[2], CPUInfo[3]);
 #elif defined(_MSC_VER)    // MSVC
 #if defined(_WIN64) || _MSC_VER>=1600    // 64位下不支持内联汇编. 1600: VS2010, 据说VC2008 SP1之后才支持__cpuidex.
-			__cpuidex((int*)(void*)CPUInfo, (int)infoType, (int)ecxValue);
+			__cpuidex((int32*)(void*)CPUInfo, (int32)infoType, (int32)ecxValue);
 #else
 			if (0 == CPUInfo)
 				return;

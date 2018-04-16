@@ -1,6 +1,6 @@
 #include "SystemUtils/_pri_cpu_id.h"
 
-namespace FuUtils
+namespace SSUtils
 {
 	namespace System
 	{

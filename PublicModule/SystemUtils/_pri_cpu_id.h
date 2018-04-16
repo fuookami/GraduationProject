@@ -1,14 +1,14 @@
 #pragma once
 
-#include "_pri_global.h"
+#include "Global.h"
 #include <array>
 
-namespace FuUtils
+namespace SSUtils
 {
 	namespace System
 	{
 		std::array<byte, CPUIdLength> getCPUId(void);
-		void _getCPUId(unsigned int CPUInfo[4], unsigned int infoType);
-		void _getCPUIdEx(unsigned int CPUInfo[4], unsigned int infoType, unsigned int ecxValue);
+		void _getCPUId(uint32 CPUInfo[4], uint32  infoType);
+		void _getCPUIdEx(uint32 CPUInfo[4], uint32  infoType, uint32 ecxValue);
 	}
 };

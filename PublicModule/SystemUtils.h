@@ -1,9 +1,9 @@
 #pragma once
 
-#include "SystemUtils/_pri_global.h"
+#include "Global.h"
 #include <array>
 
-namespace FuUtils
+namespace SSUtils
 {
 	namespace System
 	{
