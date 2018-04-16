@@ -1,17 +1,17 @@
-#include "_pri_rsa.h"
+#include "RSA.h"
 #include "_pri_global.h"
 #include "StringUtils.h"
 #include <cryptopp/rsa.h>
 #include <cryptopp/hex.h>
 #include <numeric>
 
-namespace FuUtils
+namespace SSUtils
 {
 	namespace Encryption
 	{
 		namespace RSA
 		{
-			std::pair<std::string, std::string> generateKey(unsigned int keyLength, const std::string & seed)
+			std::pair<std::string, std::string> generateKey(const uint32 keyLength, const std::string & seed)
 			{
 				std::pair<std::string, std::string> ret;
 				std::string &privateKey(ret.first);
@@ -44,12 +44,12 @@ namespace FuUtils
 				randPool.IncorporateEntropy((const byte *)seed.c_str(), seed.size());
 
 				// 每次加密有长度限制，需要分块加密后拼接
-				int maxMsgLen(pubEncryptor.FixedMaxPlaintextLength());
+				uint32 maxMsgLen(pubEncryptor.FixedMaxPlaintextLength());
 				std::vector<std::string> subCiphers;
 
 				for (auto currIt(origin.cbegin()), edIt(origin.cend()); currIt != edIt; )
 				{
-					int thisLen(edIt - currIt);
+					uint32 thisLen(edIt - currIt);
 					thisLen = thisLen > maxMsgLen ? maxMsgLen : thisLen;
 					auto nextIt(currIt + thisLen);
 
@@ -71,12 +71,12 @@ namespace FuUtils
 				CryptoPP::RSAES_OAEP_SHA_Decryptor priDecryptor(priKeySrc);
 
 				// 把密文解密成十六进制码
-				int maxCiphertextLen = priDecryptor.FixedCiphertextLength() * 2;
+				uint32 maxCiphertextLen = priDecryptor.FixedCiphertextLength() * 2;
 				std::vector<std::string> subDecrypts;
 
 				for (auto currIt(cipher.cbegin()), edIt(cipher.cend()); currIt != edIt; )
 				{
-					int thisLen(edIt - currIt);
+					uint32 thisLen(edIt - currIt);
 					thisLen = thisLen > maxCiphertextLen ? maxCiphertextLen : thisLen;
 					auto nextIt(currIt + thisLen);
 

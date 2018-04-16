@@ -5,7 +5,7 @@
 #include <string>
 #include <utility>
 
-namespace FuUtils
+namespace SSUtils
 {
 	namespace Encryption
 	{
@@ -18,7 +18,7 @@ namespace FuUtils
 			*	\返回值:   	std::pair<std::string, std::string>	RSA公钥和私钥对
 			*	\说明: 		生成RSA公钥和私钥对，用于验证器、激活码生成器生成请求码、激活
 			*/
-			std::pair<std::string, std::string> generateKey(unsigned int keyLength, const std::string &seed = DataUtils::toString(DataUtils::generateRandomBlock()));
+			std::pair<std::string, std::string> generateKey(const uint32 keyLength, const std::string &seed = DataUtils::toString(DataUtils::generateRandomBlock()));
 
 			/*!
 			*	\函数名:   	encrypt

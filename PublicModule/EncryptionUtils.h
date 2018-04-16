@@ -1,8 +1,8 @@
 #pragma once
 
-#include "EncryptionUtils/_pri_rsa.h"
+#include "EncryptionUtils/RSA.h"
 
-namespace FuUtils
+namespace SSUtils
 {
 	namespace Encryption
 	{

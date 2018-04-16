@@ -2,7 +2,7 @@
 
 #include <cryptopp/randpool.h>
 
-namespace FuUtils
+namespace SSUtils
 {
 	namespace Encryption
 	{

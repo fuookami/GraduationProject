@@ -1,6 +1,6 @@
 #include "_pri_global.h"
 
-namespace FuUtils
+namespace SSUtils
 {
 	namespace Encryption
 	{
