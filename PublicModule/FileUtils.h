@@ -2,6 +2,7 @@
 
 #include "Global.h"
 #include "DataUtils/Translator.h"
+#include "DataUtils.h"
 #include <string>
 #include <iterator>
 #include <fstream>
@@ -61,6 +62,8 @@ namespace SSUtils
 		template<typename T>
 		struct FileSaver<T, 1>
 		{
+			typedef typename std::enable_if<Data::ConversionChecker<T, byte>::value, T>::type value_type;
+
 			FileSaver(void) = default;
 			FileSaver(const FileSaver &ano) = delete;
 			FileSaver(FileSaver &&ano) = delete;
@@ -74,7 +77,7 @@ namespace SSUtils
 				static_assert(std::is_same_v<iter::value_type, T>, "FileSaver::operator(), the value type of iterator is not the same of the type");
 
 				std::ofstream fout(targetUrl);
-				std::ostream_iterator<T> outIt(fout);
+				std::ostream_iterator<byte> outIt(fout);
 				std::copy(bgIt, edIt, outIt);
 				fout.close();
 			}
@@ -84,7 +87,7 @@ namespace SSUtils
 				static_assert(std::is_same_v<container::value_type, T>, "FileSaver::operator(), the value type of container is not the same of the type");
 
 				std::ofstream fout(targetUrl);
-				std::ostream_iterator<T> outIt(fout);
+				std::ostream_iterator<byte> outIt(fout);
 				std::copy(datas.cbegin(), datas.cend(), outIt);
 				fout.close();
 			}

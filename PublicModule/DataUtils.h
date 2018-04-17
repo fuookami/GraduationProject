@@ -23,6 +23,17 @@ namespace SSUtils
 			return ret;
 		}
 
+		template<typename T, typename U>
+		class ConversionChecker 
+		{
+		private:
+			static char Test(U);
+			static int Test(...);
+			static T MakeT();
+		public:
+			static const bool value = sizeof(Test(MakeT())) == sizeof(char);
+		};
+
 		std::string toHexString(const Block &data, const std::string seperator = "");
 		Block fromHexString(const std::string &str, const std::string seperator = "");
 

@@ -85,13 +85,13 @@ namespace SSUtils
 
 		std::wstring toWString(const Block & data)
 		{
-			static Translator<wchar> tranlator;
+			static const Translator<wchar> tranlator;
 			return tranlator.toDataContainer<std::wstring>(data);
 		}
 
 		Block fromWString(const std::wstring & str)
 		{
-			static Translator<wchar> tranlator;
+			static const Translator<wchar> tranlator;
 			return tranlator.fromDataContainer<std::wstring>(str);
 		}
 

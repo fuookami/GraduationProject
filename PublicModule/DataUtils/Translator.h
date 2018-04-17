@@ -23,7 +23,7 @@ namespace SSUtils
 			Translator &operator=(Translator &&rhs) = delete;
 			~Translator(void) = default;
 
-			Block fromData(const T &src)
+			Block fromData(const T &src) const
 			{
 				Block buff(DataLength, 0);
 				if (DataLength == 1 || endian == Endian::BigEndian)
@@ -40,7 +40,7 @@ namespace SSUtils
 			}
 
 			template <typename container>
-			Block fromDataContainer(const container &datas)
+			Block fromDataContainer(const container &datas) const
 			{
 				static_assert(std::is_same_v<container::value_type, T>, "SSUtils::Translotor::fromDataContainer, the value type of container is not the same of the type");
 				Block buff;
@@ -64,23 +64,23 @@ namespace SSUtils
 			}
 
 			template <typename iter>
-			Block fromDataIterator(const iter bgIt, const iter edIt)
+			Block fromDataIterator(const iter bgIt, const iter edIt) const
 			{
 				static_assert(std::is_same_v<iter::value_type, T>, "SSUtils::Translotor::fromDataIterator, the value type of iterator is not the same of the type");
 				Block buff;
 				if (DataLength == 1 || endian == Endian::BigEndian)
 				{
-					for (iter curr; curr != edIt; ++curr)
+					for (iter curr(bgIt); curr != edIt; ++curr)
 					{
-						T &data(*curr);
+						const T &data(*curr);
 						std::copy(getDataCBegin(data), getDataCEnd(data), std::back_inserter(buff));
 					}
 				}
 				else
 				{
-					for (iter curr; curr != edIt; ++curr)
+					for (iter curr(bgIt); curr != edIt; ++curr)
 					{
-						T &data(*curr);
+						const T &data(*curr);
 						std::copy(getDataCBegin(data), getDataCEnd(data), std::back_inserter(buff));
 						std::reverse(buff.end() - DataLength, buff.end());
 					}
@@ -90,7 +90,7 @@ namespace SSUtils
 				return buff;
 			}
 
-			T toData(const Block &data)
+			T toData(const Block &data) const
 			{
 				if (data.size() != DataLength)
 				{
@@ -113,7 +113,7 @@ namespace SSUtils
 			}
 
 			template<uint32 size>
-			std::array<T, size> toDataArray(const Block &datas)
+			std::array<T, size> toDataArray(const Block &datas) const
 			{
 				if (data.size() != (size * DataLength))
 				{
@@ -144,7 +144,7 @@ namespace SSUtils
 			}
 
 			template<typename container>
-			container toDataContainer(const Block &datas)
+			container toDataContainer(const Block &datas) const
 			{
 				static_assert(std::is_same_v<container::value_type, T>, "SSUtils::Translotor::toDataContainer, the value type of container is not the same of the type");
 				if (datas.size() % DataLength != 0)
@@ -182,7 +182,7 @@ namespace SSUtils
 			}
 
 			template<typename outIt>
-			outIt toDataIterator(const Block &data, outIt it)
+			outIt toDataIterator(const Block &data, outIt it) const
 			{
 				static_assert(std::is_same_v<outIt::value_type, T>, "SSUtils::Translotor::toDataIterator, the value type of iterator is not the same of the type");
 				if (data.size() % DataLength != 0)
