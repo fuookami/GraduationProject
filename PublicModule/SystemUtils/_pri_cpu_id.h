@@ -1,5 +1,6 @@
 #pragma once
 
+#include "_pri_system_global.h"
 #include "Global.h"
 #include <array>
 

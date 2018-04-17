@@ -7,7 +7,7 @@ namespace SSUtils
 {
 	using wchar = wchar_t;
 	using byte = unsigned char;
-	using Data = std::vector<byte>;
+	using Block = std::vector<byte>;
 
 	using int8 = std::int8_t;
 	using uint8 = std::uint8_t;
@@ -17,6 +17,4 @@ namespace SSUtils
 	using uint32 = std::uint32_t;
 	using int64 = std::int64_t;
 	using uint64 = std::uint64_t;
-
-	static const unsigned int CPUIdLength = 8;
 };

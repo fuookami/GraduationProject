@@ -1,5 +1,5 @@
 #include "RSA.h"
-#include "_pri_global.h"
+#include "_pri_encryption_global.h"
 #include "StringUtils.h"
 #include <cryptopp/rsa.h>
 #include <cryptopp/hex.h>
@@ -90,7 +90,7 @@ namespace SSUtils
 					currIt += thisLen;
 				}
 
-				return DataUtils::toString(DataUtils::fromHexString(std::accumulate(subDecrypts.cbegin(), subDecrypts.cend(), std::string(""))));
+				return Data::toString(Data::fromHexString(std::accumulate(subDecrypts.cbegin(), subDecrypts.cend(), std::string(""))));
 			}
 
 			std::string sign(const std::string & privateKey, const std::string & msg)

@@ -5,6 +5,8 @@
 
 namespace SSUtils
 {
+	static const unsigned char UUIDLength = 16;
+
 	namespace UUID
 	{
 		std::array<byte, UUIDLength> generateUUIDV1(void);

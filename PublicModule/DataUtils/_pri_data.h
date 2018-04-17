@@ -10,7 +10,7 @@ namespace SSUtils
 		template <typename T>
 		inline const byte *getDataCBegin(const T &src)
 		{
-			return reinterpret_cast<const byte *>(std::addressof(src))
+			return reinterpret_cast<const byte *>(std::addressof(src));
 		}
 
 		template <typename T>

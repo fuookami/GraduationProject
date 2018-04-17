@@ -147,9 +147,9 @@ namespace SSUtils
 			container toDataContainer(const Block &datas)
 			{
 				static_assert(std::is_same_v<container::value_type, T>, "SSUtils::Translotor::toDataContainer, the value type of container is not the same of the type");
-				if (data.size() % DataLength != 0)
+				if (datas.size() % DataLength != 0)
 				{
-					return std::vector<T>();
+					return container();
 				}
 				else
 				{
@@ -171,7 +171,7 @@ namespace SSUtils
 							T temp;
 							Block data(DataLength, 0);
 							std::reverse_copy(datas.cbegin() + i, datas.cbegin() + i + DataLength, data.begin());
-							std::copy(data.cbegin(), data.end(), getDataBegin(temp));
+							std::copy(data.cbegin(), data.cend(), getDataBegin(temp));
 
 							ret.insert(ret.end(), std::move(temp));
 						}
@@ -221,122 +221,33 @@ namespace SSUtils
 			}
 		};
 
-		inline const bool toBool(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<bool> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromBool(const bool value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<bool> translator(endian);
-			return translator.fromData(value);
-		}
+		inline const bool toBool(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromBool(const bool value, const Endian endian = System::LocalEndian);
 
-		inline const float toFloat(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<float> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromFloat(const float value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<float> translator(endian);
-			return translator.fromData(value);
-		}
+		inline const float toFloat(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromFloat(const float value, const Endian endian = System::LocalEndian);
+		inline const double toDouble(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromDouble(const double value, const Endian endian = System::LocalEndian);
 
-		inline const double toDouble(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<double> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromDouble(const double value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<double> translator(endian);
-			return translator.fromData(value);
-		}
+		inline const int8 toInt8(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromInt8(const int8 value, const Endian endian = System::LocalEndian);
+		inline const uint8 toUInt8(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromUInt8(const uint8 value, const Endian endian = System::LocalEndian);
 
-		inline const int8 toInt8(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<int8> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromInt8(const int8 value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<int8> translator(endian);
-			return translator.fromData(value);
-		}
-		inline const uint8 toUInt8(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<uint8> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromUInt8(const uint8 value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<uint8> translator(endian);
-			return translator.fromData(value);
-		}
+		inline const int16 toInt16(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromInt16(const int16 value, const Endian endian = System::LocalEndian);
+		inline const uint16 toUInt16(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromUInt16(const uint16 value, const Endian endian = System::LocalEndian);
 
-		inline const int16 toInt16(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<int16> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromInt16(const int16 value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<int16> translator(endian);
-			return translator.fromData(value);
-		}
-		inline const uint16 toUInt16(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<uint16> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromUInt16(const uint16 value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<uint16> translator(endian);
-			return translator.fromData(value);
-		}
-
-		inline const int32 toInt32(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<int32> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromInt32(const int32 value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<int32> translator(endian);
-			return translator.fromData(value);
-		}
-		inline const uint32 toUInt32(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<uint32> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromUInt32(const uint32 value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<uint32> translator(endian);
-			return translator.fromData(value);
-		}
+		inline const int32 toInt32(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromInt32(const int32 value, const Endian endian = System::LocalEndian);
+		inline const uint32 toUInt32(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromUInt32(const uint32 value, const Endian endian = System::LocalEndian);
 		
-		inline const int64 toInt64(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<int64> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromInt64(const int64 value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<int64> translator(endian);
-			return translator.fromData(value);
-		}
-		inline const uint64 toUInt64(const Block &data, const Endian endian = System::LocalEndian)
-		{
-			static Translator<uint64> translator(endian);
-			return translator.toData(data);
-		}
-		inline Block fromUInt64(const uint64 value, const Endian endian = System::LocalEndian)
-		{
-			static Translator<uint64> translator(endian);
-			return translator.fromData(value);
-		}
+		inline const int64 toInt64(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromInt64(const int64 value, const Endian endian = System::LocalEndian);
+		inline const uint64 toUInt64(const Block &data, const Endian endian = System::LocalEndian);
+		inline Block fromUInt64(const uint64 value, const Endian endian = System::LocalEndian);
 
 		template<typename T>
 		inline Block fromData(const T &data, const Endian endian = System::LocalEndian)
@@ -367,26 +278,26 @@ namespace SSUtils
 		template<typename container>
 		inline Block fromContainer(const container &datas, const Endian endian = System::LocalEndian)
 		{
-			static Translator<T> translator(endian);
+			static Translator<container::value_type> translator(endian);
 			return translator.fromDataContainer(datas);
 		}
 		template<typename container>
 		inline container toContainer(const Block &data, const Endian endian = System::LocalEndian)
 		{
-			static Translator<T> translaotr(endian);
+			static Translator<container::value_type> translaotr(endian);
 			return translaotr.toDataContainer<container>(data);
 		}
 
 		template<typename iter>
 		inline Block fromIterator(const iter bgIt, const iter edIt, const Endian endian = System::LocalEndian)
 		{
-			static Translator<T> translator(endian);
+			static Translator<iter::value_type> translator(endian);
 			return translator.fromDataIterator(bgIt, edIt);
 		}
 		template<typename outIt>
 		inline outIt toIterator(const Block &data, outIt it, const Endian endian = System::LocalEndian)
 		{
-			static Translator<T> translator(endian);
+			static Translator<iter::value_type> translator(endian);
 			return translator.toDataIterator(data, it);
 		}
 	};

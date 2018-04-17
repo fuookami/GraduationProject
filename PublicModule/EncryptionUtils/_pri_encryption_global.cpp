@@ -1,4 +1,4 @@
-#include "_pri_global.h"
+#include "_pri_encryption_global.h"
 
 namespace SSUtils
 {
