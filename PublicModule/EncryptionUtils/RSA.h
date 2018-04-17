@@ -18,7 +18,7 @@ namespace SSUtils
 			*	\返回值:   	std::pair<std::string, std::string>	RSA公钥和私钥对
 			*	\说明: 		生成RSA公钥和私钥对，用于验证器、激活码生成器生成请求码、激活
 			*/
-			std::pair<std::string, std::string> generateKey(const uint32 keyLength, const std::string &seed = DataUtils::toString(DataUtils::generateRandomBlock()));
+			std::pair<std::string, std::string> generateKey(const uint32 keyLength, const std::string &seed = Data::toString(Data::generateRandomBlock()));
 
 			/*!
 			*	\函数名:   	encrypt
@@ -28,12 +28,12 @@ namespace SSUtils
 			*	\返回值:   	std::string						密文
 			*	\说明: 		使用RSA公钥对信息进行加密
 			*/
-			std::string encrypt(const std::string &publicKey, const std::string &origin, const std::string &seed = DataUtils::toString(DataUtils::generateRandomBlock()));
+			std::string encrypt(const std::string &publicKey, const std::string &origin, const std::string &seed = Data::toString(Data::generateRandomBlock()));
 
 			struct encrypter
 			{
-				encrypter(const std::string &_seed = DataUtils::toString(DataUtils::generateRandomBlock()));
-				encrypter(const std::string &_publicKey, const std::string &_seed = DataUtils::toString(DataUtils::generateRandomBlock()));
+				encrypter(const std::string &_seed = Data::toString(Data::generateRandomBlock()));
+				encrypter(const std::string &_publicKey, const std::string &_seed = Data::toString(Data::generateRandomBlock()));
 				encrypter(const encrypter &ano) = default;
 				encrypter(encrypter &&ano) = default;
 				encrypter &operator=(const encrypter &rhs) = default;
