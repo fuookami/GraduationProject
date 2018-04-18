@@ -2,6 +2,7 @@
 
 #include "Global.h"
 #include "SystemUtils/_pri_system_global.h"
+#include "SystemUtils/EndianTranslator.h"
 #include <array>
 
 namespace SSUtils

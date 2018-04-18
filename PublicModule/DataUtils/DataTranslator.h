@@ -10,18 +10,18 @@ namespace SSUtils
 	namespace Data
 	{
 		template <typename T>
-		struct Translator
+		struct DataTranslator
 		{
 			static const uint8 DataLength = sizeof(T);
 			Endian endian;
 
-			Translator(const Endian _endian = System::LocalEndian)
+			DataTranslator(const Endian _endian = System::LocalEndian)
 				: endian(_endian) {}
-			Translator(const Translator &ano) = delete;
-			Translator(Translator &&ano) = delete;
-			Translator &operator=(const Translator &rhs) = delete;
-			Translator &operator=(Translator &&rhs) = delete;
-			~Translator(void) = default;
+			DataTranslator(const DataTranslator &ano) = delete;
+			DataTranslator(DataTranslator &&ano) = delete;
+			DataTranslator &operator=(const DataTranslator &rhs) = delete;
+			DataTranslator &operator=(DataTranslator &&rhs) = delete;
+			~DataTranslator(void) = default;
 
 			Block fromData(const T &src) const
 			{
@@ -252,52 +252,52 @@ namespace SSUtils
 		template<typename T>
 		inline Block fromData(const T &data, const Endian endian = System::LocalEndian)
 		{
-			static Translator<T> translator(endian);
+			static DataTranslator<T> translator(endian);
 			return translator.fromData(data);
 		}
 		template<typename T>
 		inline T toData(const Block &data, const Endian endian = System::LocalEndian)
 		{
-			static Translator<T> translator(endian);
+			static DataTranslator<T> translator(endian);
 			return translator.toData(data);
 		}
 
 		template<typename T, uint32 size>
 		inline Block fromArray(const std::array<T, size> &datas, const Endian endian = System::LocalEndian)
 		{
-			static Translator<T> translator(endian);
+			static DataTranslator<T> translator(endian);
 			return translator.fromDataContainer(datas);
 		}
 		template<typename T, uint32 size>
 		inline std::array<T, size> toArray(const Block &datas, const Endian endian = System::LocalEndian)
 		{
-			static Translator<T> translator(endian);
+			static DataTranslator<T> translator(endian);
 			return translator.toDataArray<size>(datas);
 		}
 
 		template<typename container>
 		inline Block fromContainer(const container &datas, const Endian endian = System::LocalEndian)
 		{
-			static Translator<container::value_type> translator(endian);
+			static DataTranslator<container::value_type> translator(endian);
 			return translator.fromDataContainer(datas);
 		}
 		template<typename container>
 		inline container toContainer(const Block &data, const Endian endian = System::LocalEndian)
 		{
-			static Translator<container::value_type> translaotr(endian);
+			static DataTranslator<container::value_type> translaotr(endian);
 			return translaotr.toDataContainer<container>(data);
 		}
 
 		template<typename iter>
 		inline Block fromIterator(const iter bgIt, const iter edIt, const Endian endian = System::LocalEndian)
 		{
-			static Translator<iter::value_type> translator(endian);
+			static DataTranslator<iter::value_type> translator(endian);
 			return translator.fromDataIterator(bgIt, edIt);
 		}
 		template<typename outIt>
 		inline outIt toIterator(const Block &data, outIt it, const Endian endian = System::LocalEndian)
 		{
-			static Translator<iter::value_type> translator(endian);
+			static DataTranslator<iter::value_type> translator(endian);
 			return translator.toDataIterator(data, it);
 		}
 	};

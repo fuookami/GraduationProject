@@ -1,5 +1,5 @@
 #include "DataUtils.h"
-#include "DataUtils/Translator.h"
+#include "DataUtils/DataTranslator.h"
 #include "RandomUtils.h"
 
 #include <boost/archive/iterators/base64_from_binary.hpp>
@@ -85,13 +85,13 @@ namespace SSUtils
 
 		std::wstring toWString(const Block & data)
 		{
-			static const Translator<wchar> tranlator;
+			static const DataTranslator<wchar> tranlator;
 			return tranlator.toDataContainer<std::wstring>(data);
 		}
 
 		Block fromWString(const std::wstring & str)
 		{
-			static const Translator<wchar> tranlator;
+			static const DataTranslator<wchar> tranlator;
 			return tranlator.fromDataContainer<std::wstring>(str);
 		}
 

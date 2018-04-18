@@ -134,7 +134,7 @@ namespace SSUtils
 			return pathNames;
 		}
 
-		std::vector<unsigned char> loadFile(const std::string & targetUrl)
+		Block loadFile(const std::string & targetUrl)
 		{
 			if (checkFileExist(targetUrl))
 			{

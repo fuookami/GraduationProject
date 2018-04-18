@@ -77,9 +77,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DataUtils.h">
       <Filter>头文件\DataUtils</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_endian.h">
-      <Filter>头文件\SystemUtils</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemUtils\EndianTranslator.h">
       <Filter>头文件\SystemUtils</Filter>
     </ClInclude>
@@ -95,16 +92,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_system_global.h">
       <Filter>头文件\SystemUtils</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DataUtils\Translator.h">
-      <Filter>头文件\DataUtils</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils.h">
-      <Filter>头文件\String</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StringConvertUtils.h">
-      <Filter>头文件\String</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\_pri_convert.h">
       <Filter>头文件\String</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_global.h">
@@ -124,6 +112,21 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DateTimeUtils.h">
       <Filter>头文件\DatetimeUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\StringUtils\StringConverter.h">
+      <Filter>头文件\String</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\StringUtils\StringRegexChecker.h">
+      <Filter>头文件\String</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_convert.h">
+      <Filter>头文件\String</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\DataUtils\DataTranslator.h">
+      <Filter>头文件\DataUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringTranslator.h">
+      <Filter>头文件\String</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -151,12 +154,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DataUtils.cpp">
       <Filter>源文件\DataUtils</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_endian.cpp">
-      <Filter>源文件\SystemUtils</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DataUtils\Translator.cpp">
-      <Filter>源文件\DataUtils</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SystemUtils\EndianTranslator.cpp">
       <Filter>源文件\SystemUtils</Filter>
     </ClCompile>
@@ -172,16 +169,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils.cpp">
       <Filter>源文件\String</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)StringConvertUtils.cpp">
-      <Filter>源文件\String</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DatetimeUtils\_pri_datetime_global.cpp">
       <Filter>源文件\DatetimeUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DateTimeUtils.cpp">
-      <Filter>源文件\DatetimeUtils</Filter>
-    </ClCompile>
-    <ClCompile Include="D:\project\GraduationProject\GraduationProject\PublicModule\DatetimeUtils\Date.cpp">
       <Filter>源文件\DatetimeUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DatetimeUtils\Time.cpp">
@@ -189,6 +180,27 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DatetimeUtils\Datetime.cpp">
       <Filter>源文件\DatetimeUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DatetimeUtils\Date.cpp">
+      <Filter>源文件\DatetimeUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_global.cpp">
+      <Filter>源文件\String</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\StringConverter.cpp">
+      <Filter>源文件\String</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_convert.cpp">
+      <Filter>源文件\String</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\project\GraduationProject\GraduationProject\PublicModule\DataUtils\DataTranslator.cpp">
+      <Filter>源文件\DataUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\StringTranslator.cpp">
+      <Filter>源文件\String</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\StringRegexChecker.cpp">
+      <Filter>源文件\String</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

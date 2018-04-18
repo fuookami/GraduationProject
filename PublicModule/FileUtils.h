@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Global.h"
-#include "DataUtils/Translator.h"
+#include "DataUtils/DataTranslator.h"
 #include "DataUtils.h"
 #include <string>
 #include <iterator>
@@ -28,7 +28,7 @@ namespace SSUtils
 		std::vector<std::string> getAllFilesUrlsOfPath(const std::string &targetPath);
 		std::vector<std::string> getAllDirectoryPathsOfPath(const std::string &targetPath);
 
-		std::vector<unsigned char> loadFile(const std::string &targetUrl);
+		Block loadFile(const std::string &targetUrl);
 		std::vector<std::string> loadFileByLine(const std::string &targetUrl);
 
 		template<typename T, uint32 DataLength = sizeof(T)>
@@ -46,7 +46,7 @@ namespace SSUtils
 			{
 				static_assert(std::is_same_v<iter::value_type, T>, "FileSaver::operator(), the value type of iterator is not the same of the type");
 
-				static const Data::Translator<T> translator;
+				static const Data::DataTranslator<T> translator;
 				static const FileSaver<byte> saver;
 				Block buff(translator.fromDataIterator(bgIt, edIt));
 				saver(targetUrl, buff.cbegin(), buff.cend());

@@ -134,7 +134,7 @@ namespace SSUtils
 
 			std::string encrypter::operator()(const std::string & origin)
 			{
-				return publicKey.empty() ? StringUtils::EmptyString : encrypt(publicKey, origin, seed);
+				return publicKey.empty() ? String::EmptyString : encrypt(publicKey, origin, seed);
 			}
 
 			decrypter::decrypter(const std::string & _privateKey)
@@ -144,7 +144,7 @@ namespace SSUtils
 
 			std::string decrypter::operator()(const std::string & cipher)
 			{
-				return privateKey.empty() ? StringUtils::EmptyString : decrypt(privateKey, cipher);
+				return privateKey.empty() ? String::EmptyString : decrypt(privateKey, cipher);
 			}
 
 			signer::signer(const std::string & _privateKey)
@@ -154,7 +154,7 @@ namespace SSUtils
 
 			std::string signer::operator()(const std::string & msg)
 			{
-				return privateKey.empty() ? StringUtils::EmptyString : sign(privateKey, msg);
+				return privateKey.empty() ? String::EmptyString : sign(privateKey, msg);
 			}
 
 			verifier::verifier(const std::string & _publicKey)

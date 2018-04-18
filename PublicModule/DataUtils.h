@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Global.h"
+#include "DataUtils/DataTranslator.h"
 #include <array>
 #include <string>
 
@@ -24,7 +25,7 @@ namespace SSUtils
 		}
 
 		template<typename T, typename U>
-		class ConversionChecker 
+		class ConversionChecker
 		{
 		private:
 			static char Test(U);
