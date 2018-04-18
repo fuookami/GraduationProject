@@ -28,7 +28,98 @@ namespace SSUtils
 		std::vector<std::string> getAllFilesUrlsOfPath(const std::string &targetPath);
 		std::vector<std::string> getAllDirectoryPathsOfPath(const std::string &targetPath);
 
-		Block loadFile(const std::string &targetUrl);
+		template<typename T, uint32 DataLength = sizeof(T)>
+		struct FileLoader
+		{
+			FileLoader(void) = default;
+			FileLoader(const FileLoader &ano) = delete;
+			FileLoader(FileLoader &&ano) = delete;
+			FileLoader &operator=(const FileLoader &rhs) = delete;
+			FileLoader &operator=(FileLoader &&rhs) = delete;
+			~FileLoader(void) = default;
+
+			template<typename iter>
+			iter toIter(const std::string &targetUrl, iter it) const
+			{
+				static_assert(std::is_same_v<iter::value_type, T>, "FileLoader::operator(), the value type of iterator is not the same of the type");
+
+				static const FileLoader<byte> loader;
+				static const Data::DataTranslator<T> translator;
+				Block data(loader.load<Block>(targetUrl));
+				return translator.toDataIterator<iter>(data, it);
+			}
+			template<typename container>
+			container toContainer(const std::string &targetUrl) const
+			{
+				static_assert(std::is_same_v<container::value_type, T>, "FileLoader::operator(), the value type of container is not the same of the type");
+
+				static const FileLoader<byte> loader;
+				static const Data::DataTranslator<T> translator;
+				Block data(loader.load<Block>(targetUrl));
+				return translator.toDataContainer<container>(data);
+			}
+		};
+		template<typename T>
+		struct FileLoader<T, 1>
+		{
+			FileLoader(void) = default;
+			FileLoader(const FileLoader &ano) = delete;
+			FileLoader(FileLoader &&ano) = delete;
+			FileLoader &operator=(const FileLoader &rhs) = delete;
+			FileLoader &operator=(FileLoader &&rhs) = delete;
+			~FileLoader(void) = default;
+
+			template<typename iter>
+			iter toIter(const std::string &targetUrl, iter it) const
+			{
+				static_assert(std::is_same_v<iter::value_type, T>, "FileLoader::operator(), the value type of iterator is not the same of the type");
+
+				if (checkFileExist(targetUrl))
+				{
+					std::ifstream fin(targetUrl, std::ifstream::binary);
+					std::istreambuf_iterator<T> bgIt(fin), edIt;
+					std::copy(bgIt, edIt, it);
+					fin.close();
+					return it;
+				}
+				else
+				{
+					return it;
+				}
+			}
+			template<typename container>
+			container toContainer(const std::string &targetUrl) const
+			{
+				static_assert(std::is_same_v<container::value_type, T>, "FileLoader::operator(), the value type of container is not the same of the type");
+
+				if (checkFileExist(targetUrl))
+				{
+					std::ifstream fin(targetUrl, std::ifstream::binary);
+					std::istreambuf_iterator<T> bgIt(fin), edIt;
+					container data(bgIt, edIt);
+					fin.close();
+					return data;
+				}
+				else
+				{
+					return container();
+				}
+			}
+		};
+		Block loadFile(const std::string & targetUrl);
+		template<typename container>
+		container loadFile(const std::string &targetUrl)
+		{
+			static const FileLoader<container::value_type> loader;
+			return loader.toContainer<container>(targetUrl);
+		}
+		template<typename iter>
+		iter loadFile(const std::string &targetUrl, iter it)
+		{
+			static const FileLoader<iter::value_type> loader;
+			return loader.toIter(targetUrl, it);
+		}
+
 		std::vector<std::string> loadFileByLine(const std::string &targetUrl);
 
 		template<typename T, uint32 DataLength = sizeof(T)>

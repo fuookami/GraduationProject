@@ -136,18 +136,8 @@ namespace SSUtils
 
 		Block loadFile(const std::string & targetUrl)
 		{
-			if (checkFileExist(targetUrl))
-			{
-				std::ifstream fin(targetUrl, std::ifstream::binary);
-				std::istreambuf_iterator<char> bgIt(fin), edIt;
-				std::vector<unsigned char> data(bgIt, edIt);
-				fin.close();
-				return data;
-			}
-			else
-			{
-				return {};
-			}
+			static const FileLoader<byte> loader;
+			return loader.toContainer<Block>(targetUrl);
 		}
 
 		std::vector<std::string> loadFileByLine(const std::string & targetUrl)
