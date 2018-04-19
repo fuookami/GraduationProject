@@ -15,16 +15,18 @@ namespace SSUtils
 		extern const uint16 MillisecondsPerSecond;
 		extern const uint16 MicrosecondsPerMillisecond;
 		extern const uint16 SecondsPerHour;
-		extern const uint16 SecondsPerMinute;
-		extern const uint16 MinutesPerHour;
-		extern const uint16 HoursPerDay;
+		extern const uint8 SecondsPerMinute;
+		extern const uint8 MinutesPerHour;
+		extern const uint8 HoursPerDay;
 
-		struct Date;
-		struct DateDuration;
-		struct Time;
-		struct TimeDuration;
-		struct Datetime;
-		struct DatetimeDuration;
+		extern const uint8 FractionSecondDigits;
+
+		class Date;
+		class DateDuration;
+		class Time;
+		class TimeDuration;
+		class Datetime;
+		class DatetimeDuration;
 
 		enum class Precision
 		{

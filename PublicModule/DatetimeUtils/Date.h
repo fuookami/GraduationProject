@@ -8,14 +8,12 @@ namespace SSUtils
 	{
 		struct Date
 		{
+		public:
 			static const Date EmptyDate;
 
-			int16 year;
-			uint8 month;
-			uint8 day;
-
+		public:
 			Date(void);
-			Date(const int16 _year, const uint8 _month, const uint8 _day);
+			Date(const int16 year, const uint8 month, const uint8 day);
 			Date(const Date &ano) = default;
 			Date(Date &&ano) = default;
 			Date &operator=(const Date &rhs) = default;
@@ -28,25 +26,34 @@ namespace SSUtils
 			inline Date getDateAfter(const DateDuration &duration) const;
 			inline Date getDateBefore(const DateDuration &duration) const;
 
+			inline uint16 year(void) const;
+			inline void setYear(const uint16 year);
+			inline uint8 month(void) const;
+			inline void setMonth(const uint8 month);
+			inline uint8 day(void) const;
+			inline void setDay(const uint8 day);
+
 			inline const bool isLegalDate(void) const;
 			inline const bool isLeapYear(void) const;
 			inline const uint8 getDayOfMonth(void) const;
 			inline const uint8 getDayInWeek(void) const;
 
-			static inline Date fromString(const std::string &str);
-			inline std::string toString(void) const;
+			static Date fromString(const std::string &str);
+			std::string toString(void) const;
+
+		private:
+			int16 m_year;
+			uint8 m_month;
+			uint8 m_day;
 		};
 
-		struct DateDuration
+		class DateDuration
 		{
-			int32 year;
-			int32 month;
-			int32 day;
-
+		public:
 			DateDuration(void);
-			DateDuration(const int32 _day);
-			DateDuration(const int32 _month, const int32 _day);
-			DateDuration(const int32 _year, const int32 _month, const int32 _day);
+			DateDuration(const int32 day);
+			DateDuration(const int32 month, const int32 day);
+			DateDuration(const int32 year, const int32 month, const int32 day);
 			DateDuration(const DateDuration &ano) = default;
 			DateDuration(DateDuration &&ano) = default;
 			DateDuration &operator=(const DateDuration &rhs) = default;
@@ -58,6 +65,18 @@ namespace SSUtils
 
 			inline DateDuration operator+(void) const;
 			inline DateDuration operator-(void) const;
+
+			inline int32 year(void) const { return m_year; }
+			inline void setYear(const int32 year) { m_year = year; }
+			inline int32 month(void) const { return m_month; }
+			inline void setMonth(const int32 month) { m_month = month; }
+			inline int32 day(void) const { return m_day; }
+			inline void setDay(const int32 day) { m_day = day; }
+
+		private:
+			int32 m_year;
+			int32 m_month;
+			int32 m_day;
 		};
 
 		Date getLocalDate(void);
@@ -67,10 +86,10 @@ namespace SSUtils
 		const bool isLeapYear(const int16 year);
 		const bool isLeapYear(const Date & date);
 
-		const uint8 getDaysOfMonth(const int16 year, const uint8 month);
+		const uint8 getDaysOfMonth(const int16 year, const uint8 m_month);
 		const uint8 getDaysOfMonth(const Date &date);
 
-		const uint8 getDayInWeek(const int16 year, const uint8 month, const uint8 day);
+		const uint8 getDayInWeek(int16 year, uint8 month, const uint8 day);
 		const uint8 getDayInWeek(const Date &date);
 	};
 };
@@ -97,4 +116,3 @@ const SSUtils::Datetime::DateDuration operator+(const SSUtils::Datetime::DateDur
 const SSUtils::Datetime::DateDuration operator-(const SSUtils::Datetime::DateDuration &lhs, const SSUtils::Datetime::DateDuration &rhs);
 
 std::ostream &operator<<(std::ostream &os, const SSUtils::Datetime::Date &date);
-std::istream &operator>>(std::istream &is, SSUtils::Datetime::Date &date);

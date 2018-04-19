@@ -30,16 +30,19 @@ namespace SSUtils
 		namespace RegexPatterns
 		{
 			extern const std::string NaturalNumberPattern;
+			extern const std::string IntegerPattern;
 			extern const std::string PositiveIntegerPattern;
 		};
 
 		namespace RegexCheckers
 		{
 			extern const RegexChecker NaturalNumberChecker;
+			extern const RegexChecker IntegerChecker;
 			extern const RegexChecker PositiveIntegerChecker;
 		};
 
 		inline const bool isNaturalNumber(const std::string &src);
+		inline const bool isInteger(const std::string &src);
 		inline const bool isPositiveInteger(const std::string &src);
 	};
 };

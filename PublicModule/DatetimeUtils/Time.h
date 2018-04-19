@@ -6,26 +6,20 @@ namespace SSUtils
 {
 	namespace Datetime
 	{
-		struct Time
+		class Time
 		{
-			int8 hour;
-			uint8 minute;
-			uint8 second;
-			uint16 microsecond;
-			uint16 millisecond;
-			Precision precision;
-
+		public:
 			Time(void);
-			Time(const uint32 _second);
-			Time(const uint16 _hour, const uint8 _minute, const uint8 _second, const uint16 _microsecond = 0, const uint16 _millisecond = 0);
+			Time(const int32 second);
+			Time(const int32 hour, const uint8 minute, const uint8 second, const uint16 millisecond = 0, const uint16 microsecond = 0);
 			Time(const Time &ano) = default;
 			Time(Time &&ano) = default;
 			Time &operator=(const Time &rhs) = default;
 			Time &operator=(Time &&rhs) = default;
 			~Time(void) = default;
 
-			static inline Time fromMicrosecond(const uint32 _microsecond);
-			static inline Time fromMillisecond(const uint32 _millisecond);
+			static inline Time fromMillisecond(const int32 millisecond);
+			static inline Time fromMicrosecond(const int32 microsecond);
 
 			inline Time &operator+=(const TimeDuration &duration);
 			inline Time &operator-=(const TimeDuration &duration);
@@ -33,8 +27,22 @@ namespace SSUtils
 			inline Time getTimeAfter(const TimeDuration &duration) const;
 			inline Time getTimeBefore(const TimeDuration &duration) const;
 
-			inline const int64 totalMilliseconds(void) const;
+			inline const int32 hour(void) const;
+			inline void setHour(const int32 hour);
+			inline const uint8 minute(void) const;
+			inline void setMinute(const uint8 minute);
+			inline const uint8 second(void) const;
+			inline void setSecond(const uint8 second);
+			inline const uint16 millisecond(void) const;
+			inline void setMillisecond(const uint16 millisecond);
+			inline const uint16 microsecond(void) const;
+			inline void setMicrosecond(const uint16 microsecond);
+			inline const Precision precision(void)const;
+			inline void setPrecision(const Precision precision);
+			inline const uint32 fractionsecond(void) const;
+
 			inline const int64 totalMicroseconds(void) const;
+			inline const int64 totalMilliseconds(void) const;
 			inline const int32 totalSeconds(void) const;
 			inline const int32 totalMinutes(void) const;
 			inline const int32 totalHours(void) const;
@@ -48,31 +56,36 @@ namespace SSUtils
 			inline const bool isTheDayBeforeYesterday(void) const;
 			inline const bool isTheDaysBefore(void) const;
 
-			static inline Time fromString(const std::string &str);;
-			inline std::string toString(void) const;
+			static Time fromString(const std::string &str);;
+			std::string toString(void) const;
 
 			void tidy(void);
+
+		private:
+			int32 m_hour;
+			uint8 m_minute;
+			uint8 m_second;
+			uint16 m_millisecond;
+			uint16 m_microsecond;
+			Precision m_precision;
 		};
 
-		struct TimeDuration
+		class TimeDuration
 		{
-			int32 hour;
-			int32 minute;
-			int32 second;
-			int32 microsecond;
-			int32 millisecond;
-			Precision precision;
-
+		public:
 			TimeDuration(void);
 			TimeDuration(const int32 _second);
-			TimeDuration(const int32 _hour, const int32 _minute, const int32 _second, const int32 _microsecond = 0, const int32 _millisecond = 0);
+			TimeDuration(const int32 _hour, const int32 _minute, const int32 _second, const int32 _millisecond = 0, const int32 _microsecond = 0);
+			TimeDuration(const DatetimeDuration &datetimeDuration);
 			TimeDuration(const TimeDuration &ano) = default;
 			TimeDuration(TimeDuration &&ano) = default;
 			TimeDuration &operator=(const TimeDuration &rhs) = default;
 			~TimeDuration(void) = default;
 
-			static inline TimeDuration fromMicrosecond(const uint32 _microsecond);
-			static inline TimeDuration fromMillisecond(const uint32 _millisecond);
+			static inline TimeDuration fromMillisecond(const int32 millisecond);
+			static inline TimeDuration fromMicrosecond(const int32 microsecond);
+			static inline TimeDuration fromDatetimeDuration(const DatetimeDuration &datetimeDuration);
+			inline DatetimeDuration toDatetimeDuration(void) const;
 
 			inline TimeDuration &operator+=(const TimeDuration &duration);
 			inline TimeDuration &operator-=(const TimeDuration &duration);
@@ -80,14 +93,36 @@ namespace SSUtils
 			inline TimeDuration operator+(void) const;
 			inline TimeDuration operator-(void) const;
 
-			inline const int64 totalMilliseconds(void) const;
+			inline const int32 hour(void) const;
+			inline void setHour(const int32 hour);
+			inline const int32 minute(void) const;
+			inline void setMinute(const int32 minute);
+			inline const int32 second(void) const;
+			inline void setSecond(const int32 second);
+			inline const int32 millisecond(void) const;
+			inline void setMillisecond(const int32 millisecond);
+			inline const int32 microsecond(void) const;
+			inline void setMicrosecond(const int32 microsecond);
+			inline const Precision precision(void)const;
+			inline void setPrecision(const Precision precision);
+			inline const int32 fractionsecond(void) const;
+
 			inline const int64 totalMicroseconds(void) const;
+			inline const int64 totalMilliseconds(void) const;
 			inline const int32 totalSeconds(void) const;
 			inline const int32 totalMinutes(void) const;
 			inline const int32 totalHours(void) const;
 			inline const int32 totalDays(void) const;
 
 			void tidy(void);
+
+		private:
+			int32 m_hour;
+			int32 m_minute;
+			int32 m_second;
+			int32 m_millisecond;
+			int32 m_microsecond;
+			Precision m_precision;
 		};
 
 		Time getLocalTime(void);
@@ -117,5 +152,4 @@ const SSUtils::Datetime::TimeDuration operator-(const SSUtils::Datetime::Time &l
 const SSUtils::Datetime::TimeDuration operator+(const SSUtils::Datetime::TimeDuration &lhs, const SSUtils::Datetime::TimeDuration &rhs);
 const SSUtils::Datetime::TimeDuration operator-(const SSUtils::Datetime::TimeDuration &lhs, const SSUtils::Datetime::TimeDuration &rhs);
 
-std::ostream &operator<<(std::ostream &os, const SSUtils::Datetime::Time &date);
-std::istream &operator>>(std::istream &is, SSUtils::Datetime::Time &date);
+std::ostream &operator<<(std::ostream &os, const SSUtils::Datetime::Time &time);

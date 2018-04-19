@@ -9,5 +9,6 @@ namespace SSUtils
 {
 	namespace Datetime
 	{
+		Datetime getBuildDatetime(const std::string &BuildOriginalDateString, const std::string &BuildTimeString);
 	};
 };

@@ -113,19 +113,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DateTimeUtils.h">
       <Filter>头文件\DatetimeUtils</Filter>
     </ClInclude>
-    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\StringUtils\StringConverter.h">
-      <Filter>头文件\String</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\StringUtils\StringRegexChecker.h">
-      <Filter>头文件\String</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_convert.h">
       <Filter>头文件\String</Filter>
     </ClInclude>
-    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\DataUtils\DataTranslator.h">
-      <Filter>头文件\DataUtils</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringTranslator.h">
+      <Filter>头文件\String</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataUtils\DataTranslator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringRegexChecker.h">
+      <Filter>头文件\String</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringConverter.h">
       <Filter>头文件\String</Filter>
     </ClInclude>
   </ItemGroup>
@@ -193,14 +193,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_convert.cpp">
       <Filter>源文件\String</Filter>
     </ClCompile>
-    <ClCompile Include="D:\project\GraduationProject\GraduationProject\PublicModule\DataUtils\DataTranslator.cpp">
-      <Filter>源文件\DataUtils</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\StringTranslator.cpp">
       <Filter>源文件\String</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\StringRegexChecker.cpp">
       <Filter>源文件\String</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DataUtils\DataTranslator.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

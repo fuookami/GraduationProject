@@ -24,11 +24,13 @@ namespace SSUtils
 			std::wstring(L"ÐÇÆÚÁù")
 		};
 
-		const unsigned short MillisecondsPerSecond = 1000;
-		const unsigned short MicrosecondsPerMillisecond = 1000;
-		const unsigned short SecondsPerHour = 3600;
-		const unsigned short SecondsPerMinute = 60;
-		const unsigned short MinutesPerHour = 60;
-		const unsigned short HoursPerDay = 24;
+		const uint16 MillisecondsPerSecond = 1000;
+		const uint16 MicrosecondsPerMillisecond = 1000;
+		const uint16 SecondsPerHour = 3600;
+		const uint8 SecondsPerMinute = 60;
+		const uint8 MinutesPerHour = 60;
+		const uint8 HoursPerDay = 24;
+
+		const uint8 FractionSecondDigits = 6;
 	};
 };
