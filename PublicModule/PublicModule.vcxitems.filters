@@ -45,6 +45,12 @@
     <Filter Include="源文件\DatetimeUtils">
       <UniqueIdentifier>{b5e11a6b-5851-48fc-b882-2dd63a900801}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\MailUtils">
+      <UniqueIdentifier>{040bde88-daed-4e01-ac4e-bec57498c524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\MailUtils">
+      <UniqueIdentifier>{9bb1d4ee-0063-4904-9e94-d90bec60ee26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)RandomUtils.h">
@@ -128,6 +134,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringConverter.h">
       <Filter>头文件\String</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.h">
+      <Filter>头文件\MailUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils\MailSender.h">
+      <Filter>头文件\MailUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils.h">
+      <Filter>头文件\MailUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail_global.h">
+      <Filter>头文件\MailUtils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)RandomUtils.cpp">
@@ -201,6 +219,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DataUtils\DataTranslator.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.cpp">
+      <Filter>源文件\MailUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\MailSender.cpp">
+      <Filter>源文件\MailUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils.cpp">
+      <Filter>源文件\MailUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
