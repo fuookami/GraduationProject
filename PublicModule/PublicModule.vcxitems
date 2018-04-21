@@ -45,6 +45,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_system_global.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UuidUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Global.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\XMLDocument.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\XMLNode.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\XMLLoader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\XMLSaver.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_global.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_loader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_saver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)ChineseNumberUntils\_pri_chinese_number.cpp" />
@@ -74,5 +82,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_cpu_id.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_system_global.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UuidUtils.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLDocument.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLLoader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLNode.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLSaver.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_global.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_loader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_saver.cpp" />
   </ItemGroup>
 </Project>

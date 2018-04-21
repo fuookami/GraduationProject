@@ -51,6 +51,12 @@
     <Filter Include="源文件\MailUtils">
       <UniqueIdentifier>{9bb1d4ee-0063-4904-9e94-d90bec60ee26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\XMLUtils">
+      <UniqueIdentifier>{ed7502fc-e53e-4943-81d1-33d2a835bc0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XMLUtils">
+      <UniqueIdentifier>{61ff013e-c49f-4c15-8a20-cf2ee307fb8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)RandomUtils.h">
@@ -146,6 +152,30 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail_global.h">
       <Filter>头文件\MailUtils</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\XMLDocument.h">
+      <Filter>头文件\XMLUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\XMLLoader.h">
+      <Filter>头文件\XMLUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\XMLNode.h">
+      <Filter>头文件\XMLUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\XMLSaver.h">
+      <Filter>头文件\XMLUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils.h">
+      <Filter>头文件\XMLUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_saver.h">
+      <Filter>头文件\XMLUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_loader.h">
+      <Filter>头文件\XMLUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_global.h">
+      <Filter>头文件\XMLUtils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)RandomUtils.cpp">
@@ -228,6 +258,30 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils.cpp">
       <Filter>源文件\MailUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_global.cpp">
+      <Filter>源文件\XMLUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_saver.cpp">
+      <Filter>源文件\XMLUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\_pri_xml_loader.cpp">
+      <Filter>源文件\XMLUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLDocument.cpp">
+      <Filter>源文件\XMLUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLLoader.cpp">
+      <Filter>源文件\XMLUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLNode.cpp">
+      <Filter>源文件\XMLUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLSaver.cpp">
+      <Filter>源文件\XMLUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils.cpp">
+      <Filter>源文件\XMLUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
