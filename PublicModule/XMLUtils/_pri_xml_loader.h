@@ -16,7 +16,8 @@ namespace SSUtils
 		void getContent(std::shared_ptr<Node> node, const boost::property_tree::ptree::value_type &root, const CharType charType = String::LocalCharType);
 		
 		const bool openXMLFile(boost::property_tree::ptree &pt, const std::string &url);
-		std::vector<std::shared_ptr<Node>> loadXMLFile(const std::string &url, const CharType charType = String::LocalCharType);
-		std::vector<std::shared_ptr<Node>> loadXMLFile(const boost::property_tree::ptree &pt, const CharType charType = String::LocalCharType);
+		const bool scanXMLString(boost::property_tree::ptree &pt, const std::string &data);
+		std::vector<std::shared_ptr<Node>> loadXML(const std::string &url, const CharType charType = String::LocalCharType);
+		std::vector<std::shared_ptr<Node>> loadXML(const boost::property_tree::ptree &pt, const CharType charType = String::LocalCharType);
 	};
 };

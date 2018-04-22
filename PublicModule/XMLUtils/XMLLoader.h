@@ -22,11 +22,37 @@ namespace SSUtils
 			Loader(const boost::property_tree::ptree &_pt, const CharType _charType = String::LocalCharType);
 			Loader(const Loader &ano) = default;
 			Loader(Loader &&ano) = default;
+			Loader &operator=(const Loader &rhs) = default;
+			Loader &operator=(Loader &&rhs) = default;
 			~Loader(void) = default;
 
 			inline const bool isOpened(void) const;
 			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> open(void);
 			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> open(const std::string &_url);
+			std::vector<std::shared_ptr<Node>> operator()();
+			std::vector<std::shared_ptr<Node>> operator()(const boost::property_tree::ptree &_pt, const CharType _charType = String::LocalCharType);
+		};
+
+		struct Scaner
+		{
+			boost::property_tree::ptree ori_pt;
+			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> pt;
+			std::string data;
+			CharType charType;
+
+			Scaner(const CharType _charType = String::LocalCharType);
+			Scaner(const std::string &_data, const CharType _charType = String::LocalCharType);
+			Scaner(std::string &&_data, const CharType _charType = String::LocalCharType);
+			Scaner(const boost::property_tree::ptree &_pt, const CharType _charType = String::LocalCharType);
+			Scaner(const Scaner &ano) = default;
+			Scaner(Scaner &&ano) = default;
+			Scaner &operator=(const Scaner &rhs) = default;
+			Scaner &operator=(Scaner &&ano) = default;
+			~Scaner(void) = default;
+
+			inline const bool isScaned(void) const;
+			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> scan(void);
+			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> scan(const std::string &_data);
 			std::vector<std::shared_ptr<Node>> operator()();
 			std::vector<std::shared_ptr<Node>> operator()(const boost::property_tree::ptree &_pt, const CharType _charType = String::LocalCharType);
 		};

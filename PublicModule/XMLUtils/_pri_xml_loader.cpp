@@ -2,6 +2,7 @@
 #include "XMLNode.h"
 #include "FileUtils.h"
 #include <boost/property_tree/xml_parser.hpp>
+#include <iostream>
 
 namespace SSUtils
 {
@@ -88,7 +89,7 @@ namespace SSUtils
 					boost::property_tree::xml_parser::read_xml(url, pt);
 				}
 				catch (const boost::property_tree::xml_parser::xml_parser_error &ex) {
-					std::cerr << "error in file " << ex.filename() << " line " << ex.line() << std::endl;
+					std::cerr << "error in file " << ex.filename() << " line " << ex.line() << ": " << ex.message() << std::endl;
 					return false;
 				}
 				return true;
@@ -99,12 +100,25 @@ namespace SSUtils
 			}
 		}
 
-		std::vector<std::shared_ptr<Node>> loadXMLFile(const std::string & url, const CharType charType)
+		const bool scanXMLString(boost::property_tree::ptree & pt, const std::string & data)
+		{
+			try {
+				std::istringstream sin(data);
+				boost::property_tree::xml_parser::read_xml(sin, pt);
+			}
+			catch (const boost::property_tree::xml_parser::xml_parser_error &ex) {
+				std::cerr << "error in file " << ex.filename() << " line " << ex.line() << ": " << ex.message() << std::endl;
+				return false;
+			}
+			return true;
+		}
+
+		std::vector<std::shared_ptr<Node>> loadXML(const std::string & url, const CharType charType)
 		{
 			boost::property_tree::ptree root;
 			if (openXMLFile(root, url))
 			{
-				return loadXMLFile(root, charType);
+				return loadXML(root, charType);
 			}
 			else
 			{
@@ -112,10 +126,10 @@ namespace SSUtils
 			}
 		}
 
-		std::vector<std::shared_ptr<Node>> loadXMLFile(const boost::property_tree::ptree & pt, const CharType charType)
+		std::vector<std::shared_ptr<Node>> loadXML(const boost::property_tree::ptree & pt, const CharType charType)
 		{
 			std::vector<std::shared_ptr<Node>> nodes;
-			for (const auto &nodeRoot : root)
+			for (const auto &nodeRoot : pt)
 			{
 				auto tree(getTree(nodeRoot, charType));
 				if (tree != nullptr)
