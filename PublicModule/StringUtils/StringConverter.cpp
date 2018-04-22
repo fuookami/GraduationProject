@@ -31,27 +31,27 @@ namespace SSUtils
 			return toWString(boost::locale::conv::between(toString(src), CharTypeCode.find(destCharType)->second, CharTypeCode.find(srcCharType)->second));
 		}
 
-		std::string fromLocal(const CharType srcCharType, const std::string & src)
-		{
-			Converter converter(srcCharType);
-			return converter(src);
-		}
-
-		std::wstring fromLocal(const CharType srcCharType, const std::wstring & src)
-		{
-			Converter converter(srcCharType);
-			return converter(src);
-		}
-
-		std::string toLocal(const CharType targetCharType, const std::string & src)
+		std::string fromLocal(const CharType targetCharType, const std::string & src)
 		{
 			Converter converter(LocalCharType, targetCharType);
 			return converter(src);
 		}
 
-		std::wstring toLocal(const CharType targetCharType, const std::wstring & src)
+		std::wstring fromLocal(const CharType targetCharType, const std::wstring & src)
 		{
 			Converter converter(LocalCharType, targetCharType);
+			return converter(src);
+		}
+
+		std::string toLocal(const CharType srcCharType, const std::string & src)
+		{
+			Converter converter(srcCharType);
+			return converter(src);
+		}
+
+		std::wstring toLocal(const CharType srcCharType, const std::wstring & src)
+		{
+			Converter converter(srcCharType);
 			return converter(src);
 		}
 

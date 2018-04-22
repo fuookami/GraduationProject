@@ -25,10 +25,10 @@ namespace SSUtils
 			inline std::wstring operator()(const std::wstring &src) const;
 		};
 
-		inline std::string fromLocal(const CharType srcCharType, const std::string &src);
-		inline std::wstring fromLocal(const CharType srcCharType, const std::wstring &src);
-		inline std::string toLocal(const CharType targetCharType, const std::string &src);
-		inline std::wstring toLocal(const CharType targetCharType, const std::wstring &src);
+		inline std::string fromLocal(const CharType targetCharType, const std::string &src);
+		inline std::wstring fromLocal(const CharType targetCharType, const std::wstring &src);
+		inline std::string toLocal(const CharType srcCharType, const std::string &src);
+		inline std::wstring toLocal(const CharType srcCharType, const std::wstring &src);
 
 		inline std::string toDBS(const std::string &src, const CharType charType = LocalCharType);
 		inline std::string toQBS(const std::string &src, const CharType charType = LocalCharType);
