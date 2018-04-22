@@ -10,5 +10,6 @@ namespace SSUtils
 	namespace System
 	{
 		extern const std::array<byte, CPUIdLength> CPUId;
+		extern const uint32 CPUCoreNumber;
 	};
 };

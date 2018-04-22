@@ -1,5 +1,5 @@
 #include "_pri_string_global.h"
-
+#include "SystemUtils.h"
 #include <cctype>
 
 namespace SSUtils
@@ -48,11 +48,7 @@ namespace SSUtils
 			return ret;
 		}();
 
-#ifdef _WIN32
-		const CharType LocalCharType = CharType::GB2312;
-#else
-		const CharType LocalCharType = CharType::UTF8;
-#endif
+		const CharType LocalCharType = System::LocalSystemType == OperationSystemType::Windows ? CharType::GB2312 : CharType::UTF8;
 
 		const std::string LocalCharTypeCode = CharTypeCode.find(LocalCharType)->second;
 	};

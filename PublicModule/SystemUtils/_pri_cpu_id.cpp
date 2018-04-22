@@ -10,10 +10,12 @@
 #if defined(PC_PLATFORM)
 #if defined(__GNUC__)
 #include <cpuid.h>
+#include <sysconf.h>
 // __GNUC__
 #elif defined(_MSC_VER)
 #if _MSC_VER > 1400
 #include <Intrin.h>
+#include <windows.h>
 #endif // _MSC_VER > 1400
 #else
 #error "Only supports MSVC or GCC."
@@ -42,6 +44,21 @@ namespace SSUtils
 			cpuId[7] = 0xFF & (dwBuf[0]); // µÍ×Ö½Ú
 #endif
 			return cpuId;
+		}
+
+		uint32 getCPUCoreNumber(void)
+		{
+			uint32 num(1);
+#if defined(PC_PLATFORM)
+#if defined(__GNUC__)
+			count = sysconf(_SC_NPROCESSORS_CONF);
+#elif defined(_MSC_VER)
+			SYSTEM_INFO si;
+			GetSystemInfo(&si);
+			num = si.dwNumberOfProcessors;
+#endif
+#endif
+			return num;
 		}
 
 		void _getCPUId(uint32  CPUInfo[4], uint32 infoType)

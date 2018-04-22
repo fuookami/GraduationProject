@@ -1,5 +1,6 @@
 ﻿#include "FileUtils.h"
 #include "StringUtils.h"
+#include "SystemUtils.h"
 
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -10,11 +11,7 @@ namespace SSUtils
 {
 	namespace File
 	{
-#ifdef _WIN32
-		const std::string PathSeperator("\\");
-#else
-		const std::string PathSeperator("/");
-#endif
+		const std::string PathSeperator = System::LocalSystemType == OperationSystemType::Windows ? std::string("\\") : std::string("/");
 		const std::string ExtensionSeperator(".");
 		const std::string InitailPath(boost::filesystem::initial_path().string());
 
