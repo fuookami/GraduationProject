@@ -63,6 +63,12 @@
     <Filter Include="源文件\ThreadUtils">
       <UniqueIdentifier>{cb016fa6-09a7-4b97-a5fe-8a0ff062e734}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\FunctionUtils">
+      <UniqueIdentifier>{cedba0ba-c26d-4b08-bd37-823cf78eefdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\FunctionUtils">
+      <UniqueIdentifier>{94b894e0-c4b6-40d6-9962-a793860a7594}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)RandomUtils.h">
@@ -191,6 +197,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ThreadUtils\_pri_thread_global.h">
       <Filter>头文件\ThreadUtils</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FunctionUtils.h">
+      <Filter>头文件\FunctionUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FunctionUtils\Task.h">
+      <Filter>头文件\FunctionUtils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)RandomUtils.cpp">
@@ -301,8 +313,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ThreadUtils\ThreadPool.cpp">
       <Filter>源文件\ThreadUtils</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ThreadUtils\_pri_thread_global.cpp">
-      <Filter>源文件\ThreadUtils</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FunctionUtils\Task.cpp">
+      <Filter>源文件\FunctionUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

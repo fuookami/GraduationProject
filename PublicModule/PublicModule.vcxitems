@@ -28,6 +28,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_encryption_global.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EncryptionUtils\RSA.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FileUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FunctionUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FunctionUtils\Task.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils\MailSender.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.h" />
@@ -70,6 +72,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EncryptionUtils\_pri_encryption_global.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EncryptionUtils\RSA.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileUtils.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FunctionUtils\Task.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\MailSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.cpp" />
@@ -86,7 +89,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SystemUtils\_pri_system_global.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ThreadUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ThreadUtils\ThreadPool.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ThreadUtils\_pri_thread_global.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UuidUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLDocument.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)XMLUtils\XMLLoader.cpp" />
