@@ -17,7 +17,7 @@ namespace SSUtils
 		namespace RegexPatterns
 		{
 			const std::string NaturalNumberPattern("^(0|[1-9]\\d*)$");
-			const std::string IntegerPattern("^-?(0|[1-9]\d*)$");
+			const std::string IntegerPattern("^-?(0|[1-9]\\d*)$");
 			const std::string PositiveIntegerPattern("^[1-9]\\d*$");
 		};
 

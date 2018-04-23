@@ -18,5 +18,7 @@ namespace SSUtils
 		{
 			return lhs->priority > rhs->priority;
 		}
+
+		const TaskCompareFunction DefaultTaskCompareFunction = DefaultTaskCompare;
 	};
 };

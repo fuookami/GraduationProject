@@ -1,4 +1,5 @@
 #include "ChineseNumberUtils.h"
+#include "FileUtils.h"
 #include <iostream>
 #include <vector>
 #include <locale>
@@ -78,5 +79,6 @@ int main(int argc, char* argv[])
 	testNumberToChinese();
 	testChineseToNumber();
 	system("pause");
+
 	return 0;
 }

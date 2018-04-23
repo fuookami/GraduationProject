@@ -25,8 +25,24 @@ namespace SSUtils
 		}
 
 		template<typename F, typename... Args>
-		auto packgeTask(F &&f, Args&&... args)
+		auto packageToSharedFuture(F &&f, Args&&... args)
+			-> std::pair<std::function<void()>, std::shared_future<typename std::result_of<F(Args...)>::type>>
+		{
+			auto task(packageToTask(std::forward<F>(f), std::forward<Args>(args)...));
+			return std::make_pair([task]() { (*task)(); }, task->get_future());
+		}
+
+		template<typename F, typename... Args>
+		auto packageTask(F &&f, Args&&... args)
 			-> std::pair<std::shared_ptr<Task>, std::future<typename std::result_of<F(Args...)>::type>>
+		{
+			auto task(packageToTask(std::forward<F>(f), std::forward<Args>(args)...));
+			return std::make_pair(std::shared_ptr<Task>(new Task([task]() { (*task)(); })), task->get_future());
+		}
+
+		template<typename F, typename... Args>
+		auto packageSharedTask(F &&f, Args&&... args)
+			-> std::pair<std::shared_ptr<Task>, std::shared_future<typename std::result_of<F(Args...)>::type>>
 		{
 			auto task(packageToTask(std::forward<F>(f), std::forward<Args>(args)...));
 			return std::make_pair(std::shared_ptr<Task>(new Task([task]() { (*task)(); })), task->get_future());
