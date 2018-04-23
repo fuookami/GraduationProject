@@ -15,6 +15,7 @@ namespace SSUtils
 		Document & Document::operator=(const Document & rhs)
 		{
 			setRoots(rhs.m_roots);
+			return *this;
 		}
 
 		Document Document::fromFile(const std::string & url, const CharType charType)
@@ -55,7 +56,7 @@ namespace SSUtils
 			return saver.toFile();
 		}
 
-		std::string Document::toString(const CharType charType)
+			std::string Document::toString(const CharType charType)
 		{
 			Saver saver(m_roots, charType);
 			return saver.toString();

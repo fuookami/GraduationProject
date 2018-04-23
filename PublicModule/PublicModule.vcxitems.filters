@@ -274,9 +274,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\StringRegexChecker.cpp">
       <Filter>源文件\String</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DataUtils\DataTranslator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.cpp">
       <Filter>源文件\MailUtils</Filter>
     </ClCompile>
@@ -315,6 +312,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FunctionUtils\Task.cpp">
       <Filter>源文件\FunctionUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DataUtils\DataTranslator.cpp">
+      <Filter>源文件\DataUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -18,43 +18,43 @@ namespace SSUtils
 			Time &operator=(Time &&rhs) = default;
 			~Time(void) = default;
 
-			static inline Time fromMillisecond(const int32 millisecond);
-			static inline Time fromMicrosecond(const int32 microsecond);
+			static Time fromMillisecond(const int32 millisecond);
+			static Time fromMicrosecond(const int32 microsecond);
 
-			inline Time &operator+=(const TimeDuration &duration);
-			inline Time &operator-=(const TimeDuration &duration);
+			Time &operator+=(const TimeDuration &duration);
+			Time &operator-=(const TimeDuration &duration);
 
-			inline Time getTimeAfter(const TimeDuration &duration) const;
-			inline Time getTimeBefore(const TimeDuration &duration) const;
+			Time getTimeAfter(const TimeDuration &duration) const;
+			Time getTimeBefore(const TimeDuration &duration) const;
 
-			inline const int32 hour(void) const;
-			inline void setHour(const int32 hour);
-			inline const uint8 minute(void) const;
-			inline void setMinute(const uint8 minute);
-			inline const uint8 second(void) const;
-			inline void setSecond(const uint8 second);
-			inline const uint16 millisecond(void) const;
-			inline void setMillisecond(const uint16 millisecond);
-			inline const uint16 microsecond(void) const;
-			inline void setMicrosecond(const uint16 microsecond);
-			inline const Precision precision(void)const;
-			inline void setPrecision(const Precision precision);
-			inline const uint32 fractionsecond(void) const;
+			const int32 hour(void) const;
+			void setHour(const int32 hour);
+			const uint8 minute(void) const;
+			void setMinute(const uint8 minute);
+			const uint8 second(void) const;
+			void setSecond(const uint8 second);
+			const uint16 millisecond(void) const;
+			void setMillisecond(const uint16 millisecond);
+			const uint16 microsecond(void) const;
+			void setMicrosecond(const uint16 microsecond);
+			const Precision precision(void)const;
+			void setPrecision(const Precision precision);
+			const uint32 fractionsecond(void) const;
 
-			inline const int64 totalMicroseconds(void) const;
-			inline const int64 totalMilliseconds(void) const;
-			inline const int32 totalSeconds(void) const;
-			inline const int32 totalMinutes(void) const;
-			inline const int32 totalHours(void) const;
-			inline const int32 totalDays(void) const;
+			const int64 totalMicroseconds(void) const;
+			const int64 totalMilliseconds(void) const;
+			const int32 totalSeconds(void) const;
+			const int32 totalMinutes(void) const;
+			const int32 totalHours(void) const;
+			const int32 totalDays(void) const;
 
-			inline const bool isTomorrow(void) const;
-			inline const bool isTheDayAfterTomorrow(void) const;
-			inline const bool isTheDaysAfter(void) const;
+			const bool isTomorrow(void) const;
+			const bool isTheDayAfterTomorrow(void) const;
+			const bool isTheDaysAfter(void) const;
 
-			inline const bool isYesterday(void) const;
-			inline const bool isTheDayBeforeYesterday(void) const;
-			inline const bool isTheDaysBefore(void) const;
+			const bool isYesterday(void) const;
+			const bool isTheDayBeforeYesterday(void) const;
+			const bool isTheDaysBefore(void) const;
 
 			static Time fromString(const std::string &str);;
 			std::string toString(void) const;
@@ -82,37 +82,37 @@ namespace SSUtils
 			TimeDuration &operator=(const TimeDuration &rhs) = default;
 			~TimeDuration(void) = default;
 
-			static inline TimeDuration fromMillisecond(const int32 millisecond);
-			static inline TimeDuration fromMicrosecond(const int32 microsecond);
-			static inline TimeDuration fromDatetimeDuration(const DatetimeDuration &datetimeDuration);
-			inline DatetimeDuration toDatetimeDuration(void) const;
+			static TimeDuration fromMillisecond(const int32 millisecond);
+			static TimeDuration fromMicrosecond(const int32 microsecond);
+			static TimeDuration fromDatetimeDuration(const DatetimeDuration &datetimeDuration);
+			DatetimeDuration toDatetimeDuration(void) const;
 
-			inline TimeDuration &operator+=(const TimeDuration &duration);
-			inline TimeDuration &operator-=(const TimeDuration &duration);
+			TimeDuration &operator+=(const TimeDuration &duration);
+			TimeDuration &operator-=(const TimeDuration &duration);
 
-			inline TimeDuration operator+(void) const;
-			inline TimeDuration operator-(void) const;
+			TimeDuration operator+(void) const;
+			TimeDuration operator-(void) const;
 
-			inline const int32 hour(void) const;
-			inline void setHour(const int32 hour);
-			inline const int32 minute(void) const;
-			inline void setMinute(const int32 minute);
-			inline const int32 second(void) const;
-			inline void setSecond(const int32 second);
-			inline const int32 millisecond(void) const;
-			inline void setMillisecond(const int32 millisecond);
-			inline const int32 microsecond(void) const;
-			inline void setMicrosecond(const int32 microsecond);
-			inline const Precision precision(void)const;
-			inline void setPrecision(const Precision precision);
-			inline const int32 fractionsecond(void) const;
+			const int32 hour(void) const;
+			void setHour(const int32 hour);
+			const int32 minute(void) const;
+			void setMinute(const int32 minute);
+			const int32 second(void) const;
+			void setSecond(const int32 second);
+			const int32 millisecond(void) const;
+			void setMillisecond(const int32 millisecond);
+			const int32 microsecond(void) const;
+			void setMicrosecond(const int32 microsecond);
+			const Precision precision(void)const;
+			void setPrecision(const Precision precision);
+			const int32 fractionsecond(void) const;
 
-			inline const int64 totalMicroseconds(void) const;
-			inline const int64 totalMilliseconds(void) const;
-			inline const int32 totalSeconds(void) const;
-			inline const int32 totalMinutes(void) const;
-			inline const int32 totalHours(void) const;
-			inline const int32 totalDays(void) const;
+			const int64 totalMicroseconds(void) const;
+			const int64 totalMilliseconds(void) const;
+			const int32 totalSeconds(void) const;
+			const int32 totalMinutes(void) const;
+			const int32 totalHours(void) const;
+			const int32 totalDays(void) const;
 
 			void tidy(void);
 

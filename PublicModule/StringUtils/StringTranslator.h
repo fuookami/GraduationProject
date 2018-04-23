@@ -8,8 +8,8 @@ namespace SSUtils
 {
 	namespace String
 	{
-		inline std::string toString(const bool val);
-		inline const bool toBoolean(const std::string &src);
+		std::string toString(const bool val);
+		const bool toBoolean(const std::string &src);
 
 		struct StringTranslator
 		{
@@ -21,7 +21,7 @@ namespace SSUtils
 			~StringTranslator(void) = default;
 
 			template<typename T>
-			inline std::string operator()(const T &val) const
+			std::string operator()(const T &val) const
 			{
 				std::ostringstream sout;
 				sout << val;
@@ -29,19 +29,19 @@ namespace SSUtils
 			};
 
 			template<>
-			inline std::string operator()(const std::string &val) const
+			std::string operator()(const std::string &val) const
 			{
 				return val;
 			}
 
 			template<>
-			inline std::string operator()(const std::wstring &val) const
+			std::string operator()(const std::wstring &val) const
 			{
 				return toString(val);
 			}
 
 			template<>
-			inline std::string operator()(const bool &val) const
+			std::string operator()(const bool &val) const
 			{
 				return toString(val);
 			}

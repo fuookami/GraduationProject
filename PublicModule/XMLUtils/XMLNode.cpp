@@ -230,7 +230,12 @@ namespace SSUtils
 
 		void Node::removeChild(const std::weak_ptr<Node> child)
 		{
-			auto it(std::find(m_children.cbegin(), m_children.cend(), child));
+			auto it(std::find_if(m_children.cbegin(), m_children.cend(), [child](const std::weak_ptr<Node> childNode) 
+			{
+				auto target(child.lock());
+				auto src(childNode.lock());
+				return target != nullptr && src != nullptr && target == src;
+			}));
 			if (it != m_children.cend())
 			{
 				m_children.erase(it);
@@ -249,13 +254,14 @@ namespace SSUtils
 
 		const bool Node::hasChild(const std::string & tag) const
 		{
-			auto it(std::find(m_children.cbegin(), m_children.cend(), [&tag](const std::weak_ptr<Node> &child) 
+			auto it(std::find_if(m_children.cbegin(), m_children.cend(), [&tag](const std::weak_ptr<Node> child) 
 			{
 				auto sp_child(child.lock());
 				if (sp_child != nullptr && sp_child->getTag() == tag)
 				{
 					return true;
 				}
+				return false;
 			}));
 			return it != m_children.cend();
 		}
@@ -267,7 +273,7 @@ namespace SSUtils
 
 		const int Node::findChild(const std::string & tag, const int pos) const
 		{
-			for (int i(pos), j(m_children.size()); i != j; ++i)
+			for (uint32 i(pos), j(static_cast<uint32>(m_children.size())); i != j; ++i)
 			{
 				auto child(m_children[i].lock());
 				if (child != nullptr && child->getTag() == tag)

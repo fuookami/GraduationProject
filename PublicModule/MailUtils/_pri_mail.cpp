@@ -4,7 +4,7 @@ namespace SSUtils
 {
 	namespace Mail
 	{
-		jwsmtp::mailer generateMessageMailer(const std::string & senderMail, const std::string & senderPassword, const std::string & senderServer, const std::string & title, const std::string & content, const CharType charType = String::LocalCharType)
+		jwsmtp::mailer generateMessageMailer(const std::string & senderMail, const std::string & senderPassword, const std::string & senderServer, const std::string & title, const std::string & content, const CharType charType)
 		{
 			String::Converter converter(charType, CharType::UTF8);
 
@@ -13,7 +13,7 @@ namespace SSUtils
 				senderServer.c_str(), jwsmtp::mailer::SMTP_PORT, false);
 		}
 
-		jwsmtp::mailer generateHTMLMailer(const std::string & senderMail, const std::string &senderPassword, const std::string &senderServer, const std::string &title, const std::string &content, const CharType charType = String::LocalCharType)
+		jwsmtp::mailer generateHTMLMailer(const std::string & senderMail, const std::string &senderPassword, const std::string &senderServer, const std::string &title, const std::string &content, const CharType charType)
 		{
 			String::Converter converter(charType, CharType::UTF8);
 

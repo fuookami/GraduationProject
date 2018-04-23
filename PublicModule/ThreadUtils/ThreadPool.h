@@ -38,18 +38,18 @@ namespace SSUtils
 			const bool commit(const std::function<void()> task, const uint32 priority = 0, const uint32 time = static_cast<uint32>(clock()));
 			const bool commit(const std::shared_ptr<Function::Task> task);
 
-			inline void resize(const uint32 size);
-			inline const uint32 size(void) const;
-			inline const uint32 sleepSize(void) const;
+			void resize(const uint32 size);
+			const uint32 size(void) const;
+			const uint32 sleepSize(void) const;
 
-			inline const std::deque<std::shared_ptr<Function::Task>> blockedTasks(void) const;
-			inline const uint32 blockedTaskNumber(void) const;
+			const std::deque<std::shared_ptr<Function::Task>> blockedTasks(void) const;
+			const uint32 blockedTaskNumber(void) const;
 
-			inline void setTaskCompareFunction(const Function::TaskCompareFunction taskCompareFun);
+			void setTaskCompareFunction(const Function::TaskCompareFunction taskCompareFun);
 
-			inline void start(void);
-			inline void stop(void);
-			inline const bool isStoped(void) const;
+			void start(void);
+			void stop(void);
+			const bool isStoped(void) const;
 
 		private:
 			class Worker : public std::thread
@@ -64,7 +64,7 @@ namespace SSUtils
 				Worker &operator=(Worker &&rhs) = delete;
 				~Worker(void) = default;
 
-				inline void stop(void);
+				void stop(void);
 
 			private:
 				std::atomic<uint32> m_stoped;
@@ -76,7 +76,7 @@ namespace SSUtils
 			static void WorkerMain(ThreadPool *pool, Worker *self);
 
 		private:
-			std::vector<Worker> m_workers;
+			std::vector<std::shared_ptr<Worker>> m_workers;
 			std::deque<std::shared_ptr<Function::Task>> m_blockedTasks;
 			Function::TaskCompareFunction m_taskCompareFun;
 
@@ -89,7 +89,7 @@ namespace SSUtils
 		};
 
 		template<typename F, typename ...Args>
-		inline auto ThreadPool::commit(F && f, Args && ...args) -> std::pair<bool, std::future<typename std::result_of<F(Args ...)>::type>>
+		auto ThreadPool::commit(F && f, Args && ...args) -> std::pair<bool, std::future<typename std::result_of<F(Args ...)>::type>>
 		{
 			using FutureType = std::future<typename std::result_of<F(Args ...)>::type>;
 
@@ -106,7 +106,7 @@ namespace SSUtils
 		}
 
 		template<typename F, typename ...Args>
-		inline auto ThreadPool::commit(const std::shared_ptr<std::packaged_task<typename std::result_of<F(Args...)>::type>> task, const uint32 priority, const uint32 time) -> std::pair<bool, std::future<typename std::result_of<F(Args ...)>::type>>
+		auto ThreadPool::commit(const std::shared_ptr<std::packaged_task<typename std::result_of<F(Args...)>::type>> task, const uint32 priority, const uint32 time) -> std::pair<bool, std::future<typename std::result_of<F(Args ...)>::type>>
 		{
 			using FutureType = std::future<typename std::result_of<F(Args ...)>::type>;
 
@@ -115,14 +115,14 @@ namespace SSUtils
 				return std::make_pair(false, FutureType());
 			}
 
-			insertTask(std::make_shared<Function::Task>(new Function::Task([task]() { (*task)(); }, priority, time)));
+			insertTask(std::make_shared<Function::Task>([task]() { (*task)(); }, priority, time));
 			m_condition.notify_one();
 
 			return task->get_future();
 		}
 
 		template<typename F, typename ...Args>
-		inline auto ThreadPool::sharedCommit(F && f, Args && ...args) -> std::pair<bool, std::shared_future<typename std::result_of<F(Args ...)>::type>>
+		auto ThreadPool::sharedCommit(F && f, Args && ...args) -> std::pair<bool, std::shared_future<typename std::result_of<F(Args ...)>::type>>
 		{
 			using FutureType = std::shared_future<typename std::result_of<F(Args ...)>::type>;
 
@@ -139,11 +139,11 @@ namespace SSUtils
 		}
 
 		template<typename F, typename ...Args>
-		inline auto ThreadPool::sharedCommit(const std::shared_ptr<std::packaged_task<typename std::result_of<F(Args...)>::type>> task, const uint32 priority, const uint32 time) -> std::pair<bool, std::shared_future<typename std::result_of<F(Args ...)>::type>>
+		auto ThreadPool::sharedCommit(const std::shared_ptr<std::packaged_task<typename std::result_of<F(Args...)>::type>> task, const uint32 priority, const uint32 time) -> std::pair<bool, std::shared_future<typename std::result_of<F(Args ...)>::type>>
 		{
 			using FutureType = std::shared_future<typename std::result_of<F(Args ...)>::type>;
 
-			insertTask(std::make_shared<Function::Task>(new Function::Task([task]() { (*task)(); }, priority, time)));
+			insertTask(std::make_shared<Function::Task>([task]() { (*task)(); }, priority, time));
 			m_condition.notify_one();
 
 			return task->get_future();

@@ -82,36 +82,36 @@ namespace SSUtils
 		};
 
 		template<typename T>
-		inline const T toLocalEndian(const Endian srcEndian, const T &src)
+		const T toLocalEndian(const Endian srcEndian, const T &src)
 		{
 			static EndianTranslator<T> translator;
 			return translator.toLocalEndian_ref(srcEndian, src);
 		}
 		template<typename T>
-		inline const T fromLocalEndian(const Endian targetEndian, const T &src)
+		const T fromLocalEndian(const Endian targetEndian, const T &src)
 		{
 			static EndianTranslator<T> translator;
 			return translator.fromLocalEndian_ref(targetEndian, src);
 		}
 
-		inline const uint16 toLocalEndian(const Endian srcEndian, const uint16 src);
-		inline const uint16 fromLocalEndian(const Endian targetEndian, const uint16 src);
-		inline const int16 toLocalEndian(const Endian srcEndian, const int16 src);
-		inline const int16 fromLocalEndian(const Endian targetEndian, const int16 src);
+		const uint16 toLocalEndian(const Endian srcEndian, const uint16 src);
+		const uint16 fromLocalEndian(const Endian targetEndian, const uint16 src);
+		const int16 toLocalEndian(const Endian srcEndian, const int16 src);
+		const int16 fromLocalEndian(const Endian targetEndian, const int16 src);
 
-		inline const uint32 toLocalEndian(const Endian srcEndian, const uint32 src);
-		inline const uint32 fromLocalEndian(const Endian targetEndian, const uint32 src);
-		inline const int32 toLocalEndian(const Endian srcEndian, const int32 src);
-		inline const int32 fromLocalEndian(const Endian targetEndian, const int32 src);
+		const uint32 toLocalEndian(const Endian srcEndian, const uint32 src);
+		const uint32 fromLocalEndian(const Endian targetEndian, const uint32 src);
+		const int32 toLocalEndian(const Endian srcEndian, const int32 src);
+		const int32 fromLocalEndian(const Endian targetEndian, const int32 src);
 
-		inline const uint64 toLocalEndian(const Endian srcEndian, const uint64 src);
-		inline const uint64 fromLocalEndian(const Endian targetEndian, const uint64 src);
-		inline const int64 toLocalEndian(const Endian srcEndian, const int64 src);
-		inline const int64 fromLocalEndian(const Endian targetEndian, const int64 src);
+		const uint64 toLocalEndian(const Endian srcEndian, const uint64 src);
+		const uint64 fromLocalEndian(const Endian targetEndian, const uint64 src);
+		const int64 toLocalEndian(const Endian srcEndian, const int64 src);
+		const int64 fromLocalEndian(const Endian targetEndian, const int64 src);
 
-		inline const float toLocalEndian(const Endian srcEndian, const float src);
-		inline const float fromLocalEndian(const Endian targetEndian, const float src);
-		inline const double toLocalEndian(const Endian srcEndian, const double src);
-		inline const double fromLocalEndian(const Endian targetEndian, const double src);
+		const float toLocalEndian(const Endian srcEndian, const float src);
+		const float fromLocalEndian(const Endian targetEndian, const float src);
+		const double toLocalEndian(const Endian srcEndian, const double src);
+		const double fromLocalEndian(const Endian targetEndian, const double src);
 	};
 };

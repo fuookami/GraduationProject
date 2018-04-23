@@ -7,7 +7,7 @@ namespace SSUtils
 {
 	namespace Datetime
 	{
-		struct Datetime : public Date
+		class Datetime : public Date
 		{
 		public:
 			static const Datetime EmptyDatetime;
@@ -25,33 +25,33 @@ namespace SSUtils
 			Datetime &operator=(Datetime &&rhs) = default;
 			~Datetime(void) = default;
 
-			inline Datetime &operator+=(const DatetimeDuration &duration);
-			inline Datetime &operator-=(const DatetimeDuration &duration);
+			Datetime &operator+=(const DatetimeDuration &duration);
+			Datetime &operator-=(const DatetimeDuration &duration);
 
-			inline Datetime getDatetimeAfter(const DatetimeDuration &duration) const;
-			inline Datetime getDatetimeBefore(const DatetimeDuration &duration) const;
+			Datetime getDatetimeAfter(const DatetimeDuration &duration) const;
+			Datetime getDatetimeBefore(const DatetimeDuration &duration) const;
 
-			inline const int32 hour(void) const;
-			inline void setHour(const int32 hour);
-			inline const uint8 minute(void) const;
-			inline void setMinute(const uint8 minute);
-			inline const uint8 second(void) const;
-			inline void setSecond(const uint8 second);
-			inline const uint16 millisecond(void) const;
-			inline void setMillisecond(const uint16 millisecond);
-			inline const uint16 microsecond(void) const;
-			inline void setMicrosecond(const uint16 microsecond);
-			inline const Precision precision(void)const;
-			inline void setPrecision(const Precision precision);
-			inline const uint32 fractionsecond(void) const;
+			const int32 hour(void) const;
+			void setHour(const int32 hour);
+			const uint8 minute(void) const;
+			void setMinute(const uint8 minute);
+			const uint8 second(void) const;
+			void setSecond(const uint8 second);
+			const uint16 millisecond(void) const;
+			void setMillisecond(const uint16 millisecond);
+			const uint16 microsecond(void) const;
+			void setMicrosecond(const uint16 microsecond);
+			const Precision precision(void)const;
+			void setPrecision(const Precision precision);
+			const uint32 fractionsecond(void) const;
 
-			inline const bool isTomorrow(void) const;
-			inline const bool isTheDayAfterTomorrow(void) const;
-			inline const bool isTheDaysAfter(void) const;
+			const bool isTomorrow(void) const;
+			const bool isTheDayAfterTomorrow(void) const;
+			const bool isTheDaysAfter(void) const;
 
-			inline const bool isYesterday(void) const;
-			inline const bool isTheDayBeforeYesterday(void) const;
-			inline const bool isTheDaysBefore(void) const;
+			const bool isYesterday(void) const;
+			const bool isTheDayBeforeYesterday(void) const;
+			const bool isTheDaysBefore(void) const;
 
 			static Datetime fromString(const std::string &str);
 			std::string toString(void) const;
@@ -67,7 +67,7 @@ namespace SSUtils
 			Precision m_precision;
 		};
 
-		struct DatetimeDuration : public DateDuration
+		class DatetimeDuration : public DateDuration
 		{
 		public:
 			DatetimeDuration(void);
@@ -86,28 +86,28 @@ namespace SSUtils
 			DatetimeDuration &operator=(DatetimeDuration &&rhs) = default;
 			~DatetimeDuration(void) = default;
 
-			static inline DatetimeDuration fromTimeDuration(const TimeDuration &timeDuration);
-			inline TimeDuration toTimeDuration(void) const;
+			static DatetimeDuration fromTimeDuration(const TimeDuration &timeDuration);
+			TimeDuration toTimeDuration(void) const;
 
-			inline DatetimeDuration &operator+=(const DatetimeDuration &duration);
-			inline DatetimeDuration &operator-=(const DatetimeDuration &duration);
+			DatetimeDuration &operator+=(const DatetimeDuration &duration);
+			DatetimeDuration &operator-=(const DatetimeDuration &duration);
 			
-			inline DatetimeDuration operator+(void) const;
-			inline DatetimeDuration operator-(void) const;
+			DatetimeDuration operator+(void) const;
+			DatetimeDuration operator-(void) const;
 
-			inline const int32 hour(void) const;
-			inline void setHour(const int32 hour);
-			inline const int32 minute(void) const;
-			inline void setMinute(const int32 minute);
-			inline const int32 second(void) const;
-			inline void setSecond(const int32 second);
-			inline const int32 millisecond(void) const;
-			inline void setMillisecond(const int32 millisecond);
-			inline const int32 microsecond(void) const;
-			inline void setMicrosecond(const int32 microsecond);
-			inline const Precision precision(void)const;
-			inline void setPrecision(const Precision precision);
-			inline const int32 fractionsecond(void) const;
+			const int32 hour(void) const;
+			void setHour(const int32 hour);
+			const int32 minute(void) const;
+			void setMinute(const int32 minute);
+			const int32 second(void) const;
+			void setSecond(const int32 second);
+			const int32 millisecond(void) const;
+			void setMillisecond(const int32 millisecond);
+			const int32 microsecond(void) const;
+			void setMicrosecond(const int32 microsecond);
+			const Precision precision(void)const;
+			void setPrecision(const Precision precision);
+			const int32 fractionsecond(void) const;
 
 			void tidy(void);
 

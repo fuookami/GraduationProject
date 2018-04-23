@@ -76,7 +76,7 @@ namespace SSUtils
 		uint32 chineseToValue(const wchar ch)
 		{
 			auto it(std::find(Digits.cbegin(), Digits.cend(), ch));
-			return (it != Digits.cend()) ? (it - Digits.cbegin()) : -1;
+			return static_cast<uint32>((it != Digits.cend()) ? (it - Digits.cbegin()) : -1);
 		}
 
 		std::pair<bool, uint32> chineseToUnit(const wchar ch)

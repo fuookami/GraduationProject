@@ -10,9 +10,9 @@ namespace SSUtils
 		Datetime getBuildDatetime(const std::string & BuildOriginalDateString, const std::string & BuildTimeString)
 		{
 			static const auto fromShortMonthName(
-				[](const std::string &shortName) -> unsigned char
+				[](const std::string &shortName) -> uint32
 			{
-				return std::find(MonthShortName.cbegin(), MonthShortName.cend(), shortName) - MonthShortName.cbegin() + 1;
+				return static_cast<uint32>(std::find(MonthShortName.cbegin(), MonthShortName.cend(), shortName) - MonthShortName.cbegin()) + 1;
 			});
 
 			using namespace boost::gregorian;

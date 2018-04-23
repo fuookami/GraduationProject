@@ -20,6 +20,7 @@ namespace SSUtils
 		extern const uint8 HoursPerDay;
 
 		extern const uint8 FractionSecondDigits;
+		extern const uint32 MicrosecondPerFractionSecond;
 
 		class Date;
 		class DateDuration;

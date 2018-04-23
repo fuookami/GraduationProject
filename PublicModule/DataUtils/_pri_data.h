@@ -8,19 +8,19 @@ namespace SSUtils
 	namespace Data
 	{
 		template <typename T>
-		inline const byte *getDataCBegin(const T &src)
+		const byte *getDataCBegin(const T &src)
 		{
 			return reinterpret_cast<const byte *>(std::addressof(src));
 		}
 
 		template <typename T>
-		inline byte *getDataBegin(T &src)
+		byte *getDataBegin(T &src)
 		{
 			return reinterpret_cast<byte *>(std::addressof(src));
 		}
 
 		template <typename T>
-		inline const byte *getDataCEnd(const T &src)
+		const byte *getDataCEnd(const T &src)
 		{
 			static const uint8 DataLength(sizeof(T));
 
@@ -28,7 +28,7 @@ namespace SSUtils
 		}
 
 		template <typename T>
-		inline byte *getDataEnd(T &src)
+		byte *getDataEnd(T &src)
 		{
 			static const uint8 DataLength(sizeof(T));
 

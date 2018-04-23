@@ -95,7 +95,7 @@ namespace SSUtils
 				if (checkFileExist(targetUrl))
 				{
 					std::ifstream fin(targetUrl, std::ifstream::binary);
-					std::istreambuf_iterator<T> bgIt(fin), edIt;
+					std::istreambuf_iterator<char> bgIt(fin), edIt;
 					container data(bgIt, edIt);
 					fin.close();
 					return data;

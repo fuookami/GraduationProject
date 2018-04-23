@@ -147,9 +147,9 @@ namespace SSUtils
 			m_precision = precision;
 		}
 
-		inline const uint32 Time::fractionsecond(void) const
+		const uint32 Time::fractionsecond(void) const
 		{
-			return (static_cast<uint32>(millisecond()) * MicrosecondsPerMillisecond + microsecond()) * pow(10, boost::posix_time::time_duration::num_fractional_digits() - FractionSecondDigits);
+			return (static_cast<uint32>(millisecond()) * MicrosecondsPerMillisecond + microsecond()) * MicrosecondPerFractionSecond;
 		}
 
 		const int64 Time::totalMicroseconds(void) const
@@ -233,7 +233,7 @@ namespace SSUtils
 			{
 				if (numbers[3].size() > 3)
 				{
-					for (uint32 i(0), j(FractionSecondDigits - numbers[3].size()); i != j; ++i)
+					for (uint32 i(0), j(FractionSecondDigits - static_cast<uint32>(numbers[3].size())); i != j; ++i)
 					{
 						numbers[3].push_back('0');
 					}
@@ -373,32 +373,32 @@ namespace SSUtils
 			return TimeDuration(-hour(), -minute(), -second(), -millisecond(), -microsecond());
 		}
 
-		const int32 TimeDuration::hour(void) const 
+		const int32 TimeDuration::hour(void) const
 		{ 
 			return m_hour; 
 		}
 
-		void TimeDuration::setHour(const int32 hour) 
+		void TimeDuration::setHour(const int32 hour)
 		{ 
 			m_hour = hour; 
 		}
 
-		const int32 TimeDuration::minute(void) const 
+		const int32 TimeDuration::minute(void) const
 		{
 			return m_minute; 
 		}
 
-		void TimeDuration::setMinute(const int32 minute) 
+		void TimeDuration::setMinute(const int32 minute)
 		{ 
 			m_minute = minute; 
 		}
 
-		const int32 TimeDuration::second(void) const 
+		const int32 TimeDuration::second(void) const
 		{ 
 			return m_second; 
 		}
 
-		void TimeDuration::setSecond(const int32 second) 
+		void TimeDuration::setSecond(const int32 second)
 		{ 
 			m_second = second; 
 		}
@@ -431,7 +431,7 @@ namespace SSUtils
 			}
 		}
 
-		const Precision TimeDuration::precision(void) const 
+		const Precision TimeDuration::precision(void) const
 		{ 
 			return m_precision; 
 		}
@@ -441,9 +441,9 @@ namespace SSUtils
 			m_precision = precision;
 		}
 
-		inline const int32 TimeDuration::fractionsecond(void) const
+		const int32 TimeDuration::fractionsecond(void) const
 		{
-			return (millisecond() * MicrosecondsPerMillisecond + microsecond()) * pow(10, boost::posix_time::time_duration::num_fractional_digits() - FractionSecondDigits);
+			return (millisecond() * MicrosecondsPerMillisecond + microsecond()) * MicrosecondPerFractionSecond;
 		}
 
 		const int64 TimeDuration::totalMicroseconds(void) const
@@ -503,7 +503,7 @@ namespace SSUtils
 			ptime localDatetime(second_clock::local_time());
 			const time_duration &localTime(localDatetime.time_of_day());
 
-			uint32 microseconds = localTime.fractional_seconds() / pow(10, localTime.num_fractional_digits() - FractionSecondDigits);
+			uint32 microseconds = static_cast<uint32>(localTime.fractional_seconds() / MicrosecondPerFractionSecond);
 			return Time(static_cast<int32>(localTime.hours()), static_cast<uint8>(localTime.minutes()), static_cast<uint8>(localTime.seconds()), static_cast<uint16>(microseconds / MicrosecondsPerMillisecond), static_cast<uint16>(mod(microseconds, MicrosecondsPerMillisecond)));
 		}
 

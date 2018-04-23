@@ -1,4 +1,6 @@
 #include "_pri_datetime_global.h"
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <cmath>
 
 namespace SSUtils
 {
@@ -32,5 +34,6 @@ namespace SSUtils
 		const uint8 HoursPerDay = 24;
 
 		const uint8 FractionSecondDigits = 6;
+		const uint32 MicrosecondPerFractionSecond = static_cast<uint32>(pow(10, boost::posix_time::time_duration::num_fractional_digits() - FractionSecondDigits));
 	};
 };

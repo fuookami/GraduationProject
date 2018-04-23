@@ -53,32 +53,32 @@ namespace SSUtils
 			return getDateAfter(-duration);
 		}
 
-		uint16 Date::year(void) const 
+		uint16 Date::year(void) const
 		{ 
 			return m_year; 
 		}
 
-		void Date::setYear(const uint16 year) 
+		void Date::setYear(const uint16 year)
 		{ 
 			m_year = year; 
 		}
 
-		uint8 Date::month(void) const 
+		uint8 Date::month(void) const
 		{ 
 			return m_month; 
 		}
 
-		void Date::setMonth(const uint8 month) 
+		void Date::setMonth(const uint8 month)
 		{ 
 			m_month = month; 
 		}
 
-		uint8 Date::day(void) const 
+		uint8 Date::day(void) const
 		{ 
 			return m_day; 
 		}
 
-		void Date::setDay(const uint8 day) 
+		void Date::setDay(const uint8 day)
 		{ 
 			m_day = day; 
 		}
@@ -127,7 +127,7 @@ namespace SSUtils
 				return EmptyDate;
 			}
 
-			Date ret(std::stoi(numbers[0]), std::stoul(numbers[1]), std::stoul(numbers[2]));
+			Date ret(static_cast<uint16>(std::stoi(numbers[0])), static_cast<uint8>(std::stoul(numbers[1])), static_cast<uint8>(std::stoul(numbers[2])));
 			return ret.isLegalDate() ? ret : EmptyDate;
 		}
 
@@ -189,32 +189,32 @@ namespace SSUtils
 			return DateDuration(-year(), -month(), -day());
 		}
 
-		int32 DateDuration::year(void) const 
+		int32 DateDuration::year(void) const
 		{ 
 			return m_year; 
 		}
 
-		void DateDuration::setYear(const int32 year) 
+		void DateDuration::setYear(const int32 year)
 		{ 
 			m_year = year; 
 		}
 
-		int32 DateDuration::month(void) const 
+		int32 DateDuration::month(void) const
 		{ 
 			return m_month; 
 		}
 
-		void DateDuration::setMonth(const int32 month) 
+		void DateDuration::setMonth(const int32 month)
 		{ 
 			m_month = month; 
 		}
 
-		int32 DateDuration::day(void) const 
+		int32 DateDuration::day(void) const
 		{ 
 			return m_day; 
 		}
 
-		void DateDuration::setDay(const int32 day) 
+			void DateDuration::setDay(const int32 day)
 		{ 
 			m_day = day; 
 		}

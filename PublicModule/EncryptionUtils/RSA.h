@@ -40,7 +40,7 @@ namespace SSUtils
 				encrypter &operator=(encrypter &&rhs) = default;
 				~encrypter(void) = default;
 
-				inline std::string operator()(const std::string &origin);
+				std::string operator()(const std::string &origin);
 
 				std::string publicKey;
 				std::string seed;
@@ -65,7 +65,7 @@ namespace SSUtils
 				decrypter &operator=(decrypter &&rhs) = default;
 				~decrypter(void) = default;
 
-				inline std::string operator()(const std::string &cipher);
+				std::string operator()(const std::string &cipher);
 
 				std::string privateKey;
 			};
@@ -89,7 +89,7 @@ namespace SSUtils
 				signer &operator=(signer &&rhs) = default;
 				~signer(void) = default;
 
-				inline std::string operator()(const std::string &msg);
+				std::string operator()(const std::string &msg);
 
 				std::string privateKey;
 			};
@@ -114,7 +114,7 @@ namespace SSUtils
 				verifier &operator=(verifier &&rhs) = default;
 				~verifier(void) = default;
 
-				inline const bool operator()(const std::string &msg, const std::string &signature);
+				const bool operator()(const std::string &msg, const std::string &signature);
 
 				std::string publicKey;
 			};

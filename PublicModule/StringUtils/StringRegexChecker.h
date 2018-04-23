@@ -20,7 +20,7 @@ namespace SSUtils
 			RegexChecker &operator=(RegexChecker &&rhs) = delete;
 			~RegexChecker(void) = default;
 
-			inline const bool operator()(const std::string &src) const
+			const bool operator()(const std::string &src) const
 			{
 				std::smatch result;
 				return std::regex_match(src, result, reg);
@@ -41,8 +41,8 @@ namespace SSUtils
 			extern const RegexChecker PositiveIntegerChecker;
 		};
 
-		inline const bool isNaturalNumber(const std::string &src);
-		inline const bool isInteger(const std::string &src);
-		inline const bool isPositiveInteger(const std::string &src);
+		const bool isNaturalNumber(const std::string &src);
+		const bool isInteger(const std::string &src);
+		const bool isPositiveInteger(const std::string &src);
 	};
 };

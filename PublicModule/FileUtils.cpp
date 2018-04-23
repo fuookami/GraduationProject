@@ -67,8 +67,8 @@ namespace SSUtils
 
 		std::string getFileMainNameOfUrl(const std::string & targetUrl)
 		{
-			int fileNameBgIndex(targetUrl.find_last_of("\\/"));
-			int fileExtensionBgIndex(targetUrl.find_last_of('.'));
+			int32 fileNameBgIndex(static_cast<int32>(targetUrl.find_last_of("\\/")));
+			int32 fileExtensionBgIndex(static_cast<int32>(targetUrl.find_last_of('.')));
 			if (fileNameBgIndex > fileExtensionBgIndex)
 			{
 				return std::string("");

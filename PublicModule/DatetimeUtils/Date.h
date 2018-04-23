@@ -6,7 +6,7 @@ namespace SSUtils
 {
 	namespace Datetime
 	{
-		struct Date
+		class Date
 		{
 		public:
 			static const Date EmptyDate;
@@ -20,23 +20,23 @@ namespace SSUtils
 			Date &operator=(Date &&rhs) = default;
 			~Date(void) = default;
 
-			inline Date &operator+=(const DateDuration &duration);
-			inline Date &operator-=(const DateDuration &duration);
+			Date &operator+=(const DateDuration &duration);
+			Date &operator-=(const DateDuration &duration);
 
-			inline Date getDateAfter(const DateDuration &duration) const;
-			inline Date getDateBefore(const DateDuration &duration) const;
+			Date getDateAfter(const DateDuration &duration) const;
+			Date getDateBefore(const DateDuration &duration) const;
 
-			inline uint16 year(void) const;
-			inline void setYear(const uint16 year);
-			inline uint8 month(void) const;
-			inline void setMonth(const uint8 month);
-			inline uint8 day(void) const;
-			inline void setDay(const uint8 day);
+			uint16 year(void) const;
+			void setYear(const uint16 year);
+			uint8 month(void) const;
+			void setMonth(const uint8 month);
+			uint8 day(void) const;
+			void setDay(const uint8 day);
 
-			inline const bool isLegalDate(void) const;
-			inline const bool isLeapYear(void) const;
-			inline const uint8 getDayOfMonth(void) const;
-			inline const uint8 getDayInWeek(void) const;
+			const bool isLegalDate(void) const;
+			const bool isLeapYear(void) const;
+			const uint8 getDayOfMonth(void) const;
+			const uint8 getDayInWeek(void) const;
 
 			static Date fromString(const std::string &str);
 			std::string toString(void) const;
@@ -60,18 +60,18 @@ namespace SSUtils
 			DateDuration &operator=(DateDuration &&rhs) = default;
 			~DateDuration(void) = default;
 
-			inline DateDuration &operator+=(const DateDuration &duration);
-			inline DateDuration &operator-=(const DateDuration &duration);
+			DateDuration &operator+=(const DateDuration &duration);
+			DateDuration &operator-=(const DateDuration &duration);
 
-			inline DateDuration operator+(void) const;
-			inline DateDuration operator-(void) const;
+			DateDuration operator+(void) const;
+			DateDuration operator-(void) const;
 
-			inline int32 year(void) const { return m_year; }
-			inline void setYear(const int32 year) { m_year = year; }
-			inline int32 month(void) const { return m_month; }
-			inline void setMonth(const int32 month) { m_month = month; }
-			inline int32 day(void) const { return m_day; }
-			inline void setDay(const int32 day) { m_day = day; }
+			int32 year(void) const;
+			void setYear(const int32 year);
+			int32 month(void) const;
+			void setMonth(const int32 month);
+			int32 day(void) const;
+			void setDay(const int32 day);
 
 		private:
 			int32 m_year;

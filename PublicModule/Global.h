@@ -21,7 +21,7 @@ namespace SSUtils
 	template<typename T, typename U, 
 		typename std::enable_if<std::is_integral_v<T>, T>::type* = nullptr, 
 		typename std::enable_if<std::is_integral_v<U>, U>::type* = nullptr>
-	inline const U mod(const T lhs, const U rhs)
+	const U mod(const T lhs, const U rhs)
 	{
 		U ret(lhs % rhs);
 		return ret >= 0 ? ret : (ret + rhs);

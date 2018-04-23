@@ -22,7 +22,7 @@ namespace SSUtils
 				return false;
 			}
 
-			insertTask(std::make_shared<Function::Task>(new Function::Task(task, priority, time)));
+			insertTask(std::make_shared<Function::Task>(task, priority, time));
 			m_condition.notify_one();
 
 			return true;
@@ -68,7 +68,7 @@ namespace SSUtils
 
 		const uint32 ThreadPool::blockedTaskNumber(void) const
 		{
-			return m_blockedTasks.size();
+			return static_cast<uint32>(m_blockedTasks.size());
 		}
 
 		void ThreadPool::setTaskCompareFunction(const Function::TaskCompareFunction taskCompareFun)
@@ -85,7 +85,7 @@ namespace SSUtils
 				m_stoped.store(false);
 				resize();
 
-				for (uint32 i(0), j(m_blockedTasks.size()); i != j; ++i)
+				for (uint32 i(0), j(static_cast<uint32>(m_blockedTasks.size())); i != j; ++i)
 				{
 					m_condition.notify_one();
 				}
@@ -100,10 +100,10 @@ namespace SSUtils
 				m_stoped.store(true);
 				m_condition.notify_all();
 
-				for (auto &worker : m_workers)
+				for (auto worker : m_workers)
 				{
-					worker.stop();
-					worker.join();
+					worker->stop();
+					worker->join();
 				}
 				m_sleepNumber.store(m_workerNumber);
 				m_workers.clear();
@@ -121,18 +121,18 @@ namespace SSUtils
 			{
 				if (m_workers.size() > m_workerNumber)
 				{
-					for (uint32 i(0), j(m_workers.size() - m_workerNumber); i != j; ++i)
+					for (uint32 i(0), j(static_cast<uint32>(m_workers.size()) - m_workerNumber); i != j; ++i)
 					{
-						m_workers.back().stop();
-						m_workers.back().detach();
+						m_workers.back()->stop();
+						m_workers.back()->detach();
 						m_workers.pop_back();
 					}
 				}
 				else if (m_workers.size() < m_workerNumber)
 				{
-					for (uint32 i(0), j(m_workerNumber - m_workers.size()); i != j; ++i)
+					for (uint32 i(0), j(m_workerNumber - static_cast<uint32>(m_workers.size())); i != j; ++i)
 					{
-						m_workers.push_back(Worker(this));
+						m_workers.push_back(std::make_shared<Worker>(this));
 					}
 				}
 			}
@@ -170,7 +170,7 @@ namespace SSUtils
 		{
 		}
 
-		inline void ThreadPool::Worker::stop(void)
+		void ThreadPool::Worker::stop(void)
 		{
 			m_stoped.store(true);
 		}

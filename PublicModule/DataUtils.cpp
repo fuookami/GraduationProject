@@ -28,9 +28,9 @@ namespace SSUtils
 		{
 			static const uint32 HexSize(2);
 
-			uint32 partSize(HexSize + seperator.size());
+			uint32 partSize(HexSize + static_cast<uint32>(seperator.size()));
 			Block ret;
-			for (uint32 i(0), j(str.size() / partSize); i != j; ++i)
+			for (uint32 i(0), j(static_cast<uint32>(str.size()) / partSize); i != j; ++i)
 			{
 				uint16 b;
 				std::istringstream(str.substr(i * partSize, HexSize)) >> std::hex >> b;

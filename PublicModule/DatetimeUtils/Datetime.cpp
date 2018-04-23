@@ -91,7 +91,7 @@ namespace SSUtils
 			const date &targetDate(targetDatetime.date());
 			const time_duration &targetTime(targetDatetime.time_of_day());
 
-			uint32 microseconds = targetTime.fractional_seconds() / pow(10, targetTime.num_fractional_digits() - FractionSecondDigits);
+			uint32 microseconds = static_cast<uint32>(targetTime.fractional_seconds() / MicrosecondPerFractionSecond);
 			return Datetime(static_cast<int16>(targetDate.year()), static_cast<uint8>(targetDate.month()), static_cast<uint8>(targetDate.day()), static_cast<int32>(targetTime.hours()), static_cast<uint8>(targetTime.minutes()), static_cast<uint8>(targetTime.seconds()), static_cast<uint16>(microseconds / MicrosecondsPerMillisecond), static_cast<uint16>(mod(microseconds, MicrosecondsPerMillisecond)));
 		}
 
@@ -170,7 +170,7 @@ namespace SSUtils
 
 		const uint32 Datetime::fractionsecond(void) const
 		{
-			return (static_cast<uint32>(millisecond()) * MicrosecondsPerMillisecond + microsecond()) * pow(10, boost::posix_time::time_duration::num_fractional_digits() - FractionSecondDigits);
+			return (static_cast<uint32>(millisecond()) * MicrosecondsPerMillisecond + microsecond()) * MicrosecondPerFractionSecond;
 		}
 
 		const bool Datetime::isTomorrow(void) const
@@ -377,7 +377,7 @@ namespace SSUtils
 			m_minute = minute;
 		}
 
-		const int32 DatetimeDuration::second(void) const
+			const int32 DatetimeDuration::second(void) const
 		{
 			return m_second;
 		}
@@ -427,10 +427,10 @@ namespace SSUtils
 
 		const int32 DatetimeDuration::fractionsecond(void) const
 		{
-			return (millisecond() * MicrosecondsPerMillisecond + microsecond()) * pow(10, boost::posix_time::time_duration::num_fractional_digits() - FractionSecondDigits);
+			return (millisecond() * MicrosecondsPerMillisecond + microsecond()) * MicrosecondPerFractionSecond;
 		}
 
-		void DatetimeDuration::tidy(void)
+			void DatetimeDuration::tidy(void)
 		{
 			m_precision = m_microsecond != 0 ? Precision::MicroSecond
 				: m_millisecond != 0 ? Precision::MilliSecond : Precision::Second;
@@ -460,7 +460,7 @@ namespace SSUtils
 			const date &localDate(localDatetime.date());
 			const time_duration &localTime(localDatetime.time_of_day());
 
-			uint32 microseconds = localTime.fractional_seconds() / pow(10, localTime.num_fractional_digits() - FractionSecondDigits);
+			uint32 microseconds = static_cast<uint32>(localTime.fractional_seconds() / MicrosecondPerFractionSecond);
 			return Datetime(static_cast<int16>(localDate.year()), static_cast<uint8>(localDate.month()), static_cast<uint8>(localDate.day()), static_cast<int32>(localTime.hours()), static_cast<uint8>(localTime.minutes()), static_cast<uint8>(localTime.seconds()), static_cast<uint16>(microseconds / MicrosecondsPerMillisecond), static_cast<uint16>(mod(microseconds, MicrosecondsPerMillisecond)));
 		}
 

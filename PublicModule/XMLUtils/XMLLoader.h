@@ -26,7 +26,7 @@ namespace SSUtils
 			Loader &operator=(Loader &&rhs) = default;
 			~Loader(void) = default;
 
-			inline const bool isOpened(void) const;
+			const bool isOpened(void) const;
 			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> open(void);
 			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> open(const std::string &_url);
 			std::vector<std::shared_ptr<Node>> operator()();
@@ -50,7 +50,7 @@ namespace SSUtils
 			Scaner &operator=(Scaner &&ano) = default;
 			~Scaner(void) = default;
 
-			inline const bool isScaned(void) const;
+			const bool isScaned(void) const;
 			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> scan(void);
 			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> scan(const std::string &_data);
 			std::vector<std::shared_ptr<Node>> operator()();

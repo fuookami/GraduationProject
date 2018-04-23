@@ -156,7 +156,7 @@ namespace SSUtils
 					container ret;
 					if (DataLength == 1 || endian == Endian::BigEndian)
 					{
-						for (uint32 i(0), j(datas.size()); i != j; i += DataLength)
+						for (uint32 i(0), j(static_cast<uint32>(datas.size())); i != j; i += DataLength)
 						{
 							T temp;
 							std::copy(datas.cbegin() + i, datas.cbegin() + i + DataLength, getDataBegin(temp));
@@ -166,7 +166,7 @@ namespace SSUtils
 					}
 					else
 					{
-						for (uint32 i(0), j(datas.size()); i != j; i += DataLength)
+						for (uint32 i(0), j(static_cast<uint32>(datas.size())); i != j; i += DataLength)
 						{
 							T temp;
 							Block data(DataLength, 0);
@@ -221,81 +221,81 @@ namespace SSUtils
 			}
 		};
 
-		inline const bool toBool(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromBool(const bool value, const Endian endian = System::LocalEndian);
+		const bool toBool(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromBool(const bool value, const Endian endian = System::LocalEndian);
 
-		inline const float toFloat(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromFloat(const float value, const Endian endian = System::LocalEndian);
-		inline const double toDouble(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromDouble(const double value, const Endian endian = System::LocalEndian);
+		const float toFloat(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromFloat(const float value, const Endian endian = System::LocalEndian);
+		const double toDouble(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromDouble(const double value, const Endian endian = System::LocalEndian);
 
-		inline const int8 toInt8(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromInt8(const int8 value, const Endian endian = System::LocalEndian);
-		inline const uint8 toUInt8(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromUInt8(const uint8 value, const Endian endian = System::LocalEndian);
+		const int8 toInt8(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromInt8(const int8 value, const Endian endian = System::LocalEndian);
+		const uint8 toUInt8(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromUInt8(const uint8 value, const Endian endian = System::LocalEndian);
 
-		inline const int16 toInt16(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromInt16(const int16 value, const Endian endian = System::LocalEndian);
-		inline const uint16 toUInt16(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromUInt16(const uint16 value, const Endian endian = System::LocalEndian);
+		const int16 toInt16(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromInt16(const int16 value, const Endian endian = System::LocalEndian);
+		const uint16 toUInt16(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromUInt16(const uint16 value, const Endian endian = System::LocalEndian);
 
-		inline const int32 toInt32(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromInt32(const int32 value, const Endian endian = System::LocalEndian);
-		inline const uint32 toUInt32(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromUInt32(const uint32 value, const Endian endian = System::LocalEndian);
+		const int32 toInt32(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromInt32(const int32 value, const Endian endian = System::LocalEndian);
+		const uint32 toUInt32(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromUInt32(const uint32 value, const Endian endian = System::LocalEndian);
 		
-		inline const int64 toInt64(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromInt64(const int64 value, const Endian endian = System::LocalEndian);
-		inline const uint64 toUInt64(const Block &data, const Endian endian = System::LocalEndian);
-		inline Block fromUInt64(const uint64 value, const Endian endian = System::LocalEndian);
+		const int64 toInt64(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromInt64(const int64 value, const Endian endian = System::LocalEndian);
+		const uint64 toUInt64(const Block &data, const Endian endian = System::LocalEndian);
+		Block fromUInt64(const uint64 value, const Endian endian = System::LocalEndian);
 
 		template<typename T>
-		inline Block fromData(const T &data, const Endian endian = System::LocalEndian)
+		Block fromData(const T &data, const Endian endian = System::LocalEndian)
 		{
 			static DataTranslator<T> translator(endian);
 			return translator.fromData(data);
 		}
 		template<typename T>
-		inline T toData(const Block &data, const Endian endian = System::LocalEndian)
+		T toData(const Block &data, const Endian endian = System::LocalEndian)
 		{
 			static DataTranslator<T> translator(endian);
 			return translator.toData(data);
 		}
 
 		template<typename T, uint32 size>
-		inline Block fromArray(const std::array<T, size> &datas, const Endian endian = System::LocalEndian)
+		Block fromArray(const std::array<T, size> &datas, const Endian endian = System::LocalEndian)
 		{
 			static DataTranslator<T> translator(endian);
 			return translator.fromDataContainer(datas);
 		}
 		template<typename T, uint32 size>
-		inline std::array<T, size> toArray(const Block &datas, const Endian endian = System::LocalEndian)
+		std::array<T, size> toArray(const Block &datas, const Endian endian = System::LocalEndian)
 		{
 			static DataTranslator<T> translator(endian);
 			return translator.toDataArray<size>(datas);
 		}
 
 		template<typename container>
-		inline Block fromContainer(const container &datas, const Endian endian = System::LocalEndian)
+		Block fromContainer(const container &datas, const Endian endian = System::LocalEndian)
 		{
 			static DataTranslator<container::value_type> translator(endian);
 			return translator.fromDataContainer(datas);
 		}
 		template<typename container>
-		inline container toContainer(const Block &data, const Endian endian = System::LocalEndian)
+		container toContainer(const Block &data, const Endian endian = System::LocalEndian)
 		{
 			static DataTranslator<container::value_type> translaotr(endian);
 			return translaotr.toDataContainer<container>(data);
 		}
 
 		template<typename iter>
-		inline Block fromIterator(const iter bgIt, const iter edIt, const Endian endian = System::LocalEndian)
+		Block fromIterator(const iter bgIt, const iter edIt, const Endian endian = System::LocalEndian)
 		{
 			static DataTranslator<iter::value_type> translator(endian);
 			return translator.fromDataIterator(bgIt, edIt);
 		}
 		template<typename outIt>
-		inline outIt toIterator(const Block &data, outIt it, const Endian endian = System::LocalEndian)
+		outIt toIterator(const Block &data, outIt it, const Endian endian = System::LocalEndian)
 		{
 			static DataTranslator<iter::value_type> translator(endian);
 			return translator.toDataIterator(data, it);

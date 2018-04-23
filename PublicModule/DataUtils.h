@@ -12,12 +12,12 @@ namespace SSUtils
 	namespace Data
 	{
 		template<uint32 size>
-		inline Block fromArray(const std::array<byte, size> &data)
+		Block fromArray(const std::array<byte, size> &data)
 		{
 			return Block(data.cbegin(), data.cend());
 		}
 		template<uint32 size>
-		inline std::array<byte, size> toArray(const Block &data)
+		std::array<byte, size> toArray(const Block &data)
 		{
 			std::array<byte, size> ret;
 			std::copy(data.cbegin(), size < data.size() ? (data.cbegin() + size) : data.cend(), ret.begin());

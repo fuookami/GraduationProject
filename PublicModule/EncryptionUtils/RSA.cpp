@@ -44,12 +44,12 @@ namespace SSUtils
 				randPool.IncorporateEntropy((const byte *)seed.c_str(), seed.size());
 
 				// 每次加密有长度限制，需要分块加密后拼接
-				uint32 maxMsgLen(pubEncryptor.FixedMaxPlaintextLength());
+				uint32 maxMsgLen(static_cast<uint32>(pubEncryptor.FixedMaxPlaintextLength()));
 				std::vector<std::string> subCiphers;
 
 				for (auto currIt(origin.cbegin()), edIt(origin.cend()); currIt != edIt; )
 				{
-					uint32 thisLen(edIt - currIt);
+					uint32 thisLen(static_cast<uint32>(edIt - currIt));
 					thisLen = thisLen > maxMsgLen ? maxMsgLen : thisLen;
 					auto nextIt(currIt + thisLen);
 
@@ -71,12 +71,12 @@ namespace SSUtils
 				CryptoPP::RSAES_OAEP_SHA_Decryptor priDecryptor(priKeySrc);
 
 				// 把密文解密成十六进制码
-				uint32 maxCiphertextLen = priDecryptor.FixedCiphertextLength() * 2;
+				uint32 maxCiphertextLen(static_cast<uint32>(priDecryptor.FixedCiphertextLength()) * 2);
 				std::vector<std::string> subDecrypts;
 
 				for (auto currIt(cipher.cbegin()), edIt(cipher.cend()); currIt != edIt; )
 				{
-					uint32 thisLen(edIt - currIt);
+					uint32 thisLen(static_cast<uint32>(edIt - currIt));
 					thisLen = thisLen > maxCiphertextLen ? maxCiphertextLen : thisLen;
 					auto nextIt(currIt + thisLen);
 
