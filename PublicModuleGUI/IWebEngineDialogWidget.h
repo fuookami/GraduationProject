@@ -10,7 +10,7 @@ namespace SSUtils
 	namespace GUI
 	{
 		class IWebEngineDialogWidget;
-		template <typename T, typename std::enable_if<std::is_base_of<IWebEngineDialogWidget, T>::value, T>::type* = nullptr>
+		template <typename T, typename = std::enable_if_t<std::is_base_of_v<IWebEngineDialogWidget, T>>>
 		class IWebEngineDialogInterface : public QObject
 		{
 		public:

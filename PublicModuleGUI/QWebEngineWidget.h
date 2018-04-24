@@ -32,7 +32,7 @@ namespace SSUtils
 				return obj;
 			}
 
-			template <typename T>
+			template <typename T, typename std::enable_if_t<std::is_base_of<QObject, T>>>
 			inline T *registerObject(T *obj)
 			{
 				QString typeName(typeid(T).name());
@@ -40,28 +40,24 @@ namespace SSUtils
 				return obj;
 			}
 
-			template <typename T>
+			template <typename T, typename std::enable_if_t<std::is_base_of<QObject, T>>>
 			inline std::shared_ptr<T> registerObject(std::shared_ptr<T> &obj)
 			{
 				registerObject(obj.get());
 				return obj;
 			}
 
-			template <typename T, typename... Args>
+			template <typename T, typename... Args, typename std::enable_if_t<std::is_base_of<QObject, T>>>
 			inline std::shared_ptr<T> registerObject(const QString &name, Args&&... args)
 			{
-				static_assert(!std::is_base_of_v<T, QObject>, "向WebChannal注册了非QObject子类的类。");
-
 				std::shared_ptr<T> obj(std::make_shared<T>(std::forward<Args>(args)...));
 				registerObject(obj.get());
 				return obj;
 			}
 
-			template <typename T, typename ...Args>
+			template <typename T, typename ...Args, typename std::enable_if_t<std::is_base_of<QObject, T>>>
 			inline std::shared_ptr<T> registerObject(Args&&... args)
 			{
-				static_assert(!std::is_base_of_v<T, QObject>, "向WebChannal注册了非QObject子类的类。");
-
 				std::shared_ptr<T> obj(std::make_shared<T>(std::forward<Args>(args)...));
 				registerObject(obj.get());
 				return obj;

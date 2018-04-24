@@ -17,13 +17,4 @@ namespace SSUtils
 	using uint32 = std::uint32_t;
 	using int64 = std::int64_t;
 	using uint64 = std::uint64_t;
-
-	template<typename T, typename U, 
-		typename std::enable_if<std::is_integral_v<T>, T>::type* = nullptr, 
-		typename std::enable_if<std::is_integral_v<U>, U>::type* = nullptr>
-	const U mod(const T lhs, const U rhs)
-	{
-		U ret(lhs % rhs);
-		return ret >= 0 ? ret : (ret + rhs);
-	}
 };

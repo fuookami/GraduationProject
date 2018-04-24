@@ -1,6 +1,7 @@
 #include "Time.h"
 #include "Datetime.h"
 #include "StringUtils.h"
+#include "MathUtils.h"
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <sstream>
@@ -16,7 +17,7 @@ namespace SSUtils
 		}
 
 		Time::Time(const int32 second)
-			: Time(second / SecondsPerHour, mod(second / SecondsPerMinute, MinutesPerHour), mod(second, SecondsPerMinute), static_cast<uint16>(0), static_cast<uint16>(0))
+			: Time(second / SecondsPerHour, Math::mod(second / SecondsPerMinute, MinutesPerHour), Math::mod(second, SecondsPerMinute), static_cast<uint16>(0), static_cast<uint16>(0))
 		{
 		}
 
@@ -31,7 +32,7 @@ namespace SSUtils
 		{
 			int32 second(millisecond / MillisecondsPerSecond);
 			Time ret(second);
-			ret.m_millisecond = mod(millisecond, MillisecondsPerSecond);
+			ret.m_millisecond = Math::mod(millisecond, MillisecondsPerSecond);
 			ret.m_precision = Precision::MilliSecond;
 			return ret;
 		}
@@ -40,7 +41,7 @@ namespace SSUtils
 		{
 			int32 millisecond(microsecond / MicrosecondsPerMillisecond);
 			Time ret(fromMillisecond(millisecond));
-			ret.m_microsecond = mod(microsecond, MicrosecondsPerMillisecond);
+			ret.m_microsecond = Math::mod(microsecond, MicrosecondsPerMillisecond);
 			ret.m_precision = Precision::MicroSecond;
 			return ret;
 		}
@@ -61,13 +62,13 @@ namespace SSUtils
 		{
 			Time ret;
 			int32 microsecond(this->microsecond() + duration.microsecond());
-			ret.m_microsecond = mod(microsecond, MicrosecondsPerMillisecond);
+			ret.m_microsecond = Math::mod(microsecond, MicrosecondsPerMillisecond);
 			int32 millisecond(microsecond / MicrosecondsPerMillisecond + this->millisecond() + duration.millisecond());
-			ret.m_millisecond = mod(millisecond, MillisecondsPerSecond);
+			ret.m_millisecond = Math::mod(millisecond, MillisecondsPerSecond);
 			int32 second(millisecond / MillisecondsPerSecond + this->second() + duration.second());
-			ret.m_second = mod(second, SecondsPerMinute);
+			ret.m_second = Math::mod(second, SecondsPerMinute);
 			int32 minute(second / SecondsPerMinute + this->minute() + duration.minute());
-			ret.m_minute = mod(minute, MinutesPerHour);
+			ret.m_minute = Math::mod(minute, MinutesPerHour);
 			ret.m_hour = minute / MinutesPerHour + this->hour() + duration.hour();
 			ret.m_precision = microsecond != 0 ? Precision::MicroSecond
 				: millisecond != 0 ? Precision::MilliSecond : Precision::Second;
@@ -242,7 +243,7 @@ namespace SSUtils
 				if (fraction > 1000)
 				{
 					ret.m_millisecond = fraction / MicrosecondsPerMillisecond;
-					ret.m_microsecond = mod(fraction, MicrosecondsPerMillisecond);
+					ret.m_microsecond = Math::mod(fraction, MicrosecondsPerMillisecond);
 					ret.m_precision = Precision::MicroSecond;
 				}
 				else
@@ -280,16 +281,16 @@ namespace SSUtils
 				: m_millisecond != 0 ? Precision::MilliSecond : Precision::Second;
 
 			m_millisecond += m_microsecond / MicrosecondsPerMillisecond;
-			m_microsecond = mod(m_microsecond, MicrosecondsPerMillisecond);
+			m_microsecond = Math::mod(m_microsecond, MicrosecondsPerMillisecond);
 
 			m_second += m_millisecond / MillisecondsPerSecond;
-			m_millisecond = mod(m_millisecond, MillisecondsPerSecond);
+			m_millisecond = Math::mod(m_millisecond, MillisecondsPerSecond);
 
 			m_minute += m_second / SecondsPerMinute;
-			m_second = mod(m_second, SecondsPerMinute);
+			m_second = Math::mod(m_second, SecondsPerMinute);
 
 			m_hour += m_minute / MinutesPerHour;
-			m_minute = mod(m_minute, MinutesPerHour);
+			m_minute = Math::mod(m_minute, MinutesPerHour);
 		}
 
 		TimeDuration::TimeDuration(void)
@@ -298,7 +299,7 @@ namespace SSUtils
 		}
 
 		TimeDuration::TimeDuration(const int32 second)
-			: TimeDuration(second / SecondsPerHour, mod(second / SecondsPerMinute, MinutesPerHour), mod(second, SecondsPerMinute))
+			: TimeDuration(second / SecondsPerHour, Math::mod(second / SecondsPerMinute, MinutesPerHour), Math::mod(second, SecondsPerMinute))
 		{
 		}
 
@@ -317,7 +318,7 @@ namespace SSUtils
 		{
 			int32 second(millisecond / MillisecondsPerSecond);
 			TimeDuration ret(second);
-			ret.m_millisecond = mod(millisecond, MillisecondsPerSecond);
+			ret.m_millisecond = Math::mod(millisecond, MillisecondsPerSecond);
 			ret.m_precision = Precision::MilliSecond;
 			return ret;
 		}
@@ -326,7 +327,7 @@ namespace SSUtils
 		{
 			int32 millisecond(microsecond / MicrosecondsPerMillisecond);
 			TimeDuration ret(fromMillisecond(millisecond));
-			ret.m_microsecond = mod(microsecond, MicrosecondsPerMillisecond);
+			ret.m_microsecond = Math::mod(microsecond, MicrosecondsPerMillisecond);
 			ret.m_precision = Precision::MicroSecond;
 			return ret;
 		}
@@ -484,16 +485,16 @@ namespace SSUtils
 				: m_millisecond != 0 ? Precision::MilliSecond : Precision::Second;
 
 			m_millisecond += m_microsecond / MicrosecondsPerMillisecond;
-			m_microsecond = mod(m_microsecond, MicrosecondsPerMillisecond);
+			m_microsecond = Math::mod(m_microsecond, MicrosecondsPerMillisecond);
 
 			m_second += m_millisecond / MillisecondsPerSecond;
-			m_millisecond = mod(m_millisecond, MillisecondsPerSecond);
+			m_millisecond = Math::mod(m_millisecond, MillisecondsPerSecond);
 
 			m_minute += m_second / SecondsPerMinute;
-			m_second = mod(m_second, SecondsPerMinute);
+			m_second = Math::mod(m_second, SecondsPerMinute);
 
 			m_hour += m_minute / MinutesPerHour;
-			m_minute = mod(m_minute, MinutesPerHour);
+			m_minute = Math::mod(m_minute, MinutesPerHour);
 		}
 
 		Time getLocalTime(void)
@@ -504,7 +505,7 @@ namespace SSUtils
 			const time_duration &localTime(localDatetime.time_of_day());
 
 			uint32 microseconds = static_cast<uint32>(localTime.fractional_seconds() / MicrosecondPerFractionSecond);
-			return Time(static_cast<int32>(localTime.hours()), static_cast<uint8>(localTime.minutes()), static_cast<uint8>(localTime.seconds()), static_cast<uint16>(microseconds / MicrosecondsPerMillisecond), static_cast<uint16>(mod(microseconds, MicrosecondsPerMillisecond)));
+			return Time(static_cast<int32>(localTime.hours()), static_cast<uint8>(localTime.minutes()), static_cast<uint8>(localTime.seconds()), static_cast<uint16>(microseconds / MicrosecondsPerMillisecond), static_cast<uint16>(Math::mod(microseconds, MicrosecondsPerMillisecond)));
 		}
 
 		Time getTimeAfterLocalTime(const TimeDuration & duration)

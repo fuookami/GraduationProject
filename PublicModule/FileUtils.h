@@ -38,21 +38,17 @@ namespace SSUtils
 			FileLoader &operator=(FileLoader &&rhs) = delete;
 			~FileLoader(void) = default;
 
-			template<typename iter>
+			template<typename iter, typename = std::enable_if_t<std::is_same_v<typename iter::value_type, T>>>
 			iter toIter(const std::string &targetUrl, iter it) const
 			{
-				static_assert(std::is_same_v<iter::value_type, T>, "FileLoader::operator(), the value type of iterator is not the same of the type");
-
 				static const FileLoader<byte> loader;
 				static const Data::DataTranslator<T> translator;
 				Block data(loader.load<Block>(targetUrl));
 				return translator.toDataIterator<iter>(data, it);
 			}
-			template<typename container>
+			template<typename container, typename = std::enable_if_t<std::is_same_v<typename container::value_type, T>>>
 			container toContainer(const std::string &targetUrl) const
 			{
-				static_assert(std::is_same_v<container::value_type, T>, "FileLoader::operator(), the value type of container is not the same of the type");
-
 				static const FileLoader<byte> loader;
 				static const Data::DataTranslator<T> translator;
 				Block data(loader.load<Block>(targetUrl));
@@ -69,11 +65,9 @@ namespace SSUtils
 			FileLoader &operator=(FileLoader &&rhs) = delete;
 			~FileLoader(void) = default;
 
-			template<typename iter>
+			template<typename iter, typename = std::enable_if_t<std::is_same_v<typename iter::value_type, T>>>
 			iter toIter(const std::string &targetUrl, iter it) const
 			{
-				static_assert(std::is_same_v<iter::value_type, T>, "FileLoader::operator(), the value type of iterator is not the same of the type");
-
 				if (checkFileExist(targetUrl))
 				{
 					std::ifstream fin(targetUrl, std::ifstream::binary);
@@ -87,11 +81,9 @@ namespace SSUtils
 					return it;
 				}
 			}
-			template<typename container>
+			template<typename container, typename = std::enable_if_t<std::is_same_v<typename container::value_type, T>>>
 			container toContainer(const std::string &targetUrl) const
 			{
-				static_assert(std::is_same_v<container::value_type, T>, "FileLoader::operator(), the value type of container is not the same of the type");
-
 				if (checkFileExist(targetUrl))
 				{
 					std::ifstream fin(targetUrl, std::ifstream::binary);
@@ -132,29 +124,23 @@ namespace SSUtils
 			FileSaver &operator=(FileSaver &&rhs) = delete;
 			~FileSaver(void) = default;
 
-			template<typename iter>
+			template<typename iter, typename = std::enable_if_t<std::is_same_v<typename iter::value_type, T>>>
 			void operator()(const std::string &targetUrl, const iter bgIt, const iter edIt) const
 			{
-				static_assert(std::is_same_v<iter::value_type, T>, "FileSaver::operator(), the value type of iterator is not the same of the type");
-
 				static const Data::DataTranslator<T> translator;
 				static const FileSaver<byte> saver;
 				Block buff(translator.fromDataIterator(bgIt, edIt));
 				saver(targetUrl, buff.cbegin(), buff.cend());
 			}
-			template<typename container>
+			template<typename container, typename = std::enable_if_t<std::is_same_v<typename container::value_type, T>>>
 			void operator()(const std::string &targetUrl, const container &datas) const
 			{
-				static_assert(std::is_same_v<container::value_type, T>, "FileSaver::operator(), the value type of container is not the same of the type");
-
 				operator()(targetUrl, datas.cbegin(), datas.cend());
 			}
 		};
-		template<typename T>
+		template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, byte>::value>>
 		struct FileSaver<T, 1>
 		{
-			typedef typename std::enable_if<Data::ConversionChecker<T, byte>::value, T>::type value_type;
-
 			FileSaver(void) = default;
 			FileSaver(const FileSaver &ano) = delete;
 			FileSaver(FileSaver &&ano) = delete;
@@ -162,21 +148,17 @@ namespace SSUtils
 			FileSaver &operator=(FileSaver &&rhs) = delete;
 			~FileSaver(void) = default;
 
-			template<typename iter>
+			template<typename iter, typename = std::enable_if_t<std::is_same_v<typename iter::value_type, T>>>
 			void operator()(const std::string &targetUrl, const iter bgIt, const iter edIt) const
 			{
-				static_assert(std::is_same_v<iter::value_type, T>, "FileSaver::operator(), the value type of iterator is not the same of the type");
-
 				std::ofstream fout(targetUrl);
 				std::ostream_iterator<byte> outIt(fout);
 				std::copy(bgIt, edIt, outIt);
 				fout.close();
 			}
-			template<typename container>
+			template<typename container, typename = std::enable_if_t<std::is_same_v<typename container::value_type, T>>>
 			void operator()(const std::string &targetUrl, const container &datas) const
 			{
-				static_assert(std::is_same_v<container::value_type, T>, "FileSaver::operator(), the value type of container is not the same of the type");
-
 				std::ofstream fout(targetUrl);
 				std::ostream_iterator<byte> outIt(fout);
 				std::copy(datas.cbegin(), datas.cend(), outIt);

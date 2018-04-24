@@ -1,6 +1,7 @@
 #include "Datetime.h"
 #include "Time.h"
 #include "StringUtils.h"
+#include "MathUtils.h"
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <sstream>
@@ -21,7 +22,7 @@ namespace SSUtils
 		}
 
 		Datetime::Datetime(const Date & date, const uint32 second)
-			: Datetime(date, second / SecondsPerHour, mod(second / SecondsPerMinute, MinutesPerHour), mod(second, SecondsPerMinute), static_cast<uint16>(0), static_cast<uint16>(0))
+			: Datetime(date, second / SecondsPerHour, Math::mod(second / SecondsPerMinute, MinutesPerHour), Math::mod(second, SecondsPerMinute), static_cast<uint16>(0), static_cast<uint16>(0))
 		{
 		}
 
@@ -92,7 +93,7 @@ namespace SSUtils
 			const time_duration &targetTime(targetDatetime.time_of_day());
 
 			uint32 microseconds = static_cast<uint32>(targetTime.fractional_seconds() / MicrosecondPerFractionSecond);
-			return Datetime(static_cast<int16>(targetDate.year()), static_cast<uint8>(targetDate.month()), static_cast<uint8>(targetDate.day()), static_cast<int32>(targetTime.hours()), static_cast<uint8>(targetTime.minutes()), static_cast<uint8>(targetTime.seconds()), static_cast<uint16>(microseconds / MicrosecondsPerMillisecond), static_cast<uint16>(mod(microseconds, MicrosecondsPerMillisecond)));
+			return Datetime(static_cast<int16>(targetDate.year()), static_cast<uint8>(targetDate.month()), static_cast<uint8>(targetDate.day()), static_cast<int32>(targetTime.hours()), static_cast<uint8>(targetTime.minutes()), static_cast<uint8>(targetTime.seconds()), static_cast<uint16>(microseconds / MicrosecondsPerMillisecond), static_cast<uint16>(Math::mod(microseconds, MicrosecondsPerMillisecond)));
 		}
 
 		Datetime Datetime::getDatetimeBefore(const DatetimeDuration & duration) const
@@ -245,16 +246,16 @@ namespace SSUtils
 				: m_millisecond != 0 ? Precision::MilliSecond : Precision::Second;
 
 			m_millisecond += m_microsecond / MicrosecondsPerMillisecond;
-			m_microsecond = mod(m_microsecond, MicrosecondsPerMillisecond);
+			m_microsecond = Math::mod(m_microsecond, MicrosecondsPerMillisecond);
 
 			m_second += m_millisecond / MillisecondsPerSecond;
-			m_millisecond = mod(m_millisecond, MillisecondsPerSecond);
+			m_millisecond = Math::mod(m_millisecond, MillisecondsPerSecond);
 
 			m_minute += m_second / SecondsPerMinute;
-			m_second = mod(m_second, SecondsPerMinute);
+			m_second = Math::mod(m_second, SecondsPerMinute);
 
 			m_hour += m_minute / MinutesPerHour;
-			m_minute = mod(m_minute, MinutesPerHour);
+			m_minute = Math::mod(m_minute, MinutesPerHour);
 
 			int32 disDays(m_hour % HoursPerDay);
 			*this += DatetimeDuration(DateDuration(0, 0, disDays));
@@ -271,7 +272,7 @@ namespace SSUtils
 		}
 
 		DatetimeDuration::DatetimeDuration(const DateDuration & dateDuration, const uint32 second)
-			: DatetimeDuration(dateDuration, second / SecondsPerHour, mod(second / SecondsPerMinute, MinutesPerHour), mod(second, SecondsPerMinute), 0, 0)
+			: DatetimeDuration(dateDuration, second / SecondsPerHour, Math::mod(second / SecondsPerMinute, MinutesPerHour), Math::mod(second, SecondsPerMinute), 0, 0)
 		{
 		}
 
@@ -436,19 +437,19 @@ namespace SSUtils
 				: m_millisecond != 0 ? Precision::MilliSecond : Precision::Second;
 
 			m_millisecond += m_microsecond / MicrosecondsPerMillisecond;
-			m_microsecond = mod(m_microsecond, MicrosecondsPerMillisecond);
+			m_microsecond = Math::mod(m_microsecond, MicrosecondsPerMillisecond);
 
 			m_second += m_millisecond / MillisecondsPerSecond;
-			m_millisecond = mod(m_millisecond, MillisecondsPerSecond);
+			m_millisecond = Math::mod(m_millisecond, MillisecondsPerSecond);
 
 			m_minute += m_second / SecondsPerMinute;
-			m_second = mod(m_second, SecondsPerMinute);
+			m_second = Math::mod(m_second, SecondsPerMinute);
 
 			m_hour += m_minute / MinutesPerHour;
-			m_minute = mod(m_minute, MinutesPerHour);
+			m_minute = Math::mod(m_minute, MinutesPerHour);
 
 			setDay(day() + m_hour / HoursPerDay);
-			m_hour = mod(m_hour, HoursPerDay);
+			m_hour = Math::mod(m_hour, HoursPerDay);
 		}
 
 		Datetime getLocalDatetime(void)
@@ -461,7 +462,7 @@ namespace SSUtils
 			const time_duration &localTime(localDatetime.time_of_day());
 
 			uint32 microseconds = static_cast<uint32>(localTime.fractional_seconds() / MicrosecondPerFractionSecond);
-			return Datetime(static_cast<int16>(localDate.year()), static_cast<uint8>(localDate.month()), static_cast<uint8>(localDate.day()), static_cast<int32>(localTime.hours()), static_cast<uint8>(localTime.minutes()), static_cast<uint8>(localTime.seconds()), static_cast<uint16>(microseconds / MicrosecondsPerMillisecond), static_cast<uint16>(mod(microseconds, MicrosecondsPerMillisecond)));
+			return Datetime(static_cast<int16>(localDate.year()), static_cast<uint8>(localDate.month()), static_cast<uint8>(localDate.day()), static_cast<int32>(localTime.hours()), static_cast<uint8>(localTime.minutes()), static_cast<uint8>(localTime.seconds()), static_cast<uint16>(microseconds / MicrosecondsPerMillisecond), static_cast<uint16>(Math::mod(microseconds, MicrosecondsPerMillisecond)));
 		}
 
 		Datetime getDatetimeAfterLocalDatetime(const DatetimeDuration & duration)

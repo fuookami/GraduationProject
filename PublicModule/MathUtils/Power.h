@@ -15,6 +15,10 @@ namespace SSUtils
 			power(const T &base = T(), const T &index = T());
 			power(const power &ano) = default;
 			power(power &&ano) = default;
+			template<typename U>
+			explicit power(const power<U> &ano);
+			template<typename U>
+			explicit power(power<U> &&ano);
 			~power(void) = default;
 
 			power &operator=(const power &rhs) = default;
@@ -33,114 +37,6 @@ namespace SSUtils
 		private:
 			T m_base;
 			T m_index;
-		};
-
-		template<>
-		class power<float>
-		{
-		public:
-			typedef float value_type;
-
-			power(const value_type base = 0.0f, const value_type index = 0.0f);
-			power(const power &ano) = default;
-			power(power &&ano) = default;
-			explicit power(const power<double> &ano);
-			explicit power(power<double> &&ano);
-			explicit power(const power<long double> &ano);
-			explicit power(power<double> &&ano);
-			~power(void) = default;
-
-			power &operator=(const power &rhs) = default;
-			power &operator=(power &&rhs) = default;
-			power &operator=(const value_type base);
-			template<typename T>
-			power &operator=(const power<T> &rhs);
-			template<typename T>
-			power &operator=(power<T> &&rhs);
-
-			value_type base(void) const;
-			void setBase(const value_type base);
-			value_type index(void) const;
-			void setIndex(const value_type index);
-
-			value_type value(void) const;
-			operator value_type(void) const;
-
-		private:
-			value_type m_base;
-			value_type m_index;
-		};
-
-		template<>
-		class power<double>
-		{
-		public:
-			typedef double value_type;
-
-			power(const value_type base = 0.0f, const value_type index = 0.0f);
-			power(const power &ano) = default;
-			power(power &&ano) = default;
-			explicit power(const power<float> &ano);
-			explicit power(power<float> &&ano);
-			explicit power(const power<long double> &ano);
-			explicit power(power<long double> &&ano);
-			~power(void) = default;
-
-			power &operator=(const power &rhs) = default;
-			power &operator=(power &&rhs) = default;
-			power &operator=(const value_type base);
-			template<typename T>
-			power &operator=(const power<T> &rhs);
-			template<typename T>
-			power &operator=(power<T> &&rhs);
-
-			value_type base(void) const;
-			void setBase(const value_type base);
-			value_type index(void) const;
-			void setIndex(const value_type index);
-
-			value_type value(void) const;
-			operator value_type(void) const;
-
-		private:
-			value_type m_base;
-			value_type m_index;
-		};
-
-		template<>
-		class power<long double>
-		{
-		public:
-			typedef long double value_type;
-
-			power(const value_type base = 0.0f, const value_type index = 0.0f);
-			power(const power &ano) = default;
-			power(power &&ano) = default;
-			explicit power(const power<float> &ano);
-			explicit power(power<float> &&ano);
-			explicit power(const power<double> &ano);
-			explicit power(power<double> &&ano);
-			~power(void) = default;
-
-			power &operator=(const power &rhs) = default;
-			power &operator=(power &&rhs) = default;
-			power &operator=(const value_type base);
-			template<typename T>
-			power &operator=(const power<T> &rhs);
-			template<typename T>
-			power &operator=(power<T> &&rhs);
-
-			value_type base(void) const;
-			void setBase(const value_type base);
-			value_type index(void) const;
-			void setIndex(const value_type index);
-
-			value_type value(void) const;
-			operator value_type(void) const;
-
-		private:
-			value_type m_base;
-			value_type m_index;
 		};
 
 		template<typename T>
