@@ -10,5 +10,15 @@ namespace SSUtils
 		class logarithm
 		{
 		};
+
+		template<>
+		class logarithm<float>
+		{
+		};
+
+		template<>
+		class logarithm<double>
+		{
+		};
 	};
 };

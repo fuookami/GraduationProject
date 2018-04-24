@@ -118,30 +118,47 @@ namespace SSUtils
 			static const std::map<Type, std::map<TransformationFlag, std::set<Type>>> TypeTransformation;
 
 		public:
-			real(const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const bool value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const int8 value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const uint8 value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const int16 value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const uint16 value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const int32 value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const uint32 value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const int64 value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const uint64 value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const float value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const double value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const rational value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const power value, const TransformationFlag flag = TransformationFlag::AllErrors);
-			real(const logarithm value, const TransformationFlag flag = TransformationFlag::AllErrors);
-			real(const TranscendentalValue value, const TransformationFlag flag = TransformationFlag::AllErrors);
-			real(const SpecialValue value, const TransformationFlag falg = TransformationFlag::AllErrors);
-			real(const std::string &str, const TransformationFlag falg = TransformationFlag::AllErrors);
+			real(const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const bool value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const int8 value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const uint8 value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const int16 value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const uint16 value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const int32 value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const uint32 value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const int64 value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const uint64 value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const float value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const double value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const rational value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const power value, const TransformationFlag flag = TransformationFlag::NoClassficationErros);
+			real(const logarithm value, const TransformationFlag flag = TransformationFlag::NoClassficationErros);
+			real(const TranscendentalValue value, const TransformationFlag flag = TransformationFlag::NoClassficationErros);
+			real(const SpecialValue value, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
+			real(const std::string &str, const TransformationFlag falg = TransformationFlag::NoClassficationErros);
 			real(const Block &data);
 			real(const real &ano) = default;
 			real(real &&ano) = default;
+			~real(void) = default;
+
 			real &operator=(const real &rhs) = default;
 			real &operator=(real &&rhs) = default;
-			~real(void) = default;
+			real &operator=(const bool value);
+			real &operator=(const int8 value);
+			real &operator=(const uint8 value);
+			real &operator=(const int16 value);
+			real &operator=(const uint16 value);
+			real &operator=(const int32 value);
+			real &operator=(const uint32 value);
+			real &operator=(const int64 value);
+			real &operator=(const uint64 value);
+			real &operator=(const float value);
+			real &operator=(const double value);
+			real &operator=(const rational value);
+			real &operator=(const power value);
+			real &operator=(const logarithm value);
+			real &operator=(const TranscendentalValue value);
+			real &operator=(const SpecialValue value);
 
 			real &operator+=(const real &ano);
 			template<typename T>
