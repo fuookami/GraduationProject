@@ -109,6 +109,7 @@ namespace SSUtils
 			static const real root_2;
 			static const real root_3;
 			static const real ln_2;
+			static const real lg_2;
 
 		private:
 			static const uint32 DefaultPrecisionDigit;

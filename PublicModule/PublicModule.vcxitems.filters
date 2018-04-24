@@ -215,13 +215,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\_pri_math_global.h">
       <Filter>头文件\MathUtils</Filter>
     </ClInclude>
-    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Logarithm.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Power.h">
       <Filter>头文件\MathUtils</Filter>
     </ClInclude>
-    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Power.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Real.h">
       <Filter>头文件\MathUtils</Filter>
     </ClInclude>
-    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Real.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Logarithm.h">
       <Filter>头文件\MathUtils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -343,8 +343,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils\_pri_math_global.cpp">
       <Filter>源文件\MathUtils</Filter>
     </ClCompile>
-    <ClCompile Include="D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Real.cpp">
-      <Filter>源文件\MathUtils</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils\Real.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
