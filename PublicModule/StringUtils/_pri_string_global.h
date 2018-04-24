@@ -32,6 +32,10 @@ namespace SSUtils
 		extern const std::string True;
 		extern const std::string False;
 
+		extern const std::string NegativeInfinity;
+		extern const std::string PositiveInfinity;
+		extern const std::string NotANumber;
+
 		extern const std::string SpaceCharacters;
 
 		extern const std::map<CharType, std::string> CharTypeCode;

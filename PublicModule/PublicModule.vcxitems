@@ -35,7 +35,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail_global.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\NumberVariant.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Logarithm.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Real.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Power.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\_pri_math_global.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RandomUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils.h" />
@@ -80,7 +82,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\MailSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils\NumberVariant.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils\Real.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils\_pri_math_global.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RandomUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils.cpp" />

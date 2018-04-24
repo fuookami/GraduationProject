@@ -69,6 +69,12 @@
     <Filter Include="源文件\FunctionUtils">
       <UniqueIdentifier>{94b894e0-c4b6-40d6-9962-a793860a7594}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\MathUtils">
+      <UniqueIdentifier>{93a17e02-1f2a-4bc8-aec4-f14c03dcb2c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\MathUtils">
+      <UniqueIdentifier>{a878a395-9950-46d0-9ac5-761911dac0ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)RandomUtils.h">
@@ -143,9 +149,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringTranslator.h">
       <Filter>头文件\String</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DataUtils\DataTranslator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringRegexChecker.h">
       <Filter>头文件\String</Filter>
     </ClInclude>
@@ -202,6 +205,24 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)FunctionUtils\Task.h">
       <Filter>头文件\FunctionUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataUtils\DataTranslator.h">
+      <Filter>头文件\DataUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils.h">
+      <Filter>头文件\MathUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\_pri_math_global.h">
+      <Filter>头文件\MathUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Logarithm.h">
+      <Filter>头文件\MathUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Power.h">
+      <Filter>头文件\MathUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Real.h">
+      <Filter>头文件\MathUtils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +336,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DataUtils\DataTranslator.cpp">
       <Filter>源文件\DataUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils.cpp">
+      <Filter>源文件\MathUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils\_pri_math_global.cpp">
+      <Filter>源文件\MathUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Real.cpp">
+      <Filter>源文件\MathUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
