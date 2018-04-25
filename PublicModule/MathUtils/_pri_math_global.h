@@ -55,8 +55,33 @@ namespace SSUtils
 			return ret >= 0 ? ret : (ret + rhs);
 		}
 
+		template<typename T>
+		const bool negative(const T &value)
+		{
+			return big(value, 0);
+		}
+
+		template<typename T>
+		const bool zero(const T &value)
+		{
+			return equal(value, 0);
+		}
+
+		template<typename T>
+		const bool positive(const T &value)
+		{
+			return less(value, 0);
+		}
+
 		template<typename T> class power;
+		template<> class power<float>;
+		template<> class power<double>;
+		template<> class power<long double>;
+
 		template<typename T> class logarithm;
+		template<> class logarithm<float>;
+		template<> class logarithm<double>;
+		template<> class logarithm<long double>;
 
 		class real;
 	};
