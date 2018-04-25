@@ -9,6 +9,12 @@ namespace SSUtils
 	namespace Math
 	{
 		template<typename T>
+		T log(const T &base, const T &antilogarithm)
+		{
+			return ::log(antilogarithm) / ::log(base);
+		}
+
+		template<typename T>
 		class logarithm
 		{
 		public:
@@ -20,10 +26,7 @@ namespace SSUtils
 			logarithm(logarithm &&ano) = default;
 			template<typename U>
 			explicit logarithm(const logarithm<U> &ano)
-				: logarithm(value_type(ano.m_base), value_type(ano.m_antilogarithm)) {};
-			template<typename U>
-			explicit logarithm(logarithm<U> &&ano)
-				: logarithm(value_type(std::move(ano.m_base)), value_type(std::move(ano.m_antilogarithm))) {};
+				: logarithm(static_cast<value_type>(ano.base()), static_cast<value_type>(ano.antilogarithm())) {};{};
 			~logarithm(void) = default;
 
 			logarithm &operator=(const logarithm &rhs) = default;
@@ -31,15 +34,8 @@ namespace SSUtils
 			template<typename U>
 			logarithm &operator=(const logarithm<U> &rhs)
 			{
-				m_base = value_type(rhs.m_base);
-				m_antilogarithm = value_type(rhs.m_antilogarithm);
-				return *this;
-			}
-			template<typename U>
-			logarithm &operator=(logarithm<U> &&rhs)
-			{
-				m_base = value_type(std::move(rhs.m_base));
-				m_antilogarithm = value_type(std::move(rhs.m_antilogarithm));
+				m_base = value_type(rhs.base());
+				m_antilogarithm = value_type(rhs.antilogarithm());
 				return *this;
 			}
 			logarithm &operator=(const T &base)
@@ -51,25 +47,25 @@ namespace SSUtils
 			logarithm &operator=(T &&base)
 			{
 				m_base = std::move(base);
-				m_antilogarithm = 1;
+				m_antilogarithm = 1.0f;
 				return *this;
 			}
 
 			template<typename U>
 			logarithm &operator+=(const logarithm<U> &rhs)
 			{
-				if (equal(m_base, rhs.m_base))
+				if (equal(m_base, rhs.base()))
 				{
-					m_antilogarithm *= rhs.m_antilogarithm;
+					m_antilogarithm *= rhs.antilogarithm();
 				}
 				return *this;
 			}
 			template<typename U>
 			logarithm &operator-=(const logarithm<U> &rhs)
 			{
-				if (equal(m_base, rhs.m_base))
+				if (equal(m_base, rhs.base()))
 				{
-					m_antilogarithm /= rhs.m_antilogarithm;
+					m_antilogarithm /= rhs.antilogarithm();
 				}
 				return *this;
 			}
@@ -85,12 +81,14 @@ namespace SSUtils
 				return negative(m_base) && negative(m_antilogarithm);
 			}
 
-			T &base(void) const { return m_base; }
+			const T &base(void) const { return m_base; }
 			void setBase(const T &base) { m_base = base; }
-			T &antilogarithm(void) const { return m_antilogarithm }
+			void setBase(T &&base) { m_base = std::move(base); }
+			const T &antilogarithm(void) const { return m_antilogarithm }
 			void setAntilogarithm(const T &antilogarithm) { m_antilogarithm = antilogarithm; }
+			void setAntilogarithm(T &&antilogarithm) { m_antilogarithm = std::move(antilogarithm); }
 
-			double value(void) const { return static_cast<double>(log(m_antilogarithm) / log(m_base)); }
+			double value(void) const { return log(static_cast<double>(m_base), static_cast<double>(m_antilogarithm)); }
 			operator double(void) const { return value(); }
 
 		private:
@@ -110,13 +108,7 @@ namespace SSUtils
 			logarithm(logarithm &&ano) = default;
 			template<typename T>
 			explicit logarithm(const logarithm<T> &ano)
-				: logarithm(value_type(ano.base()), value_type(ano.antilogarithm())) {};
-			template<>
-			explicit logarithm(const logarithm<double> &ano)
-				: m_base(static_cast<value_type>(ano.base())), m_antilogarithm(static_cast<value_type>(ano.antilogarithm())) {};
-			template<>
-			explicit logarithm(const logarithm<long double> &ano)
-				: m_base(static_cast<value_type>(ano.base())), m_antilogarithm(static_cast<value_type>(ano.antilogarithm())) {};
+				: logarithm(static_cast<value_type>(ano.base()), static_cast<value_type>(ano.antilogarithm())) {};
 			~logarithm(void) = default;
 
 			logarithm &operator=(const logarithm &rhs) = default;
@@ -124,38 +116,38 @@ namespace SSUtils
 			template<typename T>
 			logarithm &operator=(const logarithm<T> &rhs)
 			{
-				m_base = static_cast<float>(ano.base());
-				m_antilogarithm = static_cast<float>(ano.antilogarithm());
+				m_base = value_type(ano.base());
+				m_antilogarithm = value_type(ano.antilogarithm());
 				return *this;
 			}
 			logarithm &operator=(const value_type base)
 			{
 				m_base = base;
-				m_antilogarithm = 1;
+				m_antilogarithm = 1.0f;
 				return *this;
 			}
 
 			template<typename T>
 			logarithm &operator+=(const logarithm<T> &rhs)
 			{
-				if (equal(m_base, rhs.m_base))
+				if (equal(m_base, rhs.base()))
 				{
-					m_antilogarithm *= rhs.m_antilogarithm;
+					m_antilogarithm *= rhs.antilogarithm();
 				}
 				return *this;
 			}
 			template<typename T>
 			logarithm &operator-=(const logarithm<T> &rhs)
 			{
-				if (equal(m_base, rhs.m_base))
+				if (equal(m_base, rhs.base()))
 				{
-					m_antilogarithm /= rhs.m_antilogarithm;
+					m_antilogarithm /= rhs.antilogarithm();
 				}
 				return *this;
 			}
 			logarithm &operator*=(const value_type rhs)
 			{
-				m_antilogarithm = static_cast<value_type>(::std::pow(m_antilogarithm, rhs));
+				m_antilogarithm = static_cast<value_type>(pow(m_antilogarithm, rhs));
 				return *this;
 			}
 
@@ -164,12 +156,12 @@ namespace SSUtils
 				return negative(m_base) && negative(m_antilogarithm);
 			}
 
-			value_type base(void) const { return m_base; }
+			const value_type base(void) const { return m_base; }
 			void setBase(const value_type base) { m_base = base; }
-			value_type antilogarithm(void) const { return m_antilogarithm; }
+			const value_type antilogarithm(void) const { return m_antilogarithm; }
 			void setAntilogarithm(const value_type antilogarithm) { m_antilogarithm = antilogarithm; }
 
-			value_type value(void) const { return static_cast<value_type>(log(m_antilogarithm) / log(m_base)); }
+			value_type value(void) const { return log(m_base, m_antilogarithm); }
 			operator value_type(void) const { return value(); }
 
 		private:
@@ -189,11 +181,7 @@ namespace SSUtils
 			logarithm(logarithm &&ano) = default;
 			template<typename T>
 			explicit logarithm(const logarithm<T> &ano)
-				: logarithm(value_type(ano.base()), value_type(ano.antilogarithm())) {};
-			explicit logarithm(const logarithm<float> &ano)
-				: m_base(static_cast<value_type>(ano.base())), m_antilogarithm(static_cast<value_type>(ano.antilogarithm())) {};
-			explicit logarithm(const logarithm<long double> &ano)
-				: m_base(static_cast<value_type>(ano.base())), m_antilogarithm(static_cast<value_type>(ano.antilogarithm())) {};
+				: logarithm(static_cast<value_type>(ano.base()), static_cast<value_type>(ano.antilogarithm())) {};
 			~logarithm(void) = default;
 
 			logarithm &operator=(const logarithm &rhs) = default;
@@ -201,32 +189,32 @@ namespace SSUtils
 			template<typename T>
 			logarithm &operator=(const logarithm<T> &rhs)
 			{
-				m_base = static_cast<float>(ano.base());
-				m_antilogarithm = static_cast<float>(ano.antilogarithm());
+				m_base = value_type(ano.base());
+				m_antilogarithm = value_type(ano.antilogarithm());
 				return *this;
 			}
 			logarithm &operator=(const value_type base)
 			{
 				m_base = base;
-				m_antilogarithm = 1;
+				m_antilogarithm = 1.0f;
 				return *this;
 			}
 
 			template<typename T>
 			logarithm &operator+=(const logarithm<T> &rhs)
 			{
-				if (equal(m_base, rhs.m_base))
+				if (equal(m_base, rhs.base()))
 				{
-					m_antilogarithm *= rhs.m_antilogarithm;
+					m_antilogarithm *= rhs.antilogarithm();
 				}
 				return *this;
 			}
 			template<typename T>
 			logarithm &operator-=(const logarithm<T> &rhs)
 			{
-				if (equal(m_base, rhs.m_base))
+				if (equal(m_base, rhs.base()))
 				{
-					m_antilogarithm /= rhs.m_antilogarithm;
+					m_antilogarithm /= rhs.antilogarithm();
 				}
 				return *this;
 			}
@@ -241,12 +229,12 @@ namespace SSUtils
 				return negative(m_base) && negative(m_antilogarithm);
 			}
 
-			value_type base(void) const { return m_base; }
+			const value_type base(void) const { return m_base; }
 			void setBase(const value_type base) { m_base = base; }
-			value_type antilogarithm(void) const { return m_antilogarithm; }
+			const value_type antilogarithm(void) const { return m_antilogarithm; }
 			void setAntilogarithm(const value_type antilogarithm) { m_antilogarithm = antilogarithm; }
 
-			value_type value(void) const { return static_cast<value_type>(log(m_antilogarithm) / log(m_base)); }
+			value_type value(void) const { return log(m_base, m_antilogarithm); }
 			operator value_type(void) const { return value(); }
 
 		private:
@@ -266,11 +254,7 @@ namespace SSUtils
 			logarithm(logarithm &&ano) = default;
 			template<typename T>
 			explicit logarithm(const logarithm<T> &ano)
-				: logarithm(value_type(ano.base()), value_type(ano.antilogarithm())) {};
-			explicit logarithm(const logarithm<float> &ano)
-				: m_base(static_cast<value_type>(ano.base())), m_antilogarithm(static_cast<value_type>(ano.antilogarithm())) {};
-			explicit logarithm(const logarithm<double> &ano)
-				: m_base(static_cast<value_type>(ano.base())), m_antilogarithm(static_cast<value_type>(ano.antilogarithm())) {};
+				: logarithm(static_cast<value_type>(ano.base()), static_cast<value_type>(ano.antilogarithm())) {};
 			~logarithm(void) = default;
 
 			logarithm &operator=(const logarithm &rhs) = default;
@@ -279,32 +263,32 @@ namespace SSUtils
 			template<typename T>
 			logarithm &operator=(const logarithm<T> &rhs)
 			{
-				m_base = static_cast<float>(ano.base());
-				m_antilogarithm = static_cast<float>(ano.antilogarithm());
+				m_base = value_type(ano.base());
+				m_antilogarithm = value_type(ano.antilogarithm());
 				return *this;
 			}
 			logarithm &operator=(const value_type base)
 			{
 				m_base = base;
-				m_antilogarithm = 1;
+				m_antilogarithm = 1.0f;
 				return *this;
 			}
 
 			template<typename T>
 			logarithm &operator+=(const logarithm<T> &rhs)
 			{
-				if (equal(m_base, rhs.m_base))
+				if (equal(m_base, rhs.base()))
 				{
-					m_antilogarithm *= rhs.m_antilogarithm;
+					m_antilogarithm *= rhs.antilogarithm();
 				}
 				return *this;
 			}
 			template<typename T>
 			logarithm &operator-=(const logarithm<T> &rhs)
 			{
-				if (equal(m_base, rhs.m_base))
+				if (equal(m_base, rhs.base()))
 				{
-					m_antilogarithm /= rhs.m_antilogarithm;
+					m_antilogarithm /= rhs.antilogarithm();
 				}
 				return *this;
 			}
@@ -319,12 +303,12 @@ namespace SSUtils
 				return negative(m_base) && negative(m_antilogarithm);
 			}
 
-			value_type base(void) const { return m_base; }
+			const value_type base(void) const { return m_base; }
 			void setBase(const value_type base) { m_base = base; }
-			value_type antilogarithm(void) const { return m_antilogarithm; }
+			const value_type antilogarithm(void) const { return m_antilogarithm; }
 			void setAntilogarithm(const value_type antilogarithm) { m_antilogarithm = antilogarithm; }
 
-			value_type value(void) const { return static_cast<value_type>(log(m_antilogarithm) / log(m_base)); }
+			value_type value(void) const { return log(m_base, m_antilogarithm); }
 			operator value_type(void) const { return value(); }
 
 		private:
