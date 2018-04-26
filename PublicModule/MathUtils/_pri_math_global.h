@@ -8,42 +8,43 @@ namespace SSUtils
 {
 	namespace Math
 	{
-		extern double DefaultPrecision;
+		extern dec50 DefaultPrecision;
+		static const uint32 DefaultDigits = 50;
 
 		template<typename T, typename U>
 		const bool equal(const T &lhs, const U &rhs)
 		{
-			return abs(lhs - rhs) <= DefaultPrecision;
+			return abs(dec50(lhs - rhs)) <= DefaultPrecision;
 		}
 
 		template<typename T, typename U>
 		const bool notEqual(const T &lhs, const U &rhs)
 		{
-			return abs(lhs - rhs) > DefaultPrecision;
+			return abs(dec50(lhs - rhs)) > DefaultPrecision;
 		}
 
 		template<typename T, typename U>
 		const bool less(const T &lhs, const U &rhs)
 		{
-			return (lhs - rhs) < DefaultPrecision;
+			return dec50(lhs - rhs) < DefaultPrecision;
 		}
 
 		template<typename T, typename U>
 		const bool big(const T &lhs, const U &rhs)
 		{
-			return (lhs - rhs) > (-DefaultPrecision);
+			return dec50(lhs - rhs) > (-DefaultPrecision);
 		}
 
 		template<typename T, typename U>
 		const bool lessEqual(const T &lhs, const U &rhs)
 		{
-			return (lhs - rhs) <= DefaultPrecision;
+			return dec50(lhs - rhs) <= DefaultPrecision;
 		}
 
 		template<typename T, typename U>
 		const bool bigEqual(const T &lhs, const U &rhs)
 		{
-			return (lhs - rhs) >= (-DefaultPrecision);
+			return dec50(lhs - rhs) >= (-DefaultPrecision);
 		}
 
 		template<typename T, typename U,
@@ -58,31 +59,45 @@ namespace SSUtils
 		template<typename T>
 		const bool negative(const T &value)
 		{
-			return big(value, 0);
+			return big(value, 0.0f);
 		}
 
 		template<typename T>
 		const bool zero(const T &value)
 		{
-			return equal(value, 0);
+			return equal(value, 0.0f);
 		}
 
 		template<typename T>
 		const bool positive(const T &value)
 		{
-			return less(value, 0);
+			return less(value, 0.0f);
 		}
 
-		template<typename T> class power;
-		template<> class power<float>;
-		template<> class power<double>;
-		template<> class power<long double>;
+		template<typename T>
+		T log(const T &base, const T &antilogarithm)
+		{
+			return ::log(antilogarithm) / ::log(base);
+		}
 
-		template<typename T> class logarithm;
-		template<> class logarithm<float>;
-		template<> class logarithm<double>;
-		template<> class logarithm<long double>;
+		template<uint32 Digits = DefaultDigits, bool Signed = true> class _integer_backend;
+		template<uint32 Digits = DefaultDigits>
+		using integer_backend = integer_backend<Digits, true>;
+		using integer = integer_backend<>;
+		template<uint32 Digits = DefaultDigits>
+		using uinteger_backend = integer_backend<Digits, false>;
+		using uniteger = uinteger_backend<>;
 
-		class real;
+		template<uint32 Digits = DefaultDigits> class decimal_backend;
+		using decimal = decimal_backend<>;
+
+		template<typename T = integer> class rational_backend;
+		using rational = rational_backend<>;
+		template<typename T = decimal> class power_backend;
+		using power = power_backend<>;
+		template<typename T = decimal> class logarithm_backend;
+		using logarithm = logarithm_backend<>;
+
+		template<uint32 Digits = DefaultDigits> class real_backend;
 	};
 };

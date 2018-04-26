@@ -215,13 +215,22 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\_pri_math_global.h">
       <Filter>头文件\MathUtils</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Decimal.h">
+      <Filter>头文件\MathUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Integer.h">
+      <Filter>头文件\MathUtils</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Power.h">
       <Filter>头文件\MathUtils</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Real.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Rational.h">
       <Filter>头文件\MathUtils</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Logarithm.h">
+      <Filter>头文件\MathUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Real.h">
       <Filter>头文件\MathUtils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -342,9 +351,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils\_pri_math_global.cpp">
       <Filter>源文件\MathUtils</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils\Real.cpp">
-      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
