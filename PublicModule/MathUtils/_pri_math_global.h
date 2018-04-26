@@ -48,8 +48,8 @@ namespace SSUtils
 		}
 
 		template<typename T, typename U,
-			typename = std::enable_if_t<std::is_integral_v<T>>,
-			typename = std::enable_if_t<std::is_integral_v<U>>>
+			typename = std::enable_if_t<std::numeric_limits<T>::is_integer>,
+			typename = std::enable_if_t<std::numeric_limits<U>::is_integer>>
 			const U mod(const T lhs, const U rhs)
 		{
 			U ret(lhs % rhs);
@@ -77,15 +77,15 @@ namespace SSUtils
 		template<typename T>
 		T log(const T &base, const T &antilogarithm)
 		{
-			return ::log(antilogarithm) / ::log(base);
+			return static_cast<T>(::log(antilogarithm) / ::log(base));
 		}
 
 		template<uint32 Digits = DefaultDigits, bool Signed = true> class _integer_backend;
 		template<uint32 Digits = DefaultDigits>
-		using integer_backend = integer_backend<Digits, true>;
+		using integer_backend = _integer_backend<Digits, true>;
 		using integer = integer_backend<>;
 		template<uint32 Digits = DefaultDigits>
-		using uinteger_backend = integer_backend<Digits, false>;
+		using uinteger_backend = _integer_backend<Digits, false>;
 		using uniteger = uinteger_backend<>;
 
 		template<uint32 Digits = DefaultDigits> class decimal_backend;
@@ -99,5 +99,6 @@ namespace SSUtils
 		using logarithm = logarithm_backend<>;
 
 		template<uint32 Digits = DefaultDigits> class real_backend;
+		using real = real_backend<>;
 	};
 };
