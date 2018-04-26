@@ -28,9 +28,7 @@ namespace SSUtils
 	using uint512 = boost::multiprecision::uint512_t;
 	using int1024 = boost::multiprecision::int1024_t;
 	using uint1024 = boost::multiprecision::uint1024_t;
-
 	using bigInt = boost::multiprecision::cpp_int;
-	using bigUInt = boost::multiprecision::number<boost::multiprecision::cpp_int_backend<0, 0, boost::multiprecision::cpp_integer_type::unsigned_magnitude>>;
 
 	using float32 = std::float_t;
 	using float64 = std::double_t;

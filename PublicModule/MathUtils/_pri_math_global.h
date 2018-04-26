@@ -80,25 +80,21 @@ namespace SSUtils
 			return static_cast<T>(::log(antilogarithm) / ::log(base));
 		}
 
-		template<uint32 Digits = DefaultDigits, bool Signed = true> class _integer_backend;
-		template<uint32 Digits = DefaultDigits>
-		using integer_backend = _integer_backend<Digits, true>;
-		using integer = integer_backend<>;
-		template<uint32 Digits = DefaultDigits>
-		using uinteger_backend = _integer_backend<Digits, false>;
-		using uniteger = uinteger_backend<>;
+		template<bool Signed = true> class integer_wrapper;
+		using integer = integer_wrapper<>;
+		using uinteger = integer_wrapper<false>;
 
-		template<uint32 Digits = DefaultDigits> class decimal_backend;
-		using decimal = decimal_backend<>;
+		template<uint32 Digits = DefaultDigits> class decimal_wrapper;
+		using decimal = decimal_wrapper<>;
 
-		template<typename T = integer> class rational_backend;
-		using rational = rational_backend<>;
-		template<typename T = decimal> class power_backend;
-		using power = power_backend<>;
-		template<typename T = decimal> class logarithm_backend;
-		using logarithm = logarithm_backend<>;
+		template<typename T = integer, uint32 Digits = DefaultDigits> class rational_wrapper;
+		using rational = rational_wrapper<>;
+		template<typename T = decimal, uint32 Digits = DefaultDigits> class power_wrapper;
+		using power = power_wrapper<>;
+		template<typename T = decimal, uint32 Digits = DefaultDigits> class logarithm_wrapper;
+		using logarithm = logarithm_wrapper<>;
 
-		template<uint32 Digits = DefaultDigits> class real_backend;
-		using real = real_backend<>;
+		template<uint32 Digits = DefaultDigits> class real_wrapper;
+		using real = real_wrapper<>;
 	};
 };

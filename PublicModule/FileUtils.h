@@ -138,9 +138,11 @@ namespace SSUtils
 				operator()(targetUrl, datas.cbegin(), datas.cend());
 			}
 		};
-		template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, byte>::value>>
+		template<typename T>
 		struct FileSaver<T, 1>
 		{
+			static_assert(Data::ConversionChecker<T, byte>::value, "can not translate to byte");
+
 			FileSaver(void) = default;
 			FileSaver(const FileSaver &ano) = delete;
 			FileSaver(FileSaver &&ano) = delete;

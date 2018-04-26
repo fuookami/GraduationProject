@@ -10,7 +10,7 @@ namespace SSUtils
 {
 	namespace System
 	{
-		template<typename T, typename std::enable_if_t<sizeof(T) != 1>>
+		template<typename T, typename = std::enable_if_t<sizeof(T) != 1>>
 		class EndianTranslator
 		{
 		public:

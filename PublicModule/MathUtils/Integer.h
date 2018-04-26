@@ -8,205 +8,226 @@ namespace SSUtils
 {
 	namespace Math
 	{
-		template<uint32 Digits, bool Signed = true>
-		class _integer_backend : public bigInt
+		template<bool Signed>
+		class integer_wrapper
 		{
 		public:
 			typedef bigInt value_type;
-			static const _integer_backend max_value = pow(value_type(10), Digits);
-			static const _integer_backend min_value = Signed ? (-max_value) ? -1;
 
-			_integer_backend(void)
-				: value_type(0) {};
-			_integer_backend(const integer_backend &ano) = default;
-			_integer_backend(integer_backend &&ano) = default;
-			_integer_backend(const value_type &ano)
-				: value_type(ano) {
-				limit();
-			};
-			_integer_backend(value_type &&ano)
-				: value_type(std::move(ano)) {
-				limit();
-			};
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			_integer_backend(const T &ano)
-				: value_type(ano) {
-				limit();
-			};
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			_integer_backend(T &&ano)
-				: value_type(std::move(ano)) {
-				limit();
-			};
-			_integer_backend &operator=(const integer_backend &rhs) = default;
-			_integer_backend &operator=(integer_backend &&rhs) = default;
-			_integer_backend &operator=(const value_type &rhs)
+			integer_wrapper(void)
+				: m_value(0) 
 			{
-				value_type::operator=(rhs);
+				setDigit(DefaultDigits);
+			};
+			integer_wrapper(const integer_wrapper &ano) = default;
+			integer_wrapper(integer_wrapper &&ano) = default;
+			integer_wrapper(const value_type &ano, const uint32 digits = DefaultDigits)
+				: m_value(ano)
+			{
+				setDigit(digits);
+			};
+			integer_wrapper(value_type &&ano, const uint32 digits = DefaultDigits)
+				: m_value(std::move(ano))
+			{
+				setDigit(digits);
+			};
+			template<typename U, typename = std::enable_if_t<!std::is_same_v<U, value_type> && ConversionChecker<U, value_type>::value>>
+			integer_wrapper(const U &ano, const uint32 digits = DefaultDigits)
+				: m_value(ano)
+			{
+				setDigit(digits);
+			}
+			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && ConversionChecker<T, value_type>::value>>
+			integer_wrapper(T &&ano, const uint32 digits = DefaultDigits)
+				: m_value(std::move(ano))
+			{
+				setDigit(digits);
+			}
+			integer_wrapper &operator=(const integer_wrapper &rhs) = default;
+			integer_wrapper &operator=(integer_wrapper &&rhs) = default;
+			integer_wrapper &operator=(const value_type &rhs)
+			{
+				m_value = rhs;
 				limit();
 				return *this;
 			}
-			_integer_backend &operator=(value_type &&rhs)
+			integer_wrapper &operator=(value_type &&rhs)
 			{
-				value_type::operator=(std::move(rhs));
+				m_value = std::move(rhs);
 				limit();
 				return *this;
 			}
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			_integer_backend &operator=(const T &ano)
+			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && ConversionChecker<T, value_type>::value>>
+			integer_wrapper &operator=(const T &rhs)
 			{
-				value_type::operator=(ano);
+				m_value = rhs;
 				limit();
 				return *this;
 			}
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			_integer_backend &operator=(T &&ano)
+			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && ConversionChecker<T, value_type>::value>>
+			integer_wrapper &operator=(T &&rhs)
 			{
-				value_type::operator=(std::move(ano));
+				m_value = std::move(rhs);
 				limit();
 				return *this;
 			}
-			~_integer_backend(void) = default;
+			~integer_wrapper(void) = default;
 
 			template<typename T>
-			_integer_backend &operator+=(const T &rhs)
+			integer_wrapper &operator+=(const T &rhs)
 			{
-				value_type::operator+=(rhs);
+				m_value += rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			_integer_backend &operator-=(const T &rhs)
+			integer_wrapper &operator-=(const T &rhs)
 			{
-				value_type::operator-=(rhs);
+				m_value -= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			_integer_backend &operator*=(const T &rhs)
+			integer_wrapper &operator*=(const T &rhs)
 			{
-				value_type::operator*=(rhs);
+				m_value *= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			_integer_backend &operator/=(const T &rhs)
+			integer_wrapper &operator/=(const T &rhs)
 			{
-				value_type::operator/=(rhs);
+				m_value /= rhs;
 				limit();
 				return *this;
 			}
-			_integer_backend &operator++(void)
+			integer_wrapper &operator++(void)
 			{
-				value_type::operator++();
+				m_value++;
 				limit();
 				return *this;
 			}
-			_integer_backend &operator--(void)
+			integer_wrapper &operator--(void)
 			{
-				value_type::operator--();
+				m_value--;
 				limit();
 				return *this;
 			}
-			_integer_backend operator++(int)
+			integer_wrapper operator++(int)
 			{
-				_integer_backend ret(*this);
+				integer_wrapper ret(*this);
 				++ret;
 				return ret;
 			}
-			_integer_backend operator--(int)
+			integer_wrapper operator--(int)
 			{
-				_integer_backend ret(*this);
+				integer_wrapper ret(*this);
 				--ret;
 				return ret;
 			}
 
 			template<typename T>
-			_integer_backend& operator%=(const T &rhs)
+			integer_wrapper& operator%=(const T &rhs)
 			{
-				value_type::operator%=(rhs);
+				m_value %= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			_integer_backend& operator&=(const T &rhs)
+			integer_wrapper& operator&=(const T &rhs)
 			{
-				value_type::operator&=(rhs);
+				m_value &= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			_integer_backend& operator|=(const T &rhs)
+			integer_wrapper& operator|=(const T &rhs)
 			{
-				value_type::operator|=(rhs);
+				m_value |= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			_integer_backend& operator^=(const T &rhs)
+			integer_wrapper& operator^=(const T &rhs)
 			{
-				value_type::operator^=(rhs);
+				m_value ^= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			_integer_backend& operator<<=(const T &rhs)
+			integer_wrapper& operator<<=(const T &rhs)
 			{
-				value_type::operator<<=(rhs);
+				m_value <<= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			_integer_backend& operator>>=(const T &rhs)
+			integer_wrapper& operator>>=(const T &rhs)
 			{
-				value_type::operator>>=(rhs);
+				m_value >>= rhs;
 				limit();
 				return *this;
 			}
 
-			value_type &value(void) { return *this; }
-			const value_type &value(void) const { return *this; }
-			operator value_type(void) const { return value_type(*this); }
+			void setDigit(const uint32 digits)
+			{
+				if (digits == 0)
+				{
+					m_maxValue = m_minValue = 0;
+				}
+				else
+				{
+					m_maxValue = pow(value_type(10), digits);
+					m_minValue = Signed ? (-m_maxValue) : value_type(-1);
+				}
+				limit();
+			}
+
+			value_type &value(void) { return m_value; }
+			const value_type &value(void) const { return m_value; }
+			operator value_type(void) const { return m_value; }
+
+			int8 getInt8(void) { return m_value.convert_to<int8>(); }
+			uint8 getUInt8(void) { return m_value.convert_to<uint8>(); }
+			int16 getInt16(void) { return m_value.convert_to<int16>(); }
+			uint16 getUInt16(void) { return m_value.convert_to<uint16>(); }
+			int32 getInt32(void) { return m_value.convert_to<int32>(); }
+			uint32 getUInt32(void) { return m_value.convert_to<uint32>(); }
+			int64 getInt64(void) { return m_value.convert_to<int64>(); }
+			uint64 getUInt64(void) { return m_value.convert_to<uint64>(); }
+			int128 getInt128(void) { return m_value.convert_to<int128>(); }
+			uint128 getUInt128(void) { return m_value.convert_to<uint128>(); }
+			int256 getInt256(void) { return m_value.convert_to<int256>(); }
+			uint256 getUInt256(void) { return m_value.convert_to<uint256>(); }
+			int512 getInt512(void) { return m_value.convert_to<int512>(); }
+			uint512 getUInt512(void) { return m_value.convert_to<uint512>(); }
+			int1024 getInt1024(void) { return m_value.convert_to<int1024>(); }
+			uint1024 getUInt1024(void) { return m_value.convert_to<uint1024>(); }
+			bigInt getBigInt(void) { return m_value.convert_to<bigInt>(); }
+			template<typename T>
+			T get(void) { return m_value.convert_to<T>(); }
 
 		private:
 			void limit(void)
 			{
-				static const bigInt range(max_value - min_value);
-				if (value() >= max_value)
+				if (m_maxValue != 0 && m_minValue != 0)
 				{
-					bigInt::operator-=(range * (value() / range));
-				}
-				if (value() <= min_value)
-				{
-					bigInt::operator+=(range * (value() / range));
+					const value_type range(m_maxValue - m_minValue);
+					if (value() >= m_maxValue)
+					{
+						m_value -= (range * (value() / range));
+					}
+					if (value() <= m_minValue)
+					{
+						m_value += (range * (value() / range));
+					}
 				}
 			}
+
+		private:
+			value_type m_value;
+			value_type m_maxValue;
+			value_type m_minValue;
 		};
-	};
-};
-
-namespace std
-{
-	template<uint32 Digits, bool Signed>
-	class numeric_limits<SSUtils::Math::_integer_backend<Digits, Signed>>
-		: public _Num_int_base
-	{
-	public:
-		typedef SSUtils::Math::_integer_backend<Digits, Signed> type;
-
-		static constexpr bool is_specialized = true;
-		static constexpr bool is_signed = Signed;
-		static constexpr int digits = SSUtils::Math::log(2, Digits) + 1;
-		static constexpr int digits10 = Digits;
-
-		static constexpr type min() noexcept { return 0; }
-		static constexpr type max() noexcept { return type::max_value; }
-		static constexpr type lowest() noexcept { return type::min_value; }
-		static constexpr type epsilon() noexcept { return 0; }
-		static constexpr type round_error() noexcept { return 0; }
-		static constexpr type denorm_min() noexcept { return 0; }
-		static constexpr type infinity() noexcept { return 0; }
-		static constexpr type quiet_NaN() noexcept { return 0; }
-		static constexpr type signaling_NaN() noexcept { return 0; }
 	};
 };
