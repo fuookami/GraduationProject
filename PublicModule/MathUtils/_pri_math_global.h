@@ -50,7 +50,7 @@ namespace SSUtils
 		template<typename T, typename U,
 			typename = std::enable_if_t<std::numeric_limits<T>::is_integer>,
 			typename = std::enable_if_t<std::numeric_limits<U>::is_integer>>
-			const U mod(const T lhs, const U rhs)
+			const U mod(const T &lhs, const U &rhs)
 		{
 			U ret(lhs % rhs);
 			return ret >= 0 ? ret : (ret + rhs);
@@ -79,22 +79,5 @@ namespace SSUtils
 		{
 			return static_cast<T>(::log(antilogarithm) / ::log(base));
 		}
-
-		template<bool Signed = true> class integer_wrapper;
-		using integer = integer_wrapper<>;
-		using uinteger = integer_wrapper<false>;
-
-		template<uint32 Digits = DefaultDigits> class decimal_wrapper;
-		using decimal = decimal_wrapper<>;
-
-		template<typename T = integer, uint32 Digits = DefaultDigits> class rational_wrapper;
-		using rational = rational_wrapper<>;
-		template<typename T = decimal, uint32 Digits = DefaultDigits> class power_wrapper;
-		using power = power_wrapper<>;
-		template<typename T = decimal, uint32 Digits = DefaultDigits> class logarithm_wrapper;
-		using logarithm = logarithm_wrapper<>;
-
-		template<uint32 Digits = DefaultDigits> class real_wrapper;
-		using real = real_wrapper<>;
 	};
 };

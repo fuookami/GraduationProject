@@ -42,6 +42,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Rational.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\Real.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\_pri_math_global.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MathUtils\_pri_real_global.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RandomUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringConverter.h" />

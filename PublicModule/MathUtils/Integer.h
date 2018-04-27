@@ -1,6 +1,6 @@
 #pragma once
 
-#include "_pri_math_global.h"
+#include "_pri_real_global.h"
 #include "DataUtils.h"
 #include <limits>
 
@@ -9,160 +9,160 @@ namespace SSUtils
 	namespace Math
 	{
 		template<bool Signed>
-		class integer_wrapper
+		class IntegerWrapper
 		{
 		public:
-			typedef bigInt value_type;
+			typedef integer value_type;
 
-			integer_wrapper(void)
+			IntegerWrapper(void)
 				: m_value(0) 
 			{
 				setDigit(DefaultDigits);
 			};
-			integer_wrapper(const integer_wrapper &ano) = default;
-			integer_wrapper(integer_wrapper &&ano) = default;
-			integer_wrapper(const value_type &ano, const uint32 digits = DefaultDigits)
+			IntegerWrapper(const IntegerWrapper &ano) = default;
+			IntegerWrapper(IntegerWrapper &&ano) = default;
+			IntegerWrapper(const value_type &ano, const uint32 digits = DefaultDigits)
 				: m_value(ano)
 			{
 				setDigit(digits);
 			};
-			integer_wrapper(value_type &&ano, const uint32 digits = DefaultDigits)
+			IntegerWrapper(value_type &&ano, const uint32 digits = DefaultDigits)
 				: m_value(std::move(ano))
 			{
 				setDigit(digits);
 			};
-			template<typename U, typename = std::enable_if_t<!std::is_same_v<U, value_type> && ConversionChecker<U, value_type>::value>>
-			integer_wrapper(const U &ano, const uint32 digits = DefaultDigits)
+			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && Data::ConversionChecker<T, value_type>::value>>
+			IntegerWrapper(const T &ano, const uint32 digits = DefaultDigits)
 				: m_value(ano)
 			{
 				setDigit(digits);
 			}
-			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && ConversionChecker<T, value_type>::value>>
-			integer_wrapper(T &&ano, const uint32 digits = DefaultDigits)
+			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && Data::ConversionChecker<T, value_type>::value>>
+			IntegerWrapper(T &&ano, const uint32 digits = DefaultDigits)
 				: m_value(std::move(ano))
 			{
 				setDigit(digits);
 			}
-			integer_wrapper &operator=(const integer_wrapper &rhs) = default;
-			integer_wrapper &operator=(integer_wrapper &&rhs) = default;
-			integer_wrapper &operator=(const value_type &rhs)
+			IntegerWrapper &operator=(const IntegerWrapper &rhs) = default;
+			IntegerWrapper &operator=(IntegerWrapper &&rhs) = default;
+			IntegerWrapper &operator=(const value_type &rhs)
 			{
 				m_value = rhs;
 				limit();
 				return *this;
 			}
-			integer_wrapper &operator=(value_type &&rhs)
+			IntegerWrapper &operator=(value_type &&rhs)
 			{
 				m_value = std::move(rhs);
 				limit();
 				return *this;
 			}
-			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && ConversionChecker<T, value_type>::value>>
-			integer_wrapper &operator=(const T &rhs)
+			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && Data::ConversionChecker<T, value_type>::value>>
+			IntegerWrapper &operator=(const T &rhs)
 			{
 				m_value = rhs;
 				limit();
 				return *this;
 			}
-			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && ConversionChecker<T, value_type>::value>>
-			integer_wrapper &operator=(T &&rhs)
+			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && Data::ConversionChecker<T, value_type>::value>>
+			IntegerWrapper &operator=(T &&rhs)
 			{
 				m_value = std::move(rhs);
 				limit();
 				return *this;
 			}
-			~integer_wrapper(void) = default;
+			~IntegerWrapper(void) = default;
 
 			template<typename T>
-			integer_wrapper &operator+=(const T &rhs)
+			IntegerWrapper &operator+=(const T &rhs)
 			{
 				m_value += rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			integer_wrapper &operator-=(const T &rhs)
+			IntegerWrapper &operator-=(const T &rhs)
 			{
 				m_value -= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			integer_wrapper &operator*=(const T &rhs)
+			IntegerWrapper &operator*=(const T &rhs)
 			{
 				m_value *= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			integer_wrapper &operator/=(const T &rhs)
+			IntegerWrapper &operator/=(const T &rhs)
 			{
 				m_value /= rhs;
 				limit();
 				return *this;
 			}
-			integer_wrapper &operator++(void)
+			IntegerWrapper &operator++(void)
 			{
 				m_value++;
 				limit();
 				return *this;
 			}
-			integer_wrapper &operator--(void)
+			IntegerWrapper &operator--(void)
 			{
 				m_value--;
 				limit();
 				return *this;
 			}
-			integer_wrapper operator++(int)
+			IntegerWrapper operator++(int)
 			{
-				integer_wrapper ret(*this);
+				IntegerWrapper ret(*this);
 				++ret;
 				return ret;
 			}
-			integer_wrapper operator--(int)
+			IntegerWrapper operator--(int)
 			{
-				integer_wrapper ret(*this);
+				IntegerWrapper ret(*this);
 				--ret;
 				return ret;
 			}
 
 			template<typename T>
-			integer_wrapper& operator%=(const T &rhs)
+			IntegerWrapper& operator%=(const T &rhs)
 			{
 				m_value %= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			integer_wrapper& operator&=(const T &rhs)
+			IntegerWrapper& operator&=(const T &rhs)
 			{
 				m_value &= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			integer_wrapper& operator|=(const T &rhs)
+			IntegerWrapper& operator|=(const T &rhs)
 			{
 				m_value |= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			integer_wrapper& operator^=(const T &rhs)
+			IntegerWrapper& operator^=(const T &rhs)
 			{
 				m_value ^= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			integer_wrapper& operator<<=(const T &rhs)
+			IntegerWrapper& operator<<=(const T &rhs)
 			{
 				m_value <<= rhs;
 				limit();
 				return *this;
 			}
 			template<typename T>
-			integer_wrapper& operator>>=(const T &rhs)
+			IntegerWrapper& operator>>=(const T &rhs)
 			{
 				m_value >>= rhs;
 				limit();
@@ -171,15 +171,9 @@ namespace SSUtils
 
 			void setDigit(const uint32 digits)
 			{
-				if (digits == 0)
-				{
-					m_maxValue = m_minValue = 0;
-				}
-				else
-				{
-					m_maxValue = pow(value_type(10), digits);
-					m_minValue = Signed ? (-m_maxValue) : value_type(-1);
-				}
+				auto value = getMaxAndMin<Signed>(digits);
+				m_maxValue = value.first;
+				m_minValue = value.second;
 				limit();
 			}
 
@@ -203,23 +197,58 @@ namespace SSUtils
 			uint512 getUInt512(void) { return m_value.convert_to<uint512>(); }
 			int1024 getInt1024(void) { return m_value.convert_to<int1024>(); }
 			uint1024 getUInt1024(void) { return m_value.convert_to<uint1024>(); }
-			bigInt getBigInt(void) { return m_value.convert_to<bigInt>(); }
+			integer getInteger(void) { return m_value.convert_to<integer>(); }
 			template<typename T>
 			T get(void) { return m_value.convert_to<T>(); }
 
 		private:
+			template<bool _Signed>
+			static std::pair<value_type, value_type> getMaxAndMin(const uint32 digits)
+			{
+				return std::pair<value_type, value_type>();
+			}
+			template<>
+			static std::pair<value_type, value_type> getMaxAndMin<true>(const uint32 digits)
+			{
+				if (digits == 0)
+				{
+					return std::make_pair(value_type(0), value_type(0));
+				}
+				else
+				{
+					auto value = pow(value_type(10), digits);
+					return std::make_pair(value, -value);
+				}
+			}
+			template<>
+			static std::pair<value_type, value_type> getMaxAndMin<false>(const uint32 digits)
+			{
+				if (digits == 0)
+				{
+					return std::make_pair(value_type(0), value_type(-1));
+				}
+				else
+				{
+					auto value = pow(value_type(10), digits);
+					return std::make_pair(value, value_type(-1));
+				}
+			}
+
 			void limit(void)
 			{
-				if (m_maxValue != 0 && m_minValue != 0)
+				const value_type range(m_maxValue - m_minValue);
+				if (m_maxValue != 0)
 				{
-					const value_type range(m_maxValue - m_minValue);
 					if (value() >= m_maxValue)
 					{
-						m_value -= (range * (value() / range));
+						m_value = mod(value(), range);
 					}
+				}
+				else if (m_minValue != 0)
+				{
 					if (value() <= m_minValue)
 					{
-						m_value += (range * (value() / range));
+						m_value = mod(value(), range);
 					}
 				}
 			}
@@ -229,5 +258,16 @@ namespace SSUtils
 			value_type m_maxValue;
 			value_type m_minValue;
 		};
+	};
+};
+
+namespace std
+{
+	namespace std
+	{
+		template<bool Signed>
+		class numeric_limits<SSUtils::Math::IntegerWrapper<Signed>>
+			: public numeric_limits<typename SSUtils::Math::IntegerWrapper<Signed>::value_type>
+		{};
 	};
 };
