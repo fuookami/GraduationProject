@@ -13,11 +13,11 @@ namespace SSUtils
 		template<uint32 Digits = DefaultDigits> class DecimalWrapper;
 		using Decimal = DecimalWrapper<>;
 
-		template<typename T = Integer, uint32 Digits = DefaultDigits> class RationalWrapper;
-		using Rational = RationalWrapper<>;
-		template<typename T = Decimal, uint32 Digits = DefaultDigits> class PowerWrapper;
+		template<uint32 Digits = DefaultDigits> class RationalWrapper;
+		class Rational;
+		template<uint32 Digits = DefaultDigits> class PowerWrapper;
 		using Power = PowerWrapper<>;
-		template<typename T = Decimal, uint32 Digits = DefaultDigits> class LogarithmWrapper;
+		template<uint32 Digits = DefaultDigits> class LogarithmWrapper;
 		using Logarithm = LogarithmWrapper<>;
 
 		template<uint32 Digits = DefaultDigits> class RealWrapper;

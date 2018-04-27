@@ -1,5 +1,11 @@
 #include "_pri_mail.h"
 
+#ifdef _DEBUG
+#pragma comment(lib, "jwsmtpd.lib")
+#else
+#pragma comment(lib, "jwsmtp.lib")
+#endif
+
 namespace SSUtils
 {
 	namespace Mail

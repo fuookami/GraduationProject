@@ -22,15 +22,6 @@ namespace SSUtils
 		const std::string True("true");
 		const std::string False("false");
 
-		const std::map<CharType, std::string> CharTypeCode =
-		{
-			std::make_pair(CharType::UTF8, std::string("UTF-8")), 
-			std::make_pair(CharType::UTF16, std::string("UTF-16")),
-			std::make_pair(CharType::BIG5, std::string("BIG5")), 
-			std::make_pair(CharType::GBK, std::string("GBK")), 
-			std::make_pair(CharType::GB2312, std::string("GB2312"))
-		};
-
 		const std::string SpaceCharacters = []()
 		{
 			std::string ret;
@@ -47,6 +38,17 @@ namespace SSUtils
 
 			return ret;
 		}();
+
+		const std::string HexStringSuffix("0x");
+
+		const std::map<CharType, std::string> CharTypeCode =
+		{
+			std::make_pair(CharType::UTF8, std::string("UTF-8")), 
+			std::make_pair(CharType::UTF16, std::string("UTF-16")),
+			std::make_pair(CharType::BIG5, std::string("BIG5")), 
+			std::make_pair(CharType::GBK, std::string("GBK")), 
+			std::make_pair(CharType::GB2312, std::string("GB2312"))
+		};
 
 		const CharType LocalCharType = System::LocalSystemType == OperationSystemType::Windows ? CharType::GB2312 : CharType::UTF8;
 

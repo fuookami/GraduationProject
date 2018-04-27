@@ -35,8 +35,8 @@ namespace SSUtils
 	using integer = boost::multiprecision::cpp_int;
 	using rational = boost::multiprecision::cpp_rational;
 
-	using float32 = std::float_t;
-	using float64 = std::double_t;
+	using float32 = boost::multiprecision::cpp_bin_float_single;
+	using float64 = boost::multiprecision::cpp_bin_float_double;
 	using float128 = boost::multiprecision::cpp_bin_float_double_extended;
 	using float256 = boost::multiprecision::cpp_bin_float_quad;
 

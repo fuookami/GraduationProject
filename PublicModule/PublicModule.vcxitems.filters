@@ -33,12 +33,6 @@
     <Filter Include="源文件\DataUtils">
       <UniqueIdentifier>{f3e53788-af05-4dec-b280-f9a471af74b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\String">
-      <UniqueIdentifier>{21567405-375d-44fb-8d8c-388a7b2978c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\String">
-      <UniqueIdentifier>{49e41ecb-15a0-4d87-9618-42c6b66c7c4e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\DatetimeUtils">
       <UniqueIdentifier>{d31c4214-e1d6-41ee-8ed6-f675902e1b1e}</UniqueIdentifier>
     </Filter>
@@ -74,6 +68,12 @@
     </Filter>
     <Filter Include="源文件\MathUtils">
       <UniqueIdentifier>{a878a395-9950-46d0-9ac5-761911dac0ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\StringUtils">
+      <UniqueIdentifier>{21567405-375d-44fb-8d8c-388a7b2978c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\StringUtils">
+      <UniqueIdentifier>{49e41ecb-15a0-4d87-9618-42c6b66c7c4e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,10 +123,10 @@
       <Filter>头文件\SystemUtils</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils.h">
-      <Filter>头文件\String</Filter>
+      <Filter>头文件\StringUtils</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_global.h">
-      <Filter>头文件\String</Filter>
+      <Filter>头文件\StringUtils</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DatetimeUtils\_pri_datetime_global.h">
       <Filter>头文件\DatetimeUtils</Filter>
@@ -144,16 +144,16 @@
       <Filter>头文件\DatetimeUtils</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_convert.h">
-      <Filter>头文件\String</Filter>
+      <Filter>头文件\StringUtils</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringTranslator.h">
-      <Filter>头文件\String</Filter>
+      <Filter>头文件\StringUtils</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringRegexChecker.h">
-      <Filter>头文件\String</Filter>
+      <Filter>头文件\StringUtils</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringUtils\StringConverter.h">
-      <Filter>头文件\String</Filter>
+      <Filter>头文件\StringUtils</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.h">
       <Filter>头文件\MailUtils</Filter>
@@ -275,7 +275,7 @@
       <Filter>源文件\SystemUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils.cpp">
-      <Filter>源文件\String</Filter>
+      <Filter>源文件\StringUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DatetimeUtils\_pri_datetime_global.cpp">
       <Filter>源文件\DatetimeUtils</Filter>
@@ -293,19 +293,19 @@
       <Filter>源文件\DatetimeUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_global.cpp">
-      <Filter>源文件\String</Filter>
+      <Filter>源文件\StringUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\StringConverter.cpp">
-      <Filter>源文件\String</Filter>
+      <Filter>源文件\StringUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\_pri_string_convert.cpp">
-      <Filter>源文件\String</Filter>
+      <Filter>源文件\StringUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\StringTranslator.cpp">
-      <Filter>源文件\String</Filter>
+      <Filter>源文件\StringUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)StringUtils\StringRegexChecker.cpp">
-      <Filter>源文件\String</Filter>
+      <Filter>源文件\StringUtils</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.cpp">
       <Filter>源文件\MailUtils</Filter>

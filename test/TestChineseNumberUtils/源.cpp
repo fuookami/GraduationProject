@@ -60,8 +60,8 @@ void testNumberToChinese()
 
 	for (int i = 0, j(testPair.size()); i != j; ++i)
 	{
-		std::wstring str = SSUtils::ChineseNumber::toChineseNumber(testPair[i].num.getUInt32());
-		std::wcout << testPair[i].num.getUInt32() << ' ' << testPair[i].chnNumStr << ' ' << str << ' ' << std::boolalpha << (str == testPair[i].chnNumStr) << std::endl;
+		std::wstring str = SSUtils::ChineseNumber::toChineseNumber(testPair[i].num.toUInt32());
+		std::wcout << testPair[i].num.toUInt32() << ' ' << testPair[i].chnNumStr << ' ' << str << ' ' << std::boolalpha << (str == testPair[i].chnNumStr) << std::endl;
 	}
 }
 
@@ -70,7 +70,7 @@ void testChineseToNumber()
 	for (int i = 0, j(testPair.size()); i != j; ++i)
 	{
 		unsigned int num = SSUtils::ChineseNumber::fromChineseNumber(testPair[i].chnNumStr);
-		std::wcout << testPair[i].num.getUInt32() << ' ' << testPair[i].chnNumStr << ' ' << num << ' ' << std::boolalpha << (num == testPair[i].num.value()) << std::endl;
+		std::wcout << testPair[i].num.toUInt32() << ' ' << testPair[i].chnNumStr << ' ' << num << ' ' << std::boolalpha << (num == testPair[i].num.value()) << std::endl;
 	}
 }
 
