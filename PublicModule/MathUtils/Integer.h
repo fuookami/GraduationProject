@@ -51,33 +51,29 @@ namespace SSUtils
 				setDigit(digits);
 			};
 
-			IntegerWrapper(value_type &&ano, const uint32 digits = 0)
-				: value_type(std::move(ano))
-			{
-				setDigit(digits);
-			};
-
 			// destructor
 			~IntegerWrapper(void) = default;
 
 			// generators
 			template<typename T>
-			static std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value)
+			static std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
 			{
-				IntegerWrapper ret(value);
+				self_type ret(value);
+				ret.setDigit(digits);
 				return ret;
 			}
 			template<typename T>
-			static std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value)
+			static std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
 			{
-				IntegerWrapper ret;
+				self_type ret;
 				ret.assign(value);
+				ret.setDigit(digits);
 				return ret;
 			}
 			template<>
-			static IntegerWrapper generate<Block>(const Block &value)
+			static self_type generate<Block>(const Block &value, const uint32 digits)
 			{
-				IntegerWrapper ret(value);
+				self_type ret(value);
 				return ret;
 			}
 
@@ -120,6 +116,14 @@ namespace SSUtils
 				limit();
 				return *this;
 			}
+			template<>
+			self_type &operator+=<Block>(const Block &rhs)
+			{
+				value_type::operator+=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				limit();
+				return *this;
+			}
+
 			template<typename T>
 			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator-=(const T &rhs)
 			{
@@ -134,6 +138,14 @@ namespace SSUtils
 				limit();
 				return *this;
 			}
+			template<>
+			self_type &operator-=<Block>(const Block &rhs)
+			{
+				value_type::operator-=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				limit();
+				return *this;
+			}
+
 			template<typename T>
 			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator*=(const T &rhs)
 			{
@@ -148,6 +160,14 @@ namespace SSUtils
 				limit();
 				return *this;
 			}
+			template<>
+			self_type &operator*=<Block>(const Block &rhs)
+			{
+				value_type::operator*=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				limit();
+				return *this;
+			}
+
 			template<typename T>
 			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
 			{
@@ -162,6 +182,14 @@ namespace SSUtils
 				limit();
 				return *this;
 			}
+			template<>
+			self_type &operator/=<Block>(const Block &rhs)
+			{
+				value_type::operator/=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				limit();
+				return *this;
+			}
+
 			self_type &operator++(void)
 			{
 				value_type::operator++();
@@ -187,49 +215,89 @@ namespace SSUtils
 				return ret;
 			}
 
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			self_type &operator%=(const T &rhs)
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator%=(const T &rhs)
 			{
 				assign(mod(*this, rhs));
 				limit();
 				return *this;
 			}
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			self_type &operator&=(const T &rhs)
+			template<typename T>
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator%=(const T &rhs)
 			{
 				value_type::operator&=(rhs);
 				limit();
 				return *this;
 			}
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			self_type &operator|=(const T &rhs)
+			template<>
+			self_type &operator%=<Block>(const Block &rhs)
+			{
+				value_type::operator%=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				limit();
+				return *this;
+			}
+
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator|=(const T &rhs)
 			{
 				value_type::operator|=(rhs);
 				limit();
 				return *this;
 			}
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			self_type &operator^=(const T &rhs)
+			template<typename T>
+			typename std::enable_if_t<std::is_base_of_v<Block, T>, self_type> &operator|=(const T &rhs)
+			{
+				value_type::operator|=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				limit();
+				return *this;
+			}
+
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator^=(const T &rhs)
 			{
 				value_type::operator^=(rhs);
 				limit();
 				return *this;
 			}
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			self_type &operator<<=(const T &rhs)
+			template<typename T>
+			typename std::enable_if_t<std::is_base_of_v<Block, T>, self_type> &operator^=(const T &rhs)
+			{
+				value_type::operator^=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				limit();
+				return *this;
+			}
+
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator<<=(const T &rhs)
 			{
 				value_type::operator<<=(rhs);
 				limit();
 				return *this;
 			}
-			template<typename T, typename = std::enable_if_t<Data::ConversionChecker<T, value_type>::value>>
-			self_type &operator>>=(const T &rhs)
+			template<typename T>
+			typename std::enable_if_t<std::is_base_of_v<Block, T>, self_type> &operator<<=(const T &rhs)
+			{
+				value_type::operator<<=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				limit();
+				return *this;
+			}
+
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator>>=(const T &rhs)
 			{
 				value_type::operator>>=(rhs);
 				limit();
 				return *this;
 			}
+			template<typename T>
+			typename std::enable_if_t<std::is_base_of_v<Block, T>, self_type> &operator>>=(const T &rhs)
+			{
+				value_type::operator>>=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				limit();
+				return *this;
+			}
 
+			// set and get
 			void setDigit(const uint32 digits)
 			{
 				m_digits = digits;
@@ -238,35 +306,39 @@ namespace SSUtils
 				m_minValue = value.second;
 				limit();
 			}
+			const uint32 getDigits(void) { return m_digits; }
+			const value_type &getMinValue(void) { return m_minValue; }
+			const value_type &getMaxValue(void) { return m_maxValue; }
 
 			value_type &value(void) { return *this; }
 			const value_type &value(void) const { return *this; }
 
-			std::string toString(const std::ios_base::fmtflags flags = 0) { return str(m_digits, flags); }
-			Block toBlock(void) { return Data::fromHexString(toString(std::ios_base::hex)); }
-			int8 toInt8(void) { return convert_to<int8>(); }
-			uint8 toUInt8(void) { return convert_to<uint8>(); }
-			int16 toInt16(void) { return convert_to<int16>(); }
-			uint16 toUInt16(void) { return convert_to<uint16>(); }
-			int32 toInt32(void) { return convert_to<int32>(); }
-			uint32 toUInt32(void) { return convert_to<uint32>(); }
-			int64 toInt64(void) { return convert_to<int64>(); }
-			uint64 toUInt64(void) { return convert_to<uint64>(); }
-			int128 toInt128(void) { return convert_to<int128>(); }
-			uint128 toUInt128(void) { return convert_to<uint128>(); }
-			int256 toInt256(void) { return convert_to<int256>(); }
-			uint256 toUInt256(void) { return convert_to<uint256>(); }
-			int512 toInt512(void) { return convert_to<int512>(); }
-			uint512 toUInt512(void) { return convert_to<uint512>(); }
-			int1024 toInt1024(void) { return convert_to<int1024>(); }
-			uint1024 toUInt1024(void) { return convert_to<uint1024>(); }
-			integer toInteger(void) { return convert_to<integer>(); }
-			dec50 toDec50(void) { return convert_to<dec50>(); }
-			dec100 toDec100(void) { return convert_to<dec100>(); }
-			template<uint32 Digits>
-			decimal<Digits> toDecimal(void) { return convert_to<decimal<Digits>>(); }
+			// translators
+			std::string toString(const std::ios_base::fmtflags flags = 0) const { return str(m_digits, flags); }
+			Block toBlock(void) const { return Data::fromHexString(toString(std::ios_base::hex)); }
+			int8 toInt8(void) const { return convert_to<int8>(); }
+			uint8 toUInt8(void) const { return convert_to<uint8>(); }
+			int16 toInt16(void) const { return convert_to<int16>(); }
+			uint16 toUInt16(void) const { return convert_to<uint16>(); }
+			int32 toInt32(void) const { return convert_to<int32>(); }
+			uint32 toUInt32(void) const { return convert_to<uint32>(); }
+			int64 toInt64(void) const { return convert_to<int64>(); }
+			uint64 toUInt64(void) const { return convert_to<uint64>(); }
+			int128 toInt128(void) const { return convert_to<int128>(); }
+			uint128 toUInt128(void) const { return convert_to<uint128>(); }
+			int256 toInt256(void) const { return convert_to<int256>(); }
+			uint256 toUInt256(void) const { return convert_to<uint256>(); }
+			int512 toInt512(void) const { return convert_to<int512>(); }
+			uint512 toUInt512(void) const { return convert_to<uint512>(); }
+			int1024 toInt1024(void) const { return convert_to<int1024>(); }
+			uint1024 toUInt1024(void) const { return convert_to<uint1024>(); }
+			integer toInteger(void) const { return convert_to<integer>(); }
+			dec50 toDec50(void) const { return convert_to<dec50>(); }
+			dec100 toDec100(void) const { return convert_to<dec100>(); }
+			template<uint32 Digits = DefaultDigits>
+			decimal<Digits> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
 			template<typename T>
-			T get(void) { return convert_to<T>(); }
+			T get(void) const { return convert_to<T>(); }
 
 		private:
 			template<bool _Signed>
@@ -304,19 +376,13 @@ namespace SSUtils
 			void limit(void)
 			{
 				const value_type range(m_maxValue - m_minValue);
-				if (m_maxValue != 0)
+				if (m_maxValue != 0 && value() >= m_maxValue)
 				{
-					if (value() >= m_maxValue)
-					{
-						assign(mod(value(), range));
-					}
+					assign(mod(value(), range));
 				}
-				else if (m_minValue != 0)
+				else if (m_minValue != 0 && value() <= m_minValue)
 				{
-					if (value() <= m_minValue)
-					{
-						assign(mod(value(), range));
-					}
+					assign(mod(value(), range));
 				}
 			}
 

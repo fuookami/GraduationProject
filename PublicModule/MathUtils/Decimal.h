@@ -4,134 +4,279 @@
 #include "DataUtils.h"
 #include "StringUtils.h"
 #include <limits>
+#include <boost/math/special_functions.hpp>
 
 namespace SSUtils
 {
 	namespace Math
 	{
 		template<uint32 Digits> 
-		class DecimalWrapper
+		class DecimalWrapper : public decimal<Digits>
 		{
 		public:
 			typedef decimal<Digits> value_type;
+			typedef DecimalWrapper self_type;
 
 			DecimalWrapper(void)
-				: m_value(0.0f), m_index(1) {};
-			DecimalWrapper(const std::string &str, const int32 index = 1)
-				: m_value(str), m_index(index) {};
-			DecimalWrapper(const Block &block, const int32 index = 1)
-				: m_value(String::base64Decode(Data::toString(block))), m_index(index) {};
-			DecimalWrapper(const DecimalWrapper &ano) = default;
-			DecimalWrapper(DecimalWrapper &&ano) = default;
-			DecimalWrapper(const value_type &ano, const int32 index = 1)
-				: m_value(ano), m_index(index) {};
-			DecimalWrapper(value_type &&ano, const int32 index = 1)
-				: m_value(std::move(ano)), m_index(index) {};
-			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && Data::ConversionChecker<T, value_type>::value>>
-			DecimalWrapper(const T &ano, const int32 index = 1)
-				: m_value(static_cast<value_type>(ano)), m_index(index) {};
-			DecimalWrapper &operator=(const DecimalWrapper &rhs) = default;
-			DecimalWrapper &operator=(DecimalWrapper &&rhs) = default;
-			DecimalWrapper &operator=(const std::string &rhs)
-			{
-				m_value.assign(rhs);
-				m_index = 1;
-				return *this;
-			}
-			DecimalWrapper &operator=(const Block &rhs)
-			{
-				m_value.assign(String::base64Decode(Data::toString(block)));
-				m_index = 1;
-				return *this;
-			}
-			DecimalWrapper &operator=(const value_type &rhs)
-			{
-				m_value = rhs;
-				m_index = 1;
-				return *this;
-			}
-			DecimalWrapper &operator=(value_type &&rhs)
-			{
-				m_value = std::move(rhs);
-				m_index = 1;
-				return *this;
-			}
-			template<typename T, typename = std::enable_if_t<!std::is_same_v<T, value_type> && Data::ConversionChecker<T, value_type>::value>>
-			DecimalWrapper &operator=(const T &rhs)
-			{
-				m_value = static_cast<value_type>(rhs);
-				m_index = 1;
-				return *this;
-			}
-			~DecimalWrapper(void) = default;
+				: value_type(0), m_base(0), m_index(0), m_offset(1) {};
+			DecimalWrapper(const self_type &ano) = default;
+			DecimalWrapper(self_type &&ano) = default;
 
 			template<typename T>
-			DecimalWrapper &operator+=(const T &rhs)
+			DecimalWrapper(const T &ano, const int32 index = 0)
+				: value_type(0), m_base(0), m_index(index), m_offset(0)
 			{
-				m_value += rhs;
+				m_base.assign(ano);
+				refresh(index);
+			}
+			template<>
+			DecimalWrapper(const std::string &str, const int32 index)
+				: value_type(0), m_base(str), m_index(index), m_offset(0)
+			{
+				refresh(index);
+			}
+			template<>
+			DecimalWrapper(const Block &block, const int32 index)
+				: value_type(0), m_base(String::base64Decode(Data::toString(block))), m_index(index), m_offset
+			{
+				refresh(index);
+			}
+			template<>
+			DecimalWrapper(const value_type &ano, const int32 index)
+				: value_type(0), m_base(ano), m_index(index), m_offset(0)
+			{
+				refresh(index);
+			}
+
+			template<typename T>
+			static std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const int32 index = 1)
+			{
+				self_type ret(value, index);
+				return ret;
+			}
+			template<typename T>
+			static std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const int32 index = 1)
+			{
+				self_type ret;
+				ret.m_base.assign(value);
+				ret.refresh(index);
+				return ret;
+			}
+			template<>
+			static self_type generate<Block>(const Block &value, const int32 index)
+			{
+				self_type ret(value, index);
+				return ret;
+			}
+
+			// operator =
+			self_type &operator=(const self_type &rhs) = default;
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
+			{
+				value_type::operator=(rhs);
+				refresh();
 				return *this;
 			}
 			template<typename T>
-			DecimalWrapper &operator-=(const T &rhs)
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
 			{
-				m_value -= rhs;
+				assign(rhs);
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator=<Block>(const Block &rhs)
+			{
+				assign(String::base64Decode(Data::toString(block)));
+				refresh();
+				return *this;
+			}
+
+			// other operators
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator+=(const T &rhs)
+			{
+				value_type::operator+=(rhs);
+				refresh();
 				return *this;
 			}
 			template<typename T>
-			DecimalWrapper &operator/=(const T &rhs)
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator+=(const T &rhs)
 			{
-				m_value /= rhs;
+				value_type::operator+=(static_cast<value_type>(rhs));
+				refresh();
 				return *this;
 			}
-			DecimalWrapper &operator++(void)
+			template<>
+			self_type &operator+=<Block>(const Block &rhs)
 			{
-				m_value++;
+				value_type::operator+=(value_type(String::base64Decode(Data::toString(block))));
+				refresh();
 				return *this;
 			}
-			DecimalWrapper &operator--(void)
+
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator-=(const T &rhs)
 			{
-				m_value--;
+				value_type::operator-=(rhs);
+				refresh();
 				return *this;
 			}
-			DecimalWrapper operator++(int)
+			template<typename T>
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator-=(const T &rhs)
 			{
-				DecimalWrapper ret(*this);
+				value_type::operator-=(static_cast<value_type>(rhs));
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator-=<Block>(const Block &rhs)
+			{
+				value_type::operator-=(value_type(String::base64Decode(Data::toString(block))));
+				refresh();
+				return *this;
+			}
+
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator*=(const T &rhs)
+			{
+				value_type::operator*=(rhs);
+				refresh();
+				return *this;
+			}
+			template<typename T>
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator*=(const T &rhs)
+			{
+				value_type::operator*=(static_cast<value_type>(rhs));
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator*=<Block>(const Block &rhs)
+			{
+				value_type::operator*=(value_type(String::base64Decode(Data::toString(block))));
+				refresh();
+				return *this;
+			}
+
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
+			{
+				value_type::operator/=(rhs);
+				refresh();
+				return *this;
+			}
+			template<typename T>
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
+			{
+				value_type::operator/=(static_cast<value_type>(rhs));
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator/=<Block>(const Block &rhs)
+			{
+				value_type::operator/=(value_type(String::base64Decode(Data::toString(block))));
+				refresh();
+				return *this;
+			}
+
+			self_type &operator++(void)
+			{
+				value_type::operator++();
+				refresh();
+				return *this;
+			}
+			self_type &operator--(void)
+			{
+				value_type::operator--();
+				refresh();
+				return *this;
+			}
+			self_type operator++(int)
+			{
+				self_type ret(*this);
 				++ret;
 				return ret;
 			}
-			DecimalWrapper operator--(int)
+			self_type operator--(int)
 			{
-				DecimalWrapper ret(*this);
+				self_type ret(*this);
 				--ret;
 				return ret;
 			}
 
+			// set and get
 			const int32 index(void) const { return m_index; }
-			void setIndex(const int32 index) { m_index = index; }
+			const value_type &offset(void) const { return m_offset; }
+			void setIndex(const int32 index) { refresh(); refresh(index); }
 
-			value_type &value(void) { return m_value; }
-			const value_type &value(void) const { return m_value; }
-			operator value_type(void) const { return m_value * pow(value_type(10), m_index); }
+			const value_type &base(void) const { return m_base; }
+			void setBase(const value_type &base) { refresh(base); }
 
-			std::string toString(const std::ios_base::fmtflags flags = 0) { return m_value.str(Digits, flags); }
-			Block toBlock(const std::ios_base::fmtflags flags = 0) { return Data::fromBase64String(String::base64Encode(toString(flags))); }
-			Block toBlock(void) { return Data::fromHexString(toString(std::ios_base::hex)); }
-			float toFloat(void) { return value_type(*this).convert_to<float>(); }
-			double toDouble(void) { return value_type(*this).convert_to<double>(); }
-			float32 toFloat32(void) { return value_type(*this).convert_to<float32>(); }
-			float64 toFloat64(void) { return value_type(*this).convert_to<float64>(); }
-			float128 toFloat128(void) { return value_type(*this).convert_to<float128>(); }
-			float256 toFloat256(void) { return value_type(*this).convert_to<float256>(); }
-			dec50 toDec50(void) { return value_type(*this).convert_to<dec50>(); }
-			dec100 toDec100(void) { return value_type(*this).convert_to<dec100>(); }
-			template<uint32 Digits>
-			decimal<Digits> toDecimal(void) { return m_value.convert_to<decimal<Digits>>(); }
+			value_type &value(void) { return *this; }
+			const value_type &value(void) const { return *this; }
+
+			// translators
+			std::string toString(const std::ios_base::fmtflags flags = 0) const { return str(Digits, flags); }
+			Block toBlock(const std::ios_base::fmtflags flags = 0) const { return Data::fromBase64String(String::base64Encode(toString(flags))); }
+			float toFloat(void) const { return convert_to<float>(); }
+			double toDouble(void) const { return convert_to<double>(); }
+			float32 toFloat32(void) const { return convert_to<float32>(); }
+			float64 toFloat64(void) const { return convert_to<float64>(); }
+			float128 toFloat128(void) const { return convert_to<float128>(); }
+			float256 toFloat256(void) const { return convert_to<float256>(); }
+			dec50 toDec50(void) const { return convert_to<dec50>(); }
+			dec100 toDec100(void) const { return convert_to<dec100>(); }
+			template<uint32 Digits = DefaultDigits>
+			decimal<Digits> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
 			template<typename T>
-			T get(void) { return m_value.convert_to<T>(); }
+			T get(void) const { return m_value.convert_to<T>(); }
+
+			template<uint32 Digits = DefaultDigits>
+			typename std::enable_if_t<Digits != 0, decimal<Digits>> round(void) const
+			{
+				static const value_type offset = value_type(5) * pow(value_type(10) * -(Digits + 1));
+				return (value() + offset).convert_to<decimal<Digits>>();
+			}
+			template<uint32 Digits = DefaultDigits>
+			typename std::enable_if_t<Digits != 0, decimal<Digits>> floor(void) const
+			{
+				return value().convert_to<decimal<Digits>>();
+			}
+			template<uint32 Digits = DefaultDigits>
+			typename std::enable_if_t<Digits != 0, decimal<Digits>> ceil(void) const
+			{
+				static const value_type offset = pow(value_type(10) * -Digits);
+				return (value() + offset).convert_to<decimal<Digits>>();
+			}
+
+			Integer roundToInteger(void) const { return static_cast<Integer>(boost::math::round(*this)); }
+			Integer ceilToInteger(void) const { return floorToInteger() + 1; }
+			Integer floorToInteger(void) const { return static_cast<Integer>(boost::math::floor(*this)); }
 
 		private:
-			value_type m_value;
+			void refresh(void)
+			{
+				m_base = value() / m_offset;
+			}
+			void refresh(const value_type &base)
+			{
+				this->assign(base * offset);
+				m_base.assign(base);
+			}
+			void refresh(const int32 index)
+			{
+				m_offset = pow(value_type(10), index);
+				this->assign(m_base * m_offset);
+				m_index = index;
+			}
+
+		private:
+			value_type m_base;
 			int32 m_index;
+			value_type m_offset;
 		};
 	};
 };
