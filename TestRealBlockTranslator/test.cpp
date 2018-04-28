@@ -10,7 +10,7 @@ int main(void)
 	Integer __i(Integer::generate(bi));
 	std::cout << i.value() << ' ' << _i.value() << ' ' << __i.value() << std::endl;
 	std::cout << i.toString() << ' ' << _i.toString() << ' ' << __i.toString() << std::endl;
-	std::cout << std::setprecision(std::numeric_limits<dec50>::digits10) << i.toDec50() << std::endl;
+	std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(std::numeric_limits<dec50>::digits10) << i.toDec50() << std::endl;
 	std::cout << i.toDec50().str() << std::endl;
 	i += _i.value();
 	std::cout << i << std::endl;
@@ -30,6 +30,16 @@ int main(void)
 	std::cout << dec.value() << std::endl;
 	Decimal _dec(j.toDec50() / 11);
 	std::cout << _dec.value() << std::endl;
+	DecimalWrapper<20> __dec(_dec.ceil<20>());
+	std::cout << std::setprecision(std::numeric_limits<decimal<20>>::digits) << __dec << std::endl;
+	std::cout << __dec << std::endl;
+	std::cout << __dec.toString() << std::endl;
+
+	bi = __dec.toBlock();
+	DecimalWrapper<20> ___dec(bi);
+	std::cout << ___dec << std::endl;
+	Integer _round(___dec.roundToInteger()), _floor(___dec.floorToInteger()), _ceil(___dec.ceilToInteger());
+	std::cout << _round << ' ' << _floor << ' ' << _ceil << std::endl;
 
 	system("pause");
 	return 0;

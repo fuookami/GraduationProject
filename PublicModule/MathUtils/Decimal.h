@@ -37,7 +37,7 @@ namespace SSUtils
 			}
 			template<>
 			DecimalWrapper(const Block &block, const int32 index)
-				: value_type(0), m_base(String::base64Decode(Data::toString(block))), m_index(index), m_offset
+				: value_type(0), m_base(String::base64Decode(Data::toString(block))), m_index(index), m_offset(0)
 			{
 				refresh(index);
 			}
@@ -219,8 +219,8 @@ namespace SSUtils
 			const value_type &value(void) const { return *this; }
 
 			// translators
-			std::string toString(const std::ios_base::fmtflags flags = 0) const { return str(Digits, flags); }
-			Block toBlock(const std::ios_base::fmtflags flags = 0) const { return Data::fromBase64String(String::base64Encode(toString(flags))); }
+			std::string toString(const std::ios_base::fmtflags flags = std::ios::fixed) const { return this->str(Digits, flags); }
+			Block toBlock(const std::ios_base::fmtflags flags = std::ios::fixed) const { return Data::fromString(String::base64Encode(toString(flags))); }
 			float toFloat(void) const { return convert_to<float>(); }
 			double toDouble(void) const { return convert_to<double>(); }
 			float32 toFloat32(void) const { return convert_to<float32>(); }
@@ -237,7 +237,7 @@ namespace SSUtils
 			template<uint32 Digits = DefaultDigits>
 			typename std::enable_if_t<Digits != 0, decimal<Digits>> round(void) const
 			{
-				static const value_type offset = value_type(5) * pow(value_type(10) * -(Digits + 1));
+				static const value_type offset = value_type(5) * pow(value_type(10), -(static_cast<int64>(Digits) + 1));
 				return (value() + offset).convert_to<decimal<Digits>>();
 			}
 			template<uint32 Digits = DefaultDigits>
@@ -248,13 +248,13 @@ namespace SSUtils
 			template<uint32 Digits = DefaultDigits>
 			typename std::enable_if_t<Digits != 0, decimal<Digits>> ceil(void) const
 			{
-				static const value_type offset = pow(value_type(10) * -Digits);
+				static const value_type offset = pow(value_type(10), -static_cast<int64>(Digits));
 				return (value() + offset).convert_to<decimal<Digits>>();
 			}
 
-			Integer roundToInteger(void) const { return static_cast<Integer>(boost::math::round(*this)); }
+			Integer roundToInteger(void) const { return static_cast<Integer>(boost::math::round(value())); }
 			Integer ceilToInteger(void) const { return floorToInteger() + 1; }
-			Integer floorToInteger(void) const { return static_cast<Integer>(boost::math::floor(*this)); }
+			Integer floorToInteger(void) const { return static_cast<Integer>(value()); }
 
 		private:
 			void refresh(void)
