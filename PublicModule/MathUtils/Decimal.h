@@ -14,9 +14,10 @@ namespace SSUtils
 		class DecimalWrapper : public decimal<Digits>
 		{
 		public:
-			typedef decimal<Digits> value_type;
+			typedef std::enable_if_t<Digits != 0, decimal<Digits>> value_type;
 			typedef DecimalWrapper self_type;
 
+			// constructors
 			DecimalWrapper(void)
 				: value_type(0), m_base(0), m_index(0), m_offset(1) {};
 			DecimalWrapper(const self_type &ano) = default;
@@ -48,6 +49,10 @@ namespace SSUtils
 				refresh(index);
 			}
 
+			// destructor
+			~DecimalWrapper(void) = default;
+
+			// generators
 			template<typename T>
 			static std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const int32 index = 1)
 			{
@@ -67,6 +72,41 @@ namespace SSUtils
 			{
 				self_type ret(value, index);
 				return ret;
+			}
+
+			// assign and swap
+			self_type &assign(const self_type &ano)
+			{
+				value_type::assign(ano.value());
+				m_base.assign(ano.m_base);
+				refresh(ano.m_index);
+				return *this;
+			}
+			template<typename T>
+			typename std::enable_if_t<!std::is_same_v<T, self_type>, self_type> &assign(const T &ano, const int32 index = 0)
+			{
+				m_base.assign(ano);
+				refresh(index);
+				return *this;
+			}
+			template<>
+			self_type &assign<Block>(const Block &ano, const int32 index)
+			{
+				m_base.assign(String::base64Decode(Data::toString(block)));
+				refresh(index);
+				return *this;
+			}
+			self_type &swap(value_type &ano)
+			{
+				value_type::swap(ano);
+				refresh();
+				return *this;
+			}
+			self_type &swap(self_type &ano)
+			{
+				value_type::swap(ano);
+				refresh();
+				return *this;
 			}
 
 			// operator =
@@ -215,7 +255,6 @@ namespace SSUtils
 			const value_type &base(void) const { return m_base; }
 			void setBase(const value_type &base) { refresh(base); }
 
-			value_type &value(void) { return *this; }
 			const value_type &value(void) const { return *this; }
 
 			// translators
@@ -229,24 +268,24 @@ namespace SSUtils
 			float256 toFloat256(void) const { return convert_to<float256>(); }
 			dec50 toDec50(void) const { return convert_to<dec50>(); }
 			dec100 toDec100(void) const { return convert_to<dec100>(); }
-			template<uint32 Digits = DefaultDigits>
-			decimal<Digits> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
 			template<typename T>
 			T get(void) const { return m_value.convert_to<T>(); }
 
-			template<uint32 Digits = DefaultDigits>
-			typename std::enable_if_t<Digits != 0, decimal<Digits>> round(void) const
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> round(void) const
 			{
 				static const value_type offset = value_type(5) * pow(value_type(10), -(static_cast<int64>(Digits) + 1));
 				return (value() + offset).convert_to<decimal<Digits>>();
 			}
-			template<uint32 Digits = DefaultDigits>
-			typename std::enable_if_t<Digits != 0, decimal<Digits>> floor(void) const
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> floor(void) const
 			{
 				return value().convert_to<decimal<Digits>>();
 			}
-			template<uint32 Digits = DefaultDigits>
-			typename std::enable_if_t<Digits != 0, decimal<Digits>> ceil(void) const
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> ceil(void) const
 			{
 				static const value_type offset = pow(value_type(10), -static_cast<int64>(Digits));
 				return (value() + offset).convert_to<decimal<Digits>>();
@@ -263,13 +302,13 @@ namespace SSUtils
 			}
 			void refresh(const value_type &base)
 			{
-				this->assign(base * offset);
+				value_type::assign(base * offset);
 				m_base.assign(base);
 			}
 			void refresh(const int32 index)
 			{
 				m_offset = pow(value_type(10), index);
-				this->assign(m_base * m_offset);
+				value_type::assign(m_base * m_offset);
 				m_index = index;
 			}
 

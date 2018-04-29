@@ -41,6 +41,11 @@ int main(void)
 	Integer _round(___dec.roundToInteger()), _floor(___dec.floorToInteger()), _ceil(___dec.ceilToInteger());
 	std::cout << _round << ' ' << _floor << ' ' << _ceil << std::endl;
 
+	rational r = 1;
+	r /= 2;
+	dec50 _d(static_cast<dec50>(r));
+	std::cout << _d << std::endl;
+
 	system("pause");
 	return 0;
 }

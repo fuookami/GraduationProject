@@ -4,6 +4,7 @@
 #include "DataUtils.h"
 #include "StringUtils.h"
 #include <limits>
+#include <algorithm>
 
 namespace SSUtils
 {
@@ -18,7 +19,7 @@ namespace SSUtils
 
 			// constructors
 			IntegerWrapper(void)
-				: value_type(0) 
+				: value_type(0)
 			{
 				setDigit(DefaultDigits);
 			};
@@ -74,7 +75,43 @@ namespace SSUtils
 			static self_type generate<Block>(const Block &value, const uint32 digits)
 			{
 				self_type ret(value);
+				ret.setDigit(digits);
 				return ret;
+			}
+
+			// assign and swap
+			self_type &assign(const self_type &ano)
+			{
+				value_type::assign(ano.value());
+				setDigit(ano.m_digits);
+				return *this;
+			}
+			template<typename T>
+			typename std::enable_if_t<!std::is_same_v<T, self_type>, self_type> &assign(const T &ano, const uint32 digits = 0)
+			{
+				value_type::assign(ano);
+				setDigit(digits);
+				return *this;
+			}
+			template<>
+			self_type &assign<Block>(const Block &ano, const uint32 digits)
+			{
+				value_type::assign(String::HexStringSuffix + Data::toHexString(block));
+				setDigit(digits);
+				return *this;
+			}
+			self_type &swap(value_type &ano)
+			{
+				value_type::swap(ano);
+				limit();
+				return *this;
+			}
+			self_type &swap(self_type &ano)
+			{
+				value_type::swap(ano);
+				std::swap(m_digits, ano.m_digits);
+				refresh();
+				return *this;
 			}
 
 			// operator =
@@ -89,14 +126,14 @@ namespace SSUtils
 			template<typename T>
 			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
 			{
-				assign(rhs);
+				value_type::assign(rhs);
 				setDigit(0);
 				return *this;
 			}
 			template<>
 			self_type &operator=<Block>(const Block &rhs)
 			{
-				assign(String::HexStringSuffix + Data::toHexString(rhs));
+				value_type::assign(String::HexStringSuffix + Data::toHexString(rhs));
 				setDigit(0);
 				return *this;
 			}
@@ -301,16 +338,13 @@ namespace SSUtils
 			void setDigit(const uint32 digits)
 			{
 				m_digits = digits;
-				auto value = getMaxAndMin<Signed>(digits);
-				m_maxValue = value.first;
-				m_minValue = value.second;
+				refresh();
 				limit();
 			}
 			const uint32 getDigits(void) { return m_digits; }
 			const value_type &getMinValue(void) { return m_minValue; }
 			const value_type &getMaxValue(void) { return m_maxValue; }
 
-			value_type &value(void) { return *this; }
 			const value_type &value(void) const { return *this; }
 
 			// translators
@@ -373,16 +407,22 @@ namespace SSUtils
 				}
 			}
 
+			void refresh(void)
+			{
+				auto pair = getMaxAndMin<Signed>(m_digits);
+				m_maxValue = pair.first;
+				m_minValue = pair.second;
+			}
 			void limit(void)
 			{
 				const value_type range(m_maxValue - m_minValue);
 				if (m_maxValue != 0 && value() >= m_maxValue)
 				{
-					assign(mod(value(), range));
+					value_type::assign(mod(value(), range));
 				}
 				else if (m_minValue != 0 && value() <= m_minValue)
 				{
-					assign(mod(value(), range));
+					value_type::assign(mod(value(), range));
 				}
 			}
 
@@ -396,11 +436,8 @@ namespace SSUtils
 
 namespace std
 {
-	namespace std
-	{
-		template<bool Signed>
-		class numeric_limits<SSUtils::Math::IntegerWrapper<Signed>>
-			: public numeric_limits<typename SSUtils::Math::IntegerWrapper<Signed>::value_type>
-		{};
-	};
+	template<bool Signed>
+	class numeric_limits<SSUtils::Math::IntegerWrapper<Signed>>
+		: public numeric_limits<typename SSUtils::Math::IntegerWrapper<Signed>::value_type>
+	{};
 };
