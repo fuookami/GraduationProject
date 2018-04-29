@@ -358,11 +358,11 @@ namespace SSUtils
 			typename std::enable_if_t<!Data::ConversionChecker<T, base_type>::value, void> setDenominator(const T &denominator) { refresh(m_numerator, static_cast<base_type>(denominator)); }
 
 			const value_type &value(void) const { return *this; }
-			const decimal_type &value_dec(void) const { return convert_to<decimal_type>(); }
+			const decimal_type value_dec(void) const { return convert_to<decimal_type>(); }
 
 			// translators
 			std::string toString(const std::ios_base::fmtflags flags = 0) const { return str(0, flags); }
-			Block toBlock(void) const { return Data::fromString(String::base64Encode(toString(flags))); }
+			Block toBlock(void) const { return Data::fromString(String::base64Encode(toString())); }
 			float toFloat(void) const { return convert_to<float>(); }
 			double toDouble(void) const { return convert_to<double>(); }
 			float32 toFloat32(void) const { return convert_to<float32>(); }
@@ -374,7 +374,7 @@ namespace SSUtils
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
 			template<typename T>
-			T get(void) const { return m_value.convert_to<T>(); }
+			T get(void) const { return convert_to<T>(); }
 
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> round(void) const

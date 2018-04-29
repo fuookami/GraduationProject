@@ -41,10 +41,15 @@ int main(void)
 	Integer _round(___dec.roundToInteger()), _floor(___dec.floorToInteger()), _ceil(___dec.ceilToInteger());
 	std::cout << _round << ' ' << _floor << ' ' << _ceil << std::endl;
 
-	rational r = 1;
+	Rational r = 1;
 	r /= 2;
-	dec50 _d(static_cast<dec50>(r));
-	std::cout << _d << std::endl;
+	std::cout << r.str() << std::endl;
+	bi = r.toBlock();
+	Rational _r1(bi), _r2(i.toBlock(), _i.toBlock());
+	std::cout << _r1 << ' ' << _r1.str() << ' ' << _r1.getNumerator() << ' ' << _r1.getDenominator() << std::endl;
+	std::cout << _r2 << ' ' << _r2.str() << ' ' << _r2.getNumerator() << ' ' << _r2.getDenominator() << std::endl;
+	dec50 _d(r.value_dec());
+	std::cout << _d << ' ' << _r1.roundToInteger() << std::endl;
 
 	system("pause");
 	return 0;

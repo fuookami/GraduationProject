@@ -13,7 +13,7 @@ namespace SSUtils
 		template<uint32 Digits = DefaultDigits> class DecimalWrapper;
 		using Decimal = DecimalWrapper<>;
 
-		template<uint32 Digtis = DefaultDigits> class RationalWrapper;
+		template<uint32 Digits = DefaultDigits> class RationalWrapper;
 		using Rational = RationalWrapper<>;
 		template<uint32 Digits = DefaultDigits> class PowerWrapper;
 		using Power = PowerWrapper<>;
