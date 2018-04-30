@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "iterator": "cpp",
+        "memory": "cpp",
+        "random": "cpp",
+        "xutility": "cpp"
+    },
+    "editor.fontSize": 14,
+    "editor.fontFamily": "'Source Code Pro'"
+}
