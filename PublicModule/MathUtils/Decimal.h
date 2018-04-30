@@ -32,15 +32,18 @@ namespace SSUtils
 			}
 			template<>
 			DecimalWrapper(const std::string &str, const int32 index)
-				: value_type(0), m_base(str), m_index(index), m_offset(0)
+				: value_type(0), m_base(0), m_index(index), m_offset(0)
 			{
+				if (String::isDecimal(str))
+				{
+					m_base.assign(str);
+				}
 				refresh(index);
 			}
 			template<>
 			DecimalWrapper(const Block &block, const int32 index)
-				: value_type(0), m_base(String::base64Decode(Data::toString(block))), m_index(index), m_offset(0)
+				: DecimalWrapper(String::base64Decode(Data::toString(block)), index)
 			{
-				refresh(index);
 			}
 			template<>
 			DecimalWrapper(const value_type &ano, const int32 index)
@@ -68,6 +71,12 @@ namespace SSUtils
 				return ret;
 			}
 			template<>
+			static self_type generate<std::string>(const std::string &value, const int32 index)
+			{
+				self_type ret(value, index);
+				return ret;
+			}
+			template<>
 			static self_type generate<Block>(const Block &value, const int32 index)
 			{
 				self_type ret(value, index);
@@ -90,10 +99,23 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &assign<std::string>(const std::string &ano, const int32 index)
+			{
+				if (String::isDecimal(ano))
+				{
+					m_base.assign(ano);
+				}
+				else
+				{
+					m_base.assign(0);
+				}
+				refresh(index);
+				return *this;
+			}
+			template<>
 			self_type &assign<Block>(const Block &ano, const int32 index)
 			{
-				m_base.assign(String::base64Decode(Data::toString(block)));
-				refresh(index);
+				assign(String::base64Decode(Data::toString(block)), index);
 				return *this;
 			}
 			self_type &swap(value_type &ano)
@@ -121,15 +143,28 @@ namespace SSUtils
 			template<typename T>
 			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
 			{
-				assign(rhs);
+				value_type::assign(rhs);
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator=<std::string>(const std::string &rhs)
+			{
+				if (String::isDecimal(rhs))
+				{
+					value_type::assign(rhs);
+				}
+				else
+				{
+					value_type::assign(0);
+				}
 				refresh();
 				return *this;
 			}
 			template<>
 			self_type &operator=<Block>(const Block &rhs)
 			{
-				assign(String::base64Decode(Data::toString(block)));
-				refresh();
+				operator=(String::base64Decode(Data::toString(block)));
 				return *this;
 			}
 
@@ -271,7 +306,7 @@ namespace SSUtils
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
 			template<typename T>
-			T get(void) const { return m_value.convert_to<T>(); }
+			T get(void) const { return convert_to<T>(); }
 
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> round(void) const

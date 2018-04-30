@@ -45,17 +45,19 @@ namespace SSUtils
 			const std::string PatternPrefix("^");
 			const std::string PatternSuffix("$");
 			const std::string NaturalNumberPattern("(0|[1-9]\\d*)");
-			const std::string IntegerPattern("-?(0|[1-9]\\d*)");
-			const std::string PositiveIntegerPattern("[1-9]\\d*");
-			const std::string DecimalPattern("-?(0|[1-9]\\d*).\\d*");
+			const std::string DecIntegerPattern("-?(0|[1-9]\\d*)");
+			const std::string HexIntegerPattern("-?0x(0|[1-9a-fA-F][0-9a-fA-F]*)");
+			const std::string PositiveDecIntegerPattern("[1-9]\\d*");
+			const std::string DecimalPattern("-?(0|[1-9]\\d*)(.\\d*)");
 		};
 
 		namespace RegexCheckers
 		{
 #define pattern_join(pattern) (RegexPatterns::PatternPrefix + pattern + RegexPatterns::PatternSuffix)
 			const RegexChecker NaturalNumberChecker(pattern_join(RegexPatterns::NaturalNumberPattern));
-			const RegexChecker IntegerChecker(pattern_join(RegexPatterns::IntegerPattern));
-			const RegexChecker PositiveIntegerChecker(pattern_join(RegexPatterns::PositiveIntegerPattern));
+			const RegexChecker DecIntegerChecker(pattern_join(RegexPatterns::DecIntegerPattern));
+			const RegexChecker PositiveDecIntegerChecker(pattern_join(RegexPatterns::PositiveDecIntegerPattern));
+			const RegexChecker HexIntegerChecker(pattern_join(RegexPatterns::HexIntegerPattern));
 			const RegexChecker DecimalChecker(pattern_join(RegexPatterns::DecimalPattern));
 #undef pattern_join
 		};
@@ -63,8 +65,9 @@ namespace SSUtils
 		namespace RegexMatchers
 		{
 			const RegexMatcher NaturalNumberMatcher(RegexPatterns::NaturalNumberPattern);
-			const RegexMatcher IntegerMatcher(RegexPatterns::IntegerPattern);
-			const RegexMatcher PositiveIntegerMatcher(RegexPatterns::PositiveIntegerPattern);
+			const RegexMatcher DecIntegerMatcher(RegexPatterns::DecIntegerPattern);
+			const RegexMatcher PositiveDecIntegerMatcher(RegexPatterns::PositiveDecIntegerPattern);
+			const RegexMatcher HexIntegerMatcher(RegexPatterns::HexIntegerPattern);
 			const RegexMatcher DecimalMatcher(RegexPatterns::DecimalPattern);
 		};
 
@@ -78,24 +81,55 @@ namespace SSUtils
 			return RegexMatchers::NaturalNumberMatcher(src);
 		}
 
-		const bool isInteger(const std::string & src)
+		const bool isInteger(const std::string &src)
 		{
-			return RegexCheckers::IntegerChecker(src);
+			return isDecInteger(src) || isHexInteger(src);
 		}
 
-		std::vector<std::string> mathchInteger(const std::string & src)
+		std::vector<std::string> matchInteger(const std::string &src)
 		{
-			return RegexMatchers::IntegerMatcher(src);
+			std::vector<std::string> temp;
+			std::vector<std::string> ret;
+
+			temp = RegexMatchers::DecIntegerMatcher(src);
+			std::move(temp.begin(), temp.end(), std::back_inserter(ret));
+
+			temp = RegexMatchers::HexIntegerMatcher(src);
+			std::move(temp.begin(), temp.end(), std::back_inserter(ret));
+
+			std::sort(ret.begin(), ret.end());
+			ret.erase(std::unique(ret.begin(), ret.end()), ret.end());
+			return ret;
 		}
 
-		const bool isPositiveInteger(const std::string & src)
+		const bool isDecInteger(const std::string & src)
 		{
-			return RegexCheckers::PositiveIntegerChecker(src);
+			return RegexCheckers::DecIntegerChecker(src);
 		}
 
-		std::vector<std::string> matchPositiveInteger(const std::string & src)
+		std::vector<std::string> mathchDecInteger(const std::string & src)
 		{
-			return RegexMatchers::PositiveIntegerMatcher(src);
+			return RegexMatchers::DecIntegerMatcher(src);
+		}
+
+		const bool isPositiveDecInteger(const std::string & src)
+		{
+			return RegexCheckers::PositiveDecIntegerChecker(src);
+		}
+
+		std::vector<std::string> matchPositiveDecInteger(const std::string & src)
+		{
+			return RegexMatchers::PositiveDecIntegerMatcher(src);
+		}
+
+		const bool isHexInteger(const std::string &src)
+		{
+			return RegexCheckers::HexIntegerChecker(src);
+		}
+
+		std::vector<std::string> matchHexInteger(const std::string &src)
+		{
+			return RegexMatchers::HexIntegerMatcher(src);
 		}
 
 		const bool isDecimal(const std::string & src)

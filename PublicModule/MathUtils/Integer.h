@@ -35,15 +35,18 @@ namespace SSUtils
 			};
 			template<>
 			IntegerWrapper(const std::string &str, const uint32 digits)
-				: value_type(str)
+				: value_type(0)
 			{
+				if (String::isInteger(str))
+				{
+					value_type::assign(str);
+				}
 				setDigit(digits);
 			};
 			template<>
 			IntegerWrapper(const Block &block, const uint32 digits)
-				: value_type(String::HexStringSuffix + Data::toHexString(block))
+				: IntegerWrapper(String::HexStringSuffix + Data::toHexString(block), digits)
 			{
-				setDigit(digits);
 			}
 			template<>
 			IntegerWrapper(const value_type &ano, const uint32 digits)
@@ -72,10 +75,15 @@ namespace SSUtils
 				return ret;
 			}
 			template<>
+			static self_type generate<std::string>(const std::string &value, const uint32 digits)
+			{
+				self_type ret(value, digits);
+				return ret;
+			}
+			template<>
 			static self_type generate<Block>(const Block &value, const uint32 digits)
 			{
-				self_type ret(value);
-				ret.setDigit(digits);
+				self_type ret(value, digits);
 				return ret;
 			}
 
@@ -94,10 +102,23 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &assign<std::string>(const std::string &str, const uint32 digits)
+			{
+				if (String::isInteger(str))
+				{
+					value_type::assign(str);
+				}
+				else
+				{
+					value_type::assign(0);
+				}
+				setDigit(digits);
+				return *this;
+			}
+			template<>
 			self_type &assign<Block>(const Block &ano, const uint32 digits)
 			{
-				value_type::assign(String::HexStringSuffix + Data::toHexString(block));
-				setDigit(digits);
+				assign(String::HexStringSuffix + Data::toHexString(block), digits);
 				return *this;
 			}
 			self_type &swap(value_type &ano)
@@ -131,10 +152,23 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::assign(rhs);
+				}
+				else
+				{
+					value_type::assign(0);
+				}
+				setDigit(0);
+				return *this;
+			}
+			template<>
 			self_type &operator=<Block>(const Block &rhs)
 			{
-				value_type::assign(String::HexStringSuffix + Data::toHexString(rhs));
-				setDigit(0);
+				operator=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -154,10 +188,19 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator+=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::operator+=(value_type(rhs));
+					limit();
+				}
+				return *this;
+			}
+			template<>
 			self_type &operator+=<Block>(const Block &rhs)
 			{
-				value_type::operator+=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
-				limit();
+				operator+=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -176,10 +219,19 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator-=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::operator-=(value_type(rhs));
+					limit();
+				}
+				return *this;
+			}
+			template<>
 			self_type &operator-=<Block>(const Block &rhs)
 			{
-				value_type::operator-=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
-				limit();
+				operator+=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -198,10 +250,19 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator*=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::operator*=(value_type(rhs));
+					limit();
+				}
+				return *this;
+			}
+			template<>
 			self_type &operator*=<Block>(const Block &rhs)
 			{
-				value_type::operator*=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
-				limit();
+				operator*=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -220,10 +281,19 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator/=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::operator/=(value_type(rhs));
+					limit();
+				}
+				return *this;
+			}
+			template<>
 			self_type &operator/=<Block>(const Block &rhs)
 			{
-				value_type::operator/=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
-				limit();
+				operator/=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -267,10 +337,19 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator%=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::operator%=(value_type(rhs));
+					limit();
+				}
+				return *this;
+			}
+			template<>
 			self_type &operator%=<Block>(const Block &rhs)
 			{
-				value_type::operator%=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
-				limit();
+				operator%=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -282,10 +361,26 @@ namespace SSUtils
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<std::is_base_of_v<Block, T>, self_type> &operator|=(const T &rhs)
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator|=(const T &rhs)
 			{
-				value_type::operator|=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				value_type::operator|=(static_cast<value_type>(rhs));
 				limit();
+				return *this;
+			}
+			template<>
+			self_type &operator|=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::operator|=(value_type(rhs));
+					limit();
+				}
+				return *this;
+			}
+			template<>
+			self_type &operator|=<Block>(const Block &rhs)
+			{
+				operator|=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -297,10 +392,26 @@ namespace SSUtils
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<std::is_base_of_v<Block, T>, self_type> &operator^=(const T &rhs)
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator^=(const T &rhs)
 			{
-				value_type::operator^=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				value_type::operator^=(static_cast<value_type>(rhs));
 				limit();
+				return *this;
+			}
+			template<>
+			self_type &operator^=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::operator^=(value_type(rhs));
+					limit();
+				}
+				return *this;
+			}
+			template<>
+			self_type &operator^=<Block>(const Block &rhs)
+			{
+				operator^=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -312,10 +423,26 @@ namespace SSUtils
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<std::is_base_of_v<Block, T>, self_type> &operator<<=(const T &rhs)
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator<<=(const T &rhs)
 			{
-				value_type::operator<<=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				value_type::operator<<=(static_cast<value_type>(rhs));
 				limit();
+				return *this;
+			}
+			template<>
+			self_type &operator<<=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::operator<<=(value_type(rhs));
+					limit();
+				}
+				return *this;
+			}
+			template<>
+			self_type &operator<<=<Block>(const Block &rhs)
+			{
+				operator<<=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -327,10 +454,26 @@ namespace SSUtils
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<std::is_base_of_v<Block, T>, self_type> &operator>>=(const T &rhs)
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator>>=(const T &rhs)
 			{
-				value_type::operator>>=(value_type(String::HexStringSuffix + Data::toHexString(rhs)));
+				value_type::operator>>=(static_cast<value_type>(rhs));
 				limit();
+				return *this;
+			}
+			template<>
+			self_type &operator>>=<std::string>(const std::string &rhs)
+			{
+				if (String::isInteger(rhs))
+				{
+					value_type::operator>>=(value_type(rhs));
+					limit();
+				}
+				return *this;
+			}
+			template<>
+			self_type &operator>>=<Block>(const Block &rhs)
+			{
+				operator>>=(String::HexStringSuffix + Data::toHexString(rhs));
 				return *this;
 			}
 

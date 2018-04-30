@@ -4,6 +4,7 @@ int main(void)
 {
 	using namespace SSUtils;
 	using namespace SSUtils::Math;
+
 	Integer i(Integer::generate(123));
 	Block bi(i.toBlock());
 	Integer _i(bi);
@@ -29,7 +30,10 @@ int main(void)
 	Decimal dec(j.value());
 	std::cout << dec.value() << std::endl;
 	Decimal _dec(j.toDec50() / 11);
+	std::string str1(_dec.toString()), str2(String::base64Decode(Data::toString(_dec.toBlock())));
 	std::cout << _dec.value() << std::endl;
+	std::cout << str1 << ' ' << String::isDecimal(str1) << std::endl;
+	std::cout << str2 << ' ' << String::isDecimal(str2) << std::endl;
 	DecimalWrapper<20> __dec(_dec.ceil<20>());
 	std::cout << std::setprecision(std::numeric_limits<decimal<20>>::digits) << __dec << std::endl;
 	std::cout << __dec << std::endl;

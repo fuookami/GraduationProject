@@ -43,7 +43,9 @@ namespace SSUtils
 			try
 			{
 				std::copy(Base64DecodeIter(str.begin()), Base64DecodeIter(str.end()), std::ostream_iterator<char>(result));
-				return result.str();
+				std::string ret(result.str());
+				ret.erase(std::find(ret.begin(), ret.end(), '\0'), ret.end());
+				return ret;
 			}
 			catch (...)
 			{

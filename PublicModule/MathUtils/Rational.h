@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Integer.h"
+#include "Decimal.h"
 #include "DataUtils.h"
 #include "StringUtils.h"
 #include <limits>
@@ -15,8 +16,10 @@ namespace SSUtils
 		public:
 			typedef integer base_type;
 			typedef rational value_type;
-			typedef std::enable_if_t<Digits != 0, decimal<Digits>> decimal_type;
+			typedef std::enable_if_t<Digits != 0, typename DecimalWrapper<Digits>::value_type> decimal_type;
 			typedef RationalWrapper self_type;
+
+			static const String::RegexChecker RegexChecker;
 
 			// constructors
 			RationalWrapper(void)
@@ -36,13 +39,17 @@ namespace SSUtils
 			}
 			template<>
 			RationalWrapper(const std::string &str)
-				: value_type(str)
+				: value_type(0)
 			{
+				if (RegexChecker(str))
+				{
+					value_type::assign(str);
+				}
 				refresh();
 			}
 			template<>
 			RationalWrapper(const Block &block)
-				: value_type(String::base64Decode(Data::toString(block)))
+				: RationalWrapper(String::base64Decode(Data::toString(block)))
 			{
 				refresh();
 			}
@@ -75,13 +82,24 @@ namespace SSUtils
 			RationalWrapper(const std::string &numerator, const std::string &denominator)
 				: value_type(0), m_numerator(0), m_denominator(0)
 			{
-				refresh(base_type(numerator), base_type(denominator));
-			}
+				auto r1(String::isInteger(numerator)), r2(String::isInteger(denominator));
+				if (r1 && r2)
+				{
+					refresh(base_type(numerator), base_type(denominator));
+				}
+				else if (r1)
+				{
+					refresh(base_type(numerator), base_type(0));
+				}
+				else if (r2)
+				{
+					refresh(base_type(0), base_type(denominator));
+				}
+			}	
 			template<>
 			RationalWrapper(const Block &numerator, const Block &denominator)
-				: value_type(0), m_numerator(0), m_denominator(0)
+				: RationalWrapper(String::HexStringSuffix + Data::toHexString(numerator), String::HexStringSuffix + Data::toHexString(denominator))
 			{
-				refresh(base_type(String::HexStringSuffix + Data::toHexString(numerator)), base_type(String::HexStringSuffix + Data::toHexString(denominator)));
 			}
 			template<>
 			RationalWrapper(const base_type &numerator, const base_type &denominator)
@@ -113,6 +131,12 @@ namespace SSUtils
 				return ret;
 			}
 			template<>
+			static self_type generate<std::string>(const std::string &value)
+			{
+				self_type ret(value);
+				return ret;
+			}
+			template<>
 			static self_type generate<Block>(const Block &value)
 			{
 				self_type ret(value);
@@ -134,6 +158,12 @@ namespace SSUtils
 			static std::enable_if_t<!Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &numerator, const T &denominator)
 			{
 				self_type ret(static_cast<base_type>(numerator), static_cast<base_type>(denominator));
+				return ret;
+			}
+			template<>
+			static self_type generate<std::string>(const std::string &numerator, const std::string &denominator)
+			{
+				self_type ret(numerator, denominator);
 				return ret;
 			}
 			template<>
@@ -176,10 +206,23 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &assign<std::string>(const std::string &ano)
+			{
+				if (RegexChecker(ano))
+				{
+					value_type::assign(ano);
+				}
+				else
+				{
+					value_type::assign(0);
+				}
+				refresh();
+				return *this;
+			}
+			template<>
 			self_type &assign<Block>(const Block &ano)
 			{
-				value_type::assign(String::base64Decode(Data::toString(block)));
-				refresh();
+				assign(String::base64Decode(Data::toString(block)));
 				return *this;
 			}
 			template<typename T>
@@ -188,9 +231,26 @@ namespace SSUtils
 				refresh(numerator, denominator);
 			}
 			template<>
+			self_type &assign<std::string>(const std::string &numerator, const std::string &denominator)
+			{
+				auto r1(String::isInteger(numerator)), r2(String::isInteger(denominator));
+				if (r1 && r2)
+				{
+					refresh(base_type(numerator), base_type(denominator));
+				}
+				else if (r1)
+				{
+					refresh(base_type(numerator), base_type(0));
+				}
+				else if (r2)
+				{
+					refresh(base_type(0), base_type(denominator));
+				}
+			}
+			template<>
 			self_type &assign<Block>(const Block &numerator, const Block &denominator)
 			{
-				refresh(base_type(String::HexStringSuffix + Data::toHexString(numerator)), base_type(String::HexStringSuffix + Data::toHexString(denominator)));
+				assign(String::HexStringSuffix + Data::toHexString(numerator), String::HexStringSuffix + Data::toHexString(denominator));
 			}
 			self_type &swap(value_type &ano)
 			{
@@ -222,10 +282,23 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator=<std::string>(const std::string &rhs)
+			{
+				if (RegexChecker(rhs))
+				{
+					value_type::assign(rhs);
+				}
+				else
+				{
+					value_type::assign(0);
+				}
+				refresh();
+				return *this;
+			}
+			template<>
 			self_type &operator=<Block>(const Block &rhs)
 			{
-				value_type::assign(String::base64Decode(Data::toString(block)));
-				refresh();
+				operator=(String::base64Decode(Data::toString(block)));
 				return *this;
 			}
 
@@ -245,10 +318,19 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator+=<std::string>(const std::string &rhs)
+			{
+				if (RegexChecker(rhs))
+				{
+					value_type::operator+=(value_type(rhs));
+					refresh();
+				}
+				return *this;
+			}
+			template<>
 			self_type &operator+=<Block>(const Block &rhs)
 			{
-				value_type::operator+=(value_type(String::base64Decode(Data::toString(block))));
-				refresh();
+				operator+=(String::base64Decode(Data::toString(block)));
 				return *this;
 			}
 
@@ -267,10 +349,19 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator-=<std::string>(const std::string &rhs)
+			{
+				if (RegexChecker(rhs))
+				{
+					value_type::operator-=(value_type(rhs));
+					refresh();
+				}
+				return *this;
+			}
+			template<>
 			self_type &operator-=<Block>(const Block &rhs)
 			{
-				value_type::operator-=(value_type(String::base64Decode(Data::toString(block))));
-				refresh();
+				operator-=(String::base64Decode(Data::toString(block)));
 				return *this;
 			}
 
@@ -289,10 +380,19 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator*=<std::string>(const std::string &rhs)
+			{
+				if (RegexChecker(rhs))
+				{
+					value_type::operator+*=(value_type(rhs));
+					refresh();
+				}
+				return *this;
+			}
+			template<>
 			self_type &operator*=<Block>(const Block &rhs)
 			{
-				value_type::operator*=(value_type(String::base64Decode(Data::toString(block))));
-				refresh();
+				operator*=(String::base64Decode(Data::toString(block)));
 				return *this;
 			}
 
@@ -311,10 +411,19 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator/=<std::string>(const std::string &rhs)
+			{
+				if (RegexChecker(rhs))
+				{
+					value_type::operator/=(value_type(rhs));
+					refresh();
+				}
+				return *this;
+			}
+			template<>
 			self_type &operator/=<Block>(const Block &rhs)
 			{
-				value_type::operator/=(value_type(String::base64Decode(Data::toString(block))));
-				refresh();
+				operator/=(String::base64Decode(Data::toString(block)));
 				return *this;
 			}
 
@@ -462,6 +571,9 @@ namespace SSUtils
 			base_type m_numerator;
 			base_type m_denominator;
 		};
+
+		template<uint32 Digits>
+		const String::RegexChecker RationalWrapper<Digits>::RegexChecker(std::string("^-?(0|[1-9]\\d*)(.-?(0|[1-9]\\d*))?$"));
 	};
 };
 

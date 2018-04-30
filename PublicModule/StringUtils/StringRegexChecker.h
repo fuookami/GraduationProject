@@ -44,24 +44,27 @@ namespace SSUtils
 			extern const std::string PatternPrefix;
 			extern const std::string PatternSuffix;
 			extern const std::string NaturalNumberPattern;
-			extern const std::string IntegerPattern;
-			extern const std::string PositiveIntegerPattern;
+			extern const std::string DecIntegerPattern;
+			extern const std::string PositiveDecIntegerPattern;
+			extern const std::string HexIntegerPattern;
 			extern const std::string DecimalPattern;
 		};
 
 		namespace RegexCheckers
 		{
 			extern const RegexChecker NaturalNumberChecker;
-			extern const RegexChecker IntegerChecker;
-			extern const RegexChecker PositiveIntegerChecker;
+			extern const RegexChecker DecIntegerChecker;
+			extern const RegexChecker PositiveDecIntegerChecker;
+			extern const RegexChecker HexIntegerChecker;
 			extern const RegexChecker DecimalChecker;
 		};
 
 		namespace RegexMatchers
 		{
 			extern const RegexMatcher NaturalNumberMatcher;
-			extern const RegexMatcher IntegerMatcher;
-			extern const RegexMatcher PositiveIntegerMatcher;
+			extern const RegexMatcher DecIntegerMatcher;
+			extern const RegexMatcher PositiveDecIntegerMatcher;
+			extern const RegexMatcher HexIntegerMatcher;
 			extern const RegexMatcher DecimalMatcher;
 		};
 
@@ -69,10 +72,16 @@ namespace SSUtils
 		std::vector<std::string> matchNaturalNumber(const std::string &src);
 
 		const bool isInteger(const std::string &src);
-		std::vector<std::string> mathchInteger(const std::string &src);
+		std::vector<std::string> matchInteger(const std::string &src);
 
-		const bool isPositiveInteger(const std::string &src);
-		std::vector<std::string> matchPositiveInteger(const std::string &src);
+		const bool isDecInteger(const std::string &src);
+		std::vector<std::string> mathchDecInteger(const std::string &src);
+
+		const bool isPositiveDecInteger(const std::string &src);
+		std::vector<std::string> matchPositiveDecInteger(const std::string &src);
+
+		const bool isHexInteger(const std::string &src);
+		std::vector<std::string> matchHexInteger(const std::string &src);
 
 		const bool isDecimal(const std::string &src);
 		std::vector<std::string> matchDecimal(const std::string &src);
