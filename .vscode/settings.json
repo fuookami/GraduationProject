@@ -3,8 +3,18 @@
         "iterator": "cpp",
         "memory": "cpp",
         "random": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "regex": "cpp",
+        "type_traits": "cpp",
+        "vector": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp"
     },
-    "editor.fontSize": 14,
+    "editor.fontSize": 11,
     "editor.fontFamily": "'Source Code Pro'"
 }

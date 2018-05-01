@@ -11,7 +11,7 @@ namespace SSUtils
 	namespace Math
 	{
 		template<bool Signed>
-		class IntegerWrapper : public integer
+		class IntegerWrapper
 		{
 		public:
 			typedef integer value_type;
@@ -27,12 +27,18 @@ namespace SSUtils
 			IntegerWrapper(self_type &&ano) = default;
 
 			template<typename T>
-			IntegerWrapper(const T &ano, const uint32 digits = 0)
-				: value_type(0)
+			IntegerWrapper(const std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, T> &ano, const uint32 digits = 0)
+				: value_type(ano)
 			{
-				assign(ano);
 				setDigit(digits);
 			};
+			template<typename T>
+			IntegerWrapper(const std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, T> &ano, const uint32 digits = 0)
+				: value_type(ano)
+			{
+				value_type::assign(ano);
+				setDigit(digits);
+			}
 			template<>
 			IntegerWrapper(const std::string &str, const uint32 digits)
 				: value_type(0)
@@ -48,30 +54,21 @@ namespace SSUtils
 				: IntegerWrapper(String::HexStringSuffix + Data::toHexString(block), digits)
 			{
 			}
-			template<>
-			IntegerWrapper(const value_type &ano, const uint32 digits)
-				: value_type(ano)
-			{
-				setDigit(digits);
-			};
 
 			// destructor
 			~IntegerWrapper(void) = default;
 
 			// generators
 			template<typename T>
-			static std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
+			static std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
 			{
-				self_type ret(value);
-				ret.setDigit(digits);
+				self_type ret(value, digits);
 				return ret;
 			}
 			template<typename T>
-			static std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
+			static std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
 			{
-				self_type ret;
-				ret.assign(value);
-				ret.setDigit(digits);
+				self_type ret(value, digits);
 				return ret;
 			}
 			template<>
@@ -118,7 +115,7 @@ namespace SSUtils
 			template<>
 			self_type &assign<Block>(const Block &ano, const uint32 digits)
 			{
-				assign(String::HexStringSuffix + Data::toHexString(block), digits);
+				assign(String::HexStringSuffix + Data::toHexString(ano), digits);
 				return *this;
 			}
 			self_type &swap(value_type &ano)
@@ -138,14 +135,14 @@ namespace SSUtils
 			// operator =
 			self_type &operator=(const self_type &rhs) = default;
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
 			{
 				value_type::operator=(rhs);
 				setDigit(0);
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
 			{
 				value_type::assign(rhs);
 				setDigit(0);
@@ -187,6 +184,13 @@ namespace SSUtils
 				limit();
 				return *this;
 			}
+			template<bool _Signed>
+			self_type &operator+=(const IntegerWrapper<_Signed> &rhs)
+			{
+				value_type::operator+=(rhs.value());
+				limit();
+				return *this;
+			}
 			template<>
 			self_type &operator+=<std::string>(const std::string &rhs)
 			{
@@ -215,6 +219,13 @@ namespace SSUtils
 			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator-=(const T &rhs)
 			{
 				value_type::operator-=(static_cast<value_type>(rhs));
+				limit();
+				return *this;
+			}
+			template<bool _Signed>
+			self_type &operator-=(const IntegerWrapper<_Signed> &rhs)
+			{
+				value_type::operator-=(rhs.value());
 				limit();
 				return *this;
 			}
@@ -249,6 +260,13 @@ namespace SSUtils
 				limit();
 				return *this;
 			}
+			template<bool _Signed>
+			self_type &operator*=(const IntegerWrapper<_Signed> &rhs)
+			{
+				value_type::operator*=(rhs.value());
+				limit();
+				return *this;
+			}
 			template<>
 			self_type &operator*=<std::string>(const std::string &rhs)
 			{
@@ -277,6 +295,13 @@ namespace SSUtils
 			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
 			{
 				value_type::operator/=(static_cast<value_type>(rhs));
+				limit();
+				return *this;
+			}
+			template<bool _Signed>
+			self_type &operator/=(const IntegerWrapper<_Signed> &rhs)
+			{
+				value_type::operator/=(rhs.value());
 				limit();
 				return *this;
 			}
@@ -336,6 +361,13 @@ namespace SSUtils
 				limit();
 				return *this;
 			}
+			template<bool _Signed>
+			self_type &operator%=(const IntegerWrapper<_Signed> &rhs)
+			{
+				value_type::assign(mod(*this, rhs.value()));
+				limit();
+				return *this;
+			}
 			template<>
 			self_type &operator%=<std::string>(const std::string &rhs)
 			{
@@ -364,6 +396,13 @@ namespace SSUtils
 			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator|=(const T &rhs)
 			{
 				value_type::operator|=(static_cast<value_type>(rhs));
+				limit();
+				return *this;
+			}
+			template<bool _Signed>
+			self_type &operator|=(const IntegerWrapper<_Signed> &rhs)
+			{
+				value_type::operator|=(rhs.value());
 				limit();
 				return *this;
 			}
@@ -398,6 +437,13 @@ namespace SSUtils
 				limit();
 				return *this;
 			}
+			template<bool _Signed>
+			self_type &operator^=(const IntegerWrapper<_Signed> &rhs)
+			{
+				value_type::operator^=(rhs.value());
+				limit();
+				return *this;
+			}
 			template<>
 			self_type &operator^=<std::string>(const std::string &rhs)
 			{
@@ -429,6 +475,13 @@ namespace SSUtils
 				limit();
 				return *this;
 			}
+			template<bool _Signed>
+			self_type &operator<<=(const IntegerWrapper<_Signed> &rhs)
+			{
+				value_type::operator<<=(rhs.value());
+				limit();
+				return *this;
+			}
 			template<>
 			self_type &operator<<=<std::string>(const std::string &rhs)
 			{
@@ -457,6 +510,13 @@ namespace SSUtils
 			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator>>=(const T &rhs)
 			{
 				value_type::operator>>=(static_cast<value_type>(rhs));
+				limit();
+				return *this;
+			}
+			template<bool _Signed>
+			self_type &operator>>=(const IntegerWrapper<_Signed> &rhs)
+			{
+				value_type::operator>>=(rhs.value());
 				limit();
 				return *this;
 			}
@@ -565,7 +625,7 @@ namespace SSUtils
 				}
 				else if (m_minValue != 0 && value() <= m_minValue)
 				{
-					value_type::assign(mod(value(), range));
+					value_type::assign(m_minValue == -1 ? abs(value()) ? mod(value(), range));
 				}
 			}
 
