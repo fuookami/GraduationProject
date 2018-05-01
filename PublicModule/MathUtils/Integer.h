@@ -11,7 +11,7 @@ namespace SSUtils
 	namespace Math
 	{
 		template<bool Signed>
-		class IntegerWrapper
+		class IntegerWrapper : public integer
 		{
 		public:
 			typedef integer value_type;
@@ -26,21 +26,12 @@ namespace SSUtils
 			IntegerWrapper(const self_type &ano) = default;
 			IntegerWrapper(self_type &&ano) = default;
 
-			template<typename T>
-			IntegerWrapper(const std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, T> &ano, const uint32 digits = 0)
+			IntegerWrapper(const value_type &ano, const uint32 digits = 0)
 				: value_type(ano)
 			{
-				setDigit(digits);
-			};
-			template<typename T>
-			IntegerWrapper(const std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, T> &ano, const uint32 digits = 0)
-				: value_type(ano)
-			{
-				value_type::assign(ano);
 				setDigit(digits);
 			}
-			template<>
-			IntegerWrapper(const std::string &str, const uint32 digits)
+			IntegerWrapper(const std::string &str, const uint32 digits = 0)
 				: value_type(0)
 			{
 				if (String::isInteger(str))
@@ -48,11 +39,18 @@ namespace SSUtils
 					value_type::assign(str);
 				}
 				setDigit(digits);
-			};
-			template<>
-			IntegerWrapper(const Block &block, const uint32 digits)
+			}
+			IntegerWrapper(const Block &block, const uint32 digits = 0)
 				: IntegerWrapper(String::HexStringSuffix + Data::toHexString(block), digits)
 			{
+			}
+
+			template<typename T>
+			IntegerWrapper(const T &ano, const uint32 digits = 0)
+				: value_type(0)
+			{
+				value_type::assign(ano);
+				setDigit(digits);
 			}
 
 			// destructor
@@ -60,13 +58,7 @@ namespace SSUtils
 
 			// generators
 			template<typename T>
-			static std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
-			{
-				self_type ret(value, digits);
-				return ret;
-			}
-			template<typename T>
-			static std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
+			static std::enable_if_t<!std::is_same_v<T, self_type>, self_type> generate(const T &value, const uint32 digits = 0)
 			{
 				self_type ret(value, digits);
 				return ret;
@@ -575,7 +567,9 @@ namespace SSUtils
 			template<uint32 Digits = DefaultDigits>
 			decimal<Digits> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
 			template<typename T>
-			T get(void) const { return convert_to<T>(); }
+			std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
+			template<typename T>
+			std::enable_if_t<std::is_same_v<T, value_type>, const T &> get(void) const { return *this; }
 
 		private:
 			template<bool _Signed>
@@ -625,7 +619,7 @@ namespace SSUtils
 				}
 				else if (m_minValue != 0 && value() <= m_minValue)
 				{
-					value_type::assign(m_minValue == -1 ? abs(value()) ? mod(value(), range));
+					value_type::assign(m_minValue == -1 ? abs(value()) : mod(value(), range));
 				}
 			}
 
