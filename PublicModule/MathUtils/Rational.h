@@ -118,86 +118,86 @@ namespace SSUtils
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &value)
 			{
-				self_type ret(base_type(value));
+				self_type ret = self_type(base_type(value));
 				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &value)
 			{
-				self_type ret(static_cast<base_type>(value));
+				self_type ret = self_type(static_cast<base_type>(value));
 				return ret;
 			}
 			template<>
 			static self_type generate<base_type>(const base_type &value)
 			{
-				self_type ret(value);
+				self_type ret = self_type(value);
 				return ret;
 			}
 			template<>
 			static self_type generate<value_type>(const value_type &value)
 			{
-				self_type ret(value);
+				self_type ret = self_type(value);
 				return ret;
 			}
 			template<>
 			static self_type generate<std::string>(const std::string &value)
 			{
-				self_type ret(value);
+				self_type ret = self_type(value);
 				return ret;
 			}
 			template<>
 			static self_type generate<Block>(const Block &value)
 			{
-				self_type ret(value);
+				self_type ret = self_type(value);
 				return ret;
 			}
 			template<bool Signed>
 			static self_type generate(const IntegerWrapper<Signed> &value)
 			{
-				self_type ret(value.get<base_type>());
+				self_type ret = self_type(value.get<base_type>());
 				return ret;
 			}
 
 			template<typename T, typename U>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<U, self_type> && !std::is_same_v<T, U> && Data::ConversionChecker<T, base_type>::value && Data::ConversionChecker<U, base_type>::value, self_type> generate(const T &numerator, const U &denominator)
 			{
-				self_type ret(base_type(numerator), base_type(denominator));
+				self_type ret = self_type(base_type(numerator), base_type(denominator));
 				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<T, value_type> && Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &numerator, const T &denominator)
 			{
-				self_type ret(base_type(numerator), base_type(denominator));
+				self_type ret = self_type(base_type(numerator), base_type(denominator));
 				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<T, value_type> && !Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &numerator, const T &denominator)
 			{
-				self_type ret(static_cast<base_type>(numerator), static_cast<base_type>(denominator));
+				self_type ret = self_type(static_cast<base_type>(numerator), static_cast<base_type>(denominator));
 				return ret;
 			}
 			template<>
 			static self_type generate<base_type>(const base_type &numerator, const base_type &denominator)
 			{
-				self_type ret(numerator, denominator);
+				self_type ret = self_type(numerator, denominator);
 				return ret;
 			}
 			template<>
 			static self_type generate<std::string>(const std::string &numerator, const std::string &denominator)
 			{
-				self_type ret(numerator, denominator);
+				self_type ret = self_type(numerator, denominator);
 				return ret;
 			}
 			template<>
 			static self_type generate<Block>(const Block &numerator, const Block &denominator)
 			{
-				self_type ret(numerator, denominator);
+				self_type ret = self_type(numerator, denominator);
 				return ret;
 			}
 			template<bool Signed>
 			static self_type generate(const IntegerWrapper<Signed> &numerator, const IntegerWrapper<Signed> &denominator)
 			{
-				self_type ret(numerator.get<base_type>(), denominator.get<base_type>());
+				self_type ret = self_type(numerator.get<base_type>(), denominator.get<base_type>());
 				return ret;
 			}
 
@@ -693,13 +693,13 @@ namespace SSUtils
 			}
 			self_type operator++(int)
 			{
-				self_type ret(*this);
+				self_type ret = self_type(*this);
 				++ret;
 				return ret;
 			}
 			self_type operator--(int)
 			{
-				self_type ret(*this);
+				self_type ret = self_type(*this);
 				--ret;
 				return ret;
 			}

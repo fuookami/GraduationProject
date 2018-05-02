@@ -14,7 +14,7 @@ namespace SSUtils
 		class DecimalWrapper : public decimal<Digits>
 		{
 		public:
-			typedef typename std::enable_if_t<Digits != 0, decimal<Digits>> value_type;
+			typedef decimal<Digits> value_type;
 			typedef DecimalWrapper self_type;
 
 			// constructors
@@ -65,37 +65,37 @@ namespace SSUtils
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const int32 index = 1)
 			{
-				self_type ret(value_type(value), index);
+				self_type ret = self_type(value_type(value), index);
 				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const int32 index = 1)
 			{
-				self_type ret(static_cast<value_type>(value), index);
+				self_type ret = self_type(static_cast<value_type>(value), index);
 				return ret;
 			}
 			template<>
 			static self_type generate<value_type>(const value_type &value, const int32 index)
 			{
-				self_type ret(value, index);
+				self_type ret = self_type(value, index);
 				return ret;
 			}
 			template<>
 			static self_type generate<std::string>(const std::string &value, const int32 index)
 			{
-				self_type ret(value, index);
+				self_type ret = self_type(value, index);
 				return ret;
 			}
 			template<>
 			static self_type generate<Block>(const Block &value, const int32 index)
 			{
-				self_type ret(value, index);
+				self_type ret = self_type(value, index);
 				return ret;
 			}
 			template<bool Signed>
 			static self_type generate(const IntegerWrapper<Signed> &value, const int32 index)
 			{
-				self_type ret(value, index);
+				self_type ret = self_type(value, index);
 				return ret;
 			}
 
@@ -407,13 +407,13 @@ namespace SSUtils
 			}
 			self_type operator++(int)
 			{
-				self_type ret(*this);
+				self_type ret = self_type(*this);
 				++ret;
 				return ret;
 			}
 			self_type operator--(int)
 			{
-				self_type ret(*this);
+				self_type ret = self_type(*this);
 				--ret;
 				return ret;
 			}

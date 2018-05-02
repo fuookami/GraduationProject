@@ -14,7 +14,7 @@ namespace SSUtils
 		class LogarithmWrapper
 		{
 		public:
-			typedef typename std::enable_if_t<Digits != 0, typename DecimalWrapper<Digits>::value_type> base_type, value_type;
+			typedef typename DecimalWrapper<Digits>::value_type base_type, value_type;
 			typedef LogarithmWrapper self_type;
 
 			static const String::RegexChecker RegexChecker;
@@ -22,8 +22,8 @@ namespace SSUtils
 			// constructors
 			LogarithmWrapper(void)
 				: m_base(0), m_antilogarithm(1) {};
-			LogarithmWrapper(const LogarithmWrapper &ano) = default;
-			LogarithmWrapper(LogarithmWrapper &&ano) = default;
+			LogarithmWrapper(const self_type &ano) = default;
+			LogarithmWrapper(self_type &&ano) = default;
 
 			LogarithmWrapper(const base_type &ano)
 				: m_base(ano), m_antilogarithm(1) 
@@ -90,7 +90,7 @@ namespace SSUtils
 				}
 				if (String::isDecimal(antilogarithm))
 				{
-					m_base.assign(antilogarithm);
+					m_antilogarithm.assign(antilogarithm);
 				}
 			}
 			LogarithmWrapper(const Block &base, const Block &antilogarithm)
@@ -130,116 +130,116 @@ namespace SSUtils
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &ano)
 			{
-				self_type ret(base_type(ano));
+				self_type ret = self_type(base_type(ano));
 				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &ano)
 			{
-				self_type ret(static_cast<base_type>(ano));
+				self_type ret = self_type(static_cast<base_type>(ano));
 				return ret;
 			}
 			template<>
 			static self_type generate<base_type>(const base_type &ano)
 			{
-				self_type ret(ano);
+				self_type ret = self_type(ano);
 				return ret;
 			}
 			template<>
 			static self_type generate<std::string>(const std::string &ano)
 			{
-				self_type ret(ano);
+				self_type ret = self_type(ano);
 				return ret;
 			}
 			template<>
 			static self_type generate<Block>(const Block &ano)
 			{
-				self_type ret(ano);
+				self_type ret = self_type(ano);
 				return ret;
 			}
 			template<bool Signed>
 			static self_type generate(const IntegerWrapper<Signed> &ano)
 			{
-				self_type ret(ano);
+				self_type ret = self_type(ano);
 				return ret;
 			}
 			template<uint32 _Digits>
 			static self_type generate(const DecimalWrapper<_Digits> &ano)
 			{
-				self_type ret(ano);
+				self_type ret = self_type(ano);
 				return ret;
 			}
 			template<uint32 _Digits>
 			static self_type generate(const RationalWrapper<_Digits> &ano)
 			{
-				self_type ret(ano);
+				self_type ret = self_type(ano);
 				return ret;
 			}
 			template<uint32 _Digits>
 			static self_type generate(const LogarithmWrapper<_Digits> &ano)
 			{
-				self_type ret(ano);
+				self_type ret = self_type(ano);
 				return ret;
 			}
 
 			template<typename T, typename U>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<U, self_type> && !std::is_same_v<T, U> && Data::ConversionChecker<T, base_type>::value && Data::ConversionChecker<U, base_type>::value, self_type> generate(const T &base, const U &antilogarithm)
 			{
-				self_type ret(base_type(base), base_type(antilogarithm));
+				self_type ret = self_type(base_type(base), base_type(antilogarithm));
 				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &base, const T &antilogarithm)
 			{
-				self_type ret(base_type(base), base_type(antilogarithm));
+				self_type ret = self_type(base_type(base), base_type(antilogarithm));
 				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &base, const T &antilogarithm)
 			{
-				self_type ret(static_cast<base_type>(base), static_cast<base_type>(antilogarithm));
+				self_type ret = self_type(static_cast<base_type>(base), static_cast<base_type>(antilogarithm));
 				return ret;
 			}
 			template<>
 			static self_type generate<base_type>(const base_type &base, const base_type &antilogarithm)
 			{
-				self_type ret(base, antilogarithm);
+				self_type ret = self_type(base, antilogarithm);
 				return ret;
 			}
 			template<>
 			static self_type generate<std::string>(const std::string &base, const std::string &antilogarithm)
 			{
-				self_type ret(base, antilogarithm);
+				self_type ret = self_type(base, antilogarithm);
 				return ret;
 			}
 			template<>
 			static self_type generate<Block>(const Block &base, const Block &antilogarithm)
 			{
-				self_type ret(base, antilogarithm);
+				self_type ret = self_type(base, antilogarithm);
 				return ret;
 			}
 			template<bool Signed1, bool Signed2>
 			static self_type generate(const IntegerWrapper<Signed1> &base, const IntegerWrapper<Signed2> &antilogarithm)
 			{
-				self_type ret(base, antilogarithm);
+				self_type ret = self_type(base, antilogarithm);
 				return ret;
 			}
 			template<uint32 Digits1, uint32 Digits2>
 			static self_type generate(const DecimalWrapper<Digits1> &base, const DecimalWrapper<Digits2> &antilogarithm)
 			{
-				self_type ret(base, antilogarithm);
+				self_type ret = self_type(base, antilogarithm);
 				return ret;
 			}
 			template<uint32 Digits1, uint32 Digits2>
 			static self_type generate(const RationalWrapper<Digits1> &base, const RationalWrapper<Digits2> &antilogarithm)
 			{
-				self_type ret(base, antilogarithm);
+				self_type ret = self_type(base, antilogarithm);
 				return ret;
 			}
 			template<uint32 Digits1, uint32 Digits2>
 			static self_type generate(const LogarithmWrapper<Digits1> &base, const LogarithmWrapper<Digits2> &antilogarithm)
 			{
-				self_type ret(base, antilogarithm);
+				self_type ret = self_type(base, antilogarithm);
 				return ret;
 			}
 
@@ -326,7 +326,7 @@ namespace SSUtils
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type>> &assign(const T &base, const T &antilogarithm)
+			typename std::enable_if_t<!std::is_same_v<T, self_type>, self_type> &assign(const T &base, const T &antilogarithm)
 			{
 				m_base.assign(base);
 				m_antilogarithm.assign(antilogarithm);
@@ -352,7 +352,7 @@ namespace SSUtils
 				}
 				if (String::isDecimal(antilogarithm))
 				{
-					m_base.assign(antilogarithm);
+					m_antilogarithm.assign(antilogarithm);
 				}
 				else
 				{
@@ -399,6 +399,7 @@ namespace SSUtils
 
 			// operator =
 			self_type &operator=(const self_type &rhs) = default;
+			self_type &operator=(self_type &&rhs) = default;
 			template<typename T>
 			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> &operator=(const T &rhs)
 			{
@@ -529,12 +530,12 @@ namespace SSUtils
 			// set and get
 			const bool valid(void) const { return m_base > 0 && m_base != 1 && m_antilogarithm > 0; }
 
-			base_type &base(void) { return m_base; }
-			const base_type &base(void) const { return m_base; }
+			base_type &getBase(void) { return m_base; }
+			const base_type &getBase(void) const { return m_base; }
 			template<typename T>
 			void setBase(const T &value) { m_base.assign(value); }
 			template<>
-			void setAntilogarithm(const std::string &value)
+			void setBase(const std::string &value)
 			{
 				if (String::isDecimal(value))
 				{
@@ -548,8 +549,8 @@ namespace SSUtils
 			template<>
 			void setBase<Block>(const Block &value) { m_base.assign(String::base64Decode(Data::toString(value))); }
 
-			base_type &antilogarithm(void) { return m_antilogarithm; }
-			const base_type &antilogarithm(void) { return m_antilogarithm; }
+			base_type &getAntilogarithm(void) { return m_antilogarithm; }
+			const base_type &getAntilogarithm(void) const { return m_antilogarithm; }
 			template<typename T>
 			void setAntilogarithm(const T &value) { m_antilogarithm.assign(value); }
 			template<>
@@ -567,7 +568,7 @@ namespace SSUtils
 			template<>
 			void setAntilogarithm<Block>(const Block &value) { m_base.assign(String::base64Decode(Data::toString(value))); }
 
-			value_type value(void) const { log(m_base, m_antilogarithm); }
+			value_type value(void) const { return log(m_base, m_antilogarithm); }
 			DecimalWrapper<Digits> value_dec_wrapper(void) const { return DecimalWrapper<Digits>(value); }
 			operator value_type(void) const { return value(); }
 
@@ -575,7 +576,7 @@ namespace SSUtils
 			std::string toString(const std::ios_base::fmtflags flags = std::ios::fixed) const 
 			{
 				std::ostringstream sout;
-				sout << "log(" << m_base.str(Digits, flags) << ',' << m_antilogarithm.str(Digits, flags) << ')' << std::endl;
+				sout << "log(" << m_base.str(Digits, flags) << ',' << m_antilogarithm.str(Digits, flags) << ')';
 				return sout.str();
 			}
 			Block toBlock(const std::ios_base::fmtflags flags = std::ios::fixed) const { return Data::fromString(String::base64Encode(toString(flags))); }
@@ -628,25 +629,37 @@ namespace SSUtils
 		};
 
 		template<uint32 Digits>
-		const String::RegexChecker LogarithmWrapper<Digits>::RegexChecker(std::string("^log(-?(0|[1-9]\\d*)(.\\d*)?,-?(0|[1-9]\\d*)(.\\d*)?)$"));
+		const String::RegexChecker LogarithmWrapper<Digits>::RegexChecker(std::string("^log\\(-?(0|[1-9]\\d*)(.\\d*)?,-?(0|[1-9]\\d*)(.\\d*)?\\)$"));
 	};
 };
 
-template<uint32 Digits, typename T>
+template<SSUtils::uint32 Digits>
+const bool operator==(const SSUtils::Math::LogarithmWrapper<Digits> &lhs, const SSUtils::Math::LogarithmWrapper<Digits> &rhs)
+{
+	return lhs.valid() && rhs.valid() && lhs.m_base == rhs.m_base && lhs.m_antilogarithm == rhs.m_antilogarithm;
+}
+
+template<SSUtils::uint32 Digits>
+const bool operator!=(const SSUtils::Math::LogarithmWrapper<Digits> &lhs, const SSUtils::Math::LogarithmWrapper<Digits> &rhs)
+{
+	return lhs.valid() && rhs.valid() || lhs.m_base != rhs.m_base || lhs.m_antilogarithm != rhs.m_antilogarithm;
+}
+
+template<SSUtils::uint32 Digits, typename T>
 SSUtils::Math::LogarithmWrapper<Digits> operator*(const SSUtils::Math::LogarithmWrapper<Digits> &lhs, const T &rhs)
 {
 	SSUtils::Math::LogarithmWrapper<Digits> ret(lhs);
 	ret *= rhs;
 	return ret;
 }
-template<uint32 Digits, typename T>
+template<SSUtils::uint32 Digits, typename T>
 SSUtils::Math::LogarithmWrapper<Digits> operator*(const T &lhs, const SSUtils::Math::LogarithmWrapper<Digits> &rhs)
 {
 	SSUtils::Math::LogarithmWrapper<Digits> ret(rhs);
 	ret *= lhs;
 	return ret;
 }
-template<uint32 Digits1, uint32 Digits2>
+template<SSUtils::uint32 Digits1, SSUtils::uint32 Digits2>
 SSUtils::Math::LogarithmWrapper<Digits1> operator*(const SSUtils::Math::LogarithmWrapper<Digits1> &lhs, const SSUtils::Math::LogarithmWrapper<Digits2> &rhs)
 {
 	SSUtils::Math::LogarithmWrapper<Digits> ret(lhs);
@@ -654,7 +667,7 @@ SSUtils::Math::LogarithmWrapper<Digits1> operator*(const SSUtils::Math::Logarith
 	return ret;
 }
 
-template<uint32 Digits>
+template<SSUtils::uint32 Digits>
 std::istream &operator>>(std::istream &is, SSUtils::Math::LogarithmWrapper<Digits> &ret)
 {
 	std::string str;
@@ -662,7 +675,7 @@ std::istream &operator>>(std::istream &is, SSUtils::Math::LogarithmWrapper<Digit
 	ret.assign(str);
 	return is;
 }
-template<uint32 Digits>
+template<SSUtils::uint32 Digits>
 std::ostream &operator<<(std::ostream &os, SSUtils::Math::LogarithmWrapper<Digits> &value)
 {
 	os << value.toString();

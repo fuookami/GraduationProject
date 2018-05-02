@@ -77,7 +77,7 @@ namespace SSUtils
 		template<typename T>
 		T log(const T &base, const T &antilogarithm)
 		{
-			return static_cast<T>(::log(antilogarithm) / ::log(base));
+			return static_cast<T>(log(antilogarithm) / log(base));
 		}
 	};
 };

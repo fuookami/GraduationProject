@@ -58,31 +58,31 @@ namespace SSUtils
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
 			{
-				self_type ret(value_type(value), digits);
+				self_type ret = self_type(value_type(value), digits);
 				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
 			{
-				self_type ret(static_cast<value_type>(value), digits);
+				self_type ret = self_type(static_cast<value_type>(value), digits);
 				return ret;
 			}
 			template<>
 			static self_type generate<value_type>(const value_type &value, const uint32 digits)
 			{
-				self_type ret(value, digits);
+				self_type ret = self_type(value, digits);
 				return ret;
 			}
 			template<>
 			static self_type generate<std::string>(const std::string &value, const uint32 digits)
 			{
-				self_type ret(value, digits);
+				self_type ret = self_type(value, digits);
 				return ret;
 			}
 			template<>
 			static self_type generate<Block>(const Block &value, const uint32 digits)
 			{
-				self_type ret(value, digits);
+				self_type ret = self_type(value, digits);
 				return ret;
 			}
 
@@ -338,13 +338,13 @@ namespace SSUtils
 			}
 			self_type operator++(int)
 			{
-				self_type ret(*this);
+				self_type ret = self_type(*this);
 				++ret;
 				return ret;
 			}
 			self_type operator--(int)
 			{
-				self_type ret(*this);
+				self_type ret = self_type(*this);
 				--ret;
 				return ret;
 			}

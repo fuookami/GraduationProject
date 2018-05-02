@@ -55,6 +55,12 @@ int main(void)
 	dec50 _d(r.value_dec());
 	std::cout << _d << ' ' << _r1.roundToInteger() << std::endl;
 
+	Logarithm log(Logarithm::generate(10, 100));
+	std::cout << log << ' ' << log.value() << std::endl;
+	Logarithm _log(log.toString()), __log(log.toBlock());
+	std::cout << _log << ' ' << _log.value() << std::endl;
+	std::cout << __log << ' ' << __log.value() << std::endl;
+
 	system("pause");
 	return 0;
 }
