@@ -97,7 +97,7 @@ namespace SSUtils
 				value_type::assign(value_type(m_numerator, m_denominator));
 			}
 			RationalWrapper(const Block &numerator, const Block &denominator)
-				: RationalWrapper(String::HexStringSuffix + Data::toHexString(numerator), String::HexStringSuffix + Data::toHexString(denominator))
+				: RationalWrapper(String::HexStringPrefix + Data::toHexString(numerator), String::HexStringPrefix + Data::toHexString(denominator))
 			{
 			}
 			template<typename T, typename U>
@@ -318,7 +318,7 @@ namespace SSUtils
 			template<>
 			self_type &assign<Block>(const Block &numerator, const Block &denominator)
 			{
-				assign(String::HexStringSuffix + Data::toHexString(numerator), String::HexStringSuffix + Data::toHexString(denominator));
+				assign(String::HexStringPrefix + Data::toHexString(numerator), String::HexStringPrefix + Data::toHexString(denominator));
 			}
 			template<bool Signed1, bool Signed2>
 			self_type &assign(const IntegerWrapper<Signed1> &numerator, const IntegerWrapper<Signed2> &denominator)
@@ -709,14 +709,81 @@ namespace SSUtils
 
 			const base_type &getNumerator(void) const { return m_numerator; }
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, base_type>::value, void> setNumerator(const T &numerator) { refresh(base_type(numerator), m_denominator); }
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, void> setNumerator(const T &numerator) 
+			{
+				assign(base_type(numerator), m_denominator);
+			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, base_type>::value, void> setNumerator(const T &numerator) { refresh(static_cast<base_type>(numerator), m_denominator); }
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, void> setNumerator(const T &numerator) 
+			{ 
+				assign(static_cast<base_type>(numerator), m_denominator); 
+			}
+			template<>
+			void setNumerator<base_type>(const base_type &numerator)
+			{
+				assign(numerator, m_denominator);
+			}
+			template<>
+			void setNumerator<std::string>(const std::string &numerator)
+			{
+				if (String::isInteger(numerator))
+				{
+					assign(base_type(numerator), m_denominator);
+				}
+				else
+				{
+					assign(base_type(0), m_denominator);
+				}
+			}
+			template<>
+			void setNumerator<Block>(const Block &numerator)
+			{
+				setNumerator(String::HexStringPrefix + Data::toHexString(numerator));
+			}
+			template<bool Signed>
+			void setNumerator(const IntegerWrapper<Signed> &numerator)
+			{
+				assign(numerator.value(), m_denominator);
+			}
+
 			const base_type &getDenominator(void) const { return m_denominator; }
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, base_type>::value, void> setDenominator(const T &denominator) { refresh(m_numerator, base_type(denominator)); }
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, void> setDenominator(const T &denominator)
+			{ 
+				assign(m_numerator, base_type(denominator)); 
+			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, base_type>::value, void> setDenominator(const T &denominator) { refresh(m_numerator, static_cast<base_type>(denominator)); }
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, void> setDenominator(const T &denominator) 
+			{ 
+				assign(m_numerator, static_cast<base_type>(denominator));
+			}
+			template<>
+			void setDenominator<base_type>(const base_type &denominator)
+			{
+				assign(m_numerator, denominator);
+			}
+			template<>
+			void setDenominator<std::string>(const std::string &denominator)
+			{
+				if (String::isInteger(denominator))
+				{
+					assign(m_numerator, base_type(denominator));
+				}
+				else
+				{
+					assign(m_numerator, 0);
+				}
+			}
+			template<>
+			void setDenominator<Block>(const Block &denominator)
+			{
+				setDenominator(String::HexStringPrefix + Data::toHexString(numerator));
+			}
+			template<bool Signed>
+			void setDenominator(const IntegerWrapper<Signed> &denominator)
+			{
+				assign(m_numerator, denominator.value());
+			}
 
 			const value_type &value(void) const { return *this; }
 			decimal_type value_dec(void) const { return convert_to<decimal_type>(); }

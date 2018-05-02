@@ -38,7 +38,7 @@ namespace SSUtils
 
 		extern const std::string SpaceCharacters;
 
-		extern const std::string HexStringSuffix;
+		extern const std::string HexStringPrefix;
 
 		extern const std::map<CharType, std::string> CharTypeCode;
 

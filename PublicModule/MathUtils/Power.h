@@ -253,19 +253,19 @@ namespace SSUtils
 			template<typename T>
 			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> &assign(const T &ano)
 			{
-				m_index.assign(pow(m_base, base_type(ano)));
+				m_index.assign(log(m_base, base_type(ano)));
 				return *this;
 			}
 			template<typename T>
 			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> &assign(const T &ano)
 			{
-				m_index.assign(pow(m_base, static_cast<base_type>(ano)));
+				m_index.assign(log(m_base, static_cast<base_type>(ano)));
 				return *this;
 			}
 			template<>
 			self_type &assign<base_type>(const base_type &ano)
 			{
-				m_index.assign(pow(m_base, ano));
+				m_index.assign(log(m_base, ano));
 				return *this;
 			}
 			template<>
@@ -282,7 +282,7 @@ namespace SSUtils
 				}
 				else if (String::isDecimal(ano))
 				{
-					m_index.assign(pow(m_base, base_type(ano)));
+					m_index.assign(log(m_base, base_type(ano)));
 				}
 				return *this;
 			}
@@ -295,19 +295,19 @@ namespace SSUtils
 			template<bool Signed>
 			self_type &assign(const IntegerWrapper<Signed> &ano)
 			{
-				m_index.assign(pow(m_base, ano.get<base_type>()));
+				m_index.assign(log(m_base, ano.get<base_type>()));
 				return *this;
 			}
 			template<uint32 _Digits>
 			self_type &assign(const DecimalWrapper<_Digits> &ano)
 			{
-				m_index.assign(pow(m_base, ano.get<base_type>()));
+				m_index.assign(log(m_base, ano.get<base_type>()));
 				return *this;
 			}
 			template<uint32 _Digits>
 			self_type &assign(const RationalWrapper<_Digits> &ano)
 			{
-				m_index.assign(pow(m_base, ano.get<base_type>()));
+				m_index.assign(log(m_base, ano.get<base_type>()));
 				return *this;
 			}
 			template<uint32 _Digits>
@@ -403,19 +403,19 @@ namespace SSUtils
 			template<typename T>
 			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> &operator=(const T &rhs)
 			{
-				m_index.assign(pow(m_base, base_type(rhs)));
+				m_index.assign(log(m_base, base_type(rhs)));
 				return *this;
 			}
 			template<typename T>
 			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> &operator=(const T &rhs)
 			{
-				m_index.assign(pow(m_base, static_cast<base_type>(rhs)));
+				m_index.assign(log(m_base, static_cast<base_type>(rhs)));
 				return *this;
 			}
 			template<>
 			self_type &operator=<base_type>(const base_type &rhs)
 			{
-				m_index.assign(pow(m_base, rhs));
+				m_index.assign(log(m_base, rhs));
 				return *this;
 			}
 			template<>
@@ -432,7 +432,7 @@ namespace SSUtils
 				}
 				else if (String::isDecimal(rhs))
 				{
-					m_index.assign(pow(m_base, base_type(rhs)));
+					m_index.assign(log(m_base, base_type(rhs)));
 				}
 				return *this;
 			}
@@ -445,19 +445,19 @@ namespace SSUtils
 			template<bool Signed>
 			self_type &operator=(const IntegerWrapper<Signed> &ano)
 			{
-				m_index.assign(pow(m_base, ano.get<base_type>()));
+				m_index.assign(log(m_base, ano.get<base_type>()));
 				return *this;
 			}
 			template<uint32 _Digits>
 			self_type &operator=(const DecimalWrapper<_Digits> &ano)
 			{
-				m_index.assign(pow(m_base, ano.get<base_type>()));
+				m_index.assign(log(m_base, ano.get<base_type>()));
 				return *this;
 			}
 			template<uint32 _Digits>
 			self_type &operator=(const RationalWrapper<_Digits> &ano)
 			{
-				m_index.assign(pow(m_base, ano.get<base_type>()));
+				m_index.assign(log(m_base, ano.get<base_type>()));
 				return *this;
 			}
 			template<uint32 _Digits>
@@ -488,7 +488,30 @@ namespace SSUtils
 				}
 			}
 			template<>
-			void setBase<Block>(const Block &value) { m_base.assign(String::base64Decode(Data::toString(value))); }
+			void setBase<Block>(const Block &value) 
+			{ 
+				setBase(String::base64Decode(Data::toString(value))); 
+			}
+			template<bool Signed>
+			void setBase(const IntegerWrapper<Signed> &value)
+			{
+				m_base.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			void setBase(const DecimalWrapper<_Digits> &value)
+			{
+				m_base.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			void setBase(const RationalWrapper<_Digits> &value)
+			{
+				m_base.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<_Digits != Digits, void> setBase(const LogarithmWrapper<_Digits> &value)
+			{
+				m_base.assign(value.get<base_type>());
+			}
 
 			base_type &getIndex(void) { return m_index; }
 			const base_type &getIndex(void) const { return m_index; }
@@ -507,9 +530,32 @@ namespace SSUtils
 				}
 			}
 			template<>
-			void setIndex<Block>(const Block &value) { m_base.assign(String::base64Decode(Data::toString(value))); }
+			void setIndex<Block>(const Block &value) 
+			{ 
+				setIndex(String::base64Decode(Data::toString(value))); 
+			}
+			template<bool Signed>
+			void setIndex(const IntegerWrapper<Signed> &value)
+			{
+				m_index.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			void setIndex(const DecimalWrapper<_Digits> &value)
+			{
+				m_index.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			void setIndex(const RationalWrapper<_Digits> &value)
+			{
+				m_index.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<_Digits != Digits, void> setIndex(const LogarithmWrapper<_Digits> &value)
+			{
+				m_index.assign(value.get<base_type>());
+			}
 
-			value_type value(void) const { return log(m_base, m_index); }
+			value_type value(void) const { return pow(m_base, m_index); }
 			DecimalWrapper<Digits> value_dec_wrapper(void) const { return DecimalWrapper<Digits>(value); }
 			operator value_type(void) const { return value(); }
 
@@ -517,7 +563,7 @@ namespace SSUtils
 			std::string toString(const std::ios_base::fmtflags flags = std::ios::fixed) const
 			{
 				std::ostringstream sout;
-				sout << "log(" << m_base.str(Digits, flags) << ',' << m_index.str(Digits, flags) << ')';
+				sout << "pow(" << m_base.str(Digits, flags) << ',' << m_index.str(Digits, flags) << ')';
 				return sout.str();
 			}
 			Block toBlock(const std::ios_base::fmtflags flags = std::ios::fixed) const { return Data::fromString(String::base64Encode(toString(flags))); }
@@ -570,7 +616,7 @@ namespace SSUtils
 		};
 
 		template<uint32 Digits>
-		const String::RegexChecker PowerWrapper<Digits>::RegexChecker(std::string("^log\\(-?(0|[1-9]\\d*)(.\\d*)?,-?(0|[1-9]\\d*)(.\\d*)?\\)$"));
+		const String::RegexChecker PowerWrapper<Digits>::RegexChecker(std::string("^pow\\(-?(0|[1-9]\\d*)(.\\d*)?,-?(0|[1-9]\\d*)(.\\d*)?\\)$"));
 	};
 };
 
@@ -587,25 +633,19 @@ const bool operator!=(const SSUtils::Math::PowerWrapper<Digits> &lhs, const SSUt
 }
 
 template<SSUtils::uint32 Digits, typename T>
-SSUtils::Math::PowerWrapper<Digits> operator*(const SSUtils::Math::PowerWrapper<Digits> &lhs, const T &rhs)
+SSUtils::Math::PowerWrapper<Digits> pow(const SSUtils::Math::PowerWrapper<Digits> &lhs, const T &rhs)
 {
-	SSUtils::Math::PowerWrapper<Digits> ret(lhs);
-	ret *= rhs;
-	return ret;
+	return SSUtils::Math::PowerWrapper<Digits>(lhs.getBase(), lhs.getIndex() * static_cast<typename SSUtils::Math::PowerWrapper<Digits>::base_type>(rhs));
 }
 template<SSUtils::uint32 Digits, typename T>
-SSUtils::Math::PowerWrapper<Digits> operator*(const T &lhs, const SSUtils::Math::PowerWrapper<Digits> &rhs)
+typename SSUtils::Math::PowerWrapper<Digits>::value_type pow(const T &lhs, const SSUtils::Math::PowerWrapper<Digits> &rhs)
 {
-	SSUtils::Math::PowerWrapper<Digits> ret(rhs);
-	ret *= lhs;
-	return ret;
+	return rhs.value() * lhs;
 }
 template<SSUtils::uint32 Digits1, SSUtils::uint32 Digits2>
-SSUtils::Math::PowerWrapper<Digits1> operator*(const SSUtils::Math::PowerWrapper<Digits1> &lhs, const SSUtils::Math::PowerWrapper<Digits2> &rhs)
+SSUtils::Math::PowerWrapper<Digits1> pow(const SSUtils::Math::PowerWrapper<Digits1> &lhs, const SSUtils::Math::LogarithmWrapper<Digits2> &rhs)
 {
-	SSUtils::Math::PowerWrapper<Digits> ret(lhs);
-	ret *= rhs;
-	return ret;
+	return SSUtils::Math::PowerWrapper<Digits>(lhs.getBase(), lhs.getIndex() * rhs.get<typename SSUtils::Math::PowerWrapper<Digits>::base_type>());
 }
 
 template<SSUtils::uint32 Digits>

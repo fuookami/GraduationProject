@@ -39,7 +39,7 @@ namespace SSUtils
 			return ret;
 		}();
 
-		const std::string HexStringSuffix("0x");
+		const std::string HexStringPrefix("0x");
 
 		const std::map<CharType, std::string> CharTypeCode =
 		{

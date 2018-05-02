@@ -41,7 +41,7 @@ namespace SSUtils
 				setDigit(digits);
 			}
 			IntegerWrapper(const Block &block, const uint32 digits = 0)
-				: IntegerWrapper(String::HexStringSuffix + Data::toHexString(block), digits)
+				: IntegerWrapper(String::HexStringPrefix + Data::toHexString(block), digits)
 			{
 			}
 
@@ -117,7 +117,7 @@ namespace SSUtils
 			template<>
 			self_type &assign<Block>(const Block &ano, const uint32 digits)
 			{
-				assign(String::HexStringSuffix + Data::toHexString(ano), digits);
+				assign(String::HexStringPrefix + Data::toHexString(ano), digits);
 				return *this;
 			}
 			self_type &swap(value_type &ano)
@@ -167,7 +167,7 @@ namespace SSUtils
 			template<>
 			self_type &operator=<Block>(const Block &rhs)
 			{
-				operator=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -206,7 +206,7 @@ namespace SSUtils
 			template<>
 			self_type &operator+=<Block>(const Block &rhs)
 			{
-				operator+=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator+=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -244,7 +244,7 @@ namespace SSUtils
 			template<>
 			self_type &operator-=<Block>(const Block &rhs)
 			{
-				operator+=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator+=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -282,7 +282,7 @@ namespace SSUtils
 			template<>
 			self_type &operator*=<Block>(const Block &rhs)
 			{
-				operator*=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator*=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -320,7 +320,7 @@ namespace SSUtils
 			template<>
 			self_type &operator/=<Block>(const Block &rhs)
 			{
-				operator/=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator/=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -383,7 +383,7 @@ namespace SSUtils
 			template<>
 			self_type &operator%=<Block>(const Block &rhs)
 			{
-				operator%=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator%=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -421,7 +421,7 @@ namespace SSUtils
 			template<>
 			self_type &operator|=<Block>(const Block &rhs)
 			{
-				operator|=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator|=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -459,7 +459,7 @@ namespace SSUtils
 			template<>
 			self_type &operator^=<Block>(const Block &rhs)
 			{
-				operator^=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator^=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -497,7 +497,7 @@ namespace SSUtils
 			template<>
 			self_type &operator<<=<Block>(const Block &rhs)
 			{
-				operator<<=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator<<=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 
@@ -535,7 +535,7 @@ namespace SSUtils
 			template<>
 			self_type &operator>>=<Block>(const Block &rhs)
 			{
-				operator>>=(String::HexStringSuffix + Data::toHexString(rhs));
+				operator>>=(String::HexStringPrefix + Data::toHexString(rhs));
 				return *this;
 			}
 

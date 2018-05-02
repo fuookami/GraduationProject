@@ -61,6 +61,12 @@ int main(void)
 	std::cout << _log << ' ' << _log.value() << std::endl;
 	std::cout << __log << ' ' << __log.value() << std::endl;
 
+	Power pow(Power::generate(10, 2));
+	std::cout << pow << ' ' << pow.value() << std::endl;
+	Power _pow(pow.toString()), __pow(pow.toBlock());
+	std::cout << _pow << ' ' << _pow.value() << std::endl;
+	std::cout << __pow << ' ' << __pow.value() << std::endl;
+
 	system("pause");
 	return 0;
 }

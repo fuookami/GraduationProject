@@ -533,7 +533,10 @@ namespace SSUtils
 			base_type &getBase(void) { return m_base; }
 			const base_type &getBase(void) const { return m_base; }
 			template<typename T>
-			void setBase(const T &value) { m_base.assign(value); }
+			void setBase(const T &value) 
+			{ 
+				m_base.assign(value); 
+			}
 			template<>
 			void setBase(const std::string &value)
 			{
@@ -547,7 +550,30 @@ namespace SSUtils
 				}
 			}
 			template<>
-			void setBase<Block>(const Block &value) { m_base.assign(String::base64Decode(Data::toString(value))); }
+			void setBase<Block>(const Block &value) 
+			{ 
+				setBase(String::base64Decode(Data::toString(value))); 
+			}
+			template<bool Signed>
+			void setBase(const IntegerWrapper<Signed> &value)
+			{
+				m_base.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			void setBase(const DecimalWrapper<_Digits> &value)
+			{
+				m_base.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			void setBase(const RationalWrapper<_Digits> &value)
+			{
+				m_base.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<_Digits != Digits, void> setBase(const LogarithmWrapper<_Digits> &value)
+			{
+				m_base.assign(value.get<base_type>());
+			}
 
 			base_type &getAntilogarithm(void) { return m_antilogarithm; }
 			const base_type &getAntilogarithm(void) const { return m_antilogarithm; }
@@ -566,7 +592,30 @@ namespace SSUtils
 				}
 			}
 			template<>
-			void setAntilogarithm<Block>(const Block &value) { m_base.assign(String::base64Decode(Data::toString(value))); }
+			void setAntilogarithm<Block>(const Block &value) 
+			{
+				setAntilogarithm(String::base64Decode(Data::toString(value))); 
+			}
+			template<bool Signed>
+			void setAntilogarithm(const IntegerWrapper<Signed> &value)
+			{
+				m_antilogarithm.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			void setAntilogarithm(const DecimalWrapper<_Digits> &value)
+			{
+				m_antilogarithm.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			void setAntilogarithm(const RationalWrapper<_Digits> &value)
+			{
+				m_antilogarithm.assign(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<_Digits != Digits, void> setAntilogarithm(const LogarithmWrapper<_Digits> &value)
+			{
+				m_antilogarithm.assign(value.get<base_type>());
+			}
 
 			value_type value(void) const { return log(m_base, m_antilogarithm); }
 			DecimalWrapper<Digits> value_dec_wrapper(void) const { return DecimalWrapper<Digits>(value); }
