@@ -30,14 +30,16 @@ namespace SSUtils
 			RationalWrapper(const self_type &ano) = default;
 			RationalWrapper(self_type &&ano) = default;
 
-			template<typename T>
-			RationalWrapper(const T &ano)
-				: value_type(0), m_numerator(0), m_denominator(0)
+			RationalWrapper(const base_type &ano)
+				: value_type(ano)
 			{
-				assign(ano);
 				refresh();
 			}
-			template<>
+			RationalWrapper(const value_type &ano)
+				: value_type(ano)
+			{
+				refresh();
+			}
 			RationalWrapper(const std::string &str)
 				: value_type(0)
 			{
@@ -45,87 +47,99 @@ namespace SSUtils
 				{
 					value_type::assign(str);
 				}
+				else if (String::isInteger(str))
+				{
+					value_type::assign(base_type(str));
+				}
 				refresh();
 			}
-			template<>
 			RationalWrapper(const Block &block)
 				: RationalWrapper(String::base64Decode(Data::toString(block)))
 			{
 				refresh();
 			}
-			template<>
-			RationalWrapper(const base_type &ano)
-				: value_type(ano)
+			template<typename T>
+			RationalWrapper(const T &ano)
+				: value_type(0)
 			{
-				refresh();
-			}
-			template<>
-			RationalWrapper(const value_type &ano)
-				: value_type(ano)
-			{
+				value_type::assign(ano);
 				refresh();
 			}
 			template<bool Signed>
 			RationalWrapper(const IntegerWrapper<Signed> &ano)
-				: value_type(ano.value())
+				: value_type(ano.get<value_type>())
+			{
+				refresh();
+			}
+			template<uint32 _Digits>
+			RationalWrapper(const RationalWrapper<_Digits> &ano)
+				: RationalWrapper(ano.get<value_type>())
 			{
 				refresh();
 			}
 
-			template<typename T>
-			RationalWrapper(const T &numerator, const T &denominator)
-				: value_type(0), m_numerator(0), m_denominator(0)
+			RationalWrapper(const base_type &numerator, const base_type &denominator)
+				: value_type(numerator, denominator), m_numerator(0), m_denominator(1)
 			{
-				refresh(numerator, denominator);
+				refresh();
 			}
-			template<>
 			RationalWrapper(const std::string &numerator, const std::string &denominator)
-				: value_type(0), m_numerator(0), m_denominator(0)
+				: value_type(0), m_numerator(0), m_denominator(1)
 			{
-				auto r1(String::isInteger(numerator)), r2(String::isInteger(denominator));
-				if (r1 && r2)
+				if (String::isInteger(numerator))
 				{
-					refresh(base_type(numerator), base_type(denominator));
+					m_numerator.assign(numerator);
 				}
-				else if (r1)
+				if (String::isInteger(denominator))
 				{
-					refresh(base_type(numerator), base_type(0));
+					m_denominator.assign(denominator);
 				}
-				else if (r2)
-				{
-					refresh(base_type(0), base_type(denominator));
-				}
-			}	
-			template<>
+				value_type::assign(value_type(m_numerator, m_denominator));
+			}
 			RationalWrapper(const Block &numerator, const Block &denominator)
 				: RationalWrapper(String::HexStringSuffix + Data::toHexString(numerator), String::HexStringSuffix + Data::toHexString(denominator))
 			{
 			}
-			template<>
-			RationalWrapper(const base_type &numerator, const base_type &denominator)
-				: value_type(0), m_numerator(0), m_denominator(0)
+			template<typename T, typename U>
+			RationalWrapper(const T &numerator, const U &denominator)
+				: RationalWrapper(generate(numerator, denominator))
 			{
-				refresh(numerator, denominator);
 			}
-			template<bool Signed>
-			RationalWrapper(const IntegerWrapper<Signed> &numerator, const IntegerWrapper<Signed> &denominator)
-				: value_type(0), m_numerator(0), m_denominator(0)
+			template<typename T>
+			RationalWrapper(const T &numerator, const T &denominator)
+				: RationalWrapper(generate(numerator, denominator))
 			{
-				refresh(numerator, denominator);
+			}
+			template<bool Signed1, bool Signed2>
+			RationalWrapper(const IntegerWrapper<Signed1> &numerator, const IntegerWrapper<Signed2> &denominator)
+				: RationalWrapper(numerator.get<base_type>(), denominator.get<base_type>())
+			{
 			}
 
 			// destructor
 			~RationalWrapper(void) = default;
 
-			// generators
+			// generators: to do
 			template<typename T>
-			static std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &value)
+			{
+				self_type ret(base_type(value));
+				return ret;
+			}
+			template<typename T>
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &value)
+			{
+				self_type ret(static_cast<base_type>(value));
+				return ret;
+			}
+			template<>
+			static self_type generate<base_type>(const base_type &value)
 			{
 				self_type ret(value);
 				return ret;
 			}
-			template<typename T>
-			static std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value)
+			template<>
+			static self_type generate<value_type>(const value_type &value)
 			{
 				self_type ret(value);
 				return ret;
@@ -145,19 +159,32 @@ namespace SSUtils
 			template<bool Signed>
 			static self_type generate(const IntegerWrapper<Signed> &value)
 			{
-				self_type ret(value.value());
+				self_type ret(value.get<base_type>());
 				return ret;
 			}
-			template<typename T>
-			static std::enable_if_t<Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &numerator, const T &denominator)
+
+			template<typename T, typename U>
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<U, self_type> && !std::is_same_v<T, U> && Data::ConversionChecker<T, base_type>::value && Data::ConversionChecker<U, base_type>::value, self_type> generate(const T &numerator, const U &denominator)
 			{
-				self_type ret(numerator, denominator);
+				self_type ret(base_type(numerator), base_type(denominator));
 				return ret;
 			}
 			template<typename T>
-			static std::enable_if_t<!Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &numerator, const T &denominator)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<T, value_type> && Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &numerator, const T &denominator)
+			{
+				self_type ret(base_type(numerator), base_type(denominator));
+				return ret;
+			}
+			template<typename T>
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<T, value_type> && !Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &numerator, const T &denominator)
 			{
 				self_type ret(static_cast<base_type>(numerator), static_cast<base_type>(denominator));
+				return ret;
+			}
+			template<>
+			static self_type generate<base_type>(const base_type &numerator, const base_type &denominator)
+			{
+				self_type ret(numerator, denominator);
 				return ret;
 			}
 			template<>
@@ -175,7 +202,7 @@ namespace SSUtils
 			template<bool Signed>
 			static self_type generate(const IntegerWrapper<Signed> &numerator, const IntegerWrapper<Signed> &denominator)
 			{
-				self_type ret(numerator.value(), denominator.value());
+				self_type ret(numerator.get<base_type>(), denominator.get<base_type>());
 				return ret;
 			}
 
@@ -186,20 +213,22 @@ namespace SSUtils
 				refresh();
 				return *this;
 			}
-			template<bool Signed>
-			self_type &assign(const IntegerWrapper<Signed> &ano)
+			template<typename T>
+			typename std::enable_if_t<!std::is_same_v<T, self_type>, self_type> &assign(const T &ano)
 			{
-				value_type::assign(ano.value());
+				value_type::assign(ano);
 				refresh();
 				return *this;
 			}
-			template<bool Signed>
-			self_type &assign(const IntegerWrapper<Signed> &numerator, const IntegerWrapper<Signed> &denominator)
+			template<>
+			self_type &assign<base_type>(const base_type &ano)
 			{
-				refresh(numerator.value(), denominator.value());
+				value_type::assign(ano);
+				refresh();
+				return *this;
 			}
-			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type>, self_type> &assign(const T &ano)
+			template<>
+			self_type &assign<value_type>(const value_type &ano)
 			{
 				value_type::assign(ano);
 				refresh();
@@ -212,6 +241,10 @@ namespace SSUtils
 				{
 					value_type::assign(ano);
 				}
+				else if (String::isInteger(ano))
+				{
+					value_type::assign(base_type(ano));
+				}
 				else
 				{
 					value_type::assign(0);
@@ -222,13 +255,51 @@ namespace SSUtils
 			template<>
 			self_type &assign<Block>(const Block &ano)
 			{
-				assign(String::base64Decode(Data::toString(block)));
+				assign(String::base64Decode(Data::toString(ano)));
+				return *this;
+			}
+			template<bool Signed>
+			self_type &assign(const IntegerWrapper<Signed> &ano)
+			{
+				value_type::assign(ano.get<base_type>());
+				refresh();
+				return *this;
+			}
+			template<uint32 _Digits>
+			static typename std::enable_if_t<_Digits != Digits, self_type> &assign(const RationalWrapper<_Digits> &ano)
+			{
+				value_type::assign(ano.value());
+				refresh();
+				return *this;
+			}
+			
+			template<typename T, typename U>
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<U, self_type> && !std::is_same_v<T, U> && Data::ConversionChecker<T, base_type>::value && Data::ConversionChecker<U, base_type>::value, self_type> &assign(const T &numerator, const U &denominator)
+			{
+				value_type::assign(value_type(base_type(numerator), base_type(denominator)));
+				refresh();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type>, self_type> &assign(const T &numerator, const T &denominator)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<T, value_type> && Data::ConversionChecker<T, base_type>::value, self_type> &assign(const T &numerator, const T &denominator)
 			{
-				refresh(numerator, denominator);
+				value_type::assign(value_type(base_type(numerator), base_type(denominator)));
+				refresh();
+				return *this;
+			}
+			template<typename T>
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<T, value_type> && !Data::ConversionChecker<T, base_type>::value, self_type> &assign(const T &numerator, const T &denominator)
+			{
+				value_type::assign(value_type(static_cast<base_type>(numerator), static_cast<base_type>(denominator)));
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &assign<base_type>(const base_type &numerator, const base_type &denominator)
+			{
+				value_type::assign(value_type(numerator, denominator));
+				refresh();
+				return *this;
 			}
 			template<>
 			self_type &assign<std::string>(const std::string &numerator, const std::string &denominator)
@@ -236,22 +307,30 @@ namespace SSUtils
 				auto r1(String::isInteger(numerator)), r2(String::isInteger(denominator));
 				if (r1 && r2)
 				{
-					refresh(base_type(numerator), base_type(denominator));
+					value_type::assign(value_type(base_type(numerator), base_type(denominator)));
 				}
 				else if (r1)
 				{
-					refresh(base_type(numerator), base_type(0));
+					value_type::assign(value_type(base_type(numerator), base_type(1)));
 				}
 				else if (r2)
 				{
-					refresh(base_type(0), base_type(denominator));
+					value_type::assign(value_type(base_type(0), base_type(denominator)));
 				}
+				refresh();
+				return *this;
 			}
 			template<>
 			self_type &assign<Block>(const Block &numerator, const Block &denominator)
 			{
 				assign(String::HexStringSuffix + Data::toHexString(numerator), String::HexStringSuffix + Data::toHexString(denominator));
 			}
+			template<bool Signed1, bool Signed2>
+			self_type &assign(const IntegerWrapper<Signed1> &numerator, const IntegerWrapper<Signed2> &denominator)
+			{
+				value_type::assign(value_type(numerator.get<base_type>(), denominator.get<base_type>()));
+			}
+
 			self_type &swap(value_type &ano)
 			{
 				value_type::swap(ano);
@@ -264,20 +343,42 @@ namespace SSUtils
 				refresh();
 				return *this;
 			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<_Digits != Digits, self_type> &swap(RationalWrapper<_Digits> &ano)
+			{
+				value_type::swap(dynamic_cast<value_type &>(ano));
+				refresh();
+				ano.refresh();
+				return *this;
+			}
 
 			// operator =
 			self_type &operator=(const self_type &rhs) = default;
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> &operator=(const T &rhs)
+			{
+				value_type::operator=(base_type(rhs));
+				refresh();
+				return *this;
+			}
+			template<typename T>
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> &operator=(const T &rhs)
+			{
+				value_type::assign(static_cast<base_type>(rhs));
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator=<base_type>(const base_type &rhs)
 			{
 				value_type::operator=(rhs);
 				refresh();
 				return *this;
 			}
-			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
+			template<>
+			self_type &operator=<value_type>(const value_type &rhs)
 			{
-				value_type::assign(rhs);
+				value_type::operator=(rhs);
 				refresh();
 				return *this;
 			}
@@ -287,6 +388,10 @@ namespace SSUtils
 				if (RegexChecker(rhs))
 				{
 					value_type::assign(rhs);
+				}
+				else if (String::isInteger(rhs))
+				{
+					value_type::assign(base_type(rhs));
 				}
 				else
 				{
@@ -298,7 +403,21 @@ namespace SSUtils
 			template<>
 			self_type &operator=<Block>(const Block &rhs)
 			{
-				operator=(String::base64Decode(Data::toString(block)));
+				operator=(String::base64Decode(Data::toString(rhs)));
+				return *this;
+			}
+			template<bool Signed>
+			self_type &operator=(const IntegerWrapper<Signed> &rhs)
+			{
+				value_type::operator=(rhs.get<base_type>());
+				refresh();
+				return *this;
+			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<Digits != _Digits, self_type> &operator=(const RationalWrapper<_Digits> &rhs)
+			{
+				value_type::operator=(rhs.value());
+				refresh();
 				return *this;
 			}
 
@@ -306,7 +425,7 @@ namespace SSUtils
 			template<typename T>
 			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator+=(const T &rhs)
 			{
-				value_type::operator+=(rhs);
+				value_type::operator+=(value_type(rhs));
 				refresh();
 				return *this;
 			}
@@ -318,6 +437,20 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator+=<base_type>(const base_type &rhs)
+			{
+				value_type::operator+=(rhs);
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator+=<value_type>(const value_type &rhs)
+			{
+				value_type::operator+=(rhs);
+				refresh();
+				return *this;
+			}
+			template<>
 			self_type &operator+=<std::string>(const std::string &rhs)
 			{
 				if (RegexChecker(rhs))
@@ -325,19 +458,36 @@ namespace SSUtils
 					value_type::operator+=(value_type(rhs));
 					refresh();
 				}
+				else if (String::isInteger(rhs))
+				{
+					value_type::operator+=(base_type(rhs));
+					refresh();
+				}
 				return *this;
 			}
 			template<>
 			self_type &operator+=<Block>(const Block &rhs)
 			{
-				operator+=(String::base64Decode(Data::toString(block)));
+				operator+=(String::base64Decode(Data::toString(rhs)));
+				return *this;
+			}
+			template<bool Signed>
+			self_type &operator+=(const IntegerWrapper<Signed> &rhs)
+			{
+				operator+=(rhs.get<base_type>());
+				return *this;
+			}
+			template<uint32 _Digits>
+			self_type &operator+=(const RationalWrapper<_Digits> &rhs)
+			{
+				operator+=(rhs.get<value_type>());
 				return *this;
 			}
 
 			template<typename T>
 			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator-=(const T &rhs)
 			{
-				value_type::operator-=(rhs);
+				value_type::operator-=(value_type(rhs));
 				refresh();
 				return *this;
 			}
@@ -349,6 +499,20 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator-=<base_type>(const base_type &rhs)
+			{
+				value_type::operator-=(rhs);
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator-=<value_type>(const value_type &rhs)
+			{
+				value_type::operator-=(rhs);
+				refresh();
+				return *this;
+			}
+			template<>
 			self_type &operator-=<std::string>(const std::string &rhs)
 			{
 				if (RegexChecker(rhs))
@@ -356,19 +520,36 @@ namespace SSUtils
 					value_type::operator-=(value_type(rhs));
 					refresh();
 				}
+				else if (String::isInteger(rhs))
+				{
+					value_type::operator-=(base_type(rhs));
+					refresh();
+				}
 				return *this;
 			}
 			template<>
 			self_type &operator-=<Block>(const Block &rhs)
 			{
-				operator-=(String::base64Decode(Data::toString(block)));
+				operator-=(String::base64Decode(Data::toString(rhs)));
+				return *this;
+			}
+			template<bool Signed>
+			self_type &operator-=(const IntegerWrapper<Signed> &rhs)
+			{
+				operator-=(rhs.get<base_type>());
+				return *this;
+			}
+			template<uint32 _Digits>
+			self_type &operator-=(const RationalWrapper<_Digits> &rhs)
+			{
+				operator-=(rhs.get<value_type>());
 				return *this;
 			}
 
 			template<typename T>
 			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator*=(const T &rhs)
 			{
-				value_type::operator*=(rhs);
+				value_type::operator*=(value_type(rhs));
 				refresh();
 				return *this;
 			}
@@ -380,11 +561,30 @@ namespace SSUtils
 				return *this;
 			}
 			template<>
+			self_type &operator*=<base_type>(const base_type &rhs)
+			{
+				value_type::operator*=(rhs);
+				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator*=<value_type>(const value_type &rhs)
+			{
+				value_type::operator*=(rhs);
+				refresh();
+				return *this;
+			}
+			template<>
 			self_type &operator*=<std::string>(const std::string &rhs)
 			{
 				if (RegexChecker(rhs))
 				{
-					value_type::operator+*=(value_type(rhs));
+					value_type::operator*=(value_type(rhs));
+					refresh();
+				}
+				else if (String::isInteger(rhs))
+				{
+					value_type::operator*=(base_type(rhs));
 					refresh();
 				}
 				return *this;
@@ -392,22 +592,62 @@ namespace SSUtils
 			template<>
 			self_type &operator*=<Block>(const Block &rhs)
 			{
-				operator*=(String::base64Decode(Data::toString(block)));
+				operator*=(String::base64Decode(Data::toString(rhs)));
+				return *this;
+			}
+			template<bool Signed>
+			self_type &operator*=(const IntegerWrapper<Signed> &rhs)
+			{
+				operator*=(rhs.get<base_type>());
+				return *this;
+			}
+			template<uint32 _Digits>
+			self_type &operator*=(const RationalWrapper<_Digits> &rhs)
+			{
+				operator*=(rhs.get<value_type>());
 				return *this;
 			}
 
 			template<typename T>
 			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
 			{
-				value_type::operator/=(rhs);
+				operator/=(value_type(rhs));
 				refresh();
 				return *this;
 			}
 			template<typename T>
 			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
 			{
-				value_type::operator/=(static_cast<value_type>(rhs));
+				operator/=(static_cast<value_type>(rhs));
 				refresh();
+				return *this;
+			}
+			template<>
+			self_type &operator/=<base_type>(const base_type &rhs)
+			{
+				if (rhs == 0)
+				{
+					clear();
+				}
+				else
+				{
+					value_type::operator/=(rhs);
+					refresh();
+				}
+				return *this;
+			}
+			template<>
+			self_type &operator/=<value_type>(const value_type &rhs)
+			{
+				if (rhs == 0)
+				{
+					clear();
+				}
+				else
+				{
+					value_type::operator/=(rhs);
+					refresh();
+				}
 				return *this;
 			}
 			template<>
@@ -415,7 +655,12 @@ namespace SSUtils
 			{
 				if (RegexChecker(rhs))
 				{
-					value_type::operator/=(value_type(rhs));
+					operator/=(value_type(rhs));
+					refresh();
+				}
+				else if (String::isInteger(rhs))
+				{
+					operator/=(base_type(rhs));
 					refresh();
 				}
 				return *this;
@@ -423,7 +668,19 @@ namespace SSUtils
 			template<>
 			self_type &operator/=<Block>(const Block &rhs)
 			{
-				operator/=(String::base64Decode(Data::toString(block)));
+				operator/=(String::base64Decode(Data::toString(rhs)));
+				return *this;
+			}
+			template<bool Signed>
+			self_type &operator/=(const IntegerWrapper<Signed> &rhs)
+			{
+				operator/=(rhs.get<base_type>());
+				return *this;
+			}
+			template<uint32 _Digits>
+			self_type &operator/=(const RationalWrapper<_Digits> &rhs)
+			{
+				operator/=(rhs.get<value_type>());
 				return *this;
 			}
 
@@ -467,7 +724,7 @@ namespace SSUtils
 			typename std::enable_if_t<!Data::ConversionChecker<T, base_type>::value, void> setDenominator(const T &denominator) { refresh(m_numerator, static_cast<base_type>(denominator)); }
 
 			const value_type &value(void) const { return *this; }
-			const decimal_type value_dec(void) const { return convert_to<decimal_type>(); }
+			decimal_type value_dec(void) const { return convert_to<decimal_type>(); }
 
 			// translators
 			std::string toString(const std::ios_base::fmtflags flags = 0) const { return str(0, flags); }
@@ -483,88 +740,42 @@ namespace SSUtils
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
 			template<typename T>
-			T get(void) const { return convert_to<T>(); }
+			typename std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
+			template<typename T>
+			typename std::enable_if_t<std::is_same_v<T, value_type>, const T &> get(void) const { return *this; }
 
 			template<uint32 _Digits = DefaultDigits>
-			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> round(void) const
+			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<_Digits>> round(void) const
 			{
-				static const decimal_type offset = decimal_type(5) * pow(decimal_type(10), -(static_cast<int64>(Digits) + 1));
-				return (value_dec() + offset).convert_to<decimal<Digits>>();
+				static const value_type offset = value_type(5) * pow(value_type(10), -(static_cast<int64>(_Digits) + 1));
+				return (value() + offset).convert_to<decimal<_Digits>>();
 			}
 			template<uint32 _Digits = DefaultDigits>
-			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> floor(void) const
+			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<_Digits>> floor(void) const
 			{
-				return value_dec().convert_to<decimal<Digits>>();
+				return value().convert_to<decimal<_Digits>>();
 			}
 			template<uint32 _Digits = DefaultDigits>
-			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> ceil(void) const
+			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<_Digits>> ceil(void) const
 			{
-				static const decimal_type offset = pow(decimal_type(10), -static_cast<int64>(Digits));
-				return (value_dec() + offset).convert_to<decimal<Digits>>();
+				static const value_type offset = pow(value_type(10), -static_cast<int64>(_Digits));
+				return (value() + offset).convert_to<decimal<_Digits>>();
 			}
 
-			Integer roundToInteger(void) const { return static_cast<Integer>(boost::math::round(value_dec())); }
-			Integer ceilToInteger(void) const { return floorToInteger() + 1; }
-			Integer floorToInteger(void) const { return static_cast<Integer>(value_dec()); }
+			integer roundToInteger(void) const { return static_cast<integer>(boost::math::round(value_dec())); }
+			integer ceilToInteger(void) const { return floorToInteger() + 1; }
+			integer floorToInteger(void) const { return static_cast<integer>(value_dec()); }
 
-		private:
 			void clear(void)
 			{
+				value_type::assign(0);
 				m_numerator.assign(0);
 				m_denominator.assign(0);
-				value_type::assign(0);
 			}
 			void refresh(void)
 			{
 				m_numerator.assign(boost::multiprecision::numerator(*this));
 				m_denominator.assign(boost::multiprecision::denominator(*this));
-			}
-			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, base_type>::value, void> refresh(const T &numerator, const T &denominator)
-			{
-				if (denominator != 0)
-				{
-					value_type::assign(numerator);
-					value_type::operator/=(base_type(denominator));
-					refresh();
-				}
-				else
-				{
-					clear();
-				}
-			}
-			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, base_type>::value, void> refresh(const T &numerator, const T &denominator)
-			{
-				if (denominator != 0)
-				{
-					value_type::assign(numerator);
-					value_type::operator/=(static_cast<base_type>(denominator));
-					refresh();
-				}
-				else
-				{
-					clear();
-				}
-			}
-			template<>
-			void refresh<base_type>(const base_type &numerator, const base_type &denominator)
-			{
-				if (denominator != 0)
-				{
-					value_type::assign(numerator);
-					value_type::operator/=(denominator);
-					refresh();
-				}
-				else
-				{
-					clear();
-				}
-			}
-			template<bool Signed>
-			void refresh(const IntegerWrapper<Signed> &numerator, const IntegerWrapper<Signed> &denominator)
-			{
-				refresh(numerator.value(), denominator.value());
 			}
 
 		private:

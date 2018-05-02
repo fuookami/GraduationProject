@@ -47,10 +47,8 @@ namespace SSUtils
 
 			template<typename T>
 			IntegerWrapper(const T &ano, const uint32 digits = 0)
-				: value_type(0)
+				: IntegerWrapper(generate(ano, digits))
 			{
-				value_type::assign(ano);
-				setDigit(digits);
 			}
 
 			// destructor
@@ -58,7 +56,19 @@ namespace SSUtils
 
 			// generators
 			template<typename T>
-			static std::enable_if_t<!std::is_same_v<T, self_type>, self_type> generate(const T &value, const uint32 digits = 0)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
+			{
+				self_type ret(value_type(value), digits);
+				return ret;
+			}
+			template<typename T>
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
+			{
+				self_type ret(static_cast<value_type>(value), digits);
+				return ret;
+			}
+			template<>
+			static self_type generate<value_type>(const value_type &value, const uint32 digits)
 			{
 				self_type ret(value, digits);
 				return ret;
@@ -536,6 +546,7 @@ namespace SSUtils
 				refresh();
 				limit();
 			}
+
 			const uint32 getDigits(void) { return m_digits; }
 			const value_type &getMinValue(void) { return m_minValue; }
 			const value_type &getMaxValue(void) { return m_maxValue; }
@@ -567,9 +578,9 @@ namespace SSUtils
 			template<uint32 Digits = DefaultDigits>
 			decimal<Digits> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
 			template<typename T>
-			std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
+			typename std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
 			template<typename T>
-			std::enable_if_t<std::is_same_v<T, value_type>, const T &> get(void) const { return *this; }
+			typename std::enable_if_t<std::is_same_v<T, value_type>, const T &> get(void) const { return *this; }
 
 		private:
 			template<bool _Signed>

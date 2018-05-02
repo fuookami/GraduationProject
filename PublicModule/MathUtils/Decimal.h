@@ -43,22 +43,19 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			DecimalWrapper(const std::enable_if_t<!std::is_same_v<T, self_type>, T> &ano, const int32 index = 0)
-				: value_type(0), m_base(0), m_index(0), m_offset(1)
+			DecimalWrapper(const T &ano, const int32 index = 0)
+				: DecimalWrapper(generate(ano, index))
 			{
-				m_base.assign(ano);
-				refresh(index);
 			}
 			template<bool Signed>
 			DecimalWrapper(const IntegerWrapper<Signed> &ano, const int32 index = 0)
-				: DecimalWrapper(ano.get<value_type>())
+				: DecimalWrapper(ano.get<value_type>(), index)
 			{
 			}
 			template<uint32 _Digits>
-			DecimalWrapper(const std::enable_if_t<_Digits != Digits, DecimalWrapper<_Digits>> &ano)
-				: value_type(0), m_base(ano.get<value_type>()), m_index(0), m_offset(1)
+			DecimalWrapper(const DecimalWrapper<_Digits> &ano)
+				: DecimalWrapper(ano.get<value_type>(), ano.m_index)
 			{
-				refresh(ano.m_index);
 			}
 
 			// destructor
@@ -66,7 +63,19 @@ namespace SSUtils
 
 			// generators
 			template<typename T>
-			static std::enable_if_t<!std::is_same_v<T, self_type>, self_type> generate(const T &value, const int32 index = 1)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const int32 index = 1)
+			{
+				self_type ret(value_type(value), index);
+				return ret;
+			}
+			template<typename T>
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const int32 index = 1)
+			{
+				self_type ret(static_cast<value_type>(value), index);
+				return ret;
+			}
+			template<>
+			static self_type generate<value_type>(const value_type &value, const int32 index)
 			{
 				self_type ret(value, index);
 				return ret;
@@ -160,9 +169,9 @@ namespace SSUtils
 			{
 				m_base.assign(ano.get<value_type>());
 				ano.m_base.assign(get<DecimalWrapper<_Digits>::value_type>());
-				std::swap(m_index, ano.m_index);
-				refresh(m_index);
-				ano.refresh(ano.m_index);
+				int32 index(m_index);
+				refresh(ano.index());
+				ano.refresh(index);
 				return *this;
 			}
 
@@ -209,7 +218,7 @@ namespace SSUtils
 				return *this;
 			}
 			template<uint32 _Digits>
-			self_type &operator=(const std::enable_if_t<Digits != _Digits, DecimalWrapper<_Digits>> &rhs)
+			typename std::enable_if_t<Digits != _Digits, self_type> &operator=(const DecimalWrapper<_Digits> &rhs)
 			{
 				operator=(rhs.get<value_type>());
 				return *this;
@@ -410,11 +419,11 @@ namespace SSUtils
 			}
 
 			// set and get
-			const int32 index(void) const { return m_index; }
-			const value_type &offset(void) const { return m_offset; }
+			const int32 getIndex(void) const { return m_index; }
+			const value_type &getOffset(void) const { return m_offset; }
 			void setIndex(const int32 index) { refresh(); refresh(index); }
 
-			const value_type &base(void) const { return m_base; }
+			const value_type &getBase(void) const { return m_base; }
 			void setBase(const value_type &base) { refresh(base); }
 
 			const value_type &value(void) const { return *this; }
@@ -433,9 +442,9 @@ namespace SSUtils
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
 			template<typename T>
-			std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
+			typename std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
 			template<typename T>
-			std::enable_if_t<std::is_same_v<T, value_type>, const T &> get(void) const { return *this; }
+			typename std::enable_if_t<std::is_same_v<T, value_type>, const T &> get(void) const { return *this; }
 
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<_Digits>> round(void) const
@@ -459,7 +468,6 @@ namespace SSUtils
 			integer ceilToInteger(void) const { return floorToInteger() + 1; }
 			integer floorToInteger(void) const { return static_cast<integer>(value()); }
 
-		private:
 			void refresh(void)
 			{
 				m_base = value() / m_offset;
@@ -488,6 +496,6 @@ namespace std
 {
 	template<SSUtils::uint32 Digits>
 	class numeric_limits<SSUtils::Math::DecimalWrapper<Digits>>
-		: public numeric_limits<boost::multiprecision::number<boost::multiprecision::cpp_dec_float<Digits>>>
+		: public numeric_limits<typename boost::multiprecision::number<boost::multiprecision::cpp_dec_float<Digits>>>
 	{};
 };

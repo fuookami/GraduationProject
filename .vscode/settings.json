@@ -13,7 +13,16 @@
         "vector": "cpp",
         "xhash": "cpp",
         "xstring": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "algorithm": "cpp",
+        "atomic": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "streambuf": "cpp",
+        "unordered_map": "cpp",
+        "xmemory0": "cpp",
+        "xtr1common": "cpp",
+        "xxatomic": "cpp"
     },
     "editor.fontSize": 11,
     "editor.fontFamily": "'Source Code Pro'"
