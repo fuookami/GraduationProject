@@ -428,7 +428,48 @@ namespace SSUtils
 			void setIndex(const int32 index) { refresh(); refresh(index); }
 
 			const value_type &getBase(void) const { return m_base; }
-			void setBase(const value_type &base) { refresh(base); }
+			template<typename T>
+			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, void> setBase(void)
+			{
+				refresh(value_type(base));
+			}
+			template<typename T>
+			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, void> setBase(void)
+			{
+				refresh(static_cast<value_type>(base));
+			}
+			template<>
+			void setBase<value_type>(const value_type &base) 
+			{ 
+				refresh(base); 
+			}
+			template<>
+			void setBase(const std::string &value)
+			{
+				if (String::isDecimal(value))
+				{
+					refresh(value_type(value));
+				}
+				else
+				{
+					refresh(value_type(0));
+				}
+			}
+			template<>
+			void setBase<Block>(const Block &value)
+			{
+				setBase(String::base64Decode(Data::toString(value)));
+			}
+			template<bool Signed>
+			void setBase(const IntegerWrapper<Signed> &value)
+			{
+				refresh(value.get<base_type>());
+			}
+			template<uint32 _Digits>
+			void setBase(const DecimalWrapper<_Digits> &value)
+			{
+				refresh(value.get<base_type>());
+			}
 
 			const value_type &value(void) const { return *this; }
 

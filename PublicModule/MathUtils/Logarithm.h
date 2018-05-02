@@ -538,7 +538,7 @@ namespace SSUtils
 				m_base.assign(value); 
 			}
 			template<>
-			void setBase(const std::string &value)
+			void setBase<std::string>(const std::string &value)
 			{
 				if (String::isDecimal(value))
 				{
@@ -580,7 +580,7 @@ namespace SSUtils
 			template<typename T>
 			void setAntilogarithm(const T &value) { m_antilogarithm.assign(value); }
 			template<>
-			void setAntilogarithm(const std::string &value)
+			void setAntilogarithm<std::string>(const std::string &value)
 			{
 				if (String::isDecimal(value))
 				{

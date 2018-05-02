@@ -476,7 +476,7 @@ namespace SSUtils
 			template<typename T>
 			void setBase(const T &value) { m_base.assign(value); }
 			template<>
-			void setBase(const std::string &value)
+			void setBase<std::string>(const std::string &value)
 			{
 				if (String::isDecimal(value))
 				{
@@ -518,7 +518,7 @@ namespace SSUtils
 			template<typename T>
 			void setIndex(const T &value) { m_index.assign(value); }
 			template<>
-			void setIndex(const std::string &value)
+			void setIndex<std::string>(const std::string &value)
 			{
 				if (String::isDecimal(value))
 				{
