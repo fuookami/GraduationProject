@@ -34,8 +34,8 @@ namespace SSUtils
 		{
 			using namespace boost::uuids;
 
-			static std::mt19937_64 randomGen(Random::generateNewRandomGenerator_64());
-			static basic_random_generator<std::mt19937_64> uuidGen(randomGen);
+			static auto randomGen(Random::generateNewRandomGenerator_64<int32>());
+			static basic_random_generator<decltype(randomGen)> uuidGen(randomGen);
 
 			uuid u(uuidGen());
 			std::array<byte, UUIDLength> ret;

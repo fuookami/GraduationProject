@@ -98,7 +98,7 @@ namespace SSUtils
 		Block generateRandomBlock(const uint32 length)
 		{
 			Block ret(length, 0);
-			auto gen(SSUtils::Random::generateNewRandomGenerator_64());
+			auto gen(SSUtils::Random::generateNewRandomGenerator_64<uint8>());
 			std::uniform_int_distribution<> dis(0, 0xff);
 			for (uint32 i(0); i != length; ++i)
 			{

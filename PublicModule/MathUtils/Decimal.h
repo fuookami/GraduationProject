@@ -245,6 +245,7 @@ namespace SSUtils
 				if (String::isDecimal(rhs))
 				{
 					operator+=(value_type(rhs));
+					refresh();
 				}
 				return *this;
 			}
@@ -287,6 +288,7 @@ namespace SSUtils
 				if (String::isDecimal(rhs))
 				{
 					operator-=(value_type(rhs));
+					refresh();
 				}
 				return *this;
 			}
@@ -329,6 +331,7 @@ namespace SSUtils
 				if (String::isDecimal(rhs))
 				{
 					operator*=(value_type(rhs));
+					refresh();
 				}
 				return *this;
 			}
@@ -371,6 +374,7 @@ namespace SSUtils
 				if (String::isDecimal(rhs))
 				{
 					operator/=(value_type(rhs));
+					refresh();
 				}
 				return *this;
 			}
