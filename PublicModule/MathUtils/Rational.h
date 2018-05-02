@@ -16,7 +16,7 @@ namespace SSUtils
 		public:
 			typedef integer base_type;
 			typedef rational value_type;
-			typedef std::enable_if_t<Digits != 0, typename DecimalWrapper<Digits>::value_type> decimal_type;
+			typedef typename std::enable_if_t<Digits != 0, typename DecimalWrapper<Digits>::value_type> decimal_type;
 			typedef RationalWrapper self_type;
 
 			static const String::RegexChecker RegexChecker;
@@ -102,11 +102,6 @@ namespace SSUtils
 			}
 			template<typename T, typename U>
 			RationalWrapper(const T &numerator, const U &denominator)
-				: RationalWrapper(generate(numerator, denominator))
-			{
-			}
-			template<typename T>
-			RationalWrapper(const T &numerator, const T &denominator)
 				: RationalWrapper(generate(numerator, denominator))
 			{
 			}
@@ -725,6 +720,8 @@ namespace SSUtils
 
 			const value_type &value(void) const { return *this; }
 			decimal_type value_dec(void) const { return convert_to<decimal_type>(); }
+			DecimalWrapper<Digits> value_dec_wrapper(void) const { return DecimalWrapper<Digits>(value); }
+			operator decimal_type(void) const { return value_dec(); }
 
 			// translators
 			std::string toString(const std::ios_base::fmtflags flags = 0) const { return str(0, flags); }
@@ -738,7 +735,13 @@ namespace SSUtils
 			dec50 toDec50(void) const { return convert_to<dec50>(); }
 			dec100 toDec100(void) const { return convert_to<dec100>(); }
 			template<uint32 _Digits = DefaultDigits>
-			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
+			typename std::enable_if_t<_Digits != 0, decimal<_Digits>> toDecimal(void) const { return convert_to<decimal<_Digits>>(); }
+			template<>
+			decimal<Digits> toDecimal<Digits>(void) const { return value_dec(); }
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<_Digits != 0, DecimalWrapper<_Digits>> toDecimalWrapper(void) const { return DecimalWrapper<_Digits>(toDecimal<_Digits>()); }
+			template<>
+			DecimalWrapper<Digits> toDecimalWrapper<Digits>(void) const { return DecimalWrapper<Digits>(value()); }
 			template<typename T>
 			typename std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
 			template<typename T>

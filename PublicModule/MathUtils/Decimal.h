@@ -14,7 +14,7 @@ namespace SSUtils
 		class DecimalWrapper : public decimal<Digits>
 		{
 		public:
-			typedef std::enable_if_t<Digits != 0, decimal<Digits>> value_type;
+			typedef typename std::enable_if_t<Digits != 0, decimal<Digits>> value_type;
 			typedef DecimalWrapper self_type;
 
 			// constructors
@@ -440,7 +440,11 @@ namespace SSUtils
 			dec50 toDec50(void) const { return convert_to<dec50>(); }
 			dec100 toDec100(void) const { return convert_to<dec100>(); }
 			template<uint32 _Digits = DefaultDigits>
-			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<Digits>> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
+			typename std::enable_if_t<_Digits != 0, decimal<Digits>> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
+			template<>
+			decimal<Digits> toDecimal<Digits>(void) const { return *this; }
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<_Digits != Digits && _Digits != 0, DecimalWrapper<_Digits>> toDecimalWrapper(void) const { return DecimalWrapper<_Digits>(toDecimal<_Digits>()); }
 			template<typename T>
 			typename std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
 			template<typename T>
