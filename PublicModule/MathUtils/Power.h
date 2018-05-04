@@ -695,17 +695,17 @@ namespace std
 {
 	template<SSUtils::uint32 Digits>
 	class numeric_limits<SSUtils::Math::PowerWrapper<Digits>>
-		: public numeric_limits<SSUtils::decimal<Digits>>
+		: public numeric_limits<typename SSUtils::Math::PowerWrapper<Digits>::value_type>
 	{};
 
-	template<uint32 Digits>
-	std::string to_string(const SSUtils::Math::LogarithmWrapper<Digits> &value)
+	template<SSUtils::uint32 Digits>
+	std::string to_string(const SSUtils::Math::PowerWrapper<Digits> &value)
 	{
 		return value.toString();
 	}
-	template<uint32 Digits>
-	SSUtils::Math::LogarithmWrapper<Digits> stologarithm_wrapper(const std::string &str)
+	template<SSUtils::uint32 Digits>
+	SSUtils::Math::PowerWrapper<Digits> stopower_wrapper(const std::string &str)
 	{
-		return SSUtils::Math::LogarithmWrapper<Digits>(str);
+		return SSUtils::Math::PowerWrapper<Digits>(str);
 	}
 };

@@ -584,10 +584,10 @@ namespace std
 {
 	template<SSUtils::uint32 Digits>
 	class numeric_limits<SSUtils::Math::DecimalWrapper<Digits>>
-		: public numeric_limits<typename boost::multiprecision::number<boost::multiprecision::cpp_dec_float<Digits>>>
+		: public numeric_limits<typename SSUtils::Math::DecimalWrapper<Digits>::value_type>
 	{};
 
-	template<uint32 Digits>
+	template<SSUtils::uint32 Digits>
 	SSUtils::Math::DecimalWrapper<Digits> stodecimal_wrapper(const std::string &str)
 	{
 		return SSUtils::Math::DecimalWrapper<Digits>(str);

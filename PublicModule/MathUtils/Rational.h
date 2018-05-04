@@ -886,7 +886,7 @@ namespace SSUtils
 	};
 };
 
-template<uint32 Digits>
+template<SSUtils::uint32 Digits>
 std::istream &operator>>(std::istream &is, SSUtils::Math::RealWrapper<Digits> &value)
 {
 	is >> dynamic_cast<typename SSUtils::Math::RealWrapper<Digits>::value_type &>(value);
@@ -898,12 +898,12 @@ namespace std
 {
 	template<SSUtils::uint32 Digits>
 	class numeric_limits<SSUtils::Math::RationalWrapper<Digits>>
-		: public numeric_limits<SSUtils::rational>
+		: public numeric_limits<typename SSUtils::Math::RationalWrapper<Digits>::value_type>
 	{};
 
-	template<uint32 Digits>
-	SSUtils::Math::DecimalWrapper<Digits> stodecimal_wrapper(const std::string &str)
+	template<SSUtils::uint32 Digits>
+	SSUtils::Math::RationalWrapper<Digits> storational_wrapper(const std::string &str)
 	{
-		return SSUtils::Math::DecimalWrapper<Digits>(str);
+		return SSUtils::Math::RationalWrapper<Digits>(str);
 	}
 };

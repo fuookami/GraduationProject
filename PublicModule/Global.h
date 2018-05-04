@@ -31,7 +31,7 @@ namespace SSUtils
 	using uint1024 = boost::multiprecision::uint1024_t;
 	template<uint32 bits>
 	using intx = boost::multiprecision::number<boost::multiprecision::cpp_int_backend<bits, bits>>;
-	template<uint32 bits, typename = std::enable_if_t<bits != 0>>
+	template<uint32 bits, typename T = std::enable_if_t<bits != 0>>
 	using uintx = boost::multiprecision::number<boost::multiprecision::cpp_int_backend<bits, bits, boost::multiprecision::cpp_integer_type::unsigned_magnitude>>;
 	using integer = boost::multiprecision::cpp_int;
 	using rational = boost::multiprecision::cpp_rational;
@@ -43,7 +43,7 @@ namespace SSUtils
 
 	using dec50 = boost::multiprecision::cpp_dec_float_50;
 	using dec100 = boost::multiprecision::cpp_dec_float_100;
-	template<uint32 Digits, typename = std::enable_if_t<Digits != 0>>
+	template<uint32 Digits, typename T = std::enable_if_t<Digits != 0>>
 	using decimal = boost::multiprecision::number<boost::multiprecision::cpp_dec_float<Digits>>;
 	using real = dec100;
 };
