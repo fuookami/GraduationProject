@@ -556,6 +556,7 @@ namespace SSUtils
 			// translators
 			std::string toString(const std::ios_base::fmtflags flags = 0) const { return str(m_digits, flags); }
 			Block toBlock(void) const { return Data::fromHexString(toString(std::ios_base::hex)); }
+
 			int8 toInt8(void) const { return convert_to<int8>(); }
 			uint8 toUInt8(void) const { return convert_to<uint8>(); }
 			int16 toInt16(void) const { return convert_to<int16>(); }
@@ -572,11 +573,26 @@ namespace SSUtils
 			uint512 toUInt512(void) const { return convert_to<uint512>(); }
 			int1024 toInt1024(void) const { return convert_to<int1024>(); }
 			uint1024 toUInt1024(void) const { return convert_to<uint1024>(); }
+
+			template<uint32 bits>
+			intx<bits> toIntx(void) const { return convert_to<intx<bits>>(); }
+			template<uint32 bits>
+			uintx<bits> toIntx(void) const { return convert_to<uintx<bits>>(); }
 			integer toInteger(void) const { return convert_to<integer>(); }
+
+			float toFloat(void) const { return convert_to<float>(); }
+			double toDouble(void) const { return convert_to<double>(); }
+			float32 toFloat32(void) const { return convert_to<float32>(); }
+			float64 toFloat64(void) const { return convert_to<float64>(); }
+			float128 toFloat128(void) const { return convert_to<float128>(); }
+			float256 toFloat256(void) const { return convert_to<float256>(); }
+
 			dec50 toDec50(void) const { return convert_to<dec50>(); }
 			dec100 toDec100(void) const { return convert_to<dec100>(); }
+			real toReal(void) const { return convert_to<real>(); }
 			template<uint32 Digits = DefaultDigits>
 			decimal<Digits> toDecimal(void) const { return convert_to<decimal<Digits>>(); }
+
 			template<typename T>
 			typename std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
 			template<typename T>
@@ -647,5 +663,7 @@ namespace std
 	template<bool Signed>
 	class numeric_limits<SSUtils::Math::IntegerWrapper<Signed>>
 		: public numeric_limits<typename SSUtils::Math::IntegerWrapper<Signed>::value_type>
-	{};
+	{
+		static const bool is_signed = Signed;
+	};
 };

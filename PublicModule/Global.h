@@ -42,7 +42,7 @@ namespace SSUtils
 
 	using dec50 = boost::multiprecision::cpp_dec_float_50;
 	using dec100 = boost::multiprecision::cpp_dec_float_100;
-	template<uint32 Digits>
+	template<uint32 Digits, typename = std::enable_if_t<Digits != 0>>
 	using decimal = boost::multiprecision::number<boost::multiprecision::cpp_dec_float<Digits>>;
 	using real = dec100;
 };

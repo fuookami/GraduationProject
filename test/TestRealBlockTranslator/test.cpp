@@ -1,4 +1,5 @@
 #include "MathUtils.h"
+#include <boost/preprocessor.hpp>
 
 int main(void)
 {
@@ -66,6 +67,10 @@ int main(void)
 	Power _pow(pow.toString()), __pow(pow.toBlock());
 	std::cout << _pow << ' ' << _pow.value() << std::endl;
 	std::cout << __pow << ' ' << __pow.value() << std::endl;
+
+#define DECL_pri(z, n, text) std::cout << text << ' ' << z << ' ' << n << std::endl;
+#define DECL(z, n, text) BOOST_PP_REPEAT(n, DECL_pri, n)
+	BOOST_PP_REPEAT(10, DECL, );
 
 	system("pause");
 	return 0;

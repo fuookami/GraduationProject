@@ -629,14 +629,40 @@ namespace SSUtils
 				return sout.str();
 			}
 			Block toBlock(const std::ios_base::fmtflags flags = std::ios::fixed) const { return Data::fromString(String::base64Encode(toString(flags))); }
+
+			int8 toInt8(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int8>(); }
+			uint8 toUInt8(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint8>(); }
+			int16 toInt16(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int16>(); }
+			uint16 toUInt16(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint16>(); }
+			int32 toInt32(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int32>(); }
+			uint32 toUInt32(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint32>(); }
+			int64 toInt64(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int64>(); }
+			uint64 toUInt64(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint64>(); }
+			int128 toInt128(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int128>(); }
+			uint128 toUInt128(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint128>(); }
+			int256 toInt256(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int256>(); }
+			uint256 toUInt256(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint256>(); }
+			int512 toInt512(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int512>(); }
+			uint512 toUInt512(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint512>(); }
+			int1024 toInt1024(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int1024>(); }
+			uint1024 toUInt1024(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint1024>(); }
+
+			template<uint32 bits>
+			intx<bits> toIntx(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<intx<bits>>(); }
+			template<uint32 bits>
+			uintx<bits> toIntx(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uintx<bits>>(); }
+			integer toInteger(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<integer>(); }
+
 			float toFloat(void) const { return value().convert_to<float>(); }
 			double toDouble(void) const { return value().convert_to<double>(); }
 			float32 toFloat32(void) const { return value().convert_to<float32>(); }
 			float64 toFloat64(void) const { return value().convert_to<float64>(); }
 			float128 toFloat128(void) const { return value().convert_to<float128>(); }
 			float256 toFloat256(void) const { return value().convert_to<float256>(); }
+
 			dec50 toDec50(void) const { return value().convert_to<dec50>(); }
 			dec100 toDec100(void) const { return value().convert_to<dec100>(); }
+
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<_Digits != 0, decimal<_Digits>> toDecimal(void) const { return value().convert_to<decimal<_Digits>>(); }
 			template<>
@@ -645,6 +671,7 @@ namespace SSUtils
 			typename std::enable_if_t<_Digits != 0, DecimalWrapper<_Digits>> toDecimalWrapper(void) const { return DecimalWrapper<_Digits>(toDecimal<_Digits>()); }
 			template<>
 			DecimalWrapper<Digits> toDecimalWrapper<Digits>(void) const { return DecimalWrapper<Digits>(value()); }
+
 			template<typename T>
 			T get(void) const { return value().convert_to<T>(); }
 			template<>
@@ -668,6 +695,7 @@ namespace SSUtils
 				return (value() + offset).convert_to<decimal<_Digits>>();
 			}
 
+			integer toInteger(const ToIntegerFlag flag = ToIntegerFlag::round) { return flag == ToIntegerFlag::round ? roundToInteger() : ToIntegerFlag::ceil ? ceilToInteger() : floorToInteger(); }
 			integer roundToInteger(void) const { return static_cast<integer>(boost::math::round(value())); }
 			integer ceilToInteger(void) const { return floorToInteger() + 1; }
 			integer floorToInteger(void) const { return static_cast<integer>(value()); }
