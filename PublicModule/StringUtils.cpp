@@ -84,3 +84,25 @@ namespace SSUtils
 		}
 	};
 };
+
+namespace std
+{
+	std::string to_string(const bool value)
+	{
+		return value ? SSUtils::String::True : SSUtils::String::False;
+	}
+
+	bool stoboolean(const std::string & str)
+	{
+		if (SSUtils::String::isInteger(str))
+		{
+			SSUtils::integer i(str);
+			return i != 0;
+		}
+		else
+		{
+			return str == SSUtils::String::True;
+		}
+		return false;
+	}
+};

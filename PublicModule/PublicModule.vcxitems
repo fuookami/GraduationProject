@@ -82,6 +82,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EncryptionUtils\RSA.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FileUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FunctionUtils\Task.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Global.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\MailSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MailUtils\_pri_mail.cpp" />

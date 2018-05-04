@@ -570,10 +570,26 @@ namespace SSUtils
 	};
 };
 
+template<SSUtils::uint32 Digits>
+std::istream &operator>>(std::istream &is, SSUtils::Math::DecimalWrapper<Digits> &value)
+{
+	typedef typename SSUtils::Math::DecimalWrapper<Digits>::value_type value_type;
+	value_type temp;
+	is >> temp;
+	value.assign(temp);
+	return is;
+}
+
 namespace std
 {
 	template<SSUtils::uint32 Digits>
 	class numeric_limits<SSUtils::Math::DecimalWrapper<Digits>>
 		: public numeric_limits<typename boost::multiprecision::number<boost::multiprecision::cpp_dec_float<Digits>>>
 	{};
+
+	template<uint32 Digits>
+	SSUtils::Math::DecimalWrapper<Digits> stodecimal_wrapper(const std::string &str)
+	{
+		return SSUtils::Math::DecimalWrapper<Digits>(str);
+	}
 };

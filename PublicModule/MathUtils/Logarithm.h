@@ -745,15 +745,15 @@ SSUtils::Math::LogarithmWrapper<Digits1> operator*(const SSUtils::Math::Logarith
 }
 
 template<SSUtils::uint32 Digits>
-std::istream &operator>>(std::istream &is, SSUtils::Math::LogarithmWrapper<Digits> &ret)
+std::istream &operator>>(std::istream &is, SSUtils::Math::LogarithmWrapper<Digits> &value)
 {
 	std::string str;
 	is >> str;
-	ret.assign(str);
+	value.assign(str);
 	return is;
 }
 template<SSUtils::uint32 Digits>
-std::ostream &operator<<(std::ostream &os, SSUtils::Math::LogarithmWrapper<Digits> &value)
+std::ostream &operator<<(std::ostream &os, const SSUtils::Math::LogarithmWrapper<Digits> &value)
 {
 	os << value.toString();
 	return os;
@@ -765,4 +765,15 @@ namespace std
 	class numeric_limits<SSUtils::Math::LogarithmWrapper<Digits>>
 		: public numeric_limits<SSUtils::decimal<Digits>>
 	{};
+
+	template<uint32 Digits>
+	std::string to_string(const SSUtils::Math::LogarithmWrapper<Digits> &value)
+	{
+		return value.toString();
+	}
+	template<uint32 Digits>
+	SSUtils::Math::LogarithmWrapper<Digits> stologarithm_wrapper(const std::string &str)
+	{
+		return SSUtils::Math::LogarithmWrapper<Digits>(str);
+	}
 };

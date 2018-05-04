@@ -658,6 +658,14 @@ namespace SSUtils
 	};
 };
 
+template<bool Signed>
+std::istream &operator>>(std::istream &is, SSUtils::Math::IntegerWrapper<Signed> &value)
+{
+	is >> dynamic_cast<typename SSUtils::Math::IntegerWrapper<Signed>::value_type &>(value);
+	value.setDigit(0);
+	return is;
+}
+
 namespace std
 {
 	template<bool Signed>
@@ -666,4 +674,10 @@ namespace std
 	{
 		static const bool is_signed = Signed;
 	};
+
+	template<bool Signed>
+	SSUtils::Math::IntegerWrapper<Signed> stointeger_wrapper(const std::string &str)
+	{
+		return SSUtils::Math::IntegerWrapper<Signed>(str);
+	}
 };

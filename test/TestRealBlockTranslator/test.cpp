@@ -22,19 +22,19 @@ int main(void)
 	std::cout << i << std::endl;
 
 	Integer j(Integer::generate(124));
-	std::cout << j << ' ' << (j == 124) << std::endl;
+	std::cout << j << ' ' << std::to_string(j == 124) << std::endl;
 	j += 1;
-	std::cout << j << ' ' << (j == 125) << std::endl;
+	std::cout << j << ' ' << std::to_string(j == 125) << std::endl;
 	j += 1.2;
-	std::cout << j << ' ' << (j == 126) << std::endl;
+	std::cout << j << ' ' << std::to_string(j == 126) << std::endl;
 
 	Decimal dec(j.value());
 	std::cout << dec.value() << std::endl;
 	Decimal _dec(j.toDec50() / 11);
 	std::string str1(_dec.toString()), str2(String::base64Decode(Data::toString(_dec.toBlock())));
 	std::cout << _dec.value() << std::endl;
-	std::cout << str1 << ' ' << String::isDecimal(str1) << std::endl;
-	std::cout << str2 << ' ' << String::isDecimal(str2) << std::endl;
+	std::cout << str1 << ' ' << std::to_string(String::isDecimal(str1)) << std::endl;
+	std::cout << str2 << ' ' << std::to_string(String::isDecimal(str2)) << std::endl;
 	DecimalWrapper<20> __dec(_dec.ceil<20>());
 	std::cout << std::setprecision(std::numeric_limits<decimal<20>>::digits) << __dec << std::endl;
 	std::cout << __dec << std::endl;

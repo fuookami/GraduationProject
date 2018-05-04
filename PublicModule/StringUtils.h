@@ -52,3 +52,9 @@ namespace SSUtils
 		}
 	};
 };
+
+namespace std
+{
+	string to_string(const bool value);
+	bool stoboolean(const std::string &str);
+};

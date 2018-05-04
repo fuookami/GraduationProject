@@ -886,10 +886,24 @@ namespace SSUtils
 	};
 };
 
+template<uint32 Digits>
+std::istream &operator>>(std::istream &is, SSUtils::Math::RealWrapper<Digits> &value)
+{
+	is >> dynamic_cast<typename SSUtils::Math::RealWrapper<Digits>::value_type &>(value);
+	value.refresh();
+	return is;
+}
+
 namespace std
 {
 	template<SSUtils::uint32 Digits>
 	class numeric_limits<SSUtils::Math::RationalWrapper<Digits>>
 		: public numeric_limits<SSUtils::rational>
 	{};
+
+	template<uint32 Digits>
+	SSUtils::Math::DecimalWrapper<Digits> stodecimal_wrapper(const std::string &str)
+	{
+		return SSUtils::Math::DecimalWrapper<Digits>(str);
+	}
 };

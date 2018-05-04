@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include <cstdint>
 #include <boost/multiprecision/cpp_int.hpp>
@@ -30,7 +31,7 @@ namespace SSUtils
 	using uint1024 = boost::multiprecision::uint1024_t;
 	template<uint32 bits>
 	using intx = boost::multiprecision::number<boost::multiprecision::cpp_int_backend<bits, bits>>;
-	template<uint32 bits>
+	template<uint32 bits, typename = std::enable_if_t<bits != 0>>
 	using uintx = boost::multiprecision::number<boost::multiprecision::cpp_int_backend<bits, bits, boost::multiprecision::cpp_integer_type::unsigned_magnitude>>;
 	using integer = boost::multiprecision::cpp_int;
 	using rational = boost::multiprecision::cpp_rational;
@@ -45,4 +46,113 @@ namespace SSUtils
 	template<uint32 Digits, typename = std::enable_if_t<Digits != 0>>
 	using decimal = boost::multiprecision::number<boost::multiprecision::cpp_dec_float<Digits>>;
 	using real = dec100;
+};
+
+namespace std
+{
+	string to_string(const SSUtils::int128 &value);
+	SSUtils::int128 stoint128(const string &str);
+
+	string to_string(const SSUtils::uint128 &value);
+	SSUtils::uint128 stouint128(const string &str);
+
+	string to_string(const SSUtils::int256 &value);
+	SSUtils::int256 stoint256(const string &str);
+
+	string to_string(const SSUtils::uint256 &value);
+	SSUtils::uint256 stouint256(const string &str);
+
+	string to_string(const SSUtils::int512 &value);
+	SSUtils::int512 stoint512(const string &str);
+
+	string to_string(const SSUtils::uint512 &value);
+	SSUtils::uint512 stouint512(const string &str);
+
+	string to_string(const SSUtils::int1024 &value);
+	SSUtils::int1024 stoint1024(const string &str);
+
+	string to_string(const SSUtils::uint1024 &value);
+	SSUtils::uint1024 stouint1024(const string &str);
+
+	template<SSUtils::uint32 bits>
+	string to_string(const SSUtils::intx<bits> &value)
+	{
+		return value.str();
+	}
+	template<SSUtils::uint32 bits>
+	SSUtils::intx<bits> stointx(const string &str)
+	{
+		try
+		{
+			return SSUtils::intx<bits>(str);
+		}
+		catch (exception &e)
+		{
+			cerr << e.what() << endl;
+			return SSUtils::intx<bits>(0);
+		}
+	}
+
+	template<SSUtils::uint32 bits>
+	string to_string(const SSUtils::uintx<bits> &value)
+	{
+		return value.str();
+	}
+	template<SSUtils::uint32 bits>
+	SSUtils::uintx<bits> stouintx(const string &str)
+	{
+		try
+		{
+			return SSUtils::uintx<bits>(str);
+		}
+		catch (exception &e)
+		{
+			cerr << e.what() << endl;
+			return SSUtils::uintx<bits>(0);
+		}
+	}
+
+	string to_string(const SSUtils::integer &value);
+	SSUtils::integer stointeger(const string &str);
+
+	string to_string(const SSUtils::rational &value);
+	SSUtils::rational storational(const string &str);
+
+	string to_string(const SSUtils::float32 &value);
+	SSUtils::float32 stofloat32(const string &str);
+
+	string to_string(const SSUtils::float64 &value);
+	SSUtils::float64 stofloat64(const string &str);
+
+	string to_string(const SSUtils::float128 &value);
+	SSUtils::float128 stofloat128(const string &str);
+
+	string to_string(const SSUtils::float256 &value);
+	SSUtils::float256 stofloat256(const string &str);
+
+	string to_string(const SSUtils::dec50 &value);
+	SSUtils::dec50 stodec50(const string &str);
+
+	string to_string(const SSUtils::dec100 &value);
+	SSUtils::dec100 stodec100(const string &str);
+	SSUtils::real storeal(const string &str);
+
+	template<SSUtils::uint32 Digits>
+	string to_string(const SSUtils::decimal<Digits> &value)
+	{ 
+		return value.str(); 
+	}
+	template<SSUtils::uint32 Digits>
+	SSUtils::decimal<Digits> stodecimal(const string &str) 
+	{ 
+		try
+		{
+			return SSUtils::decimal<Digits>(str);
+		}
+		catch (exception &e)
+		{
+			cerr << e.what() << endl;
+			return SSUtils::decimal<Digits>(0);
+		}
+	}
 };
