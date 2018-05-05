@@ -143,7 +143,7 @@ namespace SSUtils
 					return check(logarithm_value.value());
 				}
 
-				bool operator()(const SpecialValue &special_value) const
+				bool operator()(const SpecialValue special_value) const
 				{
 					return special_value == SpecialValue::PositiveInfinity;
 				}
@@ -151,6 +151,88 @@ namespace SSUtils
 				bool check(const typename decimal_type::value_type &decimal_value) const
 				{
 					return boost::math::isinf(decimal_value) && decimal_value > 0;
+				}
+			};
+
+			struct negative_infinity_visitor : public boost::static_visitor<bool>
+			{
+				template<typename T>
+				bool operator()(const T &value) const
+				{
+					return false;
+				}
+
+				bool operator()(const decimal_type & decimal_value) const
+				{
+					return check(decimal_value);
+				}
+
+				bool operator()(const rational_type &rational_value) const
+				{
+					return check(rational_value.value());
+				}
+
+				bool operator()(const power_type &power_value) const
+				{
+					return check(power_value.value());
+				}
+
+				bool operator()(const logarithm_type &logarithm_value) const
+				{
+					return check(logarithm_value.value());
+				}
+
+				bool operator()(const SpecialValue special_value) const
+				{
+					return special_value == SpecialValue::NegativeInfinity;
+				}
+
+				bool check(const typename decimal_type::value_type &decimal_value) const
+				{
+					return boost::math::isinf(decimal_value) && decimal_value < 0;
+				}
+			};
+
+			struct nan_visitor : public boost::static_visitor<bool>
+			{
+				template<typename T>
+				bool operator()(const T &value) const
+				{
+					return false;
+				}
+
+				bool operator()(const rational_type &rational_value) const
+				{
+					return rational_value.valid() || boost::math::isnan(rational_value);
+				}
+
+				bool operator()(const power_type &power_value) const
+				{
+					return power_value.valid() || boost::math::isnan(power_value.value());
+				}
+
+				bool operator()(const logarithm_type &logarithm_value) const
+				{
+					return logarithm_value.valid() || boost::math::isnan(logarithm_value.value());
+				}
+
+				bool operator()(const SpecialValue special_value) const
+				{
+					return special_value == SpecialValue::NaN;
+				}
+			};
+
+			struct empty_visitor : public boost::static_visitor<bool>
+			{
+				template<typename T>
+				bool operator()(const T &value) const
+				{
+					return false;
+				}
+
+				bool operator()(const SpecialValue special_value)
+				{
+					return special_value == SpecialValue::Empty;
 				}
 			};
 
@@ -167,17 +249,17 @@ namespace SSUtils
 			RealWrapper(const bool value)
 				: m_value(value) {};
 			RealWrapper(const integer_type &value)
-				: m_value(value) {};
+				: RealWrapper(generate(value)) {};
 			RealWrapper(const uinteger_type &value)
-				: m_value(value) {};
+				: RealWrapper(generate(value)) {};
 			RealWrapper(const decimal_type &value)
-				: m_value(value) {};
+				: RealWrapper(generate(value)) {};
 			RealWrapper(const rational_type &value)
-				: m_value(value) {};
+				: RealWrapper(generate(value)) {};
 			RealWrapper(const power_type &value)
-				: m_value(value) {};
+				: RealWrapper(generate(value)) {};
 			RealWrapper(const logarithm_type &value)
-				: m_value(value) {};
+				: RealWrapper(generate(value)) {};
 			RealWrapper(const TranscendentalValue value)
 				: m_value(value) {};
 			RealWrapper(const SpecialValue value)
@@ -203,53 +285,67 @@ namespace SSUtils
 			template<typename T>
 			static typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> generate(const T &integer_value)
 			{
-				return self_type(integer_type(typename integer_type::value_type(integer_value)));
+				self_type ret;
+				ret.assign(integer_type(typename integer_type::value_type(integer_value)));
+				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> generate(const T &integer_value)
 			{
-				return self_type(integer_type(static_cast<typename integer_type::value_type>(integer_value)));
+				self_type ret;
+				ret.assign(integer_type(static_cast<typename integer_type::value_type>(integer_value)));
+				return ret;
 			}
 			template<>
 			static self_type generate<integer_type>(const integer_type &integer_value)
 			{
-				return self_type(integer_value);
+				self_type ret;
+				ret.assign(integer_value);
+				return ret;
 			}
 			template<>
 			static self_type generate<integer>(const integer &integer_value)
 			{
-				return self_type(integer_type(integer_value));
+				return generate(integer_type(integer_value));
 			}
 			template<>
 			static self_type generate<rational_type>(const rational_type &rational_value)
 			{
-				return self_type(rational_value);
+				self_type ret;
+				ret.assign(rational_value);
+				return ret;
 			}
 			template<>
 			static self_type generate<rational>(const rational &rational_value)
 			{
-				return self_type(rational_type(rational_value));
+				return generate(rational_type(rational_value));
 			}
 			template<uint32 _Digits>
 			static typename std::enable_if_t<_Digits != Digits, self_type> generate(const RationalWrapper<_Digits> &rational_value)
 			{
-				return self_type(rational_type(rational_value));
+				return generate(rational_type(rational_value));
 			}
 
 			template<typename T>
 			static typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> generate(const T &uinteger_value)
 			{
-				return self_type(uinteger_type(typename uinteger_type::value_type(uinteger_value)));
+				self_type ret;
+				ret.assign(uinteger_type(typename uinteger_type::value_type(uinteger_value)));
+				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> generate(const T &uinteger_value)
 			{
-				return self_type(uinteger_type(static_cast<typename uinteger_type::value_type>(uinteger_value)));
+				self_type ret;
+				ret.assign(uinteger_type(static_cast<typename uinteger_type::value_type>(uinteger_value)));
+				return ret;
 			}
 			template<>
 			static self_type generate<uinteger_type>(const uinteger_type &uinteger_value)
 			{
-				return self_type(uinteger_value);
+				self_type ret;
+				ret.assign(uinteger_value);
+				return ret;
 			}
 			template<>
 			static self_type generate<bool>(const bool boolean_value)
@@ -260,58 +356,80 @@ namespace SSUtils
 			template<typename T>
 			static typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> generate(const T &decimal_value)
 			{
-				return self_type(decimal_type(typename decimal_type::value_type(decimal_value)));
+				self_type ret;
+				ret.assign(decimal_type(typename decimal_type::value_type(decimal_value)));
+				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && !Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> generate(const T &decimal_value)
 			{
-				return self_type(decimal_type(static_cast<typename decimal_type::value_type>(decimal_value)));
+				self_type ret;
+				ret.assign(decimal_type(static_cast<typename decimal_type::value_type>(decimal_value)));
+				return ret;
 			}
 			template<>
 			static self_type generate<decimal_type>(const decimal_type &decimal_value)
 			{
-				return self_type(decimal_value);
+				self_type ret;
+				ret.assign(decimal_value);
+				return ret;
 			}
 			template<>
 			static self_type generate<power_type>(const power_type &power_value)
 			{
-				return self_type(power_value);
+				self_type ret;
+				ret.assign(power_value);
+				return ret;
 			}
 			template<>
 			static self_type generate<logarithm_type>(const logarithm_type &logarithm_value)
 			{
-				return self_type(logarithm_value);
+				self_type ret;
+				ret.assign(logarithm_value);
+				return ret;
 			}
 			template<uint32 _Digits>
 			static typename std::enable_if_t<_Digits != Digits, self_type> generate(const decimal<_Digits> &decimal_value)
 			{
-				return self_type(decimal_type(decimal_value));
+				self_type ret;
+				ret.assign(decimal_type(decimal_value));
+				return ret;
 			}
 			template<uint32 _Digits>
 			static typename std::enable_if_t<_Digits != Digits, self_type> generate(const DecimalWrapper<_Digits> &decimal_value)
 			{
-				return self_type(decimal_type(decimal_value));
+				self_type ret;
+				ret.assign(decimal_type(decimal_value));
+				return ret;
 			}
 			template<uint32 _Digits>
-			static typename std::enable_if_t<_Digits != Digits, self_type> generate(const PowerWrapper<_Digits> &decimal_value)
+			static typename std::enable_if_t<_Digits != Digits, self_type> generate(const PowerWrapper<_Digits> &power_value)
 			{
-				return self_type(decimal_type(decimal_value));
+				self_type ret;
+				ret.assign(power_type(power_value));
+				return ret;
 			}
 			template<uint32 _Digits>
-			static typename std::enable_if_t<_Digits != Digits, self_type> generate(const LogarithmWrapper<_Digits> &decimal_value)
+			static typename std::enable_if_t<_Digits != Digits, self_type> generate(const LogarithmWrapper<_Digits> &logarithm_value)
 			{
-				return self_type(decimal_type(decimal_value));
+				self_type ret;
+				ret.assign(logarithm_type(logarithm_value));
+				return ret;
 			}
 
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::numeric_limits<T>::is_specialized && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> generate(const T &value)
 			{
-				return self_type(decimal_type(typename decimal_type::value_type(value)));
+				self_type ret;
+				ret.assign(decimal_type(typename decimal_type::value_type(value))));
+				return ret;
 			}
 			template<typename T>
 			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::numeric_limits<T>::is_specialized && !Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> generate(const T &value)
 			{
-				return self_type(decimal_type(static_cast<typename decimal_type::value_type>(value)));
+				self_type ret;
+				ret.assign(decimal_type(static_cast<typename decimal_type::value_type>(value))));
+				return ret;
 			}
 			template<>
 			static self_type generate<TranscendentalValue>(const TranscendentalValue value)
@@ -327,14 +445,14 @@ namespace SSUtils
 			static self_type generate<std::string>(const std::string &str)
 			{
 				self_type ret;
-				// to do;
+				ret.assign(str);
 				return ret;
 			}
 			template<>
 			static self_type generate<Block>(const Block &block)
 			{
 				self_type ret;
-				// to do
+				ret.assign(block);
 				return ret;
 			}
 
@@ -353,6 +471,12 @@ namespace SSUtils
 			typename std::enable_if_t<Digits != _Digits && _Digits != 0, self_type> &assign(const RealWrapper<_Digits> &ano)
 			{
 				m_value.assign(visit<differnet_digits_value_type_translator>(ano.value()));
+				return *this;
+			}
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<Digits != _Digits && _Digits != 0, self_type> &assign(const typename RealWrapper<_Digits>::value_type &ano)
+			{
+				m_value.assign(visit<differnet_digits_value_type_translator>(ano));
 				return *this;
 			}
 
@@ -374,115 +498,320 @@ namespace SSUtils
 				ano.assign(temp);
 				return *this;
 			}
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<Digits != _Digits && _Digits != 0, self_type> &swap(typename RealWrapper<_Digits>::value_type &ano)
+			{
+				value_type temp(m_value);
+				m_value.assign(visit<differnet_digits_value_type_translator>(ano));
+				ano.assign(temp);
+				return *this;
+			}
 
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> &assign(const T &integer_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> &assign(const T &integer_value)
+			{
+				return assign(integer_type(typename integer_type::value_type(integer_value)));
+			}
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> &assign(const T &integer_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> &assign(const T &integer_value)
+			{
+				return assign(integer_type(static_cast<typename integer_type::value_type>(integer_value)));
+			}
 			template<>
-			self_type &assign<integer_type>(const integer_type &integer_value);
+			self_type &assign<integer_type>(const integer_type &integer_value)
+			{
+				// to do
+				return *this;
+			}
 			template<>
-			self_type &assign<integer>(const integer &integer_value);
+			self_type &assign<integer>(const integer &integer_value)
+			{
+				return assign(integer_type(integer_value));
+			}
 			template<>
-			self_type &assign<rational_type>(const rational_type &rational_value);
+			self_type &assign<rational_type>(const rational_type &rational_value)
+			{
+				// to do
+				return *this;
+			}
 			template<>
-			self_type &assign<rational>(const rational &rational_value);
+			self_type &assign<rational>(const rational &rational_value)
+			{
+				return assign(rational_type(rational_value));
+			}
 			template<uint32 _Digits>
-			typename std::enable_if_t<_Digits != Digits, self_type> &assign(const RationalWrapper<_Digits> &rational_value);
+			typename std::enable_if_t<_Digits != Digits, self_type> &assign(const RationalWrapper<_Digits> &rational_value)
+			{
+				return assign(rational_type(rational_value));
+			}
 
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> &assign(const T &uinteger_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> &assign(const T &uinteger_value)
+			{
+				return assign(uinteger_type(typename uinteger_type::value_type(uinteger_value)));
+			}
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> &assign(const T &uinteger_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> &assign(const T &uinteger_value)
+			{
+				return assign(uinteger_type(static_cast<typename uinteger_type::value_type>(uinteger_value)));
+			}
 			template<>
-			self_type &assign<uinteger_type>(const uinteger_type &uinteger_value);
+			self_type &assign<uinteger_type>(const uinteger_type &uinteger_value)
+			{
+				// to do
+				return *this;;
+			}
 			template<>
-			self_type &assign<bool>(const bool &boolean_value);
+			self_type &assign<bool>(const bool &boolean_value)
+			{
+				m_value.assign(boolean_value);
+				return *this;
+			}
 
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &assign(const T &decimal_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &assign(const T &decimal_value)
+			{
+				return assign(decimal_type(typename decimal_type::value_type(decimla_value)));
+			}
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && !Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &assign(const T &decimal_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && !Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &assign(const T &decimal_value)
+			{
+				return assign(decimal_type(static_cast<typename decimal_type::value_type>(decimal_value)));
+			}
 			template<>
-			self_type &assign<decimal_type>(const decimal_type &decimal_value);
+			self_type &assign<decimal_type>(const decimal_type &decimal_value)
+			{
+				// to do
+				return *this;
+			}
 			template<>
-			self_type &assign<power_type>(const power_type &power_value);
+			self_type &assign<power_type>(const power_type &power_value)
+			{
+				// to do
+				return *this;
+			}
 			template<>
-			self_type &assign<logarithm_type>(const logarithm_type &logarithm_value);
+			self_type &assign<logarithm_type>(const logarithm_type &logarithm_value)
+			{
+				// to do
+				return *this;
+			}
 			template<uint32 _Digits>
-			typename std::enable_if_t<_Digits != Digits, self_type> &assign(const decimal<_Digits> &decimal_value);
+			typename std::enable_if_t<_Digits != Digits, self_type> &assign(const decimal<_Digits> &decimal_value)
+			{
+				return assign(decimal_type(decimal_value));
+			}
 			template<uint32 _Digits>
-			typename std::enable_if_t<_Digits != Digits, self_type> &assign(const DecimalWrapper<_Digits> &decimal_value);
+			typename std::enable_if_t<_Digits != Digits, self_type> &assign(const DecimalWrapper<_Digits> &decimal_value)
+			{
+				return assign(decimal_type(decimal_value));
+			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<_Digits != Digits, self_type> &assign(const PowerWrapper<_Digits> &power_value)
+			{
+				return assign(power_type(power_value));
+			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<_Digits != Digits, self_type> &assign(const LogarithmWrapper<_Digits> &logarithm_value)
+			{
+				return assign(logarithm_type(logarithm_value));
+			}
 
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::numeric_limits<T>::is_specialized && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &assign(const T &value);
-			self_type &assign(const std::string &str);
-			self_type &assign(const Block &block);
-			self_type &assign(const TranscendentalValue value);
-			self_type &assign(const SpecialValue value);
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::numeric_limits<T>::is_specialized && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &assign(const T &value)
+			{
+				return assign(decimal_type(typename decimal_type::value_type(value)));
+			}
+			template<typename T>
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::numeric_limits<T>::is_specialized && !Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &assign(const T &value)
+			{
+				return assign(decimal_type(static_cast<typename decimal_type::value_type>(value)));
+			}
+			self_type &assign(const std::string &str)
+			{
+				// to do
+				return *this;
+			}
+			self_type &assign(const Block &block)
+			{
+				// to do
+				return *this;
+			}
+			self_type &assign(const TranscendentalValue value)
+			{
+				m_value.assign(value);
+				return *this;
+			}
+			self_type &assign(const SpecialValue value)
+			{
+				m_value.assign(value);
+				return *this;
+			}
 
 			// operator =
 			self_type &operator=(const self_type &rhs) = default;
-			self_type &operator=(const value_type &rhs);
+			self_type &operator=(const value_type &rhs)
+			{
+				return assign(rhs);
+			}
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<Digits != _Digits && _Digits != 0, self_type> &operator=(const RealWrapper<_Digits> &ano)
+			{
+				return assign(ano);
+			}
+			template<uint32 _Digits = DefaultDigits>
+			typename std::enable_if_t<Digits != _Digits && _Digits != 0, self_type> &operator=(const typename RealWrapper<_Digits>::value_type &ano)
+			{
+				return assign(ano);
+			}
 
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> &operator=(const T &integer_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> &operator=(const T &integer_value)
+			{
+				return assign(integer_type(typename integer_type::value_type(integer_value)));
+			}
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> &operator=(const T &integer_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_integer && std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename integer_type::value_type>::value, self_type> &operator=(const T &integer_value)
+			{
+				return assign(integer_type(static_cast<typename integer_type::value_type>(integer_value)));
+			}
 			template<>
-			self_type &operator=<integer_type>(const integer_type &integer_value);
+			self_type &operator=<integer_type>(const integer_type &integer_value)
+			{
+				return assign(integer_value);
+			}
 			template<>
-			self_type &operator=<integer>(const integer &integer_value);
+			self_type &operator=<integer>(const integer &integer_value)
+			{
+				return assign(integer_type(integer_value));
+			}
 			template<>
-			self_type &operator=<rational_type>(const rational_type &rational_value);
+			self_type &operator=<rational_type>(const rational_type &rational_value)
+			{
+				return assign(rational_value);
+			}
 			template<>
-			self_type &operator=<rational>(const rational &rational_value);
+			self_type &operator=<rational>(const rational &rational_value)
+			{
+				return assign(rational_type(rational_value));
+			}
 			template<uint32 _Digits>
-			typename std::enable_if_t<_Digits != Digits, self_type> &operator=(const RationalWrapper<_Digits> &rational_value);
+			typename std::enable_if_t<_Digits != Digits, self_type> &operator=(const RationalWrapper<_Digits> &rational_value)
+			{
+				return assign(Rational_type(rational_value));
+			}
 
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> &operator=(const T &uinteger_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> &operator=(const T &uinteger_value)
+			{
+				return assign(uinteger_type(typename uinteger_type::value_type(uinteger_value)));
+			}
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> &operator=(const T &uinteger_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_signed && !Data::ConversionChecker<T, typename uinteger_type::value_type>::value, self_type> &operator=(const T &uinteger_value)
+			{
+				return assign(uinteger_type(static_cast<typename uinteger_type::value_type>(uinteger_value)));
+			}
 			template<>
-			self_type &operator=<uinteger_type>(const uinteger_type &uinteger_value);
+			self_type &operator=<uinteger_type>(const uinteger_type &uinteger_value)
+			{
+				return assign(uinteger_value);
+			}
 			template<>
-			self_type &operator=<bool>(const bool &boolean_value);
+			self_type &operator=<bool>(const bool &boolean_value)
+			{
+				return assign(boolean_value);
+			}
 
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &operator=(const T &decimal_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &operator=(const T &decimal_value)
+			{
+				return assign(decimal_type(typename decimal_type::value_type(decimal_value)));
+			}
 			template<typename T>
-			typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && !Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &operator=(const T &decimal_value);
+			typename std::enable_if_t<std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_integer && !Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &operator=(const T &decimal_value)
+			{
+				return assign(decimal_type(static_cast<typename decimal_type::value_type>(decimal_value)));
+			}
 			template<>
-			self_type &operator=<decimal_type>(const decimal_type &decimal_value);
+			self_type &operator=<decimal_type>(const decimal_type &decimal_value)
+			{
+				return assign(decimal_value);
+			}
 			template<>
-			self_type &operator=<power_type>(const power_type &power_value);
+			self_type &operator=<power_type>(const power_type &power_value)
+			{
+				return assign(power_value);
+			}
 			template<>
-			self_type &operator=<logarithm_type>(const logarithm_type &logarithm_value);
+			self_type &operator=<logarithm_type>(const logarithm_type &logarithm_value)
+			{
+				return assign(logarithm_value);
+			}
 			template<uint32 _Digits>
-			typename std::enable_if_t<_Digits != Digits, self_type> &operator=(const decimal<_Digits> &decimal_value);
+			typename std::enable_if_t<_Digits != Digits, self_type> &operator=(const decimal<_Digits> &decimal_value)
+			{
+				return assign(decimal_type(decimal_value));
+			}
 			template<uint32 _Digits>
-			typename std::enable_if_t<_Digits != Digits, self_type> &operator=(const DecimalWrapper<_Digits> &decimal_value);
-
+			typename std::enable_if_t<_Digits != Digits, self_type> &operator=(const DecimalWrapper<_Digits> &decimal_value)
+			{
+				return assign(decimal_type(decimal_value));
+			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<_Digits != Digits, self_type> &operator=(const PowerWrapper<_Digits> &power_value)
+			{
+				return assign(power_type(power_value));
+			}
+			template<uint32 _Digits>
+			typename std::enable_if_t<_Digits != Digits, self_type> &operator=(const LogarithmWrapper<_Digits> &logarithm_value)
+			{
+				return assign(logarithm_type(logarithm_value));
+			}
+			
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::numeric_limits<T>::is_specialized && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &operator=(const T &value);
-			self_type &operator=(const std::string &str);
-			self_type &operator=(const Block &block);
-			self_type &operator=(const TranscendentalValue value);
-			self_type &operator=(const SpecialValue value);
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::numeric_limits<T>::is_specialized && Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &operator=(const T &value)
+			{
+				return assign(decimal_type(typename decimal_type::value_type(value)));
+			}
+			template<typename T>
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::numeric_limits<T>::is_specialized && !Data::ConversionChecker<T, typename decimal_type::value_type>::value, self_type> &operator=(const T &value)
+			{
+				return assign(decimal_type(static_cast<typename decimal_type::value_type>(value)));
+			}
+			self_type &operator=(const std::string &str)
+			{
+				return assign(str);
+			}
+			self_type &operator=(const Block &block)
+			{
+				return assign(block);
+			}
+			self_type &operator=(const TranscendentalValue value)
+			{
+				return assign(value);
+			}
+			self_type &operator=(const SpecialValue value)
+			{
+				return assign(value);
+			}
 
 			// set and get
 			const value_type &value(void) const { return m_value; }
-			void setValue(const value_type &value);
+			void setValue(const value_type &value) { m_value.assign(value); }
 			operator decimal<Digits>(void) const;
 
 			Type type(void) const { return static_cast<Type>(m_value.what()); }
+
+			const bool isPositiveInfinity(void) const { return visit<positive_infinity_visitor>(); }
+			const bool isNegativeInfinity(void) const { return visit<negative_infinity_visitor>(); }
+			const bool isNaN(Void) const { return visit<nan_visitor>(); }
+			const bool isEmpty(void) const { return visit<empty_visitor>(); }
 
 			// translators
 			std::string toString(void) const;
 			Block toBlock(void) const;
 
-			bool toBoolean(void) const;
+			std::pair<bool, bool> toBoolean(void) const;
 
 			std::pair<bool, int8> toInt8(const ToIntegerFlag flag = ToIntegerFlag::round) const;
 			std::pair<bool, uint8> toUInt8(const ToIntegerFlag flag = ToIntegerFlag::round) const;

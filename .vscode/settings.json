@@ -22,8 +22,11 @@
         "unordered_map": "cpp",
         "xmemory0": "cpp",
         "xtr1common": "cpp",
-        "xxatomic": "cpp"
+        "xxatomic": "cpp",
+        "functional": "cpp",
+        "iosfwd": "cpp",
+        "system_error": "cpp"
     },
-    "editor.fontSize": 11,
+    "editor.fontSize": 14,
     "editor.fontFamily": "'Source Code Pro'"
 }
