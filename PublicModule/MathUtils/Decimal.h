@@ -567,6 +567,22 @@ namespace SSUtils
 			int32 m_index;
 			value_type m_offset;
 		};
+
+		template<uint32 Digits>
+		integer round(const decimal<Digits> &value)
+		{
+			return static_cast<integer>(boost::math::round(value));
+		}
+		template<uint32 Digits>
+		integer ceil(const decimal<Digits> &value)
+		{
+			return floor(value) + 1;
+		}
+		template<uint32 Digits>
+		integer floor(const decimal<Digits> &value)
+		{
+			return static_cast<integer>(value);
+		}
 	};
 };
 

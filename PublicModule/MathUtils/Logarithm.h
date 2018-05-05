@@ -617,8 +617,8 @@ namespace SSUtils
 				m_antilogarithm.assign(value.get<base_type>());
 			}
 
-			value_type value(void) const { return log(m_base, m_antilogarithm); }
-			DecimalWrapper<Digits> value_dec_wrapper(void) const { return DecimalWrapper<Digits>(value); }
+			value_type value(void) const { return !valid() ? std::numeric_limits<value_type>::quiet_NaN() : log(m_base, m_antilogarithm); }
+			DecimalWrapper<Digits> value_dec_wrapper(void) const { return DecimalWrapper<Digits>(value()); }
 			operator value_type(void) const { return value(); }
 
 			// translators
@@ -653,27 +653,27 @@ namespace SSUtils
 			uintx<bits> toIntx(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uintx<bits>>(); }
 			integer toInteger(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<integer>(); }
 
-			float toFloat(void) const { return value().convert_to<float>(); }
-			double toDouble(void) const { return value().convert_to<double>(); }
-			float32 toFloat32(void) const { return value().convert_to<float32>(); }
-			float64 toFloat64(void) const { return value().convert_to<float64>(); }
-			float128 toFloat128(void) const { return value().convert_to<float128>(); }
-			float256 toFloat256(void) const { return value().convert_to<float256>(); }
+			float toFloat(void) const { return !valid() ? std::numeric_limits<float>::quiet_NaN() : value().convert_to<float>(); }
+			double toDouble(void) const { return !valid() ? std::numeric_limits<double>::quiet_NaN() : value().convert_to<double>(); }
+			float32 toFloat32(void) const { return !valid() ? std::numeric_limits<float32>::quiet_NaN() : value().convert_to<float32>(); }
+			float64 toFloat64(void) const { return !valid() ? std::numeric_limits<float64>::quiet_NaN() : value().convert_to<float64>(); }
+			float128 toFloat128(void) const { return !valid() ? std::numeric_limits<float128>::quiet_NaN() : value().convert_to<float128>(); }
+			float256 toFloat256(void) const { return !valid() ? std::numeric_limits<float256>::quiet_NaN() : value().convert_to<float256>(); }
 
-			dec50 toDec50(void) const { return value().convert_to<dec50>(); }
-			dec100 toDec100(void) const { return value().convert_to<dec100>(); }
+			dec50 toDec50(void) const { return !valid() ? std::numeric_limits<dec50>::quiet_NaN() : value().convert_to<dec50>(); }
+			dec100 toDec100(void) const { return !valid() ? std::numeric_limits<dec100>::quiet_NaN() : value().convert_to<dec100>(); }
 
 			template<uint32 _Digits = DefaultDigits>
-			typename std::enable_if_t<_Digits != 0, decimal<_Digits>> toDecimal(void) const { return value().convert_to<decimal<_Digits>>(); }
+			typename std::enable_if_t<_Digits != 0, decimal<_Digits>> toDecimal(void) const { return !valid() ? std::numeric_limits<decimal<_Digits>>::quiet_NaN() : value().convert_to<decimal<_Digits>>(); }
 			template<>
-			decimal<Digits> toDecimal<Digits>(void) const { return value(); }
+			decimal<Digits> toDecimal<Digits>(void) const { return value_dec(); }
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<_Digits != 0, DecimalWrapper<_Digits>> toDecimalWrapper(void) const { return DecimalWrapper<_Digits>(toDecimal<_Digits>()); }
 			template<>
 			DecimalWrapper<Digits> toDecimalWrapper<Digits>(void) const { return DecimalWrapper<Digits>(value()); }
 
 			template<typename T>
-			T get(void) const { return value().convert_to<T>(); }
+			T get(void) const { return !valid() ? std::numeric_limits<T>::quiet_NaN() : value().convert_to<T>(); }
 			template<>
 			value_type get<value_type>(void) const { return value(); }
 
@@ -681,24 +681,24 @@ namespace SSUtils
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<_Digits>> round(void) const
 			{
 				static const value_type offset = value_type(5) * pow(value_type(10), -(static_cast<int64>(_Digits) + 1));
-				return (value() + offset).convert_to<decimal<_Digits>>();
+				return !valid() ? std::numeric_limits<decimal<_Digits>>::quiet_NaN() : (value() + offset).convert_to<decimal<_Digits>>();
 			}
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<_Digits>> floor(void) const
 			{
-				return value().convert_to<decimal<_Digits>>();
+				return !valid() ? std::numeric_limits<decimal<_Digits>>::quiet_NaN() : value().convert_to<decimal<_Digits>>();
 			}
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<Digits >= _Digits && _Digits != 0, decimal<_Digits>> ceil(void) const
 			{
 				static const value_type offset = pow(value_type(10), -static_cast<int64>(_Digits));
-				return (value() + offset).convert_to<decimal<_Digits>>();
+				return !valid() ? std::numeric_limits<decimal<_Digits>>::quiet_NaN() : (value() + offset).convert_to<decimal<_Digits>>();
 			}
 
 			integer toInteger(const ToIntegerFlag flag = ToIntegerFlag::round) { return flag == ToIntegerFlag::round ? roundToInteger() : ToIntegerFlag::ceil ? ceilToInteger() : floorToInteger(); }
-			integer roundToInteger(void) const { return static_cast<integer>(boost::math::round(value())); }
-			integer ceilToInteger(void) const { return floorToInteger() + 1; }
-			integer floorToInteger(void) const { return static_cast<integer>(value()); }
+			integer roundToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(boost::math::round(value_dec())); }
+			integer ceilToInteger(void) const { return !valid() ? integer(0) : floorToInteger() + 1; }
+			integer floorToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(value_dec()); }
 
 		private:
 			base_type m_base;
@@ -707,6 +707,22 @@ namespace SSUtils
 
 		template<uint32 Digits>
 		const String::RegexChecker LogarithmWrapper<Digits>::RegexChecker(std::string("^log\\(-?(0|[1-9]\\d*)(.\\d*)?,-?(0|[1-9]\\d*)(.\\d*)?\\)$"));
+
+		template<uint32 Digits>
+		integer round(const LogarithmWrapper<Digits> &value)
+		{
+			return value.roundToInteger();
+		}
+		template<uint32 Digits>
+		integer ceil(const LogarithmWrapper<Digits> &value)
+		{
+			return value.ceilToInteger();
+		}
+		template<uint32 Digits>
+		integer floor(const LogarithmWrapper<Digits> &value)
+		{
+			return value.floorToInteger();
+		}
 	};
 };
 

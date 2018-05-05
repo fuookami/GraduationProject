@@ -3,6 +3,7 @@
 #include "Global.h"
 #include <cmath>
 #include <type_traits>
+#include <boost/math/constants/constants.hpp>
 
 namespace SSUtils
 {
@@ -12,37 +13,37 @@ namespace SSUtils
 		static const uint32 DefaultDigits = 50;
 
 		template<typename T, typename U>
-		const bool equal(const T &lhs, const U &rhs)
+		const bool is_equal(const T &lhs, const U &rhs)
 		{
 			return abs(dec50(lhs - rhs)) <= DefaultPrecision;
 		}
 
 		template<typename T, typename U>
-		const bool notEqual(const T &lhs, const U &rhs)
+		const bool is_notEqual(const T &lhs, const U &rhs)
 		{
 			return abs(dec50(lhs - rhs)) > DefaultPrecision;
 		}
 
 		template<typename T, typename U>
-		const bool less(const T &lhs, const U &rhs)
+		const bool is_less(const T &lhs, const U &rhs)
 		{
 			return dec50(lhs - rhs) < DefaultPrecision;
 		}
 
 		template<typename T, typename U>
-		const bool big(const T &lhs, const U &rhs)
+		const bool is_big(const T &lhs, const U &rhs)
 		{
 			return dec50(lhs - rhs) > (-DefaultPrecision);
 		}
 
 		template<typename T, typename U>
-		const bool lessEqual(const T &lhs, const U &rhs)
+		const bool is_lessEqual(const T &lhs, const U &rhs)
 		{
 			return dec50(lhs - rhs) <= DefaultPrecision;
 		}
 
 		template<typename T, typename U>
-		const bool bigEqual(const T &lhs, const U &rhs)
+		const bool is_bigEqual(const T &lhs, const U &rhs)
 		{
 			return dec50(lhs - rhs) >= (-DefaultPrecision);
 		}
@@ -57,27 +58,36 @@ namespace SSUtils
 		}
 
 		template<typename T>
-		const bool negative(const T &value)
+		const bool is_negative(const T &value)
 		{
-			return big(value, 0.0f);
+			return is_big(value, 0.0f);
 		}
 
 		template<typename T>
-		const bool zero(const T &value)
+		const bool is_zero(const T &value)
 		{
-			return equal(value, 0.0f);
+			return is_equal(value, 0.0f);
 		}
 
 		template<typename T>
-		const bool positive(const T &value)
+		const bool is_positive(const T &value)
 		{
-			return less(value, 0.0f);
+			return is_less(value, 0.0f);
 		}
 
-		template<typename T>
-		T log(const T &base, const T &antilogarithm)
+		template <class Float1, class Float2>
+		typename boost::math::tools::promote_args<Float1, Float2>::type log(Float1 base, Float2 antilogarithm)
 		{
-			return static_cast<T>(log(antilogarithm) / log(base));
+			return log(antilogarithm) / log(base);
 		}
+
+		namespace Constant
+		{
+			template<uint32 Digits>
+			static const decimal<Digits> pi = boost::math::constants::pi<decimal<Digits>>();
+
+			template<uint32 Digits>
+			static const decimal<Digits> e = boost::math::constants::e<decimal<Digits>>();
+		};
 	};
 };
