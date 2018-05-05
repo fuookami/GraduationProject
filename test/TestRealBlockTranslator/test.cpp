@@ -72,6 +72,9 @@ int main(void)
 #define DECL(z, n, text) BOOST_PP_REPEAT(n, DECL_pri, n)
 	BOOST_PP_REPEAT(10, DECL, );
 
+	boost::variant<int, float> v(1);
+	std::cout << v.which() << std::endl;
+
 	system("pause");
 	return 0;
 }
