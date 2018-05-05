@@ -358,5 +358,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Global.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MathUtils\Rational.cpp">
+      <Filter>源文件\MathUtils</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
