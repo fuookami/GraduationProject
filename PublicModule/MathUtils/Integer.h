@@ -40,6 +40,10 @@ namespace SSUtils
 				}
 				setDigit(digits);
 			}
+			IntegerWrapper(const char *str, const uint32 digits = 0)
+				: IntegerWrapper(std::string(str), digits)
+			{
+			}
 			IntegerWrapper(const Block &block, const uint32 digits = 0)
 				: IntegerWrapper(String::HexStringPrefix + Data::toHexString(block), digits)
 			{
@@ -56,13 +60,13 @@ namespace SSUtils
 
 			// generators
 			template<typename T>
-			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && std::is_convertible_v<T, value_type>, self_type> generate(const T &value, const uint32 digits = 0)
 			{
 				self_type ret = self_type(value_type(value), digits);
 				return ret;
 			}
 			template<typename T>
-			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const uint32 digits = 0)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_convertible_v<T, value_type>, self_type> generate(const T &value, const uint32 digits = 0)
 			{
 				self_type ret = self_type(static_cast<value_type>(value), digits);
 				return ret;
@@ -78,6 +82,10 @@ namespace SSUtils
 			{
 				self_type ret = self_type(value, digits);
 				return ret;
+			}
+			static self_type generate(const char *value, const uint32 digits)
+			{
+				return generate(std::string(value), digits);
 			}
 			template<>
 			static self_type generate<Block>(const Block &value, const uint32 digits)
@@ -114,6 +122,10 @@ namespace SSUtils
 				setDigit(digits);
 				return *this;
 			}
+			self_type &assign(const char * str, const uint32 digits)
+			{
+				return assign(std::string(str));
+			}
 			template<>
 			self_type &assign<Block>(const Block &ano, const uint32 digits)
 			{
@@ -137,14 +149,14 @@ namespace SSUtils
 			// operator =
 			self_type &operator=(const self_type &rhs) = default;
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && std::is_convertible_v<T, value_type>, self_type> &operator=(const T &rhs)
 			{
 				value_type::operator=(rhs);
 				setDigit(0);
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_convertible_v<T, value_type>, self_type> &operator=(const T &rhs)
 			{
 				value_type::assign(rhs);
 				setDigit(0);
@@ -164,6 +176,10 @@ namespace SSUtils
 				setDigit(0);
 				return *this;
 			}
+			self_type &operator=(const char *rhs)
+			{
+				return operator=(std::string(rhs));
+			}
 			template<>
 			self_type &operator=<Block>(const Block &rhs)
 			{
@@ -173,14 +189,14 @@ namespace SSUtils
 
 			// other operators
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator+=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator+=(const T &rhs)
 			{
 				value_type::operator+=(rhs);
 				limit();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator+=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator+=(const T &rhs)
 			{
 				value_type::operator+=(static_cast<value_type>(rhs));
 				limit();
@@ -203,6 +219,10 @@ namespace SSUtils
 				}
 				return *this;
 			}
+			self_type &operator+=(const char *rhs)
+			{
+				return operator+=(std::string(rhs));
+			}
 			template<>
 			self_type &operator+=<Block>(const Block &rhs)
 			{
@@ -211,14 +231,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator-=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator-=(const T &rhs)
 			{
 				value_type::operator-=(rhs);
 				limit();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator-=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator-=(const T &rhs)
 			{
 				value_type::operator-=(static_cast<value_type>(rhs));
 				limit();
@@ -241,6 +261,10 @@ namespace SSUtils
 				}
 				return *this;
 			}
+			self_type &operator-=(const char *rhs)
+			{
+				return operator-=(std::string(rhs));
+			}
 			template<>
 			self_type &operator-=<Block>(const Block &rhs)
 			{
@@ -249,14 +273,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator*=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator*=(const T &rhs)
 			{
 				value_type::operator*=(rhs);
 				limit();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator*=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator*=(const T &rhs)
 			{
 				value_type::operator*=(static_cast<value_type>(rhs));
 				limit();
@@ -268,6 +292,10 @@ namespace SSUtils
 				value_type::operator*=(rhs.value());
 				limit();
 				return *this;
+			}
+			self_type &operator*=(const char *rhs)
+			{
+				return operator*=(std::string(rhs));
 			}
 			template<>
 			self_type &operator*=<std::string>(const std::string &rhs)
@@ -287,14 +315,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator/=(const T &rhs)
 			{
 				value_type::operator/=(rhs);
 				limit();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator/=(const T &rhs)
 			{
 				value_type::operator/=(static_cast<value_type>(rhs));
 				limit();
@@ -316,6 +344,10 @@ namespace SSUtils
 					limit();
 				}
 				return *this;
+			}
+			self_type &operator/=(const char *rhs)
+			{
+				return operator/=(std::string(rhs));
 			}
 			template<>
 			self_type &operator/=<Block>(const Block &rhs)
@@ -350,14 +382,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator%=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator%=(const T &rhs)
 			{
 				assign(mod(*this, rhs));
 				limit();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator%=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator%=(const T &rhs)
 			{
 				value_type::operator&=(rhs);
 				limit();
@@ -380,6 +412,10 @@ namespace SSUtils
 				}
 				return *this;
 			}
+			self_type &operator%=(const char *rhs)
+			{
+				return operator%=(std::string(rhs));
+			}
 			template<>
 			self_type &operator%=<Block>(const Block &rhs)
 			{
@@ -388,14 +424,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator|=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator|=(const T &rhs)
 			{
 				value_type::operator|=(rhs);
 				limit();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator|=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator|=(const T &rhs)
 			{
 				value_type::operator|=(static_cast<value_type>(rhs));
 				limit();
@@ -418,6 +454,10 @@ namespace SSUtils
 				}
 				return *this;
 			}
+			self_type &operator|=(const char *rhs)
+			{
+				return operator|=(std::string(rhs));
+			}
 			template<>
 			self_type &operator|=<Block>(const Block &rhs)
 			{
@@ -426,14 +466,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator^=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator^=(const T &rhs)
 			{
 				value_type::operator^=(rhs);
 				limit();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator^=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator^=(const T &rhs)
 			{
 				value_type::operator^=(static_cast<value_type>(rhs));
 				limit();
@@ -456,6 +496,10 @@ namespace SSUtils
 				}
 				return *this;
 			}
+			self_type &operator^=(const char *rhs)
+			{
+				return operator^=(std::string(rhs));
+			}
 			template<>
 			self_type &operator^=<Block>(const Block &rhs)
 			{
@@ -464,14 +508,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator<<=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator<<=(const T &rhs)
 			{
 				value_type::operator<<=(rhs);
 				limit();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator<<=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator<<=(const T &rhs)
 			{
 				value_type::operator<<=(static_cast<value_type>(rhs));
 				limit();
@@ -494,6 +538,10 @@ namespace SSUtils
 				}
 				return *this;
 			}
+			self_type &operator<<=(const char *rhs)
+			{
+				return operator<<=(std::string(rhs));
+			}
 			template<>
 			self_type &operator<<=<Block>(const Block &rhs)
 			{
@@ -502,14 +550,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator>>=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator>>=(const T &rhs)
 			{
 				value_type::operator>>=(rhs);
 				limit();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator>>=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator>>=(const T &rhs)
 			{
 				value_type::operator>>=(static_cast<value_type>(rhs));
 				limit();
@@ -531,6 +579,10 @@ namespace SSUtils
 					limit();
 				}
 				return *this;
+			}
+			self_type &operator>>=(const char *rhs)
+			{
+				return operator>>=(std::string(rhs));
 			}
 			template<>
 			self_type &operator>>=<Block>(const Block &rhs)
@@ -554,7 +606,7 @@ namespace SSUtils
 			const value_type &value(void) const { return *this; }
 
 			// translators
-			std::string toString(const std::ios_base::fmtflags flags = 0) const { return str(m_digits, flags); }
+			std::string toString(const std::ios_base::fmtflags flags = std::ios_base::hex) const { return str(m_digits, flags); }
 			Block toBlock(void) const { return Data::fromHexString(toString(std::ios_base::hex)); }
 
 			int8 toInt8(void) const { return convert_to<int8>(); }

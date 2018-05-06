@@ -37,6 +37,10 @@ namespace SSUtils
 				}
 				refresh(index);
 			}
+			DecimalWrapper(const char *str, const int32 index = 0)
+				: DecimalWrapper(std::string(str), index)
+			{
+			}
 			DecimalWrapper(const Block &block, const int32 index = 0)
 				: DecimalWrapper(Data::toString(block), index)
 			{
@@ -63,13 +67,13 @@ namespace SSUtils
 
 			// generators
 			template<typename T>
-			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const int32 index = 1)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && std::is_convertible_v<T, value_type>, self_type> generate(const T &value, const int32 index = 1)
 			{
 				self_type ret = self_type(value_type(value), index);
 				return ret;
 			}
 			template<typename T>
-			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, self_type> generate(const T &value, const int32 index = 1)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_convertible_v<T, value_type>, self_type> generate(const T &value, const int32 index = 1)
 			{
 				self_type ret = self_type(static_cast<value_type>(value), index);
 				return ret;
@@ -85,6 +89,10 @@ namespace SSUtils
 			{
 				self_type ret = self_type(value, index);
 				return ret;
+			}
+			static self_type generate(const char *value, const int32 index)
+			{
+				return generate(std::string(value), index);
 			}
 			template<>
 			static self_type generate<Block>(const Block &value, const int32 index)
@@ -128,6 +136,10 @@ namespace SSUtils
 				}
 				refresh(index);
 				return *this;
+			}
+			self_type &assign(const char *ano, const int32 index)
+			{
+				return assign(std::string(ano), index);
 			}
 			template<>
 			self_type &assign<Block>(const Block &ano, const int32 index)
@@ -178,14 +190,14 @@ namespace SSUtils
 			// operator =
 			self_type &operator=(const self_type &rhs) = default;
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && std::is_convertible_v<T, value_type>, self_type> &operator=(const T &rhs)
 			{
 				value_type::operator=(rhs);
 				refresh();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, value_type>::value, self_type> &operator=(const T &rhs)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_convertible_v<T, value_type>, self_type> &operator=(const T &rhs)
 			{
 				value_type::assign(rhs);
 				refresh();
@@ -203,6 +215,11 @@ namespace SSUtils
 					value_type::assign(0);
 				}
 				refresh();
+				return *this;
+			}
+			self_type &operator=(const char *rhs)
+			{
+				operator=(std::string(rhs));
 				return *this;
 			}
 			template<>
@@ -226,14 +243,14 @@ namespace SSUtils
 
 			// other operators
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator+=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator+=(const T &rhs)
 			{
 				value_type::operator+=(rhs);
 				refresh();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator+=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator+=(const T &rhs)
 			{
 				value_type::operator+=(static_cast<value_type>(rhs));
 				refresh();
@@ -247,6 +264,11 @@ namespace SSUtils
 					operator+=(value_type(rhs));
 					refresh();
 				}
+				return *this;
+			}
+			self_type &operator+=(const char *rhs)
+			{
+				operator+=(std::string(rhs));
 				return *this;
 			}
 			template<>
@@ -269,14 +291,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator-=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator-=(const T &rhs)
 			{
 				value_type::operator-=(rhs);
 				refresh();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator-=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator-=(const T &rhs)
 			{
 				value_type::operator-=(static_cast<value_type>(rhs));
 				refresh();
@@ -290,6 +312,11 @@ namespace SSUtils
 					operator-=(value_type(rhs));
 					refresh();
 				}
+				return *this;
+			}
+			self_type &operator-=(const char *rhs)
+			{
+				operator-=(std::string(rhs));
 				return *this;
 			}
 			template<>
@@ -312,14 +339,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator*=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator*=(const T &rhs)
 			{
 				value_type::operator*=(rhs);
 				refresh();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator*=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator*=(const T &rhs)
 			{
 				value_type::operator*=(static_cast<value_type>(rhs));
 				refresh();
@@ -333,6 +360,11 @@ namespace SSUtils
 					operator*=(value_type(rhs));
 					refresh();
 				}
+				return *this;
+			}
+			self_type &operator*=(const char *rhs)
+			{
+				operator*=(std::string(rhs));
 				return *this;
 			}
 			template<>
@@ -355,14 +387,14 @@ namespace SSUtils
 			}
 
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, self_type> &operator/=(const T &rhs)
 			{
 				value_type::operator/=(rhs);
 				refresh();
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, self_type> &operator/=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, self_type> &operator/=(const T &rhs)
 			{
 				value_type::operator/=(static_cast<value_type>(rhs));
 				refresh();
@@ -376,6 +408,11 @@ namespace SSUtils
 					operator/=(value_type(rhs));
 					refresh();
 				}
+				return *this;
+			}
+			self_type &operator/=(const char *rhs)
+			{
+				operator/=(std::string(rhs));
 				return *this;
 			}
 			template<>
@@ -423,10 +460,10 @@ namespace SSUtils
 			}
 
 			// set and get
-			const bool isInfinity(void) const { return boost::math::isinf(dynamic_cast<value_type &>(*this)); }
+			const bool isInfinity(void) const { return boost::math::isinf(dynamic_cast<const value_type &>(*this)); }
 			const bool isPositiveInfinity(void) const { return isInfinity() && (*this > 0); }
 			const bool isNegativeInfinity(void) const { return isInfinity() && (*this < 0); }
-			const bool isNaN(void) const { return boost::math::isnan(dynamic_cast<value_type &>(*this)); }
+			const bool isNaN(void) const { return boost::math::isnan(dynamic_cast<const value_type &>(*this)); }
 
 			const int32 getIndex(void) const { return m_index; }
 			const value_type &getOffset(void) const { return m_offset; }
@@ -434,12 +471,12 @@ namespace SSUtils
 
 			const value_type &getBase(void) const { return m_base; }
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, value_type>::value, void> setBase(const T &base)
+			typename std::enable_if_t<std::is_convertible_v<T, value_type>, void> setBase(const T &base)
 			{
 				refresh(value_type(base));
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, value_type>::value, void> setBase(const T &base)
+			typename std::enable_if_t<!std::is_convertible_v<T, value_type>, void> setBase(const T &base)
 			{
 				refresh(static_cast<value_type>(base));
 			}
@@ -459,6 +496,10 @@ namespace SSUtils
 				{
 					refresh(value_type(0));
 				}
+			}
+			void setBase(const char *value)
+			{
+				setBase(std::string(value));
 			}
 			template<>
 			void setBase<Block>(const Block &value)

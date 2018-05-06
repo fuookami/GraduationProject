@@ -141,7 +141,7 @@ namespace SSUtils
 		template<typename T>
 		struct FileSaver<T, 1>
 		{
-			static_assert(Data::ConversionChecker<T, byte>::value, "can not translate to byte");
+			static_assert(std::is_convertible_v<T, byte>, "can not translate to byte");
 
 			FileSaver(void) = default;
 			FileSaver(const FileSaver &ano) = delete;

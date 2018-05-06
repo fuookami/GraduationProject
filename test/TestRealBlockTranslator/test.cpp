@@ -75,6 +75,21 @@ int main(void)
 	boost::variant<int, float> v(1);
 	std::cout << v.which() << std::endl;
 
+	Power p(2, 0.5);
+	std::cout << p << ' ' << p.toString() << std::endl;
+
+	Real re(std::string("0xff"));
+	std::cout << re << ' ' << re.toString() << std::endl;
+	bi = re.toBlock();
+	Real _re = Real(bi);
+	std::cout << _re << ' ' << _re.toString() << std::endl;
+	std::cout << Real::pi << ' ' << Real::pi.value_dec() << std::endl;
+	std::cout << Real::e << ' ' << Real::e.value_dec() << std::endl;
+	std::cout << Real::root_2 << ' ' << Real::root_2.value_dec() << std::endl;
+	std::cout << Real::root_3 << ' ' << Real::root_3.value_dec() << std::endl;
+	std::cout << Real::ln_2 << ' ' << Real::ln_2.value_dec() << std::endl;
+	std::cout << Real::lg_2 << ' ' << Real::lg_2.value_dec() << std::endl;
+
 	system("pause");
 	return 0;
 }

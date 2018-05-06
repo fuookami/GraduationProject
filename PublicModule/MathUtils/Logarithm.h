@@ -28,7 +28,7 @@ namespace SSUtils
 			LogarithmWrapper(const base_type &ano)
 				: m_base(ano), m_antilogarithm(1) 
 			{
-			};
+			}
 			LogarithmWrapper(const std::string &str)
 				: m_base(0), m_antilogarithm(1)
 			{
@@ -45,6 +45,10 @@ namespace SSUtils
 				{
 					m_base.assign(str);
 				}
+			}
+			LogarithmWrapper(const char *str)
+				: LogarithmWrapper(std::string(str))
+			{
 			}
 			LogarithmWrapper(const Block &block)
 				: LogarithmWrapper(Data::toString(block))
@@ -93,6 +97,10 @@ namespace SSUtils
 					m_antilogarithm.assign(antilogarithm);
 				}
 			}
+			LogarithmWrapper(const char *base, const char *antilogarithm)
+				: LogarithmWrapper(std::string(base), std::string(antilogarithm))
+			{
+			}
 			LogarithmWrapper(const Block &base, const Block &antilogarithm)
 				: LogarithmWrapper(Data::toString(block), Data::toString(antilogarithm))
 			{
@@ -128,13 +136,13 @@ namespace SSUtils
 
 			// generators
 			template<typename T>
-			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &ano)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && std::is_convertible_v<T, base_type>, self_type> generate(const T &ano)
 			{
 				self_type ret = self_type(base_type(ano));
 				return ret;
 			}
 			template<typename T>
-			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &ano)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_convertible_v<T, base_type>, self_type> generate(const T &ano)
 			{
 				self_type ret = self_type(static_cast<base_type>(ano));
 				return ret;
@@ -150,6 +158,10 @@ namespace SSUtils
 			{
 				self_type ret = self_type(ano);
 				return ret;
+			}
+			static self_type generate(const char *ano)
+			{
+				return generate(std::string(ano));
 			}
 			template<>
 			static self_type generate<Block>(const Block &ano)
@@ -183,19 +195,19 @@ namespace SSUtils
 			}
 
 			template<typename T, typename U>
-			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<U, self_type> && !std::is_same_v<T, U> && Data::ConversionChecker<T, base_type>::value && Data::ConversionChecker<U, base_type>::value, self_type> generate(const T &base, const U &antilogarithm)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_same_v<U, self_type> && !std::is_same_v<T, U> && std::is_convertible_v<T, base_type> && std::is_convertible_v<U, base_type>, self_type> generate(const T &base, const U &antilogarithm)
 			{
 				self_type ret = self_type(base_type(base), base_type(antilogarithm));
 				return ret;
 			}
 			template<typename T>
-			static typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &base, const T &antilogarithm)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && std::is_convertible_v<T, base_type>, self_type> generate(const T &base, const T &antilogarithm)
 			{
 				self_type ret = self_type(base_type(base), base_type(antilogarithm));
 				return ret;
 			}
 			template<typename T>
-			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> generate(const T &base, const T &antilogarithm)
+			static typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_convertible_v<T, base_type>, self_type> generate(const T &base, const T &antilogarithm)
 			{
 				self_type ret = self_type(static_cast<base_type>(base), static_cast<base_type>(antilogarithm));
 				return ret;
@@ -211,6 +223,10 @@ namespace SSUtils
 			{
 				self_type ret = self_type(base, antilogarithm);
 				return ret;
+			}
+			static self_type generate(const char *base, const char *antilogarithm)
+			{
+				return generate(std::string(base), std::string(antilogarithm));
 			}
 			template<>
 			static self_type generate<Block>(const Block &base, const Block &antilogarithm)
@@ -251,13 +267,13 @@ namespace SSUtils
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> &assign(const T &ano)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && std::is_convertible_v<T, base_type>, self_type> &assign(const T &ano)
 			{
 				m_antilogarithm.assign(pow(m_base, base_type(ano)));
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> &assign(const T &ano)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_convertible_v<T, base_type>, self_type> &assign(const T &ano)
 			{
 				m_antilogarithm.assign(pow(m_base, static_cast<base_type>(ano)));
 				return *this;
@@ -285,6 +301,10 @@ namespace SSUtils
 					m_antilogarithm.assign(pow(m_base, base_type(ano)));
 				}
 				return *this;
+			}
+			self_type &assign(const char *ano)
+			{
+				return assign(std::string(ano));
 			}
 			template<>
 			self_type &assign<Block>(const Block &ano)
@@ -360,6 +380,10 @@ namespace SSUtils
 				}
 				return *this;
 			}
+			self_type &assign(const char *base, const char *antilogarithm)
+			{
+				return assign(std::string(base), std::string(antilogarithm));
+			}
 			template<>
 			self_type &assign<Block>(const Block &base, const Block &antilogarithm)
 			{
@@ -401,13 +425,13 @@ namespace SSUtils
 			self_type &operator=(const self_type &rhs) = default;
 			self_type &operator=(self_type &&rhs) = default;
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && Data::ConversionChecker<T, base_type>::value, self_type> &operator=(const T &rhs)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && std::is_convertible_v<T, base_type>, self_type> &operator=(const T &rhs)
 			{
 				m_antilogarithm.assign(pow(m_base, base_type(rhs)));
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, self_type> && !Data::ConversionChecker<T, base_type>::value, self_type> &operator=(const T &rhs)
+			typename std::enable_if_t<!std::is_same_v<T, self_type> && !std::is_convertible_v<T, base_type>, self_type> &operator=(const T &rhs)
 			{
 				m_antilogarithm.assign(pow(m_base, static_cast<base_type>(rhs)));
 				return *this;
@@ -435,6 +459,10 @@ namespace SSUtils
 					m_antilogarithm.assign(pow(m_base, base_type(rhs)));
 				}
 				return *this;
+			}
+			self_type &operator=(const char *rhs)
+			{
+				return operator=(std::string(rhs));
 			}
 			template<>
 			self_type &operator=<Block>(const Block &rhs)
@@ -470,13 +498,13 @@ namespace SSUtils
 
 			// other operators
 			template<typename T>
-			typename std::enable_if_t<Data::ConversionChecker<T, base_type>::value, self_type> &operator*=(const T &rhs)
+			typename std::enable_if_t<std::is_convertible_v<T, base_type>, self_type> &operator*=(const T &rhs)
 			{
 				m_antilogarithm.assign(pow(m_antilogarithm, base_type(rhs)));
 				return *this;
 			}
 			template<typename T>
-			typename std::enable_if_t<!Data::ConversionChecker<T, base_type>::value, self_type> &operator*=(const T &rhs)
+			typename std::enable_if_t<!std::is_convertible_v<T, base_type>, self_type> &operator*=(const T &rhs)
 			{
 				m_antilogarithm.assign(pow(m_antilogarithm, temp));
 				return *this;
@@ -495,6 +523,10 @@ namespace SSUtils
 					m_antilogarithm.assign(pow(m_antilogarithm, base_type(rhs)));
 				}
 				return *this;
+			}
+			self_type &operator*=(const char *rhs)
+			{
+				return operator*=(std::string(rhs));
 			}
 			template<>
 			self_type &operator*=<Block>(const Block &rhs)
@@ -553,6 +585,10 @@ namespace SSUtils
 					m_base.assign(0);
 				}
 			}
+			void setBase(const char *value)
+			{
+				setBase(std::string(value));
+			}
 			template<>
 			void setBase<Block>(const Block &value) 
 			{ 
@@ -594,6 +630,10 @@ namespace SSUtils
 				{
 					m_antilogarithm.assign(0);
 				}
+			}
+			void setAntilogarithm(const char *value)
+			{
+				return setAntilogarithm(std::string(value));
 			}
 			template<>
 			void setAntilogarithm<Block>(const Block &value) 
@@ -670,7 +710,7 @@ namespace SSUtils
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<_Digits != 0, decimal<_Digits>> toDecimal(void) const { return !valid() ? std::numeric_limits<decimal<_Digits>>::quiet_NaN() : value().convert_to<decimal<_Digits>>(); }
 			template<>
-			decimal<Digits> toDecimal<Digits>(void) const { return value_dec(); }
+			decimal<Digits> toDecimal<Digits>(void) const { return value(); }
 			template<uint32 _Digits = DefaultDigits>
 			typename std::enable_if_t<_Digits != 0, DecimalWrapper<_Digits>> toDecimalWrapper(void) const { return DecimalWrapper<_Digits>(toDecimal<_Digits>()); }
 			template<>
@@ -700,9 +740,9 @@ namespace SSUtils
 			}
 
 			integer toInteger(const RoundFlag flag = RoundFlag::round) { return flag == RoundFlag::round ? roundToInteger() : RoundFlag::ceil ? ceilToInteger() : floorToInteger(); }
-			integer roundToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(boost::math::round(value_dec())); }
+			integer roundToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(boost::math::round(value())); }
 			integer ceilToInteger(void) const { return !valid() ? integer(0) : floorToInteger() + 1; }
-			integer floorToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(value_dec()); }
+			integer floorToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(value()); }
 
 		private:
 			base_type m_base;

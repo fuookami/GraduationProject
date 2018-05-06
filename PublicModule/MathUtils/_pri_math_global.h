@@ -84,10 +84,18 @@ namespace SSUtils
 		namespace Constant
 		{
 			template<uint32 Digits>
-			static const decimal<Digits> pi = boost::math::constants::pi<decimal<Digits>>();
+			static const decimal<Digits> &pi(void)
+			{
+				static const decimal<Digits> ret = boost::math::constants::pi<decimal<Digits>>();
+				return ret;
+			}
 
 			template<uint32 Digits>
-			static const decimal<Digits> e = boost::math::constants::e<decimal<Digits>>();
+			static const decimal<Digits> &e(void)
+			{
+				static const decimal<Digits> ret = boost::math::constants::e<decimal<Digits>>();
+				return ret;
+			}
 		};
 	};
 };
