@@ -7,7 +7,7 @@ namespace SSUtils
 {
 	namespace Math
 	{
-		enum class ToIntegerFlag
+		enum class RoundFlag
 		{
 			round,
 			ceil,

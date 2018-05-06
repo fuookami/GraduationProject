@@ -32,6 +32,7 @@ namespace SSUtils
 		extern const std::string True;
 		extern const std::string False;
 
+		extern const std::string Infinity;
 		extern const std::string NegativeInfinity;
 		extern const std::string PositiveInfinity;
 		extern const std::string NotANumber;

@@ -47,7 +47,7 @@ namespace SSUtils
 				}
 			}
 			LogarithmWrapper(const Block &block)
-				: LogarithmWrapper(String::base64Decode(Data::toString(block)))
+				: LogarithmWrapper(Data::toString(block))
 			{
 			}
 			template<typename T>
@@ -94,7 +94,7 @@ namespace SSUtils
 				}
 			}
 			LogarithmWrapper(const Block &base, const Block &antilogarithm)
-				: LogarithmWrapper(String::base64Decode(Data::toString(block)), String::base64Decode(Data::toString(antilogarithm)))
+				: LogarithmWrapper(Data::toString(block), Data::toString(antilogarithm))
 			{
 			}
 			template<typename T, typename U>
@@ -289,7 +289,7 @@ namespace SSUtils
 			template<>
 			self_type &assign<Block>(const Block &ano)
 			{
-				assign(String::base64Decode(Data::toString(block)));
+				assign(Data::toString(block));
 				return *this;
 			}
 			template<bool Signed>
@@ -363,7 +363,7 @@ namespace SSUtils
 			template<>
 			self_type &assign<Block>(const Block &base, const Block &antilogarithm)
 			{
-				assign(String::base64Decode(Data::toString(block)), String::base64Decode(Data::toString(antilogarithm)));
+				assign(Data::toString(base), Data::toString(antilogarithm));
 				return *this;
 			}
 			template<bool Signed1, bool Signed2>
@@ -439,7 +439,7 @@ namespace SSUtils
 			template<>
 			self_type &operator=<Block>(const Block &rhs)
 			{
-				operator=(String::base64Decode(Data::toString(rhs)));
+				operator=(Data::toString(rhs));
 				return *this;
 			}
 			template<bool Signed>
@@ -499,13 +499,13 @@ namespace SSUtils
 			template<>
 			self_type &operator*=<Block>(const Block &rhs)
 			{
-				operator*=(String::base64Decode(Data::toString(block)));
+				operator*=(Data::toString(block));
 				return *this;
 			}
 			template<bool Signed>
 			self_type &operator*=(const IntegerWrapper<Signed> &rhs)
 			{
-				operator*=(String::base64Decode(Data::toString(block)));
+				operator*=(Data::toString(block));
 				return *this;
 			}
 			template<uint32 _Digits>
@@ -529,6 +529,10 @@ namespace SSUtils
 
 			// set and get
 			const bool valid(void) const { return m_base > 0 && m_base != 1 && m_antilogarithm > 0; }
+			const bool isInfinity(void) const { return boost::math::isinf(value()); }
+			const bool isPositiveInfinity(void) const { return isInfinity() && (value() > 0); }
+			const bool isNegativeInfinity(void) const { return isInfinity() && (value() < 0); }
+			const bool isNaN(void) const { return !valid() || boost::math::isnan(value()); }
 
 			base_type &getBase(void) { return m_base; }
 			const base_type &getBase(void) const { return m_base; }
@@ -552,7 +556,7 @@ namespace SSUtils
 			template<>
 			void setBase<Block>(const Block &value) 
 			{ 
-				setBase(String::base64Decode(Data::toString(value))); 
+				setBase(Data::toString(value)); 
 			}
 			template<bool Signed>
 			void setBase(const IntegerWrapper<Signed> &value)
@@ -594,7 +598,7 @@ namespace SSUtils
 			template<>
 			void setAntilogarithm<Block>(const Block &value) 
 			{
-				setAntilogarithm(String::base64Decode(Data::toString(value))); 
+				setAntilogarithm(Data::toString(value)); 
 			}
 			template<bool Signed>
 			void setAntilogarithm(const IntegerWrapper<Signed> &value)
@@ -628,30 +632,30 @@ namespace SSUtils
 				sout << "log(" << m_base.str(Digits, flags) << ',' << m_antilogarithm.str(Digits, flags) << ')';
 				return sout.str();
 			}
-			Block toBlock(const std::ios_base::fmtflags flags = std::ios::fixed) const { return Data::fromString(String::base64Encode(toString(flags))); }
+			Block toBlock(const std::ios_base::fmtflags flags = std::ios::fixed) const { return Data::fromString(toString(flags)); }
 
-			int8 toInt8(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int8>(); }
-			uint8 toUInt8(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint8>(); }
-			int16 toInt16(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int16>(); }
-			uint16 toUInt16(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint16>(); }
-			int32 toInt32(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int32>(); }
-			uint32 toUInt32(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint32>(); }
-			int64 toInt64(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int64>(); }
-			uint64 toUInt64(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint64>(); }
-			int128 toInt128(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int128>(); }
-			uint128 toUInt128(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint128>(); }
-			int256 toInt256(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int256>(); }
-			uint256 toUInt256(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint256>(); }
-			int512 toInt512(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int512>(); }
-			uint512 toUInt512(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint512>(); }
-			int1024 toInt1024(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<int1024>(); }
-			uint1024 toUInt1024(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uint1024>(); }
+			int8 toInt8(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<int8>(); }
+			uint8 toUInt8(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uint8>(); }
+			int16 toInt16(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<int16>(); }
+			uint16 toUInt16(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uint16>(); }
+			int32 toInt32(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<int32>(); }
+			uint32 toUInt32(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uint32>(); }
+			int64 toInt64(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<int64>(); }
+			uint64 toUInt64(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uint64>(); }
+			int128 toInt128(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<int128>(); }
+			uint128 toUInt128(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uint128>(); }
+			int256 toInt256(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<int256>(); }
+			uint256 toUInt256(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uint256>(); }
+			int512 toInt512(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<int512>(); }
+			uint512 toUInt512(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uint512>(); }
+			int1024 toInt1024(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<int1024>(); }
+			uint1024 toUInt1024(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uint1024>(); }
 
 			template<uint32 bits>
-			intx<bits> toIntx(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<intx<bits>>(); }
+			intx<bits> toIntx(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<intx<bits>>(); }
 			template<uint32 bits>
-			uintx<bits> toIntx(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<uintx<bits>>(); }
-			integer toInteger(const ToIntegerFlag flag = ToIntegerFlag::round) const { return toInteger(flag).convert_to<integer>(); }
+			uintx<bits> toIntx(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uintx<bits>>(); }
+			integer toInteger(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<integer>(); }
 
 			float toFloat(void) const { return !valid() ? std::numeric_limits<float>::quiet_NaN() : value().convert_to<float>(); }
 			double toDouble(void) const { return !valid() ? std::numeric_limits<double>::quiet_NaN() : value().convert_to<double>(); }
@@ -695,7 +699,7 @@ namespace SSUtils
 				return !valid() ? std::numeric_limits<decimal<_Digits>>::quiet_NaN() : (value() + offset).convert_to<decimal<_Digits>>();
 			}
 
-			integer toInteger(const ToIntegerFlag flag = ToIntegerFlag::round) { return flag == ToIntegerFlag::round ? roundToInteger() : ToIntegerFlag::ceil ? ceilToInteger() : floorToInteger(); }
+			integer toInteger(const RoundFlag flag = RoundFlag::round) { return flag == RoundFlag::round ? roundToInteger() : RoundFlag::ceil ? ceilToInteger() : floorToInteger(); }
 			integer roundToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(boost::math::round(value_dec())); }
 			integer ceilToInteger(void) const { return !valid() ? integer(0) : floorToInteger() + 1; }
 			integer floorToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(value_dec()); }

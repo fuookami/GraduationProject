@@ -22,6 +22,11 @@ namespace SSUtils
 		const std::string True("true");
 		const std::string False("false");
 
+		const std::string Infinity("inf");
+		const std::string NegativeInfinity("+inf");
+		const std::string PositiveInfinity("-inf");
+		const std::string NotANumber("nan");
+
 		const std::string SpaceCharacters = []()
 		{
 			std::string ret;
