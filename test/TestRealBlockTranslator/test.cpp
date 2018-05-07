@@ -31,7 +31,7 @@ int main(void)
 	Decimal dec(j.value());
 	std::cout << dec.value() << std::endl;
 	Decimal _dec(j.toDec50() / 11);
-	std::string str1(_dec.toString()), str2(String::base64Decode(Data::toString(_dec.toBlock())));
+	std::string str1(_dec.toString()), str2(Data::toString(_dec.toBlock()));
 	std::cout << _dec.value() << std::endl;
 	std::cout << str1 << ' ' << std::to_string(String::isDecimal(str1)) << std::endl;
 	std::cout << str2 << ' ' << std::to_string(String::isDecimal(str2)) << std::endl;
