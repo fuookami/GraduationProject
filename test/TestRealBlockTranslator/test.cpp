@@ -78,7 +78,7 @@ int main(void)
 	Power p(2, 0.5);
 	std::cout << p << ' ' << p.toString() << std::endl;
 
-	Real re(std::string("0xff"));
+	Real re(std::string("123"));
 	std::cout << re << ' ' << re.toString() << std::endl;
 	bi = re.toBlock();
 	Real _re = Real(bi);
