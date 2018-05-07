@@ -10,7 +10,7 @@ namespace VEDA
 {
 	class VEDAInitProjectDialogInterface;
 
-	class VEDAInitProjectDialog final : public IWebEngineDialogWidget
+	class VEDAInitProjectDialog final : public SSUtils::GUI::IWebEngineDialogWidget
 	{
 		static const int Width = 650;
 		static const int Height = 375;
@@ -35,7 +35,7 @@ namespace VEDA
 		std::shared_ptr<VEDAInitProjectDialogInterface> m_interface;
 	};
 
-	class VEDAInitProjectDialogInterface : public IWebEngineDialogInterface<VEDAInitProjectDialog>
+	class VEDAInitProjectDialogInterface : public SSUtils::GUI::IWebEngineDialogInterface<VEDAInitProjectDialog>
 	{
 		Q_OBJECT;
 		friend class VEDAInitProjectDialog;

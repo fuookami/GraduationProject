@@ -9,7 +9,7 @@ namespace VEDA
 	{
 		void onAboutQtBtnClicked(void)
 		{
-			QMessageBoxUtils::aboutQt();
+			SSUtils::GUI::QMessageBoxUtils::aboutQt();
 		}
 
 		void onAboutBoostBtnClicked(void)
@@ -26,7 +26,7 @@ namespace VEDA
 				"Colorado each May. Boost has been a participant in the <a href=\"https://developers.google.com/open-source/soc/?csw=1\">annual Google Summer of Code</a> since 2007.");
 			static const QString Ttile(QString::fromLocal8Bit("关于Boost"));
 			static const QString Text(QString::fromLocal8Bit("<p><b>关于 Boost</b></p><p>版本：%1</p>%2").arg(BOOST_LIB_VERSION).arg(BoostInfo));
-			QMessageBoxUtils::about(Ttile, Text);
+			SSUtils::GUI::QMessageBoxUtils::about(Ttile, Text);
 		}
 
 		void onAboutMaterializeBtnClicked(void)

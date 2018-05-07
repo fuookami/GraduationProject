@@ -1,7 +1,7 @@
 #pragma once
 
 #include "XMLUtils.h"
-#include "EncryptionUtils.h"
+#include "EncryptionUtils/RSA.h"
 
 namespace VEDA
 {
@@ -27,11 +27,11 @@ namespace VEDA
 		inline void setName(std::string &&name);
 		inline const std::string &getName(void) const;
 
-		inline FuUtils::Encryption::RSA::signer &signer(void);
-		inline const FuUtils::Encryption::RSA::signer &signer(void) const;
+		inline SSUtils::Encryption::RSA::signer &signer(void);
+		inline const SSUtils::Encryption::RSA::signer &signer(void) const;
 
-		inline FuUtils::Encryption::RSA::verifier &verifier(void);
-		inline const FuUtils::Encryption::RSA::verifier &verifier(void) const;
+		inline SSUtils::Encryption::RSA::verifier &verifier(void);
+		inline const SSUtils::Encryption::RSA::verifier &verifier(void) const;
 
 		inline void setVerificationDataPiece(const std::string &name);
 		inline void setVerificationDataPiece(std::string &&name);
@@ -40,14 +40,14 @@ namespace VEDA
 		inline std::map<std::string, VEDAProcess> &processes(void);
 		inline const std::map<std::string, VEDAProcess> &processes(void) const;
 
-		XMLUtils::XMLNode toXML(void);
-		static std::shared_ptr<VEDAProject> fromXML(const XMLUtils::XMLNode &root);
+		SSUtils::XML::Document toXML(void);
+		static std::shared_ptr<VEDAProject> fromXML(const SSUtils::XML::Document &doc);
 
 	private:
 		std::string m_name;
 
-		FuUtils::Encryption::RSA::signer m_signer;
-		FuUtils::Encryption::RSA::verifier m_verifier;
+		SSUtils::Encryption::RSA::signer m_signer;
+		SSUtils::Encryption::RSA::verifier m_verifier;
 		std::string m_verificationDataPiece;
 
 		std::map<std::string, VEDAProcess> m_processes;

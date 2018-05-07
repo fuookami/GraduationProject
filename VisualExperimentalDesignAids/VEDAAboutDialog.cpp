@@ -25,12 +25,12 @@ namespace VEDA
 
 	void VEDAAboutDialog::registerContents(void)
 	{
-		m_webWidget->registerObject(m_interface);
+		registerObject(m_interface);
 	}
 
 	void VEDAAboutDialog::initGUI(void)
 	{
-		m_web->page()->runJavaScript(QString::fromLocal8Bit("setInfo('%1', '%2')").arg(QString::fromLocal8Bit(Version.c_str())).arg(QString::fromLocal8Bit(BuildDatetime.c_str())));
+		m_view->page()->runJavaScript(QString::fromLocal8Bit("setInfo('%1', '%2')").arg(QString::fromLocal8Bit(Version.c_str())).arg(QString::fromLocal8Bit(BuildDatetime.c_str())));
 	}
 
 	VEDAAboutDialogInterface::VEDAAboutDialogInterface(VEDAAboutDialog * dialog)
