@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SimpleTypeInterface.h"
-#include "NumberVariant.h"
+#include "MathUtils.h"
 #include "SimpleTypeValueLimitConfiguration.h"
 #include "SimpleTypeValueEnumrationConfiguration.h"
 
@@ -13,8 +13,8 @@ namespace XSDFrontend
 	namespace SimpleType
 	{
 		class NumberType final : public ISimpleTypeInterface, 
-			public ValueLimitConfiguration<NumberVariant>, 
-			public ValueEnumrationConfiguration<NumberVariant>
+			public ValueLimitConfiguration<SSUtils::Math::Real>, 
+			public ValueEnumrationConfiguration<SSUtils::Math::Real>
 		{
 		public:
 			enum class eBaseType
@@ -49,9 +49,9 @@ namespace XSDFrontend
 			NumberType &operator=(NumberType &&rhs) = default;
 			~NumberType(void) = default;
 
-			const bool refreshValidator(const XMLUtils::XMLNode &node) override;
+			const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) override;
 
-			inline void setBaseType(const eBaseType baseType) { m_baseType = baseType; }
+			void setBaseType(const eBaseType baseType);
 			inline const eBaseType getBaseType(void) const { return m_baseType; }
 
 			inline void setFractionDigits(const int fractionDigits) { m_fractionDigits = fractionDigits; }
@@ -71,6 +71,6 @@ namespace XSDFrontend
 
 		extern const std::map<std::string, NumberType::eBaseType> NumberBaseTypeName2Type;
 
-		NumberVariant XSDString2NumberVairant(const std::string &str);
+		SSUtils::Math::Real XSDString2NumberVairant(const NumberType::eBaseType type, const std::string &str);
 	}
 };

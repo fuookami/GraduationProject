@@ -38,19 +38,19 @@ namespace XSDFrontend
 			return false;
 		}
 
-		const bool IXSDNumberLimitedElementInterface::loadNumberLimitation(const XMLUtils::XMLNode & node)
+		const bool IXSDNumberLimitedElementInterface::loadNumberLimitation(const std::shared_ptr<SSUtils::XML::Node> & node)
 		{
 			bool ret(true);
-			if (node.hasAttr(XSDFrontend::Token::MinOccursAttr))
+			if (node->hasAttr(XSDFrontend::Token::MinOccursAttr))
 			{
-				ret &= setMinOccurs(std::stoul(node.getAttr(XSDFrontend::Token::MinOccursAttr)));
+				ret &= setMinOccurs(std::stoul(node->getAttr(XSDFrontend::Token::MinOccursAttr)));
 			}
 
-			if (node.hasAttr(XSDFrontend::Token::MaxOccursAttr))
+			if (node->hasAttr(XSDFrontend::Token::MaxOccursAttr))
 			{
-				ret &= setMaxOccurs(node.getAttr(XSDFrontend::Token::MaxOccursAttr) == MaxOccursUnboundedString 
+				ret &= setMaxOccurs(node->getAttr(XSDFrontend::Token::MaxOccursAttr) == MaxOccursUnboundedString 
 					? MaxOccursUnbounded
-					: std::stoul(node.getAttr(XSDFrontend::Token::MaxOccursAttr)));
+					: std::stoul(node->getAttr(XSDFrontend::Token::MaxOccursAttr)));
 			}
 			return ret;
 		}

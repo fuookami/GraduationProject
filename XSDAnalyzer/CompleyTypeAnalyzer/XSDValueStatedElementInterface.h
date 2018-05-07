@@ -34,7 +34,7 @@ namespace XSDFrontend
 			inline const bool fixedEnabled(void) const { return m_fixedEnabled; }
 			inline const std::string &getFixed(const std::string &fixedValue) const { return m_fixed; }
 
-			const bool loadValueStatement(const XMLUtils::XMLNode &node);
+			const bool loadValueStatement(const std::shared_ptr<SSUtils::XML::Node> &node);
 
 		protected:
 			inline void setValueStatedEnabled(const bool enabled) { setDefaultEnabled(enabled); setFixedEnabled(enabled); }

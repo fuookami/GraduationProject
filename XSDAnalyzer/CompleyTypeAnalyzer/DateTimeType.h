@@ -6,16 +6,18 @@
 #include <map>
 #include <set>
 #include <memory>
+#include <boost/variant.hpp>
 
 namespace XSDFrontend
 {
 	namespace SimpleType
 	{
 		class DatetimeType : public ISimpleTypeInterface, 
-			public ValueLimitConfiguration<DatetimeUtils::DatetimeMs>, 
-			public ValueEnumrationConfiguration<DatetimeUtils::DatetimeMs>
+			public ValueLimitConfiguration<boost::variant<SSUtils::Datetime::Datetime, SSUtils::Datetime::DatetimeDuration>>, 
+			public ValueEnumrationConfiguration<boost::variant<SSUtils::Datetime::Datetime, SSUtils::Datetime::DatetimeDuration>>
 		{
 		public:
+			typedef boost::variant<SSUtils::Datetime::Datetime, SSUtils::Datetime::DatetimeDuration> value_type;
 			enum class eBaseType
 			{
 				tDate,
@@ -39,9 +41,9 @@ namespace XSDFrontend
 			DatetimeType &operator=(DatetimeType &&rhs) = default;
 			~DatetimeType(void) = default;
 
-			const bool refreshValidator(const XMLUtils::XMLNode &node) override;
+			const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) override;
 
-			inline void setBaseType(const eBaseType baseType) { m_baseType = baseType; }
+			void setBaseType(const eBaseType baseType);
 			inline const eBaseType getBaseType(void) const { return m_baseType; }
 
 		private:
@@ -50,6 +52,6 @@ namespace XSDFrontend
 
 		extern const std::map<std::string, DatetimeType::eBaseType> DatetimeBaseTypeName2Type;
 
-		DatetimeUtils::Datetime XSDString2Datetime(const std::string &str);
+		DatetimeType::value_type XSDString2Datetime(const DatetimeType::eBaseType type, const std::string &str);
 	};
 };

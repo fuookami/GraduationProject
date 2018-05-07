@@ -34,7 +34,7 @@ namespace XSDFrontend
 			return false;
 		}
 
-		const bool LengthLimitConfiguration::refreshLengthLimitConfiguration(const XMLUtils::XMLNode & node)
+		const bool LengthLimitConfiguration::refreshLengthLimitConfiguration(const std::shared_ptr<SSUtils::XML::Node> node)
 		{
 			bool hasMaxLength(false);
 			int maxLength(NoLengthValidator);
@@ -42,15 +42,23 @@ namespace XSDFrontend
 			bool hasMinLength(false);
 			int minLength(NoLengthValidator);
 
-			if (node.hasChild(XSDFrontend::Token::MaxLengthValidatorTag))
+			if (node->hasChild(XSDFrontend::Token::MaxLengthValidatorTag))
 			{
 				hasMaxLength = true;
-				maxLength = std::stoi(node.getChildren()[node.findChild(XSDFrontend::Token::MaxLengthValidatorTag)].getAttr(XSDFrontend::Token::ValueAttr));
+				auto child = node->getChildren()[node->findChild(XSDFrontend::Token::MaxLengthValidatorTag)].lock();
+				if (child != nullptr)
+				{
+					maxLength = std::stoi(child->getAttr(XSDFrontend::Token::ValueAttr));
+				}
 			}
-			if (node.hasChild(XSDFrontend::Token::MinLengthValidatorTag))
+			if (node->hasChild(XSDFrontend::Token::MinLengthValidatorTag))
 			{
 				hasMinLength = true;
-				minLength = std::stoi(node.getChildren()[node.findChild(XSDFrontend::Token::MinLengthValidatorTag)].getAttr(XSDFrontend::Token::ValueAttr));
+				auto child = node->getChildren()[node->findChild(XSDFrontend::Token::MinLengthValidatorTag)].lock();
+				if (child != nullptr)
+				{
+					minLength = std::stoi(child->getAttr(XSDFrontend::Token::ValueAttr));
+				}
 			}
 
 			if (maxLength != NoLengthValidator && minLength > maxLength)

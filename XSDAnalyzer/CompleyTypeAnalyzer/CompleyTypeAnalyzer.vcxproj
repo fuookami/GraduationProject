@@ -76,7 +76,7 @@
     <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\SDK_API\C_C++\Boost\boost\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\Boost\boost\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -105,7 +105,7 @@
       <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\SDK_API\C_C++\Boost\boost\lib\msvc2017_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\SDK_API\C_C++\jwsmtp\lib\msvc2017_x64;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\lib;D:\SDK_API\C_C++\Boost\boost\lib\msvc2017_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libboost_system-vc141-mt-gd-1_65_1.lib;libboost_locale-vc141-mt-gd-1_65_1.lib;libboost_filesystem-vc141-mt-gd-1_65_1.lib;libboost_date_time-vc141-mt-gd-1_65_1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -208,9 +208,6 @@
     <ClCompile Include="XSDNumberLimitedElementInterface.cpp" />
     <ClCompile Include="XSDToken.cpp" />
     <ClCompile Include="XSDValueStatedElementInterface.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

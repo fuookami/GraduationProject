@@ -1,6 +1,5 @@
 #include "ContainerType.h"
 #include "XSDToken.h"
-#include "StringConvertUtils.h"
 #include "StringUtils.h"
 
 #include <boost/algorithm/string.hpp>
@@ -21,7 +20,7 @@ namespace XSDFrontend
 		{
 		}
 
-		const bool ContainerType::refreshValidator(const XMLUtils::XMLNode & node)
+		const bool ContainerType::refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node)
 		{
 			static const std::string EmptyString("");
 			static const std::map<eBaseType, std::string> ItemTypeAttrName =
@@ -30,10 +29,8 @@ namespace XSDFrontend
 				std::make_pair(eBaseType::tUnion, Token::UnionItemTypeAttr)
 			};
 
-			std::string baseTypeNamesPrototype(node.getAttr(ItemTypeAttrName.find(m_baseType)->second));
-			std::vector<std::string> baseTypeNames;
-
-			boost::split(baseTypeNames, baseTypeNamesPrototype, boost::is_any_of(StringUtils::getSpaceChars()));
+			std::string baseTypeNamesPrototype(node->getAttr(ItemTypeAttrName.find(m_baseType)->second));
+			std::vector<std::string> baseTypeNames(SSUtils::String::split(baseTypeNamesPrototype, SSUtils::String::SpaceCharacters));
 			m_baseTypeNames.insert(baseTypeNames.cbegin(), baseTypeNames.cend());
 
 			return true;

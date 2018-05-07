@@ -45,7 +45,7 @@ namespace XSDFrontend
 			StringType &operator=(StringType &&rhs) = default;
 			~StringType(void) = default;
 
-			const bool refreshValidator(const XMLUtils::XMLNode &node) override;
+			const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) override;
 
 			inline void setBaseType(const eBaseType baseType) { m_baseType = baseType; }
 			inline const eBaseType getBaseType(void) const { return m_baseType; }

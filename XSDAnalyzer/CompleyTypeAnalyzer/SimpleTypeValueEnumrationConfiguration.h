@@ -32,7 +32,7 @@ namespace XSDFrontend
 
 		public:
 			using TranslateFunction = std::function<T(const std::string &)>;
-			static const TranslateFunction translator;
+			TranslateFunction DefaultTranslator;
 
 		public:
 			inline void setIsEnum(const bool isEnum) { m_isEnum = isEnum; }
@@ -45,30 +45,28 @@ namespace XSDFrontend
 			inline const bool hasEnumValue(const T &enumValue) const { return m_enumValues.find(enumValue) != m_enumValues.cend(); }
 			inline const std::set<T, _ValueTypeCompare> &getEnumValues(void) const { return m_enumValues; }
 
-			void refreshValueEnumrationConfiguration(const XMLUtils::XMLNode &node);
+			void refreshValueEnumrationConfiguration(const std::shared_ptr<SSUtils::XML::Node> node, const TranslateFunction translator = DefaultTranslator)
+			{
+				if (node->hasChild(XSDFrontend::Token::EnumValidatorTag))
+				{
+					m_isEnum = true;
+
+					std::for_each(node->getChildren().cbegin(), node->getChildren().cend(),
+						[this](const std::weak_ptr<SSUtils::XML::Node> child)
+					{
+						auto node = child.lock();
+						if (node != nullptr && node->getTag() == XSDFrontend::Token::EnumValidatorTag
+							&& node->hasAttr(XSDFrontend::Token::ValueAttr))
+						{
+							addEnumValue(translator(node->getAttr(XSDFrontend::Token::ValueAttr)));
+						}
+					});
+				}
+			}
 
 		private:
 			bool m_isEnum;
 			std::set<T, _ValueTypeCompare> m_enumValues;
 		};
-
-		template<typename T>
-		inline void ValueEnumrationConfiguration<T>::refreshValueEnumrationConfiguration(const XMLUtils::XMLNode & node)
-		{
-			if (node.hasChild(XSDFrontend::Token::EnumValidatorTag))
-			{
-				m_isEnum = true;
-
-				std::for_each(node.getChildren().cbegin(), node.getChildren().cend(), 
-					[this](const XMLUtils::XMLNode &node) 
-				{
-					if (node.getTag() == XSDFrontend::Token::EnumValidatorTag
-						&& node.hasAttr(XSDFrontend::Token::ValueAttr))
-					{
-						this->addEnumValue(translator(node.getAttr(XSDFrontend::Token::ValueAttr)));
-					}
-				});
-			}
-		}
 	};
 };

@@ -66,22 +66,22 @@ namespace XSDFrontend
 			return false;
 		}
 
-		const bool IXSDValueStatedElementInterface::loadValueStatement(const XMLUtils::XMLNode & node)
+		const bool IXSDValueStatedElementInterface::loadValueStatement(const std::shared_ptr<SSUtils::XML::Node> & node)
 		{
 			bool ret(true);
-			if (node.hasAttr(XSDFrontend::Token::DefaultAttr) && node.hasAttr(XSDFrontend::Token::FixedAttr))
+			if (node->hasAttr(XSDFrontend::Token::DefaultAttr) && node->hasAttr(XSDFrontend::Token::FixedAttr))
 			{
 				return false;
 			}
 
-			if (node.hasAttr(XSDFrontend::Token::DefaultAttr))
+			if (node->hasAttr(XSDFrontend::Token::DefaultAttr))
 			{
-				ret &= setDefault(node.getAttr(XSDFrontend::Token::DefaultAttr));
+				ret &= setDefault(node->getAttr(XSDFrontend::Token::DefaultAttr));
 			}
 
-			if (node.hasAttr(XSDFrontend::Token::FixedAttr))
+			if (node->hasAttr(XSDFrontend::Token::FixedAttr))
 			{
-				ret &= setFixed(node.getAttr(XSDFrontend::Token::FixedAttr));
+				ret &= setFixed(node->getAttr(XSDFrontend::Token::FixedAttr));
 			}
 
 			return ret;

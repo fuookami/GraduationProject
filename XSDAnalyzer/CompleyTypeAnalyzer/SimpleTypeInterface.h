@@ -45,7 +45,7 @@ namespace XSDFrontend
 			virtual ~ISimpleTypeInterface(void) = default;
 
 		public:
-			virtual const bool refreshValidator(const XMLUtils::XMLNode &node) = 0;
+			virtual const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) = 0;
 
 			inline void setSimpleType(const eSimpleType type) { m_type = type; }
 			inline const eSimpleType getSimpleType(void) const { return m_type; }

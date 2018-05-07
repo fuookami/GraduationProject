@@ -5,10 +5,7 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
-		const NumberVariant ValueLimitConfiguration<NumberVariant>::NoValueValidator = NumberVariant();
-
-		const ValueLimitConfiguration<NumberVariant>::TranslateFunction ValueLimitConfiguration<NumberVariant>::translator = XSDString2NumberVairant;
-		const ValueEnumrationConfiguration<NumberVariant>::TranslateFunction ValueEnumrationConfiguration<NumberVariant>::translator = XSDString2NumberVairant;
+		const SSUtils::Math::Real ValueLimitConfiguration<SSUtils::Math::Real>::NoValueValidator = SSUtils::Math::Real();
 
 		NumberType::NumberType(void)
 			: NumberType("")
@@ -19,41 +16,52 @@ namespace XSDFrontend
 			: ISimpleTypeInterface(name, eSimpleType::tNumberType), ValueLimitConfiguration(), ValueEnumrationConfiguration(), 
 			m_baseType(baseType), m_fractionDigits(NoDigitValidator), m_totalDigits(NoDigitValidator)
 		{
+			ValueLimitConfiguration<SSUtils::Math::Real>::DefaultTranslator = std::bind(XSDString2NumberVairant, baseType, std::placeholders::_1);
+			ValueEnumrationConfiguration<SSUtils::Math::Real>::DefaultTranslator = std::bind(XSDString2NumberVairant, baseType, std::placeholders::_1);
 		}
 
 		NumberType::NumberType(std::string && name, const eBaseType baseType)
 			: ISimpleTypeInterface(std::move(name), eSimpleType::tNumberType), ValueLimitConfiguration(), ValueEnumrationConfiguration(), 
 			m_baseType(baseType), m_fractionDigits(NoDigitValidator), m_totalDigits(NoDigitValidator)
 		{
+			ValueLimitConfiguration<SSUtils::Math::Real>::DefaultTranslator = std::bind(XSDString2NumberVairant, baseType, std::placeholders::_1);
+			ValueEnumrationConfiguration<SSUtils::Math::Real>::DefaultTranslator = std::bind(XSDString2NumberVairant, baseType, std::placeholders::_1);
 		}
 
-		const bool NumberType::refreshValidator(const XMLUtils::XMLNode & node)
+		const bool NumberType::refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node)
 		{
-			if (!refreshValueLimitConfiguration(node))
+			if (!refreshValueLimitConfiguration(node, std::bind(XSDString2NumberVairant, m_baseType, std::placeholders::_1)))
 			{
 				return false;
 			}
-			refreshValueEnumrationConfiguration(node);
+			refreshValueEnumrationConfiguration(node, std::bind(XSDString2NumberVairant, m_baseType, std::placeholders::_1));
 
-			if (node.hasChild(XSDFrontend::Token::FractionDigitsTag))
+			if (node->hasChild(XSDFrontend::Token::FractionDigitsTag))
 			{
-				const auto &fractionDigitNode(node.getChildren()[node.findChild(XSDFrontend::Token::FractionDigitsTag)]);
-				if (fractionDigitNode.hasAttr(XSDFrontend::Token::ValueAttr))
+				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::FractionDigitsTag)].lock());
+				if (child != nullptr && child->hasAttr(XSDFrontend::Token::ValueAttr))
 				{
-					setFractionDigits(std::stoi(fractionDigitNode.getAttr(XSDFrontend::Token::ValueAttr)));
+					setFractionDigits(std::stoi(child->getAttr(XSDFrontend::Token::ValueAttr)));
 				}
 			}
 
-			if (node.hasChild(XSDFrontend::Token::TotalDigitsTag))
+			if (node->hasChild(XSDFrontend::Token::TotalDigitsTag))
 			{
-				const auto &totalDigitNode(node.getChildren()[node.findChild(XSDFrontend::Token::TotalDigitsTag)]);
-				if (totalDigitNode.hasAttr(XSDFrontend::Token::ValueAttr))
+				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::TotalDigitsTag)].lock());
+				if (child != nullptr && child->hasAttr(XSDFrontend::Token::ValueAttr))
 				{
-					setTotalDigits(std::stoi(totalDigitNode.getAttr(XSDFrontend::Token::ValueAttr)));
+					setTotalDigits(std::stoi(child->getAttr(XSDFrontend::Token::ValueAttr)));
 				}
 			}
 
 			return true;
+		}
+
+		void NumberType::setBaseType(const eBaseType baseType)
+		{
+			m_baseType = baseType;
+			ValueLimitConfiguration<SSUtils::Math::Real>::DefaultTranslator = std::bind(XSDString2NumberVairant, baseType, std::placeholders::_1);
+			ValueEnumrationConfiguration<SSUtils::Math::Real>::DefaultTranslator = std::bind(XSDString2NumberVairant, baseType, std::placeholders::_1);
 		}
 
 		const std::map<std::string, NumberType::eBaseType> NumberBaseTypeName2Type =
@@ -77,10 +85,10 @@ namespace XSDFrontend
 			std::make_pair(std::string("unsignedBytes"), NumberType::eBaseType::tUnsignedByte)
 		};
 
-		NumberVariant XSDString2NumberVairant(const std::string & str)
+		SSUtils::Math::Real XSDString2NumberVairant(const NumberType::eBaseType type, const std::string & str)
 		{
 			//! to do
-			return NumberVariant();
+			return SSUtils::Math::Real();
 		}
 	};
 };

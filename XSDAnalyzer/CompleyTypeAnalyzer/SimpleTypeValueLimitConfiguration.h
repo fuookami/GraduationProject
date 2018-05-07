@@ -41,7 +41,7 @@ namespace XSDFrontend
 
 		public:
 			using TranslateFunction = std::function<T(const std::string &)>;
-			static const TranslateFunction translator;
+			TranslateFunction DefaultTranslator;
 
 		public:
 			inline void setMaxExclusive(const T &maxExclusive) { m_maxExclusive.set(maxExclusive); m_maxInclusive.clear(); }
@@ -68,7 +68,99 @@ namespace XSDFrontend
 			inline const bool hasMinInclusive(void) const { return m_minInclusive.enabled; }
 			inline const T &getMinInclusive(void) const { return m_minInclusive.value; }
 
-			const bool refreshValueLimitConfiguration(const XMLUtils::XMLNode &node);
+			const bool refreshValueLimitConfiguration(const std::shared_ptr<SSUtils::XML::Node> node, const TranslateFunction translator = DefaultTranslator)
+			{
+				if (node->hasChild(XSDFrontend::Token::MaxExclusiveTag) && node->hasChild(XSDFrontend::Token::MaxInclusiveTag))
+				{
+					std::cerr << "不能同时定义开区间最大值和闭区间最大值" << std::endl;
+					return false;
+				}
+				if (node->hasChild(XSDFrontend::Token::MinExclusiveTag) && node->hasChild(XSDFrontend::Token::MinInclusiveTag))
+				{
+					std::cerr << "不能同时定义开区间最小值和闭区间最小值" << std::endl;
+					return false;
+				}
+
+				bool hasMax(false), maxIsExclusive(false);
+				T maxValue(NoValueValidator);
+				if (node->hasChild(XSDFrontend::Token::MaxExclusiveTag) || node->hasChild(XSDFrontend::Token::MaxInclusiveTag))
+				{
+					hasMax = true;
+					if (node->hasChild(XSDFrontend::Token::MaxExclusiveTag))
+					{
+						maxIsExclusive = true;
+						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MaxExclusiveTag)].lock());
+						if (child != nullptr)
+						{
+							maxValue = translator(child->getAttr(XSDFrontend::Token::ValueAttr));
+						}
+					}
+					else
+					{
+						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MaxInclusiveTag)].lock());
+						if (child != nullptr)
+						{
+							maxValue = translator(child->getAttr(XSDFrontend::Token::ValueAttr));
+						}
+					}
+				}
+
+				bool hasMin(false), minIsExclusive(false);
+				T minValue(NoValueValidator);
+				if (node->hasChild(XSDFrontend::Token::MinExclusiveTag) || node->hasChild(XSDFrontend::Token::MinInclusiveTag))
+				{
+					hasMin = true;
+					if (node->hasChild(XSDFrontend::Token::MinExclusiveTag))
+					{
+						minIsExclusive = true;
+						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MinExclusiveTag)].lock());
+						if (child != nullptr)
+						{
+							minValue = translator(child->getAttr(XSDFrontend::Token::ValueAttr));
+						}
+					}
+					else
+					{
+						minIsExclusive = true;
+						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MinInclusiveTag)].lock());
+						if (child != nullptr)
+						{
+							minValue = translator(child->getAttr(XSDFrontend::Token::ValueAttr));
+						}
+					}
+				}
+
+				if (hasMin && hasMax && minValue > maxValue)
+				{
+					std::cerr << "定义的最小值(" << minValue << ")大于最大值(" << maxValue << ")。";
+					return false;
+				}
+
+				if (hasMax)
+				{
+					if (maxIsExclusive)
+					{
+						setMaxExclusive(maxValue);
+					}
+					else
+					{
+						setMaxInclusive(maxValue);
+					}
+				}
+				if (hasMin)
+				{
+					if (minIsExclusive)
+					{
+						setMinExclusive(minValue);
+					}
+					else
+					{
+						setMinInclusive(minValue);
+					}
+				}
+
+				return true;
+			}
 
 		private:
 			ValueType m_maxExclusive;
@@ -77,83 +169,5 @@ namespace XSDFrontend
 			ValueType m_minExclusive;
 			ValueType m_minInclusive;
 		};
-
-		template<typename T>
-		const bool ValueLimitConfiguration<T>::refreshValueLimitConfiguration(const XMLUtils::XMLNode & node)
-		{
-			if (node.hasChild(XSDFrontend::Token::MaxExclusiveTag) && node.hasChild(XSDFrontend::Token::MaxInclusiveTag))
-			{
-				std::cerr << "不能同时定义开区间最大值和闭区间最大值" << std::endl;
-				return false;
-			}
-			if (node.hasChild(XSDFrontend::Token::MinExclusiveTag) && node.hasChild(XSDFrontend::Token::MinInclusiveTag))
-			{
-				std::cerr << "不能同时定义开区间最小值和闭区间最小值" << std::endl;
-				return false;
-			}
-
-			bool hasMax(false), maxIsExclusive(false);
-			T maxValue(NoValueValidator);
-			if (node.hasChild(XSDFrontend::Token::MaxExclusiveTag) || node.hasChild(XSDFrontend::Token::MaxInclusiveTag))
-			{
-				hasMax = true;
-				if (node.hasChild(XSDFrontend::Token::MaxExclusiveTag))
-				{
-					maxIsExclusive = true;
-					maxValue = translator(node.getChildren()[node.findChild(XSDFrontend::Token::MaxExclusiveTag)].getAttr(XSDFrontend::Token::ValueAttr));
-				}
-				else
-				{
-					maxValue = translator(node.getChildren()[node.findChild(XSDFrontend::Token::MaxInclusiveTag)].getAttr(XSDFrontend::Token::ValueAttr));
-				}
-			}
-			
-			bool hasMin(false), minIsExclusive(false);
-			T minValue(NoValueValidator);
-			if (node.hasChild(XSDFrontend::Token::MinExclusiveTag) || node.hasChild(XSDFrontend::Token::MinInclusiveTag))
-			{
-				hasMin = true;
-				if (node.hasChild(XSDFrontend::Token::MinExclusiveTag))
-				{
-					minIsExclusive = true;
-					minValue = translator(node.getChildren()[node.findChild(XSDFrontend::Token::MinExclusiveTag)].getAttr(XSDFrontend::Token::ValueAttr));
-				}
-				else
-				{
-					minValue = translator(node.getChildren()[node.findChild(XSDFrontend::Token::MinInclusiveTag)].getAttr(XSDFrontend::Token::ValueAttr));
-				}
-			}
-
-			if (hasMin && hasMax && minValue > maxValue)
-			{
-				std::cerr << "定义的最小值(" << minValue << ")大于最大值(" << maxValue << ")。";
-				return false;
-			}
-
-			if (hasMax)
-			{
-				if (maxIsExclusive)
-				{
-					setMaxExclusive(maxValue);
-				}
-				else
-				{
-					setMaxInclusive(maxValue);
-				}
-			}
-			if (hasMin)
-			{
-				if (minIsExclusive)
-				{
-					setMinExclusive(minValue);
-				}
-				else
-				{
-					setMinInclusive(minValue);
-				}
-			}
-
-			return true;
-		}
 	};
 };

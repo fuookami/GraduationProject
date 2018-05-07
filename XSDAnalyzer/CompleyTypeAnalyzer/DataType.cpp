@@ -1,11 +1,10 @@
 #include "DataType.h"
+#include <functional>
 
 namespace XSDFrontend
 {
 	namespace SimpleType
 	{
-		const ValueEnumrationConfiguration<DataUtils::Data>::TranslateFunction ValueEnumrationConfiguration<DataUtils::Data>::translator = XSDString2Data;
-
 		DataType::DataType(void)
 			: DataType("")
 		{
@@ -15,23 +14,31 @@ namespace XSDFrontend
 			: ISimpleTypeInterface(name, eSimpleType::tDataType), LengthLimitConfiguration(), ValueEnumrationConfiguration(), 
 			m_baseType(baseType)
 		{
+			DefaultTranslator = std::bind(XSDString2Data, baseType, std::placeholders::_1);
 		}
 
 		DataType::DataType(std::string && name, const eBaseType baseType)
 			: ISimpleTypeInterface(std::move(name), eSimpleType::tDataType), LengthLimitConfiguration(), ValueEnumrationConfiguration(), 
 			m_baseType(baseType)
 		{
+			DefaultTranslator = std::bind(XSDString2Data, baseType, std::placeholders::_1);
 		}
 
-		const bool DataType::refreshValidator(const XMLUtils::XMLNode & node)
+		const bool DataType::refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node)
 		{
 			if (!refreshLengthLimitConfiguration(node))
 			{
 				return false;
 			}
-			refreshValueEnumrationConfiguration(node);
+			refreshValueEnumrationConfiguration(node, std::bind(XSDString2Data, m_baseType, std::placeholders::_1));
 
 			return true;
+		}
+
+		void DataType::setBaseType(const eBaseType baseType)
+		{
+			m_baseType = baseType;
+			DefaultTranslator = std::bind(XSDString2Data, baseType, std::placeholders::_1);
 		}
 
 		const std::map<std::string, DataType::eBaseType> DataBaseTypeName2Type =
@@ -40,9 +47,20 @@ namespace XSDFrontend
 			std::make_pair(std::string("base64Binary"), DataType::eBaseType::tBase64Binary)
 		};
 
-		DataUtils::Data XSDString2Data(const std::string & str)
+		SSUtils::Block XSDString2Data(const DataType::eBaseType type, const std::string & str)
 		{
-			return DataUtils::Data(str.cbegin(), str.cend());
+			switch (type)
+			{
+			case DataType::eBaseType::tRaw:
+				return SSUtils::Data::fromString(str);
+			case DataType::eBaseType::tBase64Binary:
+				return SSUtils::Data::fromBase64String(str);
+			case DataType::eBaseType::tHexBinary:
+				return SSUtils::Data::fromHexString(str);
+			default:
+				return SSUtils::Data::fromString(str);
+			}
+			return SSUtils::Data::fromString(str);
 		}
 	};
 };

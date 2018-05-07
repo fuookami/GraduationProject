@@ -11,9 +11,9 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
-		inline const bool ValueEnumrationConfiguration<DataUtils::Data>::_ValueTypeCompare::operator()(const DataUtils::Data & lhs, const DataUtils::Data & rhs) const
+		inline const bool ValueEnumrationConfiguration<SSUtils::Block>::_ValueTypeCompare::operator()(const SSUtils::Block & lhs, const SSUtils::Block & rhs) const
 		{
-			for (DataUtils::Data::const_iterator lCurrIt(lhs.cbegin()), rCurrIt(rhs.cbegin()), lEdIt(lhs.cend()), rEdIt(rhs.cend()); lCurrIt != lEdIt && rCurrIt != rEdIt; ++lCurrIt, ++rCurrIt)
+			for (SSUtils::Block::const_iterator lCurrIt(lhs.cbegin()), rCurrIt(rhs.cbegin()), lEdIt(lhs.cend()), rEdIt(rhs.cend()); lCurrIt != lEdIt && rCurrIt != rEdIt; ++lCurrIt, ++rCurrIt)
 			{
 				if (*lCurrIt < *rCurrIt)
 				{
@@ -26,29 +26,30 @@ namespace XSDFrontend
 
 		class DataType final : public ISimpleTypeInterface, 
 			public LengthLimitConfiguration, 
-			public ValueEnumrationConfiguration<DataUtils::Data>
+			public ValueEnumrationConfiguration<SSUtils::Block>
 		{
 		public:
 			enum class eBaseType
 			{
 				tHexBinary,
-				tBase64Binary
+				tBase64Binary,
+				tRaw
 			};
 			static const int NoLengthValidator = -1;
 
 		public:
 			DataType(void);
-			DataType(const std::string &name, const eBaseType baseType = eBaseType::tBase64Binary);
-			DataType(std::string &&name, const eBaseType baseType = eBaseType::tBase64Binary);
+			DataType(const std::string &name, const eBaseType baseType = eBaseType::tRaw);
+			DataType(std::string &&name, const eBaseType baseType = eBaseType::tRaw);
 			DataType(const DataType &ano) = default;
 			DataType(DataType &&ano) = default;
 			DataType &operator=(const DataType &rhs) = default;
 			DataType &operator=(DataType &&rhs) = default;
 			~DataType(void) = default;
 
-			const bool refreshValidator(const XMLUtils::XMLNode &node) override;
+			const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) override;
 
-			inline void setBaseType(const eBaseType baseType) { m_baseType = baseType; }
+			void setBaseType(const eBaseType baseType);
 			inline const eBaseType getBaseType(void) const { return m_baseType; }
 
 		private:
@@ -57,6 +58,6 @@ namespace XSDFrontend
 
 		extern const std::map<std::string, DataType::eBaseType> DataBaseTypeName2Type;
 
-		DataUtils::Data XSDString2Data(const std::string &str);
+		SSUtils::Block XSDString2Data(const DataType::eBaseType type, const std::string & str);
 	};
 };
