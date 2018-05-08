@@ -148,7 +148,7 @@ namespace XSDAnalyzer
 			}
 			else if (node->hasChild(XSDFrontend::Token::SimpleTypeTag))
 			{
-				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::SimpleTypeTag)].lock());
+				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::SimpleTypeTag)]);
 				if (child != nullptr)
 				{
 					std::string typeName(ref_simpleTypeAnalyzer.get().scanSimpleType(child));
@@ -167,7 +167,7 @@ namespace XSDAnalyzer
 			}
 			else if (node->hasChild(XSDFrontend::Token::ComplexTypeTag))
 			{
-				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::ComplexTypeTag)].lock());
+				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::ComplexTypeTag)]);
 				if (child != nullptr)
 				{
 					std::string typeName(scanComplexType(child));
@@ -214,7 +214,7 @@ namespace XSDAnalyzer
 		if (node->hasAttr(XSDFrontend::Token::ReferenceAttr))
 		{
 			std::string refName(node->getAttr(XSDFrontend::Token::ReferenceAttr));
-			if (node->hasAttr(XSDFrontend::Token::NameAttr) || node.hasAnyChild())
+			if (node->hasAttr(XSDFrontend::Token::NameAttr) || node->hasAnyChild())
 			{
 				std::cerr << "引用元素组'" << refName << "'的同时，不能有name属性或任何子标签。" << std::endl;
 				return nullptr;
@@ -236,7 +236,7 @@ namespace XSDAnalyzer
 		}
 		else if (node->hasAttr(XSDFrontend::Token::NameAttr))
 		{
-			return loadElementGroup(node, node.getAttr(XSDFrontend::Token::NameAttr));
+			return loadElementGroup(node, node->getAttr(XSDFrontend::Token::NameAttr));
 		}
 		else
 		{
@@ -268,7 +268,7 @@ namespace XSDAnalyzer
 			return nullptr;
 		}
 
-		const auto groupBody(node->getChildren()[order].lock());
+		const auto groupBody(node->getChildren()[order]);
 		if (groupBody != nullptr)
 		{
 			const auto groupTypeIt(XSDFrontend::ComplexType::ElementGroupTag2Type.find(groupBody->getTag()));
@@ -284,36 +284,35 @@ namespace XSDAnalyzer
 
 			for (const auto child : groupBody->getChildren())
 			{
-				auto childNode(child.lock());
-				if (childNode != nullptr)
+				if (child != nullptr)
 				{
-					if (childNode->getTag() == XSDFrontend::Token::AnyTag)
+					if (child->getTag() == XSDFrontend::Token::AnyTag)
 					{
 						std::shared_ptr<XSDFrontend::ComplexType::AnyElement> anyElement(new XSDFrontend::ComplexType::AnyElement());
-						if (childNode->hasAttr(XSDFrontend::Token::NamesapceAttr))
+						if (child->hasAttr(XSDFrontend::Token::NamesapceAttr))
 						{
-							anyElement->setNamespaceValidator(XSDFrontend::ComplexType::NamespaceValidatorString2Validator.find(childNode->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
+							anyElement->setNamespaceValidator(XSDFrontend::ComplexType::NamespaceValidatorString2Validator.find(child->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
 						}
-						if (childNode->hasAttr(XSDFrontend::Token::ProcessContentsAttr))
+						if (child->hasAttr(XSDFrontend::Token::ProcessContentsAttr))
 						{
-							anyElement->setProcessContents(XSDFrontend::ComplexType::ProcessContentsString2ProcessContents.find(childNode->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
+							anyElement->setProcessContents(XSDFrontend::ComplexType::ProcessContentsString2ProcessContents.find(child->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
 						}
 						anyElement->setParent(XSDFrontend::ComplexType::IElementInterface::eParentType::tElementGroup, groupName);
-						anyElement->loadNumberLimitation(childNode);
+						anyElement->loadNumberLimitation(child);
 
 						group->pushBack(XSDFrontend::ComplexType::ElementGroup::ValueType(anyElement));
 					}
-					else if (childNode->getTag() == XSDFrontend::Token::ElementTag)
+					else if (child->getTag() == XSDFrontend::Token::ElementTag)
 					{
-						auto childElement(scanElement(childNode, XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tElementGroup, groupName));
+						auto childElement(scanElement(child, XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tElementGroup, groupName));
 						if (childElement != nullptr)
 						{
 							group->pushBack(XSDFrontend::ComplexType::ElementGroup::ValueType(childElement));
 						}
 					}
-					else if (childNode->getTag() == XSDFrontend::Token::GroupTag)
+					else if (child->getTag() == XSDFrontend::Token::GroupTag)
 					{
-						auto childGroup(scanElementGroup(childNode));
+						auto childGroup(scanElementGroup(child));
 						if (childGroup != nullptr)
 						{
 							group->pushBack(XSDFrontend::ComplexType::ElementGroup::ValueType(childGroup));
@@ -354,7 +353,7 @@ namespace XSDAnalyzer
 				return false;
 			}
 
-			auto child(node->getChildren()[node->findChild(XSDFrontend::Token::ComplexContentTag)].lock());
+			auto child(node->getChildren()[node->findChild(XSDFrontend::Token::ComplexContentTag)]);
 			if (child != nullptr)
 			{
 				if (!loadDerivedComplexType(dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ret.get()), child))
@@ -364,7 +363,7 @@ namespace XSDAnalyzer
 
 				if (child->getChildren().size() >= 1)
 				{
-					auto complexContentNode(child->getChildren().front().lock());
+					auto complexContentNode(child->getChildren().front());
 					if (complexContentNode != nullptr)
 					{
 						loadComplexContent(ret, complexContentNode);
@@ -400,7 +399,7 @@ namespace XSDAnalyzer
 	std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> ComplexTypeAnalyzer::scanSimpleContent(const std::shared_ptr<SSUtils::XML::Node> node)
 	{
 		auto parent(node->getParent().lock());
-		if (parent != nullptr && parent->getTag() == XSDFrontend::Token::SchemaTag && !node.hasAttr(XSDFrontend::Token::NameAttr))
+		if (parent != nullptr && parent->getTag() == XSDFrontend::Token::SchemaTag && !node->hasAttr(XSDFrontend::Token::NameAttr))
 		{
 			std::cerr << "定义全局类型时应当有声明名字。" << std::endl;
 			return nullptr;
@@ -421,7 +420,7 @@ namespace XSDAnalyzer
 				return false;
 			}
 
-			auto child(node->getChildren()[node->findChild(XSDFrontend::Token::SimpleContentTag)].lock());
+			auto child(node->getChildren()[node->findChild(XSDFrontend::Token::SimpleContentTag)]);
 			if (child != nullptr)
 			{
 				if (!loadDerivedComplexType(dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ret.get()), child))
@@ -431,7 +430,7 @@ namespace XSDAnalyzer
 
 				if (child->getChildren().size() >= 1)
 				{
-					auto complexContentNode(child->getChildren().front().lock());
+					auto complexContentNode(child->getChildren().front());
 					if (complexContentNode != nullptr)
 					{
 						loadSimpleContent(ret, complexContentNode);
@@ -485,7 +484,7 @@ namespace XSDAnalyzer
 			std::cerr << "在派生复合类型声明中，应当有且只有extension子节点或restriction子节点" << std::endl;
 			return false;
 		}
-		auto derivedNode(node->getChildren().front().lock());
+		auto derivedNode(node->getChildren().front());
 		if (derivedNode == nullptr || (derivedNode->getTag() != XSDFrontend::Token::ExtensionTag && derivedNode->getTag() != XSDFrontend::Token::RestrictionTag))
 		{
 			std::cerr << "在派生复合类型声明中，应当有且只有extension子节点或restriction子节点" << std::endl;

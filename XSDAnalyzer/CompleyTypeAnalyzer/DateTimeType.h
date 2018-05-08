@@ -13,11 +13,10 @@ namespace XSDFrontend
 	namespace SimpleType
 	{
 		class DatetimeType : public ISimpleTypeInterface, 
-			public ValueLimitConfiguration<boost::variant<SSUtils::Datetime::Datetime, SSUtils::Datetime::DatetimeDuration>>, 
-			public ValueEnumrationConfiguration<boost::variant<SSUtils::Datetime::Datetime, SSUtils::Datetime::DatetimeDuration>>
+			public ValueLimitConfiguration<SSUtils::Datetime::DatetimeDuration>,
+			public ValueEnumrationConfiguration<SSUtils::Datetime::DatetimeDuration>
 		{
 		public:
-			typedef boost::variant<SSUtils::Datetime::Datetime, SSUtils::Datetime::DatetimeDuration> value_type;
 			enum class eBaseType
 			{
 				tDate,
@@ -52,6 +51,6 @@ namespace XSDFrontend
 
 		extern const std::map<std::string, DatetimeType::eBaseType> DatetimeBaseTypeName2Type;
 
-		DatetimeType::value_type XSDString2Datetime(const DatetimeType::eBaseType type, const std::string &str);
+		SSUtils::Datetime::DatetimeDuration XSDString2Datetime(const DatetimeType::eBaseType type, const std::string &str);
 	};
 };

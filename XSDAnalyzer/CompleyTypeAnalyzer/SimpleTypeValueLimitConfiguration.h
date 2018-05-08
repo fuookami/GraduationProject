@@ -68,7 +68,11 @@ namespace XSDFrontend
 			inline const bool hasMinInclusive(void) const { return m_minInclusive.enabled; }
 			inline const T &getMinInclusive(void) const { return m_minInclusive.value; }
 
-			const bool refreshValueLimitConfiguration(const std::shared_ptr<SSUtils::XML::Node> node, const TranslateFunction translator = DefaultTranslator)
+			const bool refreshValueLimitConfiguration(const std::shared_ptr<SSUtils::XML::Node> node)
+			{
+				return refreshValueLimitConfiguration(node, DefaultTranslator);
+			}
+			const bool refreshValueLimitConfiguration(const std::shared_ptr<SSUtils::XML::Node> node, const TranslateFunction translator)
 			{
 				if (node->hasChild(XSDFrontend::Token::MaxExclusiveTag) && node->hasChild(XSDFrontend::Token::MaxInclusiveTag))
 				{
@@ -89,7 +93,7 @@ namespace XSDFrontend
 					if (node->hasChild(XSDFrontend::Token::MaxExclusiveTag))
 					{
 						maxIsExclusive = true;
-						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MaxExclusiveTag)].lock());
+						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MaxExclusiveTag)]);
 						if (child != nullptr)
 						{
 							maxValue = translator(child->getAttr(XSDFrontend::Token::ValueAttr));
@@ -97,7 +101,7 @@ namespace XSDFrontend
 					}
 					else
 					{
-						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MaxInclusiveTag)].lock());
+						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MaxInclusiveTag)]);
 						if (child != nullptr)
 						{
 							maxValue = translator(child->getAttr(XSDFrontend::Token::ValueAttr));
@@ -113,7 +117,7 @@ namespace XSDFrontend
 					if (node->hasChild(XSDFrontend::Token::MinExclusiveTag))
 					{
 						minIsExclusive = true;
-						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MinExclusiveTag)].lock());
+						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MinExclusiveTag)]);
 						if (child != nullptr)
 						{
 							minValue = translator(child->getAttr(XSDFrontend::Token::ValueAttr));
@@ -122,7 +126,7 @@ namespace XSDFrontend
 					else
 					{
 						minIsExclusive = true;
-						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MinInclusiveTag)].lock());
+						auto child(node->getChildren()[node->findChild(XSDFrontend::Token::MinInclusiveTag)]);
 						if (child != nullptr)
 						{
 							minValue = translator(child->getAttr(XSDFrontend::Token::ValueAttr));

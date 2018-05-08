@@ -45,7 +45,7 @@ namespace XSDFrontend
 			if (node->hasChild(XSDFrontend::Token::MaxLengthValidatorTag))
 			{
 				hasMaxLength = true;
-				auto child = node->getChildren()[node->findChild(XSDFrontend::Token::MaxLengthValidatorTag)].lock();
+				auto child = node->getChildren()[node->findChild(XSDFrontend::Token::MaxLengthValidatorTag)];
 				if (child != nullptr)
 				{
 					maxLength = std::stoi(child->getAttr(XSDFrontend::Token::ValueAttr));
@@ -54,7 +54,7 @@ namespace XSDFrontend
 			if (node->hasChild(XSDFrontend::Token::MinLengthValidatorTag))
 			{
 				hasMinLength = true;
-				auto child = node->getChildren()[node->findChild(XSDFrontend::Token::MinLengthValidatorTag)].lock();
+				auto child = node->getChildren()[node->findChild(XSDFrontend::Token::MinLengthValidatorTag)];
 				if (child != nullptr)
 				{
 					minLength = std::stoi(child->getAttr(XSDFrontend::Token::ValueAttr));

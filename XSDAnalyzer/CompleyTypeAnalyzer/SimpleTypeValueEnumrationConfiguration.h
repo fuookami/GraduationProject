@@ -45,20 +45,23 @@ namespace XSDFrontend
 			inline const bool hasEnumValue(const T &enumValue) const { return m_enumValues.find(enumValue) != m_enumValues.cend(); }
 			inline const std::set<T, _ValueTypeCompare> &getEnumValues(void) const { return m_enumValues; }
 
-			void refreshValueEnumrationConfiguration(const std::shared_ptr<SSUtils::XML::Node> node, const TranslateFunction translator = DefaultTranslator)
+			void refreshValueEnumrationConfiguration(const std::shared_ptr<SSUtils::XML::Node> node)
+			{
+				refreshValueEnumrationConfiguration(node, DefaultTranslator);
+			}
+			void refreshValueEnumrationConfiguration(const std::shared_ptr<SSUtils::XML::Node> node, const TranslateFunction translator)
 			{
 				if (node->hasChild(XSDFrontend::Token::EnumValidatorTag))
 				{
 					m_isEnum = true;
 
 					std::for_each(node->getChildren().cbegin(), node->getChildren().cend(),
-						[this](const std::weak_ptr<SSUtils::XML::Node> child)
+						[this, translator](const std::shared_ptr<SSUtils::XML::Node> child)
 					{
-						auto node = child.lock();
-						if (node != nullptr && node->getTag() == XSDFrontend::Token::EnumValidatorTag
-							&& node->hasAttr(XSDFrontend::Token::ValueAttr))
+						if (child != nullptr && child->getTag() == XSDFrontend::Token::EnumValidatorTag
+							&& child->hasAttr(XSDFrontend::Token::ValueAttr))
 						{
-							addEnumValue(translator(node->getAttr(XSDFrontend::Token::ValueAttr)));
+							addEnumValue(translator(child->getAttr(XSDFrontend::Token::ValueAttr)));
 						}
 					});
 				}

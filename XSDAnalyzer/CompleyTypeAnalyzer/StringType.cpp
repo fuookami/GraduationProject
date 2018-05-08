@@ -34,7 +34,7 @@ namespace XSDFrontend
 			refreshValueEnumrationConfiguration(node);
 			if (node->hasChild(XSDFrontend::Token::PatternTag))
 			{
-				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::PatternTag)].lock());
+				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::PatternTag)]);
 				if (child != nullptr && child->hasAttr(XSDFrontend::Token::ValueAttr))
 				{
 					m_pattern.assign(child->getAttr(XSDFrontend::Token::ValueAttr));

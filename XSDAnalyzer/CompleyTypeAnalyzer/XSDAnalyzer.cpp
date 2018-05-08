@@ -29,8 +29,7 @@ namespace XSDAnalyzer
 			return false;
 		}
 
-		SSUtils::XML::Document doc;
-		doc.fromFile(fileUrl, charType);
+		SSUtils::XML::Document doc(SSUtils::XML::Document::fromFile(fileUrl, charType));
 		const auto &xml(doc.getRoots());
 		
 		if (!(xml.size() == 1) || !(xml.front()->getTag() == XSDFrontend::Token::SchemaTag))
@@ -41,10 +40,9 @@ namespace XSDAnalyzer
 
 		for (const auto &child : xml.front()->getChildren())
 		{
-			auto childNode(child.lock());
-			if (childNode != nullptr && childNode->getTag() == XSDFrontend::Token::IncludeTag)
+			if (child != nullptr && child->getTag() == XSDFrontend::Token::IncludeTag)
 			{
-				if (!scanIncludeTag(fileName, filePath, childNode, charType))
+				if (!scanIncludeTag(fileName, filePath, child, charType))
 				{
 					return false;
 				}
@@ -55,7 +53,7 @@ namespace XSDAnalyzer
 		const auto &childrens(xml.front()->getChildren());
 		for (const auto order : topologicalOrder)
 		{
-			auto childNode(childrens[order].lock());
+			auto childNode(childrens[order]);
 			if (childNode != nullptr)
 			{
 				if (childNode->getTag() == XSDFrontend::Token::SimpleTypeTag)
@@ -132,18 +130,17 @@ namespace XSDAnalyzer
 
 		std::vector<std::pair<std::set<std::string>, std::set<std::string>>> tokens;
 
-		for (const auto child : root->getChildren())
+		for (const auto node : root->getChildren())
 		{
-			auto node = child.lock();
 			if (node != nullptr)
 			{
 				decltype(tokens)::value_type thisTokens;
-				std::deque<std::weak_ptr<SSUtils::XML::Node>> nextNodes;
+				std::deque<std::shared_ptr<SSUtils::XML::Node>> nextNodes;
 				nextNodes.push_back(node);
 
 				while (!nextNodes.empty())
 				{
-					const auto pnode(nextNodes.front().lock());
+					const auto pnode(nextNodes.front());
 					if (pnode != nullptr)
 					{
 						const auto &node(*pnode);

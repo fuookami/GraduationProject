@@ -98,7 +98,7 @@ namespace XSDAnalyzer
 			}
 			else if (node->hasChild(XSDFrontend::Token::SimpleTypeTag))
 			{
-				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::SimpleTypeTag)].lock());
+				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::SimpleTypeTag)]);
 				if (child != nullptr)
 				{
 					std::string typeName(ref_simpleTypeAnalyzer.get().scanSimpleType(child));
@@ -170,35 +170,34 @@ namespace XSDAnalyzer
 
 		for (const auto &child : node->getChildren())
 		{
-			auto childNode(child.lock());
-			if (childNode != nullptr)
+			if (child != nullptr)
 			{
-				if (childNode->getTag() == XSDFrontend::Token::AnyAttributeTag)
+				if (child->getTag() == XSDFrontend::Token::AnyAttributeTag)
 				{
 					std::shared_ptr<XSDFrontend::Attribute::AnyAttribute> anyAttribute(new XSDFrontend::Attribute::AnyAttribute());
-					if (childNode->hasAttr(XSDFrontend::Token::NamesapceAttr))
+					if (child->hasAttr(XSDFrontend::Token::NamesapceAttr))
 					{
-						anyAttribute->setNamespaceValidator(XSDFrontend::Attribute::NamespaceValidatorString2Validator.find(childNode->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
+						anyAttribute->setNamespaceValidator(XSDFrontend::Attribute::NamespaceValidatorString2Validator.find(child->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
 					}
-					if (childNode->hasAttr(XSDFrontend::Token::ProcessContentsAttr))
+					if (child->hasAttr(XSDFrontend::Token::ProcessContentsAttr))
 					{
-						anyAttribute->setProcessContents(XSDFrontend::Attribute::ProcessContentsString2ProcessContents.find(childNode->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
+						anyAttribute->setProcessContents(XSDFrontend::Attribute::ProcessContentsString2ProcessContents.find(child->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
 					}
 					anyAttribute->setParent(XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tAttributeGroup, groupName);
 
 					group->setAnyAttribute(anyAttribute);
 				}
-				else if (childNode->getTag() == XSDFrontend::Token::AttributeTag)
+				else if (child->getTag() == XSDFrontend::Token::AttributeTag)
 				{
-					auto childAttribute(scanAttribute(childNode, XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tAttributeGroup, groupName));
+					auto childAttribute(scanAttribute(child, XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tAttributeGroup, groupName));
 					if (childAttribute != nullptr)
 					{
 						group->setOrAddAttribute(childAttribute);
 					}
 				}
-				else if (childNode->getTag() == XSDFrontend::Token::AttributeGroupTag)
+				else if (child->getTag() == XSDFrontend::Token::AttributeGroupTag)
 				{
-					auto childGroup(scanAttributeGroup(childNode));
+					auto childGroup(scanAttributeGroup(child));
 					if (childGroup != nullptr)
 					{
 						group->addAttributeGroup(childGroup);

@@ -6,7 +6,7 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
-		const DatetimeType::value_type ValueLimitConfiguration<DatetimeType::value_type>::NoValueValidator(SSUtils::Datetime::Datetime::EmptyDatetime);
+		const SSUtils::Datetime::DatetimeDuration ValueLimitConfiguration<SSUtils::Datetime::DatetimeDuration>::NoValueValidator = SSUtils::Datetime::DatetimeDuration();
 
 		DatetimeType::DatetimeType(void)
 			: DatetimeType("")
@@ -17,16 +17,16 @@ namespace XSDFrontend
 			: ISimpleTypeInterface(name, eSimpleType::tDatetimeType), ValueLimitConfiguration(), ValueEnumrationConfiguration(), 
 			m_baseType(baseType)
 		{
-			ValueLimitConfiguration<value_type>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
-			ValueEnumrationConfiguration<value_type>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
+			ValueLimitConfiguration<SSUtils::Datetime::DatetimeDuration>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
+			ValueEnumrationConfiguration<SSUtils::Datetime::DatetimeDuration>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
 		}
 
 		DatetimeType::DatetimeType(std::string && name, const eBaseType baseType)
 			: ISimpleTypeInterface(std::move(name), eSimpleType::tDatetimeType), ValueLimitConfiguration(), ValueEnumrationConfiguration(),
 			m_baseType(baseType)
 		{
-			ValueLimitConfiguration<value_type>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
-			ValueEnumrationConfiguration<value_type>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
+			ValueLimitConfiguration<SSUtils::Datetime::DatetimeDuration>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
+			ValueEnumrationConfiguration<SSUtils::Datetime::DatetimeDuration>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
 		}
 
 		const bool DatetimeType::refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node)
@@ -43,8 +43,8 @@ namespace XSDFrontend
 		void DatetimeType::setBaseType(const eBaseType baseType)
 		{
 			m_baseType = baseType;
-			ValueLimitConfiguration<value_type>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
-			ValueEnumrationConfiguration<value_type>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
+			ValueLimitConfiguration<SSUtils::Datetime::DatetimeDuration>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
+			ValueEnumrationConfiguration<SSUtils::Datetime::DatetimeDuration>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
 		}
 
 		const std::map<std::string, DatetimeType::eBaseType> DatetimeBaseTypeName2Type =
@@ -60,7 +60,7 @@ namespace XSDFrontend
 			std::make_pair(std::string("duration"), DatetimeType::eBaseType::tDuration)
 		};
 
-		DatetimeType::value_type XSDString2Datetime(const DatetimeType::eBaseType type, const std::string & str)
+		SSUtils::Datetime::DatetimeDuration XSDString2Datetime(const DatetimeType::eBaseType type, const std::string & str)
 		{
 			// 正则匹配（记得要加终止符）
 			// YYYY-MM-DD
@@ -72,7 +72,7 @@ namespace XSDFrontend
 			// --MM-DD
 			// ---DDD
 			// PnYnMnDTnHnMnS
-			return DatetimeType::value_type();
+			return SSUtils::Datetime::DatetimeDuration();
 		}
 	};
 };

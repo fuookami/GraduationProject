@@ -31,38 +31,37 @@ namespace XSDAnalyzer
 			return EmptyString;
 		}
 
-		for (const auto &child : node->getChildren())
+		for (const auto child : node->getChildren())
 		{
-			auto node(child.lock());
-			if (node != nullptr && node->getTag() == XSDFrontend::Token::RestrictionTag)
+			if (child != nullptr && child->getTag() == XSDFrontend::Token::RestrictionTag)
 			{
-				if (!analyseType(typeName, node))
+				if (!analyseType(typeName, child))
 				{
 					return EmptyString;
 				}
 
 				auto type(m_simpleTypeModel->getSimpleType(typeName));
 				if (type != nullptr
-					&& node->hasChild(XSDFrontend::Token::WhiteSpaceTag))
+					&& child->hasChild(XSDFrontend::Token::WhiteSpaceTag))
 				{
-					const auto whiteSpaceNode(node->getChildren()[node->findChild(typeName)].lock());
+					const auto whiteSpaceNode(child->getChildren()[child->findChild(typeName)]);
 					if (whiteSpaceNode != nullptr && whiteSpaceNode->hasAttr(XSDFrontend::Token::ValueAttr))
 					{
 						type->setWhiteSpace(XSDFrontend::SimpleType::WhiteSpaceString2WhiteSpace.find(whiteSpaceNode->getAttr(XSDFrontend::Token::ValueAttr))->second);
 					}
 				}
 			}
-			else if (node->getTag() == XSDFrontend::Token::ListTag)
+			else if (child->getTag() == XSDFrontend::Token::ListTag)
 			{
-				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tList, typeName, "", node))
+				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tList, typeName, "", child))
 				{
 					return EmptyString;
 				}
 				m_simpleTypeModel->checkAndEraseIlegalTypeInContainer(m_simpleTypeModel->getContainerTypes().find(typeName)->second);
 			}
-			else if (node->getTag() == XSDFrontend::Token::UnionTag)
+			else if (child->getTag() == XSDFrontend::Token::UnionTag)
 			{
-				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tUnion, typeName, "", node))
+				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tUnion, typeName, "", child))
 				{
 					return EmptyString;
 				}
@@ -77,7 +76,7 @@ namespace XSDAnalyzer
 	{
 		static const std::string EmptyString("");
 
-		const std::string baseTypeName(node.getAttr(XSDFrontend::Token::BaseTypeAttr, EmptyString));
+		const std::string baseTypeName(node->getAttr(XSDFrontend::Token::BaseTypeAttr, EmptyString));
 
 		// 检查是否是原子类型（检查是否以xs或者xsd开头）
 		if (XSDFrontend::Token::isInXSDNameSpace(baseTypeName))

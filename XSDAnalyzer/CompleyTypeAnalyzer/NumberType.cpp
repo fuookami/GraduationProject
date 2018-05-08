@@ -38,7 +38,7 @@ namespace XSDFrontend
 
 			if (node->hasChild(XSDFrontend::Token::FractionDigitsTag))
 			{
-				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::FractionDigitsTag)].lock());
+				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::FractionDigitsTag)]);
 				if (child != nullptr && child->hasAttr(XSDFrontend::Token::ValueAttr))
 				{
 					setFractionDigits(std::stoi(child->getAttr(XSDFrontend::Token::ValueAttr)));
@@ -47,7 +47,7 @@ namespace XSDFrontend
 
 			if (node->hasChild(XSDFrontend::Token::TotalDigitsTag))
 			{
-				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::TotalDigitsTag)].lock());
+				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::TotalDigitsTag)]);
 				if (child != nullptr && child->hasAttr(XSDFrontend::Token::ValueAttr))
 				{
 					setTotalDigits(std::stoi(child->getAttr(XSDFrontend::Token::ValueAttr)));
