@@ -35,5 +35,9 @@ $(document).ready(function() {
 
             $('#information').html(info);
         });
+
+        interface.initProjectSucceeded.connect(function(info) {
+            $('#information').html(info);
+        });
     });
 });

@@ -51,14 +51,14 @@ namespace VEDA
 	signals:
 		void savePathSelected(QString);
 		void initProjectFailed(QString);
-		void initProjectSucceeded(std::string);
+		void initProjectSucceeded(QString);
 
 	public:
 		void emitInitProjectFailed(const QString &info);
 		void emitInitProjectSucceeded(const std::string &newProjectUrl);
 
 	private:
-		void onInitProjectSucceeded(std::string newProjectUrl);
+		void onInitProjectSucceeded(QString newProjectUrl);
 
 	public:
 		Q_INVOKABLE void onSelectSavePathBtnClicked(void);

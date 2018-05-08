@@ -20,7 +20,7 @@ namespace VEDA
 
 	void VEDAInitProjectDialog::registerContents(void)
 	{
-		m_webWidget->registerObject(m_interface);
+		registerObject(m_interface);
 	}
 
 	void VEDAInitProjectDialog::initGUI(void)
@@ -40,21 +40,22 @@ namespace VEDA
 
 	void VEDAInitProjectDialogInterface::emitInitProjectSucceeded(const std::string &newProjectUrl)
 	{
-		emit initProjectSucceeded(newProjectUrl);
+		emit initProjectSucceeded(QString::fromLocal8Bit(newProjectUrl.c_str()));
 	}
 
-	void VEDAInitProjectDialogInterface::onInitProjectSucceeded(std::string newProjectUrl)
+	void VEDAInitProjectDialogInterface::onInitProjectSucceeded(QString newProjectUrl)
 	{
 		m_dialog->close();
+		std::string url(newProjectUrl.toLocal8Bit());
 
 		auto projectHandler(VEDAProjectHandler::getInstance());
 		if (projectHandler->isProjectOpen())
 		{
 			static const QString Title(QString::fromLocal8Bit("打开新建实验项目"));
 			static const QString Information(QString::fromLocal8Bit("是否要打开新建的实验项目？"));
-			if (QMessageBoxUtils::yesOrNot(Title, Information))
+			if (SSUtils::GUI::QMessageBoxUtils::yesOrNot(Title, Information))
 			{
-				projectHandler->openProject(newProjectUrl);
+				projectHandler->openProject(url);
 			}
 
 		}
@@ -64,14 +65,14 @@ namespace VEDA
 			static const QString Information(QString::fromLocal8Bit("是否要关闭并保存当前项目，然后打开新建的实验项目？"));
 			static const QString Button1Text(QString::fromLocal8Bit("确定"));
 			static const QString Button2Text(QString::fromLocal8Bit("关闭但不保存"));
-			int selected(QMessageBoxUtils::tricomfirm(Title, Information, Button1Text, Button2Text));
+			int selected(SSUtils::GUI::QMessageBoxUtils::tricomfirm(Title, Information, Button1Text, Button2Text));
 			if (selected == 1)
 			{
-				projectHandler->openProject(newProjectUrl);
+				projectHandler->openProject(url);
 			}
 			else if (selected == 2)
 			{
-				projectHandler->openProject(newProjectUrl, false);
+				projectHandler->openProject(url, false);
 			}
 		}
 	}

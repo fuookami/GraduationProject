@@ -42,7 +42,7 @@ namespace VEDA
 		void initConnections(void);
 
 	private:
-		QWebEngineWidget * m_web;
+		SSUtils::GUI::QWebEngineWidget * m_web;
 		std::shared_ptr<Ui::VEDAMainWindow> m_ui;
 		std::shared_ptr<VEDAProjectHandler> m_projectHandler;
 	};

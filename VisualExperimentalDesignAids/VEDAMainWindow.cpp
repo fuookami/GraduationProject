@@ -16,7 +16,7 @@ namespace VEDA
 	}
 
 	VEDAMainWindow::VEDAMainWindow(void)
-		: QMainWindow(nullptr), m_ui(new Ui::VEDAMainWindow), m_web(new QWebEngineWidget(nullptr))
+		: QMainWindow(nullptr), m_ui(new Ui::VEDAMainWindow), m_web(new SSUtils::GUI::QWebEngineWidget(nullptr))
 	{
 		m_ui->setupUi(this);
 		this->setCentralWidget(m_web);

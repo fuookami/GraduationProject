@@ -30,7 +30,7 @@ namespace VEDA
 
 	void VEDAAboutDialog::initGUI(void)
 	{
-		m_view->page()->runJavaScript(QString::fromLocal8Bit("setInfo('%1', '%2')").arg(QString::fromLocal8Bit(Version.c_str())).arg(QString::fromLocal8Bit(BuildDatetime.c_str())));
+		m_view->page()->runJavaScript(QString::fromLocal8Bit("setInfo('%1', '%2');").arg(QString::fromLocal8Bit(Version.c_str())).arg(QString::fromLocal8Bit(BuildDatetime.c_str())));
 	}
 
 	VEDAAboutDialogInterface::VEDAAboutDialogInterface(VEDAAboutDialog * dialog)

@@ -10,35 +10,38 @@ namespace VEDA
 	class VEDAProject
 	{
 	public:
-		inline static std::shared_ptr<VEDAProject> generate(const std::string &name);
-		inline static std::shared_ptr<VEDAProject> generate(std::string &&name);
+		static const SSUtils::uint32 KeyLength;
+
+	public:
+		static std::shared_ptr<VEDAProject> generate(const std::string &name);
+		static std::shared_ptr<VEDAProject> generate(std::string &&name);
 
 	private:
 		VEDAProject(const std::string &name);
 		VEDAProject(std::string &&name);
 		void init(void);
-		
+
 	public:
 		VEDAProject(const VEDAProject &ano) = delete;
 		VEDAProject(VEDAProject &&ano) = delete;
-		~VEDAProject(void);
+		~VEDAProject(void) = default;
 
-		inline void setName(const std::string &name);
-		inline void setName(std::string &&name);
-		inline const std::string &getName(void) const;
+		inline void setName(const std::string &name) { m_name.assign(name); }
+		inline void setName(std::string &&name) { m_name.assign(std::move(name)); }
+		inline const std::string &getName(void) const { return m_name; }
 
-		inline SSUtils::Encryption::RSA::signer &signer(void);
-		inline const SSUtils::Encryption::RSA::signer &signer(void) const;
+		inline SSUtils::Encryption::RSA::signer &signer(void) { return m_signer; }
+		inline const SSUtils::Encryption::RSA::signer &signer(void) const { return m_signer; }
 
-		inline SSUtils::Encryption::RSA::verifier &verifier(void);
-		inline const SSUtils::Encryption::RSA::verifier &verifier(void) const;
+		inline SSUtils::Encryption::RSA::verifier &verifier(void) { return m_verifier; }
+		inline const SSUtils::Encryption::RSA::verifier &verifier(void) const { return m_verifier; }
 
-		inline void setVerificationDataPiece(const std::string &name);
-		inline void setVerificationDataPiece(std::string &&name);
-		inline const std::string &getVerificationDataPiece(void) const;
+		inline void setVerificationToken(const SSUtils::Block &token) { m_verificationToken = token; }
+		inline void setVerificationToken(SSUtils::Block &&token) { m_verificationToken = token; }
+		inline const SSUtils::Block &getVerificationDataPiece(void) const { return m_verificationToken; }
 
-		inline std::map<std::string, VEDAProcess> &processes(void);
-		inline const std::map<std::string, VEDAProcess> &processes(void) const;
+		inline std::map<std::string, VEDAProcess> &processes(void) { return m_processes; }
+		inline const std::map<std::string, VEDAProcess> &processes(void) const { return m_processes; }
 
 		SSUtils::XML::Document toXML(void);
 		static std::shared_ptr<VEDAProject> fromXML(const SSUtils::XML::Document &doc);
@@ -48,7 +51,7 @@ namespace VEDA
 
 		SSUtils::Encryption::RSA::signer m_signer;
 		SSUtils::Encryption::RSA::verifier m_verifier;
-		std::string m_verificationDataPiece;
+		SSUtils::Block m_verificationToken;
 
 		std::map<std::string, VEDAProcess> m_processes;
 	};
