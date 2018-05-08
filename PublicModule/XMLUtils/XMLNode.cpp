@@ -284,12 +284,12 @@ namespace SSUtils
 			return npos;
 		}
 
-		const std::vector<std::weak_ptr<Node>>& Node::getChildren(void) const
+		const std::vector<std::shared_ptr<Node>>& Node::getChildren(void) const
 		{
 			return m_children;
 		}
 
-		std::vector<std::weak_ptr<Node>>& Node::getChildren(void)
+		std::vector<std::shared_ptr<Node>>& Node::getChildren(void)
 		{
 			return m_children;
 		}
@@ -301,11 +301,8 @@ namespace SSUtils
 			m_attrs = ano.m_attrs;
 			for (auto child : ano.m_children)
 			{
-				auto sp_child(child.lock());
-				if (sp_child != nullptr)
-				{
-					m_children.push_back(deepCopy(*sp_child));
-				}
+				m_children.push_back(deepCopy(*child));
+				
 			}
 		}
 

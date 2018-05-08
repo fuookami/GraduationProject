@@ -111,8 +111,8 @@ namespace SSUtils
 				return npos;
 			}
 
-			const std::vector<std::weak_ptr<Node>> &getChildren(void) const;
-			std::vector<std::weak_ptr<Node>> &getChildren(void);
+			const std::vector<std::shared_ptr<Node>> &getChildren(void) const;
+			std::vector<std::shared_ptr<Node>> &getChildren(void);
 
 		private:
 			void deepCopyFrom(const Node &ano);
@@ -126,7 +126,7 @@ namespace SSUtils
 			
 			std::weak_ptr<Node> m_self;
 			std::weak_ptr<Node> m_parent;
-			std::vector<std::weak_ptr<Node>> m_children;
+			std::vector<std::shared_ptr<Node>> m_children;
 		};
 	};
 };
