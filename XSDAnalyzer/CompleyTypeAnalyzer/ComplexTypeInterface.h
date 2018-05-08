@@ -87,5 +87,8 @@ namespace XSDFrontend
 			std::string m_baseTypeName;
 			std::string m_attributeGroup;
 		};
+
+		extern const std::map<std::string, IComplexTypeInterface::eBlock> BlockString2Block;
+		extern const std::map<std::string, IComplexTypeInterface::eFinal> FinalString2Final;
 	};
 };

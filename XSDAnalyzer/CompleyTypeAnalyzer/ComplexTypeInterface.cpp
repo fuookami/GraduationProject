@@ -27,5 +27,18 @@ namespace XSDFrontend
 			m_deriveType(eDerivedType::tNone), m_baseTypeName(), m_attributeGroup()
 		{
 		}
+
+		const std::map<std::string, IComplexTypeInterface::eBlock> BlockString2Block =
+		{
+			std::make_pair("extension", IComplexTypeInterface::eBlock::tExtension),
+			std::make_pair("restriction", IComplexTypeInterface::eBlock::tRestriction),
+			std::make_pair("#all", IComplexTypeInterface::eBlock::tAll)
+		};
+		const std::map<std::string, IComplexTypeInterface::eFinal> FinalString2Final =
+		{
+			std::make_pair("extension", IComplexTypeInterface::eFinal::tExtension),
+			std::make_pair("restriction", IComplexTypeInterface::eFinal::tRestriction),
+			std::make_pair("#all", IComplexTypeInterface::eFinal::tAll)
+		};
 	};
 };

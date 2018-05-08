@@ -474,6 +474,23 @@ namespace XSDAnalyzer
 		}
 		type->setName(typeName);
 
+		if (node->hasAttr(XSDFrontend::Token::AbstractAttr))
+		{
+			type->setAbstract(node->getAttr(XSDFrontend::Token::AbstractAttr) == SSUtils::String::True);
+		}
+		if (node->hasAttr(XSDFrontend::Token::MixedAttr))
+		{
+			type->setMixed(node->getAttr(XSDFrontend::Token::MixedAttr) == SSUtils::String::True);
+		}
+		if (node->hasAttr(XSDFrontend::Token::BlockAttr))
+		{
+			type->setBlock(XSDFrontend::ComplexType::BlockString2Block.find(node->getAttr(XSDFrontend::Token::BlockAttr))->second);
+		}
+		if (node->hasAttr(XSDFrontend::Token::FinalAttr))
+		{
+			type->setFinal(XSDFrontend::ComplexType::FinalString2Final.find(node->getAttr(XSDFrontend::Token::FinalAttr))->second);
+		}
+
 		return true;
 	}
 
@@ -504,15 +521,6 @@ namespace XSDAnalyzer
 			{
 				std::cerr << baseTypeName << "既不是基础类型或简单类型，也不是简单内容的复合类型，不能作为派生简单内容的复合类型的基类型" << std::endl;
 				return false;
-			}
-
-			if (m_simpleTypeModel->isTypeExist(baseTypeName))
-			{
-
-			}
-			else
-			{
-
 			}
 		}
 		else // if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tComplexContent)
@@ -556,7 +564,11 @@ namespace XSDAnalyzer
 
 	const bool ComplexTypeAnalyzer::loadSimpleContent(std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> type, const std::shared_ptr<SSUtils::XML::Node> node)
 	{
-
+		auto attributeGroup(ref_attributeAnalyzer.get().scanAttributeGroup(node));
+		if (attributeGroup != nullptr)
+		{
+			type->setAttributeGroupName(attributeGroup->getName());
+		}
 
 		return true;
 	}
