@@ -1,7 +1,6 @@
 #include "XSDAnalyzer.h"
 #include "XSDToken.h"
 #include "FileUtils.h"
-#include "StringConvertUtils.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
@@ -19,30 +18,33 @@ namespace XSDAnalyzer
 	{
 	}
 
-	const bool XSDAnalyzer::scan(const std::string &fileUrl)
+	const bool XSDAnalyzer::scan(const std::string &fileUrl, const SSUtils::CharType charType)
 	{
-		std::string filePath(FileUtils::getPathOfUrl(fileUrl));
-		std::string fileName(FileUtils::getFileNameOfUrl(fileUrl));
+		std::string filePath(SSUtils::File::getPathOfUrl(fileUrl));
+		std::string fileName(SSUtils::File::getFileNameOfUrl(fileUrl));
 
-		if (!FileUtils::checkFileExist(fileUrl))
+		if (!SSUtils::File::checkFileExist(fileUrl))
 		{
 			std::cerr << "找不到文件'" << fileUrl << "'" << std::endl;
 			return false;
 		}
 
-		auto xml(XMLUtils::scanXMLFile<StringConvertUtils::CharType::UTF8>(fileUrl));
+		SSUtils::XML::Document doc;
+		doc.fromFile(fileUrl, charType);
+		const auto &xml(doc.getRoots());
 		
-		if (!(xml.size() == 1) || !(xml.front().getTag() == XSDFrontend::Token::SchemaTag))
+		if (!(xml.size() == 1) || !(xml.front()->getTag() == XSDFrontend::Token::SchemaTag))
 		{
 			std::cerr << "文件'" << fileUrl << "'不是xsd文件" << std::endl;
 			return false;
 		}
 
-		for (const auto &childNode : xml.front().getChildren())
+		for (const auto &child : xml.front()->getChildren())
 		{
-			if (childNode.getTag() == XSDFrontend::Token::IncludeTag)
+			auto childNode(child.lock());
+			if (childNode != nullptr && childNode->getTag() == XSDFrontend::Token::IncludeTag)
 			{
-				if (!scanIncludeTag(fileName, filePath, childNode))
+				if (!scanIncludeTag(fileName, filePath, childNode, charType))
 				{
 					return false;
 				}
@@ -50,34 +52,36 @@ namespace XSDAnalyzer
 		}
 
 		const auto topologicalOrder(topologicalSort(generateTopologicalTable(xml.front())));
-		const auto childrens(xml.front().getChildren());
+		const auto &childrens(xml.front()->getChildren());
 		for (const auto order : topologicalOrder)
 		{
-			const auto &childNode(childrens[order]);
-
-			if (childNode.getTag() == XSDFrontend::Token::SimpleTypeTag)
+			auto childNode(childrens[order].lock());
+			if (childNode != nullptr)
 			{
-				m_simpleTypeAnalyzer.scanSimpleType(childNode);
-			}
-			else if (childNode.getTag() == XSDFrontend::Token::AttributeTag)
-			{
-				m_attributeAnalyzer.scanAttribute(childNode);
-			}
-			else if (childNode.getTag() == XSDFrontend::Token::AttributeGroupTag)
-			{
-				m_attributeAnalyzer.scanAttributeGroup(childNode);
-			}
-			else if (childNode.getTag() == XSDFrontend::Token::ElementTag)
-			{
-				m_complexTypeAnalyzer.scanElement(childNode);
-			}
-			else if (childNode.getTag() == XSDFrontend::Token::GroupTag)
-			{
-				m_complexTypeAnalyzer.scanElementGroup(childNode);
-			}
-			else if (childNode.getTag() == XSDFrontend::Token::ComplexTypeTag)
-			{
-				m_complexTypeAnalyzer.scanComplexType(childNode);
+				if (childNode->getTag() == XSDFrontend::Token::SimpleTypeTag)
+				{
+					m_simpleTypeAnalyzer.scanSimpleType(childNode);
+				}
+				else if (childNode->getTag() == XSDFrontend::Token::AttributeTag)
+				{
+					m_attributeAnalyzer.scanAttribute(childNode);
+				}
+				else if (childNode->getTag() == XSDFrontend::Token::AttributeGroupTag)
+				{
+					m_attributeAnalyzer.scanAttributeGroup(childNode);
+				}
+				else if (childNode->getTag() == XSDFrontend::Token::ElementTag)
+				{
+					m_complexTypeAnalyzer.scanElement(childNode);
+				}
+				else if (childNode->getTag() == XSDFrontend::Token::GroupTag)
+				{
+					m_complexTypeAnalyzer.scanElementGroup(childNode);
+				}
+				else if (childNode->getTag() == XSDFrontend::Token::ComplexTypeTag)
+				{
+					m_complexTypeAnalyzer.scanComplexType(childNode);
+				}
 			}
 		}
 
@@ -85,23 +89,23 @@ namespace XSDAnalyzer
 		return true;
 	}
 
-	const bool XSDAnalyzer::scanIncludeTag(const std::string &fileName, const std::string &filePath, const XMLUtils::XMLNode & node)
+	const bool XSDAnalyzer::scanIncludeTag(const std::string &fileName, const std::string &filePath, const std::shared_ptr<SSUtils::XML::Node> node, const SSUtils::CharType charType)
 	{
-		if (node.getTag() == XSDFrontend::Token::IncludeTag)
+		if (node->getTag() == XSDFrontend::Token::IncludeTag)
 		{
 			static const std::string EmptyString("");
 
-			std::string targetFileName(node.getAttr(XSDFrontend::Token::SchemaLocationAttr));
+			std::string targetFileName(node->getAttr(XSDFrontend::Token::SchemaLocationAttr));
 			if (targetFileName == EmptyString)
 			{
 				std::cerr << "在文件'" << targetFileName << "'中存在非法的include tag" << std::endl;
 				return false;
 			}
 			
-			std::string targetFileUrl(filePath + FileUtils::PathSeperator + targetFileName);
+			std::string targetFileUrl(filePath + SSUtils::File::PathSeperator + targetFileName);
 			if (m_scanedFiles.find(targetFileUrl) == m_scanedFiles.cend())
 			{
-				return scan(targetFileUrl);
+				return scan(targetFileUrl, charType);
 			}
 			else
 			{
@@ -114,7 +118,7 @@ namespace XSDAnalyzer
 		}
 	}
 
-	std::vector<std::set<int>> XSDAnalyzer::generateTopologicalTable(const XMLUtils::XMLNode & root)
+	std::vector<std::set<int>> XSDAnalyzer::generateTopologicalTable(const std::shared_ptr<SSUtils::XML::Node> root)
 	{
 		static const std::set<std::string> ProvideTokenAttrs = 
 		{
@@ -128,41 +132,50 @@ namespace XSDAnalyzer
 
 		std::vector<std::pair<std::set<std::string>, std::set<std::string>>> tokens;
 
-		for (const auto &node : root.getChildren())
+		for (const auto child : root->getChildren())
 		{
-			decltype(tokens)::value_type thisTokens;
-			std::deque<std::reference_wrapper<const XMLUtils::XMLNode>> nextNodes;
-			nextNodes.push_back(node);
-
-			while (!nextNodes.empty())
+			auto node = child.lock();
+			if (node != nullptr)
 			{
-				const auto &node(nextNodes.front().get());
-				nextNodes.pop_front();
+				decltype(tokens)::value_type thisTokens;
+				std::deque<std::weak_ptr<SSUtils::XML::Node>> nextNodes;
+				nextNodes.push_back(node);
 
-				for (const auto &attr : ProvideTokenAttrs)
+				while (!nextNodes.empty())
 				{
-					if (node.hasAttr(attr))
+					const auto pnode(nextNodes.front().lock());
+					if (pnode != nullptr)
 					{
-						thisTokens.first.insert(node.getAttr(attr));
+						const auto &node(*pnode);
+
+						nextNodes.pop_front();
+
+						for (const auto &attr : ProvideTokenAttrs)
+						{
+							if (node.hasAttr(attr))
+							{
+								thisTokens.first.insert(node.getAttr(attr));
+							}
+						}
+
+						for (const auto &attr : NeedTokenAttrs)
+						{
+							if (node.hasAttr(attr))
+							{
+								thisTokens.second.insert(node.getAttr(attr));
+							}
+						}
+
+						std::copy(node.getChildren().cbegin(), node.getChildren().cend(), std::back_inserter(nextNodes));
 					}
 				}
 
-				for (const auto &attr : NeedTokenAttrs)
-				{
-					if (node.hasAttr(attr))
-					{
-						thisTokens.second.insert(node.getAttr(attr));
-					}
-				}
-
-				std::copy(node.getChildren().cbegin(), node.getChildren().cend(), std::back_inserter(nextNodes));
+				tokens.emplace_back(std::move(thisTokens));
 			}
-
-			tokens.emplace_back(std::move(thisTokens));
 		}
 
-		std::vector<std::set<int>> ret(root.getChildren().size());
-		for (int i(0), k(root.getChildren().size()); i != k; ++i)
+		std::vector<std::set<int>> ret(root->getChildren().size());
+		for (int i(0), k(root->getChildren().size()); i != k; ++i)
 		{
 			for (int j(0); j != k; ++j)
 			{

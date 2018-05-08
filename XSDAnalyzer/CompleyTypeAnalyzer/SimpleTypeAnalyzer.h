@@ -21,10 +21,10 @@ namespace XSDAnalyzer
 		SimpleTypeAnalyzer &operator=(SimpleTypeAnalyzer &&rhs) = delete;
 		~SimpleTypeAnalyzer(void) = default;
 
-		std::string scanSimpleType(const XMLUtils::XMLNode &node);
+		std::string scanSimpleType(const std::shared_ptr<SSUtils::XML::Node> node);
 
 	private:
-		const bool analyseType(const std::string &typeName, const XMLUtils::XMLNode &node);
+		const bool analyseType(const std::string &typeName, const std::shared_ptr<SSUtils::XML::Node> node);
 
 	private:
 		template<typename T>
@@ -43,7 +43,7 @@ namespace XSDAnalyzer
 		}
 
 		template<typename T, typename U>
-		const bool checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const U type, const std::string &typeName, const std::string &baseTypeName, const XMLUtils::XMLNode &node)
+		const bool checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const U type, const std::string &typeName, const std::string &baseTypeName, const std::shared_ptr<SSUtils::XML::Node> node)
 		{
 			// 编译期检查模板类型是否正确
 			{
@@ -64,7 +64,7 @@ namespace XSDAnalyzer
 		}
 
 		template<typename T, typename U>
-		const bool checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const std::map<std::string, U> &name2Type, const std::string &typeName, const std::string &baseTypeName, const XMLUtils::XMLNode &node)
+		const bool checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const std::map<std::string, U> &name2Type, const std::string &typeName, const std::string &baseTypeName, const std::shared_ptr<SSUtils::XML::Node> node)
 		{
 			// 编译期检查模板类型是否正确
 			{
@@ -81,7 +81,7 @@ namespace XSDAnalyzer
 		}
 
 		template<typename T>
-		const bool checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const XSDFrontend::SimpleType::ISimpleTypeInterface *prototypeSimpleType, const std::string &typeName, const XMLUtils::XMLNode &node)
+		const bool checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const XSDFrontend::SimpleType::ISimpleTypeInterface *prototypeSimpleType, const std::string &typeName, const std::shared_ptr<SSUtils::XML::Node> node)
 		{
 			// 编译期检查模板类型是否正确
 			{

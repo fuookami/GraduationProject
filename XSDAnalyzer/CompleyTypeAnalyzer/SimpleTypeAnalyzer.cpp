@@ -1,6 +1,5 @@
 #include "SimpleTypeAnalyzer.h"
 #include "XSDToken.h"
-#include "StringConvertUtils.h"
 
 #include <boost/algorithm/string.hpp>
 
@@ -13,27 +12,29 @@ namespace XSDAnalyzer
 	{
 	}
 
-	std::string SimpleTypeAnalyzer::scanSimpleType(const XMLUtils::XMLNode & node)
+	std::string SimpleTypeAnalyzer::scanSimpleType(const std::shared_ptr<SSUtils::XML::Node> node)
 	{
 		static const std::string EmptyString("");
 		
-		if (node.getParent()->getTag() == XSDFrontend::Token::SchemaTag && !node.hasAttr(XSDFrontend::Token::NameAttr))
+		auto parent = node->getParent().lock();
+		if (parent != nullptr && parent->getTag() == XSDFrontend::Token::SchemaTag && !node->hasAttr(XSDFrontend::Token::NameAttr))
 		{
 			std::cerr << "定义全局类型时应当有声明名字。" << std::endl;
 			return EmptyString;
 		}
 
-		std::string typeName(node.hasAttr(XSDFrontend::Token::NameAttr)
-			? node.getAttr(XSDFrontend::Token::NameAttr, EmptyString)
+		std::string typeName(node->hasAttr(XSDFrontend::Token::NameAttr)
+			? node->getAttr(XSDFrontend::Token::NameAttr, EmptyString)
 			: m_simpleTypeModel->getNewDefaultSimpleTypeName());
 		if (m_simpleTypeModel->isTypeExist(typeName))
 		{
 			return EmptyString;
 		}
 
-		for (const auto &node : node.getChildren())
+		for (const auto &child : node->getChildren())
 		{
-			if (node.getTag() == XSDFrontend::Token::RestrictionTag)
+			auto node(child.lock());
+			if (node != nullptr && node->getTag() == XSDFrontend::Token::RestrictionTag)
 			{
 				if (!analyseType(typeName, node))
 				{
@@ -42,16 +43,16 @@ namespace XSDAnalyzer
 
 				auto type(m_simpleTypeModel->getSimpleType(typeName));
 				if (type != nullptr
-					&& node.hasChild(XSDFrontend::Token::WhiteSpaceTag))
+					&& node->hasChild(XSDFrontend::Token::WhiteSpaceTag))
 				{
-					const auto &whiteSpaceNode(node.getChildren()[node.findChild(typeName)]);
-					if (whiteSpaceNode.hasAttr(XSDFrontend::Token::ValueAttr))
+					const auto whiteSpaceNode(node->getChildren()[node->findChild(typeName)].lock());
+					if (whiteSpaceNode != nullptr && whiteSpaceNode->hasAttr(XSDFrontend::Token::ValueAttr))
 					{
-						type->setWhiteSpace(XSDFrontend::SimpleType::WhiteSpaceString2WhiteSpace.find(whiteSpaceNode.getAttr(XSDFrontend::Token::ValueAttr))->second);
+						type->setWhiteSpace(XSDFrontend::SimpleType::WhiteSpaceString2WhiteSpace.find(whiteSpaceNode->getAttr(XSDFrontend::Token::ValueAttr))->second);
 					}
 				}
 			}
-			else if (node.getTag() == XSDFrontend::Token::ListTag)
+			else if (node->getTag() == XSDFrontend::Token::ListTag)
 			{
 				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tList, typeName, "", node))
 				{
@@ -59,7 +60,7 @@ namespace XSDAnalyzer
 				}
 				m_simpleTypeModel->checkAndEraseIlegalTypeInContainer(m_simpleTypeModel->getContainerTypes().find(typeName)->second);
 			}
-			else if (node.getTag() == XSDFrontend::Token::UnionTag)
+			else if (node->getTag() == XSDFrontend::Token::UnionTag)
 			{
 				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tUnion, typeName, "", node))
 				{
@@ -72,7 +73,7 @@ namespace XSDAnalyzer
 		return typeName;
 	}
 
-	const bool SimpleTypeAnalyzer::analyseType(const std::string & typeName, const XMLUtils::XMLNode & node)
+	const bool SimpleTypeAnalyzer::analyseType(const std::string & typeName, const std::shared_ptr<SSUtils::XML::Node> node)
 	{
 		static const std::string EmptyString("");
 
@@ -155,4 +156,3 @@ namespace XSDAnalyzer
 		}
 	}
 };
- 

@@ -11,7 +11,7 @@ void testXMLUtils(void)
 
 	std::string fileUrl("SCL_Enums.xsd");
 
-	auto nodes(XMLUtils::scanXMLFile<StringConvertUtils::CharType::UTF8>(fileUrl));
+	// auto nodes(XMLUtils::scanXMLFile<StringConvertUtils::CharType::UTF8>(fileUrl));
 
 	return;
 }
@@ -20,7 +20,7 @@ void testNewXSDAnalyzer(void)
 {
 	XSDAnalyzer::XSDAnalyzer xsdAnalyzer;
 
-	xsdAnalyzer.scan(FileUtils::initailPath() + "\\SCL.xsd");
+	xsdAnalyzer.scan(SSUtils::File::InitailPath + "\\SCL.xsd", SSUtils::CharType::UTF8);
 
 	return;
 }

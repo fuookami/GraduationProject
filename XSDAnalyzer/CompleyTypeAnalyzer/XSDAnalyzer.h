@@ -19,14 +19,14 @@ namespace XSDAnalyzer
 		XSDAnalyzer &operator=(XSDAnalyzer &&rhs) = delete;
 		~XSDAnalyzer(void) = default;
 
-		const bool scan(const std::string &fileUrl);
+		const bool scan(const std::string &fileUrl, const SSUtils::CharType charType);
 
 		inline const std::shared_ptr<XSDFrontend::XSDModel> getModel(void) const { return m_xsdModel; }
 
 	private:
-		const bool scanIncludeTag(const std::string &fileName, const std::string &filePath, const XMLUtils::XMLNode &node);
+		const bool scanIncludeTag(const std::string &fileName, const std::string &filePath, const std::shared_ptr<SSUtils::XML::Node> node, const SSUtils::CharType charType);
 		
-		std::vector<std::set<int>> generateTopologicalTable(const XMLUtils::XMLNode &root);
+		std::vector<std::set<int>> generateTopologicalTable(const std::shared_ptr<SSUtils::XML::Node> root);
 		static std::vector<int> topologicalSort(const std::vector<std::set<int>> &table);
 
 	private:

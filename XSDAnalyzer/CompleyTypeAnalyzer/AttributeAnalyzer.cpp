@@ -10,11 +10,11 @@ namespace XSDAnalyzer
 	{
 	}
 
-	std::shared_ptr<XSDFrontend::Attribute::Attribute> AttributeAnalyzer::scanAttribute(const XMLUtils::XMLNode & node, const XSDFrontend::Attribute::IAttributeInterface::eParentType parentType, const std::string & parentName)
+	std::shared_ptr<XSDFrontend::Attribute::Attribute> AttributeAnalyzer::scanAttribute(const std::shared_ptr<SSUtils::XML::Node> node, const XSDFrontend::Attribute::IAttributeInterface::eParentType parentType, const std::string & parentName)
 	{
 		if (parentType == XSDFrontend::Attribute::IAttributeInterface::eParentType::tNonParent)
 		{
-			if (node.hasAttr(XSDFrontend::Token::ReferenceAttr))
+			if (node->hasAttr(XSDFrontend::Token::ReferenceAttr))
 			{
 				std::cerr << "在全局定义的属性不应引用别的属性。" << std::endl;
 				return nullptr;
@@ -39,9 +39,9 @@ namespace XSDAnalyzer
 		}
 	}
 
-	std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> AttributeAnalyzer::scanAttributeGroup(const XMLUtils::XMLNode & node)
+	std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> AttributeAnalyzer::scanAttributeGroup(const std::shared_ptr<SSUtils::XML::Node> node)
 	{
-		auto attributeGroup(node.getTag() == XSDFrontend::Token::AttributeGroupTag 
+		auto attributeGroup(node->getTag() == XSDFrontend::Token::AttributeGroupTag 
 			? loadAttributeGroup(node) 
 			: loadAttributeGroup(node, m_attributeModel->getNewDefaultAttributeGroupName()));
 		if (attributeGroup == nullptr || attributeGroup->hasRef())
@@ -55,7 +55,7 @@ namespace XSDAnalyzer
 		}
 	}
 
-	std::shared_ptr<XSDFrontend::Attribute::Attribute> AttributeAnalyzer::loadAttribute(const XMLUtils::XMLNode & node)
+	std::shared_ptr<XSDFrontend::Attribute::Attribute> AttributeAnalyzer::loadAttribute(const std::shared_ptr<SSUtils::XML::Node> node)
 	{
 		if (!isAttributeNodeValid(node))
 		{
@@ -64,9 +64,9 @@ namespace XSDAnalyzer
 
 		std::shared_ptr<XSDFrontend::Attribute::Attribute> attribute(nullptr);
 
-		if (node.hasAttr(XSDFrontend::Token::ReferenceAttr))
+		if (node->hasAttr(XSDFrontend::Token::ReferenceAttr))
 		{
-			std::string refName(node.getAttr(XSDFrontend::Token::ReferenceAttr));
+			std::string refName(node->getAttr(XSDFrontend::Token::ReferenceAttr));
 
 			auto it(m_attributeModel->getGlobalAttributes().find(refName));
 			if (it == m_attributeModel->getGlobalAttributes().cend())
@@ -78,13 +78,13 @@ namespace XSDAnalyzer
 			attribute.reset(new XSDFrontend::Attribute::Attribute());
 			attribute->setRef(std::move(refName), it->second);
 		}
-		else if (node.hasAttr(XSDFrontend::Token::NameAttr))
+		else if (node->hasAttr(XSDFrontend::Token::NameAttr))
 		{
-			std::string attrName(node.getAttr(XSDFrontend::Token::NameAttr));
+			std::string attrName(node->getAttr(XSDFrontend::Token::NameAttr));
 
-			if (node.hasAttr(XSDFrontend::Token::TypeAttr))
+			if (node->hasAttr(XSDFrontend::Token::TypeAttr))
 			{
-				std::string typeName(node.getAttr(XSDFrontend::Token::TypeAttr));
+				std::string typeName(node->getAttr(XSDFrontend::Token::TypeAttr));
 
 				if (m_simpleTypeModel->isBaseType(typeName) || m_simpleTypeModel->isSimpleType(typeName))
 				{
@@ -96,16 +96,20 @@ namespace XSDAnalyzer
 					return nullptr;
 				}
 			}
-			else if (node.hasChild(XSDFrontend::Token::SimpleTypeTag))
+			else if (node->hasChild(XSDFrontend::Token::SimpleTypeTag))
 			{
-				std::string typeName(ref_simpleTypeAnalyzer.get().scanSimpleType(node.getChildren()[node.findChild(XSDFrontend::Token::SimpleTypeTag)]));
-
-				if (typeName.empty())
+				auto child(node->getChildren()[node->findChild(XSDFrontend::Token::SimpleTypeTag)].lock());
+				if (child != nullptr)
 				{
-					return nullptr;
-				}
+					std::string typeName(ref_simpleTypeAnalyzer.get().scanSimpleType(child));
 
-				attribute.reset(new XSDFrontend::Attribute::Attribute(std::move(attrName), std::move(typeName)));
+					if (typeName.empty())
+					{
+						return nullptr;
+					}
+
+					attribute.reset(new XSDFrontend::Attribute::Attribute(std::move(attrName), std::move(typeName)));
+				}
 			}
 
 			attribute->loadValueStatement(node);
@@ -115,24 +119,24 @@ namespace XSDAnalyzer
 			return nullptr;
 		}
 
-		if (node.hasAttr(XSDFrontend::Token::FormAttr))
+		if (node->hasAttr(XSDFrontend::Token::FormAttr))
 		{
-			attribute->setForm(XSDFrontend::Attribute::FormString2Form.find(node.getAttr(XSDFrontend::Token::FormAttr))->second);
+			attribute->setForm(XSDFrontend::Attribute::FormString2Form.find(node->getAttr(XSDFrontend::Token::FormAttr))->second);
 		}
-		if (node.hasAttr(XSDFrontend::Token::UseAttr))
+		if (node->hasAttr(XSDFrontend::Token::UseAttr))
 		{
-			attribute->setUse(XSDFrontend::Attribute::UseString2Use.find(node.getAttr(XSDFrontend::Token::UseAttr))->second);
+			attribute->setUse(XSDFrontend::Attribute::UseString2Use.find(node->getAttr(XSDFrontend::Token::UseAttr))->second);
 		}
 
 		return attribute;
 	}
 
-	std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> AttributeAnalyzer::loadAttributeGroup(const XMLUtils::XMLNode & node)
+	std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> AttributeAnalyzer::loadAttributeGroup(const std::shared_ptr<SSUtils::XML::Node> node)
 	{
-		if (node.hasAttr(XSDFrontend::Token::ReferenceAttr))
+		if (node->hasAttr(XSDFrontend::Token::ReferenceAttr))
 		{
-			std::string refName(node.getAttr(XSDFrontend::Token::ReferenceAttr));
-			if (node.hasAttr(XSDFrontend::Token::NameAttr) || node.hasAnyChild())
+			std::string refName(node->getAttr(XSDFrontend::Token::ReferenceAttr));
+			if (node->hasAttr(XSDFrontend::Token::NameAttr) || node->hasAnyChild())
 			{
 				std::cerr << "引用属性组'" << refName << "'的同时，不能有name属性或任何子标签。" << std::endl;
 				return nullptr;
@@ -150,9 +154,9 @@ namespace XSDAnalyzer
 
 			return group;
 		}
-		else if (node.hasAttr(XSDFrontend::Token::NameAttr))
+		else if (node->hasAttr(XSDFrontend::Token::NameAttr))
 		{
-			return loadAttributeGroup(node, node.getAttr(XSDFrontend::Token::NameAttr));
+			return loadAttributeGroup(node, node->getAttr(XSDFrontend::Token::NameAttr));
 		}
 		else
 		{
@@ -160,41 +164,45 @@ namespace XSDAnalyzer
 			return nullptr;
 		}
 	}
-	std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> AttributeAnalyzer::loadAttributeGroup(const XMLUtils::XMLNode & node, const std::string & groupName)
+	std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> AttributeAnalyzer::loadAttributeGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string & groupName)
 	{
 		std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> group(new XSDFrontend::Attribute::AttributeGroup(groupName));
 
-		for (const auto &chileNode : node.getChildren())
+		for (const auto &child : node->getChildren())
 		{
-			if (chileNode.getTag() == XSDFrontend::Token::AnyAttributeTag)
+			auto childNode(child.lock());
+			if (childNode != nullptr)
 			{
-				std::shared_ptr<XSDFrontend::Attribute::AnyAttribute> anyAttribute(new XSDFrontend::Attribute::AnyAttribute());
-				if (chileNode.hasAttr(XSDFrontend::Token::NamesapceAttr))
+				if (childNode->getTag() == XSDFrontend::Token::AnyAttributeTag)
 				{
-					anyAttribute->setNamespaceValidator(XSDFrontend::Attribute::NamespaceValidatorString2Validator.find(chileNode.getAttr(XSDFrontend::Token::NamesapceAttr))->second);
-				}
-				if (chileNode.hasAttr(XSDFrontend::Token::ProcessContentsAttr))
-				{
-					anyAttribute->setProcessContents(XSDFrontend::Attribute::ProcessContentsString2ProcessContents.find(chileNode.getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
-				}
-				anyAttribute->setParent(XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tAttributeGroup, groupName);
+					std::shared_ptr<XSDFrontend::Attribute::AnyAttribute> anyAttribute(new XSDFrontend::Attribute::AnyAttribute());
+					if (childNode->hasAttr(XSDFrontend::Token::NamesapceAttr))
+					{
+						anyAttribute->setNamespaceValidator(XSDFrontend::Attribute::NamespaceValidatorString2Validator.find(childNode->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
+					}
+					if (childNode->hasAttr(XSDFrontend::Token::ProcessContentsAttr))
+					{
+						anyAttribute->setProcessContents(XSDFrontend::Attribute::ProcessContentsString2ProcessContents.find(childNode->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
+					}
+					anyAttribute->setParent(XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tAttributeGroup, groupName);
 
-				group->setAnyAttribute(anyAttribute);
-			}
-			else if (chileNode.getTag() == XSDFrontend::Token::AttributeTag)
-			{
-				auto childAttribute(scanAttribute(chileNode, XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tAttributeGroup, groupName));
-				if (childAttribute != nullptr)
-				{
-					group->setOrAddAttribute(childAttribute);
+					group->setAnyAttribute(anyAttribute);
 				}
-			}
-			else if (chileNode.getTag() == XSDFrontend::Token::AttributeGroupTag)
-			{
-				auto childGroup(scanAttributeGroup(chileNode));
-				if (childGroup != nullptr)
+				else if (childNode->getTag() == XSDFrontend::Token::AttributeTag)
 				{
-					group->addAttributeGroup(childGroup);
+					auto childAttribute(scanAttribute(childNode, XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tAttributeGroup, groupName));
+					if (childAttribute != nullptr)
+					{
+						group->setOrAddAttribute(childAttribute);
+					}
+				}
+				else if (childNode->getTag() == XSDFrontend::Token::AttributeGroupTag)
+				{
+					auto childGroup(scanAttributeGroup(childNode));
+					if (childGroup != nullptr)
+					{
+						group->addAttributeGroup(childGroup);
+					}
 				}
 			}
 		}
@@ -202,35 +210,35 @@ namespace XSDAnalyzer
 		return group->empty() ? nullptr : group;
 	}
 
-	const bool AttributeAnalyzer::isAttributeNodeValid(const XMLUtils::XMLNode & node) const
+	const bool AttributeAnalyzer::isAttributeNodeValid(const std::shared_ptr<SSUtils::XML::Node> node) const
 	{
-		if (node.hasAttr(XSDFrontend::Token::ReferenceAttr))
+		if (node->hasAttr(XSDFrontend::Token::ReferenceAttr))
 		{
-			std::string refName(node.getAttr(XSDFrontend::Token::ReferenceAttr));
+			std::string refName(node->getAttr(XSDFrontend::Token::ReferenceAttr));
 
-			if (node.hasAttr(XSDFrontend::Token::NameAttr) || node.hasAttr(XSDFrontend::Token::TypeAttr) || node.hasAttr(XSDFrontend::Token::DefaultAttr) || node.hasAttr(XSDFrontend::Token::FixedAttr) || node.hasChild(XSDFrontend::Token::SimpleTypeTag) || node.hasAnyChild())
+			if (node->hasAttr(XSDFrontend::Token::NameAttr) || node->hasAttr(XSDFrontend::Token::TypeAttr) || node->hasAttr(XSDFrontend::Token::DefaultAttr) || node->hasAttr(XSDFrontend::Token::FixedAttr) || node->hasChild(XSDFrontend::Token::SimpleTypeTag) || node->hasAnyChild())
 			{
 				std::cerr << "引用属性'" << refName << "'的同时，不能有除了form或use以外的属性或任何子标签。" << std::endl;
 				return false;
 			}
 		}
-		else if (node.hasAttr(XSDFrontend::Token::NameAttr))
+		else if (node->hasAttr(XSDFrontend::Token::NameAttr))
 		{
-			std::string attrName(node.getAttr(XSDFrontend::Token::NameAttr));
+			std::string attrName(node->getAttr(XSDFrontend::Token::NameAttr));
 
-			if (node.hasAttr(XSDFrontend::Token::DefaultAttr) && node.hasAttr(XSDFrontend::Token::FixedAttr))
+			if (node->hasAttr(XSDFrontend::Token::DefaultAttr) && node->hasAttr(XSDFrontend::Token::FixedAttr))
 			{
 				std::cerr << "在属性'" << attrName << "'中同时出现了default和fixed属性。" << std::endl;
 				return false;
 			}
 
-			if (!node.hasAttr(XSDFrontend::Token::TypeAttr) && !node.hasChild(XSDFrontend::Token::SimpleTypeTag))
+			if (!node->hasAttr(XSDFrontend::Token::TypeAttr) && !node->hasChild(XSDFrontend::Token::SimpleTypeTag))
 			{
 				std::cerr << "应有且仅有type属性或simpleType子标签的其中一个来定义'" << attrName << "'的类型。" << std::endl;
 				return false;
 			}
 
-			if (node.hasAttr(XSDFrontend::Token::TypeAttr) && node.hasChild(XSDFrontend::Token::SimpleTypeTag))
+			if (node->hasAttr(XSDFrontend::Token::TypeAttr) && node->hasChild(XSDFrontend::Token::SimpleTypeTag))
 			{
 				std::cerr << "在属性'" << attrName << "'中同时出现了type属性和simpleType子标签。" << std::endl;
 				return false;
