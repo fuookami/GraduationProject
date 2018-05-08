@@ -8,12 +8,10 @@ namespace SSUtils
 {
 	namespace XML
 	{
-		class Document : public std::vector<std::shared_ptr<Node>>
+		class Document
 		{
 		public:
 			Document(void) = default;
-			Document(const std::vector<std::shared_ptr<Node>> &roots);
-			Document(std::vector<std::shared_ptr<Node>> &&roots);
 			Document(const Document &ano);
 			Document(Document &&ano);
 			Document &operator=(const Document &rhs);
@@ -29,9 +27,14 @@ namespace SSUtils
 			const bool toFile(const std::string &url, const CharType charType = String::LocalCharType);
 			std::string toString(const CharType charType = String::LocalCharType);
 
-		private:
+		public:
+			const std::vector<std::shared_ptr<Node>> &getRoots(void) const;
+			std::vector<std::shared_ptr<Node>> &getRoots(void);
 			void setRoots(const std::vector<std::shared_ptr<Node>> &roots);
 			void setRoots(std::vector<std::shared_ptr<Node>> &&roots);
+
+		private:
+			std::vector<std::shared_ptr<Node>> m_roots;
 		};
 	};
 };

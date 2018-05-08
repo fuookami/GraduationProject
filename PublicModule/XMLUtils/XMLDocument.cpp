@@ -7,90 +7,97 @@ namespace SSUtils
 {
 	namespace XML
 	{
-		Document::Document(const std::vector<std::shared_ptr<Node>>& roots)
-		{
-			setRoots(roots);
-		}
-
-		Document::Document(std::vector<std::shared_ptr<Node>>&& roots)
-		{
-			setRoots(std::move(roots));
-		}
-
 		Document::Document(const Document &ano)
 		{
-			setRoots(ano);
+			setRoots(ano.m_roots);
 		}
 
 		Document::Document(Document && ano)
 		{
-			setRoots(std::move(ano));
+			setRoots(std::move(ano.m_roots));
 		}
 
 		Document & Document::operator=(const Document & rhs)
 		{
-			setRoots(rhs);
+			setRoots(rhs.m_roots);
 			return *this;
 		}
 
 		Document &Document::operator=(Document &&rhs)
 		{
-			setRoots(std::move(rhs));
+			setRoots(std::move(rhs.m_roots));
 			return *this;
 		}
 
 		Document Document::fromFile(const std::string & url, const CharType charType)
 		{
+			Document doc;
 			Loader loader(url, charType);
-			return Document(loader());
+			doc.m_roots = loader();
+			return doc;
 		}
 
 		Document Document::fromFile(std::string && url, const CharType charType)
 		{
+			Document doc;
 			Loader loader(std::move(url), charType);
-			return Document(loader());
+			doc.m_roots = loader();
+			return doc;
 		}
 
 		Document Document::fromString(const std::string & data, const CharType charType)
 		{
+			Document doc;
 			Scaner scaner(data, charType);
-			return Document(scaner());
+			doc.m_roots = scaner();
+			return doc;
 		}
 
 		Document Document::fromString(std::string && data, const CharType charType)
 		{
+			Document doc;
 			Scaner scaner(std::move(data), charType);
-			return Document(scaner());
+			doc.m_roots = scaner();
+			return doc;
 		}
 
 		const bool Document::toFile(const std::string & url, const CharType charType)
 		{
-			Saver saver(url, *this, charType);
+			Saver saver(url, m_roots, charType);
 			return saver.toFile();
 		}
 
-		std::string Document::toString(const CharType charType)
+			std::string Document::toString(const CharType charType)
 		{
-			Saver saver(*this, charType);
+			Saver saver(m_roots, charType);
 			return saver.toString();
+		}
+
+		const std::vector<std::shared_ptr<Node>> &Document::getRoots(void) const
+		{
+			return m_roots;
+		}
+
+		std::vector<std::shared_ptr<Node>> &Document::getRoots(void)
+		{
+			return m_roots;
 		}
 
 		void Document::setRoots(const std::vector<std::shared_ptr<Node>>& roots)
 		{
-			clear();
+			m_roots.clear();
 			for (const auto &root : roots)
 			{
 				if (root != nullptr)
 				{
-					push_back(Node::deepCopy(*root));
+					m_roots.push_back(Node::deepCopy(*root));
 				}
 			}
 		}
 
 		void Document::setRoots(std::vector<std::shared_ptr<Node>>&& roots)
 		{
-			clear();
-			operator=(std::move(roots));
+			m_roots = std::move(roots);
 		}
 	};
 };
