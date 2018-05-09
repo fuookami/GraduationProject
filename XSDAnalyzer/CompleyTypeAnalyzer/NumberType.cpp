@@ -84,10 +84,26 @@ namespace XSDFrontend
 			ValueEnumrationConfiguration<SSUtils::Math::Real>::DefaultTranslator = std::bind(XSDString2NumberVairant, baseType, std::placeholders::_1);
 		}
 
-		SSUtils::Math::Real XSDString2NumberVairant(const NumberType::eBaseType type, const std::string & str)
+		SSUtils::Math::Real XSDString2NumberVairant(const NumberType::eBaseType type, const std::string & _str)
 		{
-			//! to do
-			return SSUtils::Math::Real();
+			static const std::string ScientificNotationPattern("^(-?(0|[1-9]\\d*)(.\\d*))?e(-?(0|[1-9]\\d*))$");
+			static const std::string PositiveZero("+0"), NegetiveZero("-0");
+
+			std::string str;
+			std::transform(_str.cbegin(), _str.cbegin(), std::back_inserter(str), tolower);
+			if (SSUtils::String::RegexChecker(ScientificNotationPattern)(str))
+			{
+				std::vector<std::string> parts(SSUtils::String::split(str, std::string("e")));
+				return SSUtils::Math::Real(SSUtils::Math::Decimal(parts[0], std::stoi(parts[1])));
+			}
+			else if (str == PositiveZero || str == NegetiveZero)
+			{
+				return SSUtils::Math::Real(SSUtils::Math::Integer(0));
+			}
+			else
+			{
+				return SSUtils::Math::Real(str);
+			}
 		}
 	};
 };

@@ -70,6 +70,6 @@ namespace XSDFrontend
 			int m_totalDigits;
 		};
 
-		SSUtils::Math::Real XSDString2NumberVairant(const NumberType::eBaseType type, const std::string &str);
+		SSUtils::Math::Real XSDString2NumberVairant(const NumberType::eBaseType type, const std::string &_str);
 	}
 };
