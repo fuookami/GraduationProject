@@ -49,6 +49,12 @@
     <Filter Include="源文件\XSDAnlyzer">
       <UniqueIdentifier>{050d0534-f0ab-46e0-8182-89d72f898b77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\XSDNormalizer">
+      <UniqueIdentifier>{7bcd6447-a972-47ec-ac86-d27821890932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XSDNormalizer">
+      <UniqueIdentifier>{5add3753-df50-459e-bd25-bebaeca7fb41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContainerType.h">
@@ -162,6 +168,9 @@
     <ClInclude Include="ComplexTypeModel.h">
       <Filter>头文件\XSDFrontend\ComplexType</Filter>
     </ClInclude>
+    <ClInclude Include="XSDNormalizer.h">
+      <Filter>头文件\XSDNormalizer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContainerType.cpp">
@@ -256,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="AnyAttribute.cpp">
       <Filter>源文件\XSDFrontend\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDNormalizer.cpp">
+      <Filter>源文件\XSDNormalizer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

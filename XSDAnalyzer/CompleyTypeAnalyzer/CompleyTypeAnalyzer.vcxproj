@@ -169,6 +169,7 @@
     <ClInclude Include="XSDElementUtils.h" />
     <ClInclude Include="XSDModel.h" />
     <ClInclude Include="XSDNamedTypedElementInterface.h" />
+    <ClInclude Include="XSDNormalizer.h" />
     <ClInclude Include="XSDParentedElementInterface.h" />
     <ClInclude Include="XSDValueStatedElementInterface.h" />
     <ClInclude Include="XSDNamedElementInterface.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="XSDModel.cpp" />
     <ClCompile Include="XSDNamedElementInterface.cpp" />
     <ClCompile Include="XSDNamedTypedElementInterface.cpp" />
+    <ClCompile Include="XSDNormalizer.cpp" />
     <ClCompile Include="XSDNumberLimitedElementInterface.cpp" />
     <ClCompile Include="XSDToken.cpp" />
     <ClCompile Include="XSDValueStatedElementInterface.cpp" />
