@@ -1,0 +1,614 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="XSDFrontend::XSDModel" Collapsed="true">
+    <Position X="41.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAABAAAAAQAQAgIAAAQAIAQAAAAAAEAgAAAACAA=</HashCode>
+      <FileName>XSDModel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::AttributeModel" Collapsed="true">
+    <Position X="41.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAgAAAAAAAAAAAACAAAAKABABAAAQAAgAAQQQAA=</HashCode>
+      <FileName>AttributeModel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::ComplexTypeModel" Collapsed="true">
+    <Position X="44.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEIEAAIADAIQAIAAAUIABAABIAAAAA0AAAAgAACQAAE=</HashCode>
+      <FileName>ComplexTypeModel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleTypeModel" Collapsed="true">
+    <Position X="43" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEQSGAAAAAIAAEABAgAQEAAAIYIAIkABEAmgCAAAAgA=</HashCode>
+      <FileName>SimpleTypeModel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::Attribute::AnyAttribute" Collapsed="true">
+    <Position X="36.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABBAgAAAAAQABAAAAIgAABgAAAgBAAAAAA=</HashCode>
+      <FileName>AnyAttribute.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::Attribute::Attribute" Collapsed="true">
+    <Position X="18" Y="5.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAIEAAAAACAAAABAAAAAAAAAAAABAAAAWgAAAAQAA=</HashCode>
+      <FileName>Attribute.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::Attribute::AttributeGroup" Collapsed="true">
+    <Position X="22" Y="4.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>gAgAAAAAAACAABBQAAQEAAACCkAAEhgZggAkAAgQEAA=</HashCode>
+      <FileName>AttributeGroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::Attribute::IAttributeInterface" Collapsed="true">
+    <Position X="36.5" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAIAAAAAAAAAAAAAAAAAAAAAAIAAAkAAAAAAA=</HashCode>
+      <FileName>AttributeInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::ComplexType::AnyElement" Collapsed="true">
+    <Position X="32" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAABBCgAAAAAAABAAAAIIAABgAAAgBAIAAAA=</HashCode>
+      <FileName>AnyElement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::ComplexType::ComplexContent" Collapsed="true">
+    <Position X="27" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAEAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAgAAAAAAI=</HashCode>
+      <FileName>ComplexContent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::ComplexType::IComplexTypeInterface" Collapsed="true">
+    <Position X="25.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgAwIACRQAEUgAAIAgAgAAAgAQGAgAgIQFAgBAAAIAA=</HashCode>
+      <FileName>ComplexTypeInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::ComplexType::Element" Collapsed="true">
+    <Position X="17" Y="7.25" Width="2.75" />
+    <NestedTypes>
+      <Enum Name="XSDFrontend::ComplexType::Element::eCategory" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Element.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="XSDFrontend::ComplexType::Element::eForm" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Element.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="XSDFrontend::ComplexType::Element::eBlock" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Element.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="XSDFrontend::ComplexType::Element::eFinal" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Element.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QIAQIACFYAEEAAgICAgIACACAAAQABAAwJEgBQAAAAA=</HashCode>
+      <FileName>Element.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::ComplexType::ElementGroup" Collapsed="true">
+    <Position X="22" Y="6.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAMCAAAABAACAAAIAIAAQCwAAAEAAAAAAgAAEAAAA=</HashCode>
+      <FileName>ElementGroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::ComplexType::IElementInterface" Collapsed="true">
+    <Position X="31.5" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAgQAAAAAA=</HashCode>
+      <FileName>ElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::ComplexType::SimpleContent" Collapsed="true">
+    <Position X="24.5" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABABAAACAAAAAAAAAEAgEAAAAAA=</HashCode>
+      <FileName>SimpleContent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::XSDElementUtils::IXSDNamedTypedElementInterface" Collapsed="true">
+    <Position X="17.25" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAABAAIARAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>XSDNamedTypedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::XSDElementUtils::IXSDParentedElementInterface" Collapsed="true">
+    <Position X="29.75" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAEAAgAAUABAAiAABAAAA=</HashCode>
+      <FileName>XSDParentedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::XSDElementUtils::IXSDValueStatedElementInterface" Collapsed="true">
+    <Position X="6.25" Y="6" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQCEAAACBCACBAAIQggIAAggAkAAQBAAgJAAAAAE=</HashCode>
+      <FileName>XSDValueStatedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::XSDElementUtils::IXSDNamedElementInterface" Collapsed="true">
+    <Position X="18.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAgEAIAAAAAAAAAAIAAAADAAAAkAAFBAAA=</HashCode>
+      <FileName>XSDNamedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::XSDElementUtils::IXSDNumberLimitedElementInterface" Collapsed="true">
+    <Position X="32.75" Y="4.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AKAACAAAAAAACAAAAAAEAhAAJAAIgAAAAAAgAAAAAAA=</HashCode>
+      <FileName>XSDNumberLimitedElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::XSDElementUtils::IXSDReferenceElementInterface&lt;T&gt;" Collapsed="true">
+    <Position X="26.5" Y="6" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAEAAIAAAAAAAAAAAAQAAAgICCAAAI=</HashCode>
+      <FileName>XSDReferenceElementInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleType::ContainerType" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIEQAAAAAAAAAAQAAAgAAQAIAgAgAAEBAAA=</HashCode>
+      <FileName>ContainerType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleType::DataType" Collapsed="true">
+    <Position X="11.25" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAgAAAAAAAAAAAAABAAQAoAAAgAAABAAA=</HashCode>
+      <FileName>DataType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleType::DatetimeType" Collapsed="true">
+    <Position X="13.75" Y="5.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAgAAAAAAAAAAAAAAAAYAoAAAgAAABAAA=</HashCode>
+      <FileName>DateTimeType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleType::NumberType" Collapsed="true">
+    <Position X="17.25" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAEAAAgAAgAAACAAAgBgAAAQAogBAggAAJAAA=</HashCode>
+      <FileName>NumberType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleType::ISimpleTypeInterface" Collapsed="true">
+    <Position X="14.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABMAIAABAQIAEAAAAAAAAAAAAAAAAIAIAgAAIJAAA=</HashCode>
+      <FileName>SimpleTypeInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleType::LengthLimitConfiguration" Collapsed="true">
+    <Position X="7.75" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACEQAAACBIgIAAAAiAAAAAAAAAAAAAAAAgAgAWAAA=</HashCode>
+      <FileName>SimpleTypeLengthLimitConfiguration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleType::ValueEnumrationConfiguration&lt;T&gt;" Collapsed="true">
+    <Position X="4.5" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAABQAAAAACAAIAIABAAAEAQAAAAAABgEAAAAiA=</HashCode>
+      <FileName>SimpleTypeValueEnumrationConfiguration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleType::ValueLimitConfiguration&lt;T&gt;" Collapsed="true">
+    <Position X="1.25" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAAACISIAgCohIAAAAAAAiAAEAACIAEAEAgCACCQAA=</HashCode>
+      <FileName>SimpleTypeValueLimitConfiguration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDFrontend::SimpleType::StringType" Collapsed="true">
+    <Position X="10.25" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgBAAAAAQABAAAAEAAQAoAAAgABABAQA=</HashCode>
+      <FileName>StringType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::AttributeAnalyzer" Collapsed="true">
+    <Position X="39.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAACAAAAAAgBAAAAAAABAACABCAAgAAQAgAA=</HashCode>
+      <FileName>AttributeAnalyzer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::ComplexTypeAnalyzer" Collapsed="true">
+    <Position X="43" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgIAQAQAAAAAAgAAYgCAAACYAAAIAAAECFAgAAAADAE=</HashCode>
+      <FileName>ComplexTypeAnalyzer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::SimpleTypeAnalyzer" Collapsed="true">
+    <Position X="41.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgEAAAAAAAgAAAAAAAYAAAAAAAAAwABAAAAA=</HashCode>
+      <FileName>SimpleTypeAnalyzer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XSDAnalyzer::XSDAnalyzer" Collapsed="true">
+    <Position X="39.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQBAIIAAABAAAAAACAAAAAAACAAAAAAABAgAAQECAA=</HashCode>
+      <FileName>XSDAnalyzer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Datetime::Date" Collapsed="true">
+    <Position X="3.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAlAQAAAAAQAAAQMAAEhQAAEBQAAgABCAAgAAAgQAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\DatetimeUtils\Date.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Datetime::DateDuration" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAkASAAAAAQAAAAAIAEBQAAEAwAAgAAAAAgAAAgQAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\DatetimeUtils\Date.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Datetime::Datetime" Collapsed="true">
+    <Position X="3.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgIAAIJAAAARAAACBgBIBUAAGAAAJAUBAQAyCABAgAI=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\DatetimeUtils\Datetime.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Datetime::DatetimeDuration" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>UgAAAIJAAAAQAAAABgBAJUAAEAAABAEAABQyCAAAgAI=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\DatetimeUtils\Datetime.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Datetime::Time" Collapsed="true">
+    <Position X="46.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgIAAIpAAAARAAACBhhIBUAAGAABBAEBAAAyCUEAgQI=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\DatetimeUtils\Time.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Datetime::TimeDuration" Collapsed="true">
+    <Position X="48.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgAIAIpAIAAQAAAABhhANUAAEAABBAEAAAAyCAEAgAI=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\DatetimeUtils\Time.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Math::DecimalWrapper&lt;Digits&gt;" Collapsed="true">
+    <Position X="46.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiwEAEYAOAAmBOQJQAEYVRBFwmgAKCAgQwgiQAAQmKI=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Decimal.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Math::IntegerWrapper&lt;Signed&gt;" Collapsed="true">
+    <Position X="41.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>Aw0EAFIAKAAGICAoQAEQRVBAwmEICCAoQQAiwAAQ3aI=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Integer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Math::LogarithmWrapper&lt;Digits&gt;" Collapsed="true">
+    <Position X="43" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiwEAIYAAAAmBOQAAAMYVRBEw2gICCAkQxiiQAAQmLY=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Logarithm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Math::PowerWrapper&lt;Digits&gt;" Collapsed="true">
+    <Position X="46.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BiwEAIYgEAAmBOQAAAEYVABFwmgACCAgQxiiQAAQkKY=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Power.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Math::RationalWrapper&lt;Digits&gt;" Collapsed="true">
+    <Position X="48.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkwEAMYQAgAnAOAAQAEYVRBQwmgACCIkYwCiQCAQmKY=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Rational.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Math::RealWrapper&lt;Digits&gt;" Collapsed="true">
+    <Position X="39.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AmwEAAYAMAAmQOIAICMMRABBwmwBjXASRwgiQEAQ0KI=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Real.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::numeric_limits&lt;SSUtils::Math::DecimalWrapper&lt;Digits&gt;&gt;" Collapsed="true">
+    <Position X="46.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Decimal.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::numeric_limits&lt;SSUtils::Math::IntegerWrapper&lt;Signed&gt;&gt;" Collapsed="true">
+    <Position X="48.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Integer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::numeric_limits&lt;SSUtils::Math::LogarithmWrapper&lt;Digits&gt;&gt;" Collapsed="true">
+    <Position X="39.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Logarithm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::numeric_limits&lt;SSUtils::Math::PowerWrapper&lt;Digits&gt;&gt;" Collapsed="true">
+    <Position X="41.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Power.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::numeric_limits&lt;SSUtils::Math::RationalWrapper&lt;Digits&gt;&gt;" Collapsed="true">
+    <Position X="43" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Rational.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::numeric_limits&lt;SSUtils::Math::RealWrapper&lt;Digits&gt;&gt;" Collapsed="true">
+    <Position X="44.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\Real.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::System::EndianTranslator&lt;T, &gt;" Collapsed="true">
+    <Position X="39.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABIAAAAAAAAgAAgAAAACAAAACAAAgAAAAAQgCAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\SystemUtils\EndianTranslator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::Thread::ThreadPool" Collapsed="true">
+    <Position X="44.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wQAAAAACgBAAQAAgAIABAABECBBgQAAAAQxgAAAIAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\ThreadUtils\ThreadPool.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::XML::Document" Collapsed="true">
+    <Position X="48.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAEAABBAgAAAAAAAACAABgBAAAAIA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\XMLUtils\XMLDocument.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SSUtils::XML::Node" Collapsed="true">
+    <Position X="44.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAgACAI4AAAAAACA5RAACogAAhiIEISQEAyAAFgADI=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\XMLUtils\XMLNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="SSUtils::ChineseNumber::ChineseTokenValue" Collapsed="true">
+    <Position X="39.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEACAAAAEAAAAAAAAAAAAAAAAAAACAAAAAgAAAAQAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\ChineseNumberUntils\_pri_chinese_number.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::Data::DataTranslator&lt;T&gt;" Collapsed="true">
+    <Position X="43" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAQICAAAAAAAAAAAAAGABAAEAAAAAAEABAgAAAAAIA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\DataUtils\DataTranslator.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::Encryption::RSA::encrypter" Collapsed="true">
+    <Position X="46.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAEAQAAAFAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\EncryptionUtils\RSA.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::Encryption::RSA::decrypter" Collapsed="true">
+    <Position X="44.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAIAAAEAAAAAAAACAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\EncryptionUtils\RSA.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::Encryption::RSA::signer" Collapsed="true">
+    <Position X="46.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAEAAABAAAAAAAAAAAAAAgCAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\EncryptionUtils\RSA.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::Encryption::RSA::verifier" Collapsed="true">
+    <Position X="41.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAFAAAAAAAAAgAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\EncryptionUtils\RSA.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::File::FileLoader&lt;T, DataLength&gt;" Collapsed="true">
+    <Position X="48.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAEACAAAAAAAAAAAgAAAAIAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\FileUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::File::FileLoader&lt;T, 1&gt;" Collapsed="true">
+    <Position X="39.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAEACAAAAAAAAAAAgAAAAIAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\FileUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::File::FileSaver&lt;T, DataLength&gt;" Collapsed="true">
+    <Position X="41.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAABAgAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\FileUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::File::FileSaver&lt;T, 1&gt;" Collapsed="true">
+    <Position X="43" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAAABAgAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\FileUtils.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::Function::Task" Collapsed="true">
+    <Position X="39.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAIAAQgAAAAAAQAAAAAAAAAAAAAAEAgAABAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\FunctionUtils\Task.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::Mail::Sender" Collapsed="true">
+    <Position X="44.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAkgAAAAIAAAAAAAAAAABgAAAIAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MailUtils\MailSender.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::Math::RealTypeGroup&lt;Digits&gt;" Collapsed="true">
+    <Position X="46.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\_pri_real_global.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::String::Converter" Collapsed="true">
+    <Position X="41.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAwAAIAAAAEAAAAAAAAAAAAAAAAAAkAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\StringUtils\StringConverter.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::String::RegexChecker" Collapsed="true">
+    <Position X="48.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAIAAAAAAAAAEAAACACgAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\StringUtils\StringRegexChecker.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::String::RegexMatcher" Collapsed="true">
+    <Position X="39.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAIAAgAAAAAAEAAAAAEgAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\StringUtils\StringRegexChecker.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::String::StringTranslator" Collapsed="true">
+    <Position X="48.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAABEAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\StringUtils\StringTranslator.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::XML::Loader" Collapsed="true">
+    <Position X="44.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAEAAAEAECAAAAAQAAAIAEAAAAAgAAACAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\XMLUtils\XMLLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::XML::Scaner" Collapsed="true">
+    <Position X="43" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEBAAAAAAEAkAAAAAAAAAAAAEAAAAAwAAAEgAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\XMLUtils\XMLLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SSUtils::XML::Saver" Collapsed="true">
+    <Position X="41.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAEAAAAQBAEAAAAIAEAAAABgAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\XMLUtils\XMLSaver.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="XSDFrontend::ComplexType::eComplexType" Collapsed="true">
+    <Position X="41.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>ComplexTypeInterface.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="XSDFrontend::SimpleType::eSimpleType" Collapsed="true">
+    <Position X="44.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAQAAAAAAASAEAAAAAgAAAAAAAA=</HashCode>
+      <FileName>SimpleTypeInterface.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SSUtils::Datetime::Precision" Collapsed="true">
+    <Position X="39.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\DatetimeUtils\_pri_datetime_global.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SSUtils::Mail::MessageType" Collapsed="true">
+    <Position X="46.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAIAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MailUtils\_pri_mail_global.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SSUtils::Math::RoundFlag" Collapsed="true">
+    <Position X="41.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAIAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\MathUtils\_pri_real_global.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SSUtils::CharType" Collapsed="true">
+    <Position X="39.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAIABAg=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\StringUtils\_pri_string_global.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SSUtils::Endian" Collapsed="true">
+    <Position X="43" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\SystemUtils\_pri_system_global.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SSUtils::OperationSystemType" Collapsed="true">
+    <Position X="48.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAABAgAABAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>D:\project\GraduationProject\GraduationProject\PublicModule\SystemUtils\_pri_system_global.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

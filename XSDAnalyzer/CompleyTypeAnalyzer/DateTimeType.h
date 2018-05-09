@@ -30,6 +30,8 @@ namespace XSDFrontend
 				tDuration
 			};
 			static const std::map<std::string, DatetimeType::eBaseType> String2Type;
+			static const std::map<eBaseType, std::string> Type2String;
+			static const std::map<eBaseType, std::pair<std::string, std::string>> Type2Pattern;
 
 		public:
 			DatetimeType(void);
