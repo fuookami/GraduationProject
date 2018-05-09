@@ -25,7 +25,7 @@ namespace XSDAnalyzer
 	private:
 		std::shared_ptr<XSDFrontend::Attribute::Attribute> loadAttribute(const std::shared_ptr<SSUtils::XML::Node> node);
 		std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> loadAttributeGroup(const std::shared_ptr<SSUtils::XML::Node> node);
-		std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> loadAttributeGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string &groupName);
+		std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> loadAttributeGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string &groupName, const bool anonymous = false);
 
 		const bool isAttributeNodeValid(const std::shared_ptr<SSUtils::XML::Node> node) const;
 

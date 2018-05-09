@@ -24,36 +24,23 @@ namespace XSDAnalyzer
 		std::string scanSimpleType(const std::shared_ptr<SSUtils::XML::Node> node);
 
 	private:
-		const bool analyseType(const std::string &typeName, const std::shared_ptr<SSUtils::XML::Node> node);
+		const bool analyseType(const std::string &typeName, const std::shared_ptr<SSUtils::XML::Node> node, const bool anonymous);
 
 	private:
-		template<typename T>
+		template<typename T, typename U = std::enable_if_t<std::is_base_of_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && !std::is_same_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T>>>
 		static const std::shared_ptr<T> getType(const std::string &typeName, const std::map<std::string, std::shared_ptr<T>> &types)
 		{
-			// 编译期检查模板类型是否正确
-			{
-				// 检查是否是基础类型
-				static_assert(std::is_base_of_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && !std::is_same_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T>,
-					"SimpleTypeAnalyzer::getType， 调用了非基础类型作为T的类型");
-			}
-
 			auto it(types.find(typeName));
-
 			return it != types.cend() ? it->second : nullptr;
 		}
 
 		template<typename T, typename U>
-		const bool checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const U type, const std::string &typeName, const std::string &baseTypeName, const std::shared_ptr<SSUtils::XML::Node> node)
+		typename std::enable_if_t<std::is_same_v<typename T::eBaseType, U>, const bool> checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const U type, const std::string &typeName, const std::string &baseTypeName, const std::shared_ptr<SSUtils::XML::Node> node, const bool anonymous)
 		{
-			// 编译期检查模板类型是否正确
-			{
-				// 基础类型与原子类型名-原子类型的映射表是否匹配
-				static_assert(std::is_same_v<T::eBaseType, U>, "SimpleTypeAnalyzer::checkAndInsertType， 调用了错误的类型与原子类型名-原子类型的映射表");
-			}
-
 			std::shared_ptr<T> newType(new T(typeName, type));
 			XSDFrontend::SimpleType::ISimpleTypeInterface *INewType(dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(newType.get()));
 			bool ok(INewType->refreshValidator(node));
+			INewType->setAnonymous(anonymous);
 			if (ok)
 			{
 				types.insert(std::make_pair(typeName, newType));
@@ -64,35 +51,19 @@ namespace XSDAnalyzer
 		}
 
 		template<typename T, typename U>
-		const bool checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const std::map<std::string, U> &name2Type, const std::string &typeName, const std::string &baseTypeName, const std::shared_ptr<SSUtils::XML::Node> node)
+		typename std::enable_if_t<std::is_base_of_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && !std::is_same_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && std::is_same_v<typename T::eBaseType, U>, const bool> checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const std::map<std::string, U> &name2Type, const std::string &typeName, const std::string &baseTypeName, const std::shared_ptr<SSUtils::XML::Node> node, const bool anonymous)
 		{
-			// 编译期检查模板类型是否正确
-			{
-				// 检查是否是基础类型
-				static_assert(std::is_base_of_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && !std::is_same_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T>,
-					"SimpleTypeAnalyzer::checkAndInsertType， 调用了非基础类型作为T的类型");
-
-				// 基础类型与原子类型名-原子类型的映射表是否匹配
-				static_assert(std::is_same_v<T::eBaseType, U>, "SimpleTypeAnalyzer::checkAndInsertType， 调用了错误的类型与原子类型名-原子类型的映射表");
-			}
-
 			auto typeIt(name2Type.find(baseTypeName));
-			return typeIt != name2Type.cend() && checkAndInsertType(types, typeIt->second, typeName, baseTypeName, node);
+			return typeIt != name2Type.cend() && checkAndInsertType(types, typeIt->second, typeName, baseTypeName, node, anonymous);
 		}
 
 		template<typename T>
-		const bool checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const XSDFrontend::SimpleType::ISimpleTypeInterface *prototypeSimpleType, const std::string &typeName, const std::shared_ptr<SSUtils::XML::Node> node)
+		typename std::enable_if_t<std::is_base_of_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && !std::is_same_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T>, const bool> checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const XSDFrontend::SimpleType::ISimpleTypeInterface *prototypeSimpleType, const std::string &typeName, const std::shared_ptr<SSUtils::XML::Node> node, const bool anonymous)
 		{
-			// 编译期检查模板类型是否正确
-			{
-				// 检查是否是基础类型
-				static_assert(std::is_base_of_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && !std::is_same_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T>,
-					"SimpleTypeAnalyzer::checkAndInsertType， 调用了非基础类型作为T的类型");
-			}
-
 			std::shared_ptr<T> newType(new T(typeName, (dynamic_cast<const T *>(prototypeSimpleType))->getBaseType()));
 			XSDFrontend::SimpleType::ISimpleTypeInterface *INewType(dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(newType.get()));
 			INewType->setBaseTypeName(prototypeSimpleType->getName());
+			INewType->setAnonymous(anonymous);
 			bool ok(INewType->refreshValidator(node));
 			if (ok)
 			{

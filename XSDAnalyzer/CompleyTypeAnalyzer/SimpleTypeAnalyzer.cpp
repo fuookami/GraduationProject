@@ -23,6 +23,7 @@ namespace XSDAnalyzer
 			return EmptyString;
 		}
 
+		bool anonymous(!node->hasAttr(XSDFrontend::Token::NameAttr));
 		std::string typeName(node->hasAttr(XSDFrontend::Token::NameAttr)
 			? node->getAttr(XSDFrontend::Token::NameAttr, EmptyString)
 			: m_simpleTypeModel->getNewDefaultSimpleTypeName());
@@ -35,7 +36,7 @@ namespace XSDAnalyzer
 		{
 			if (child != nullptr && child->getTag() == XSDFrontend::Token::RestrictionTag)
 			{
-				if (!analyseType(typeName, child))
+				if (!analyseType(typeName, child, anonymous))
 				{
 					return EmptyString;
 				}
@@ -53,7 +54,7 @@ namespace XSDAnalyzer
 			}
 			else if (child->getTag() == XSDFrontend::Token::ListTag)
 			{
-				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tList, typeName, "", child))
+				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tList, typeName, "", child, anonymous))
 				{
 					return EmptyString;
 				}
@@ -61,7 +62,7 @@ namespace XSDAnalyzer
 			}
 			else if (child->getTag() == XSDFrontend::Token::UnionTag)
 			{
-				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tUnion, typeName, "", child))
+				if (!checkAndInsertType(m_simpleTypeModel->getContainerTypes(), XSDFrontend::SimpleType::ContainerType::eBaseType::tUnion, typeName, "", child, anonymous))
 				{
 					return EmptyString;
 				}
@@ -72,7 +73,7 @@ namespace XSDAnalyzer
 		return typeName;
 	}
 
-	const bool SimpleTypeAnalyzer::analyseType(const std::string & typeName, const std::shared_ptr<SSUtils::XML::Node> node)
+	const bool SimpleTypeAnalyzer::analyseType(const std::string & typeName, const std::shared_ptr<SSUtils::XML::Node> node, const bool anonymous)
 	{
 		static const std::string EmptyString("");
 
@@ -91,10 +92,10 @@ namespace XSDAnalyzer
 			if (baseTypeParts.size() == 2)
 			{
 				// 查一下是不是原子类型
-				if (checkAndInsertType(m_simpleTypeModel->getStringTypes(), XSDFrontend::SimpleType::StringType::String2Type, typeName, baseTypeParts.back(), node)
-					|| checkAndInsertType(m_simpleTypeModel->getNumberTypes(), XSDFrontend::SimpleType::NumberType::String2Type, typeName, baseTypeParts.back(), node)
-					|| checkAndInsertType(m_simpleTypeModel->getDatetimeTypes(), XSDFrontend::SimpleType::DatetimeType::String2Type, typeName, baseTypeParts.back(), node)
-					|| checkAndInsertType(m_simpleTypeModel->getDataTypes(), XSDFrontend::SimpleType::DataType::String2Type, typeName, baseTypeParts.back(), node)
+				if (checkAndInsertType(m_simpleTypeModel->getStringTypes(), XSDFrontend::SimpleType::StringType::String2Type, typeName, baseTypeParts.back(), node, anonymous)
+					|| checkAndInsertType(m_simpleTypeModel->getNumberTypes(), XSDFrontend::SimpleType::NumberType::String2Type, typeName, baseTypeParts.back(), node, anonymous)
+					|| checkAndInsertType(m_simpleTypeModel->getDatetimeTypes(), XSDFrontend::SimpleType::DatetimeType::String2Type, typeName, baseTypeParts.back(), node, anonymous)
+					|| checkAndInsertType(m_simpleTypeModel->getDataTypes(), XSDFrontend::SimpleType::DataType::String2Type, typeName, baseTypeParts.back(), node, anonymous)
 					)
 				{
 					return true;
@@ -124,16 +125,16 @@ namespace XSDAnalyzer
 				switch (prototypeSimpleType->getSimpleType())
 				{
 				case XSDFrontend::SimpleType::eSimpleType::tStringType:
-					return checkAndInsertType(m_simpleTypeModel->getStringTypes(), prototypeSimpleType, typeName, node);
+					return checkAndInsertType(m_simpleTypeModel->getStringTypes(), prototypeSimpleType, typeName, node, anonymous);
 					break;
 				case XSDFrontend::SimpleType::eSimpleType::tNumberType:
-					return checkAndInsertType(m_simpleTypeModel->getNumberTypes(), prototypeSimpleType, typeName, node);
+					return checkAndInsertType(m_simpleTypeModel->getNumberTypes(), prototypeSimpleType, typeName, node, anonymous);
 					break;
 				case XSDFrontend::SimpleType::eSimpleType::tDatetimeType:
-					return checkAndInsertType(m_simpleTypeModel->getDatetimeTypes(), prototypeSimpleType, typeName, node);
+					return checkAndInsertType(m_simpleTypeModel->getDatetimeTypes(), prototypeSimpleType, typeName, node, anonymous);
 					break;
 				case XSDFrontend::SimpleType::eSimpleType::tDataType:
-					return checkAndInsertType(m_simpleTypeModel->getDataTypes(), prototypeSimpleType, typeName, node);
+					return checkAndInsertType(m_simpleTypeModel->getDataTypes(), prototypeSimpleType, typeName, node, anonymous);
 				case XSDFrontend::SimpleType::eSimpleType::tContainerType:
 				{
 					static const std::string ErrorPrefix("该类型是容器类型（Union或List），不允许对其进行派生：");

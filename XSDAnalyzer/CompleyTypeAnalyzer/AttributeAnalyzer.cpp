@@ -43,7 +43,7 @@ namespace XSDAnalyzer
 	{
 		auto attributeGroup(node->getTag() == XSDFrontend::Token::AttributeGroupTag 
 			? loadAttributeGroup(node) 
-			: loadAttributeGroup(node, m_attributeModel->getNewDefaultAttributeGroupName()));
+			: loadAttributeGroup(node, m_attributeModel->getNewDefaultAttributeGroupName(), true));
 		if (attributeGroup == nullptr || attributeGroup->hasRef())
 		{
 			return attributeGroup;
@@ -164,9 +164,10 @@ namespace XSDAnalyzer
 			return nullptr;
 		}
 	}
-	std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> AttributeAnalyzer::loadAttributeGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string & groupName)
+	std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> AttributeAnalyzer::loadAttributeGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string & groupName, const bool anonymous)
 	{
 		std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> group(new XSDFrontend::Attribute::AttributeGroup(groupName));
+		group->setAnonymous(anonymous);
 
 		for (const auto &child : node->getChildren())
 		{

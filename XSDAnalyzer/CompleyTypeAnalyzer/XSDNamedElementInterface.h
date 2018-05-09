@@ -27,9 +27,14 @@ namespace XSDFrontend
 			inline void setDescription(std::string &&description) { m_description.assign(description); }
 			inline const std::string &getDescription(void) const { return m_description; }
 
+			inline void setAnonymous(const bool anonymous) { m_anonymous = anonymous; }
+			inline const bool getAnonymous(void) const { return m_anonymous; }
+
 		private:
 			std::string m_name;
 			std::string m_description;
+
+			bool m_anonymous;
 		};
 	};
 };

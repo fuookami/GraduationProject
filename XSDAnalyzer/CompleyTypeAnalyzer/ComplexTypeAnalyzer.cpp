@@ -43,7 +43,7 @@ namespace XSDAnalyzer
 	{
 		auto elementGroup(node->getTag() == XSDFrontend::Token::GroupTag
 			? loadElementGroup(node)
-			: loadElementGroup(node, m_complexTypeModel->getNewDefaultElementGroupName()));
+			: loadElementGroup(node, m_complexTypeModel->getNewDefaultElementGroupName(), true));
 		if (elementGroup == nullptr || elementGroup->hasRef())
 		{
 			return elementGroup;
@@ -273,7 +273,7 @@ namespace XSDAnalyzer
 		}
 	}
 
-	std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> ComplexTypeAnalyzer::loadElementGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string & groupName)
+	std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> ComplexTypeAnalyzer::loadElementGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string & groupName, const bool anonymous)
 	{
 		int order(0), counter(0);
 		for (const auto &elementBodyTagPair : XSDFrontend::ComplexType::ElementGroup::Tag2Type)
@@ -309,6 +309,7 @@ namespace XSDAnalyzer
 			std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> group(new XSDFrontend::ComplexType::ElementGroup());
 			group->setName(groupName);
 			group->loadNumberLimitation(node);
+			group->setAnonymous(anonymous);
 
 			for (const auto child : groupBody->getChildren())
 			{
@@ -501,6 +502,7 @@ namespace XSDAnalyzer
 			return false;
 		}
 		type->setName(typeName);
+		type->setAnonymous(!node->hasAttr(XSDFrontend::Token::NameAttr));
 
 		if (node->hasAttr(XSDFrontend::Token::AbstractAttr))
 		{

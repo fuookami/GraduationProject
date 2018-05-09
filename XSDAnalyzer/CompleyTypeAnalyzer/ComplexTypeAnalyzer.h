@@ -22,7 +22,7 @@ namespace XSDAnalyzer
 	private:
 		std::shared_ptr<XSDFrontend::ComplexType::Element> loadElement(const std::shared_ptr<SSUtils::XML::Node> node);
 		std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> loadElementGroup(const std::shared_ptr<SSUtils::XML::Node> node);
-		std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> loadElementGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string &groupName);
+		std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> loadElementGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string &groupName, const bool anonymous = false);
 
 		std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> scanComplexContent(const std::shared_ptr<SSUtils::XML::Node> node);
 		std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> scanSimpleContent(const std::shared_ptr<SSUtils::XML::Node> node);
