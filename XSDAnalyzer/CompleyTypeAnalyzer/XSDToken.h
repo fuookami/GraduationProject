@@ -62,15 +62,15 @@ namespace XSDFrontend
 		static const std::string FixedAttr("fixed");
 		static const std::string FormAttr("form");
 		static const std::string UseAttr("use");
+		static const std::string AbstractAttr("abstract");
+		static const std::string NillableAttr("nillable");
+		static const std::string MixedAttr("mixed");
+		static const std::string BlockAttr("block");
+		static const std::string FinalAttr("final");
 		static const std::string NamesapceAttr("namespace");
 		static const std::string ProcessContentsAttr("processContents");
 		static const std::string MinOccursAttr("minOccurs");
 		static const std::string MaxOccursAttr("maxOccurs");
-
-		static const std::string AbstractAttr("abstract");
-		static const std::string MixedAttr("mixted");
-		static const std::string BlockAttr("block");
-		static const std::string FinalAttr("final");
 
 		const bool isInXSDNameSpace(const std::string &token);
 	};

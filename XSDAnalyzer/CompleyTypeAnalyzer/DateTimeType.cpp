@@ -7,6 +7,18 @@ namespace XSDFrontend
 	namespace SimpleType
 	{
 		const SSUtils::Datetime::DatetimeDuration ValueLimitConfiguration<SSUtils::Datetime::DatetimeDuration>::NoValueValidator = SSUtils::Datetime::DatetimeDuration();
+		const std::map<std::string, DatetimeType::eBaseType> DatetimeType::String2Type =
+		{
+			std::make_pair(std::string("date"), DatetimeType::eBaseType::tDate),
+			std::make_pair(std::string("time"), DatetimeType::eBaseType::tTime),
+			std::make_pair(std::string("dateTime"), DatetimeType::eBaseType::tDatetime),
+			std::make_pair(std::string("gYear"), DatetimeType::eBaseType::gYear),
+			std::make_pair(std::string("gYearMonth"), DatetimeType::eBaseType::gYearMonth),
+			std::make_pair(std::string("gMonth"), DatetimeType::eBaseType::gMonth),
+			std::make_pair(std::string("gMonthDay"), DatetimeType::eBaseType::gMonthDay),
+			std::make_pair(std::string("gDay"), DatetimeType::eBaseType::gDay),
+			std::make_pair(std::string("duration"), DatetimeType::eBaseType::tDuration)
+		};
 
 		DatetimeType::DatetimeType(void)
 			: DatetimeType("")
@@ -46,19 +58,6 @@ namespace XSDFrontend
 			ValueLimitConfiguration<SSUtils::Datetime::DatetimeDuration>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
 			ValueEnumrationConfiguration<SSUtils::Datetime::DatetimeDuration>::DefaultTranslator = std::bind(XSDString2Datetime, baseType, std::placeholders::_1);
 		}
-
-		const std::map<std::string, DatetimeType::eBaseType> DatetimeBaseTypeName2Type =
-		{
-			std::make_pair(std::string("date"), DatetimeType::eBaseType::tDate),
-			std::make_pair(std::string("time"), DatetimeType::eBaseType::tTime),
-			std::make_pair(std::string("dateTime"), DatetimeType::eBaseType::tDatetime),
-			std::make_pair(std::string("gYear"), DatetimeType::eBaseType::gYear),
-			std::make_pair(std::string("gYearMonth"), DatetimeType::eBaseType::gYearMonth),
-			std::make_pair(std::string("gMonth"), DatetimeType::eBaseType::gMonth),
-			std::make_pair(std::string("gMonthDay"), DatetimeType::eBaseType::gMonthDay),
-			std::make_pair(std::string("gDay"), DatetimeType::eBaseType::gDay),
-			std::make_pair(std::string("duration"), DatetimeType::eBaseType::tDuration)
-		};
 
 		SSUtils::Datetime::DatetimeDuration XSDString2Datetime(const DatetimeType::eBaseType type, const std::string & str)
 		{

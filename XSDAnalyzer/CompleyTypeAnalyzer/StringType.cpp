@@ -6,6 +6,25 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
+		const std::map<std::string, StringType::eBaseType> StringType::String2Type =
+		{
+			std::make_pair(std::string("QName"), StringType::eBaseType::tQName),
+			std::make_pair(std::string("string"), StringType::eBaseType::tString),
+			std::make_pair(std::string("normalizedString"), StringType::eBaseType::tNormalizedString),
+			std::make_pair(std::string("token"), StringType::eBaseType::tToken),
+			std::make_pair(std::string("language"), StringType::eBaseType::tLanguage),
+			std::make_pair(std::string("Name"), StringType::eBaseType::tName),
+			std::make_pair(std::string("NCName"), StringType::eBaseType::tNCName),
+			std::make_pair(std::string("ID"), StringType::eBaseType::tID),
+			std::make_pair(std::string("IDREF"), StringType::eBaseType::tIDRef),
+			std::make_pair(std::string("IDREFS"), StringType::eBaseType::tIDRefs),
+			std::make_pair(std::string("Entity"), StringType::eBaseType::tEntity),
+			std::make_pair(std::string("Entities"), StringType::eBaseType::tEntities),
+			std::make_pair(std::string("NMTOKEN"), StringType::eBaseType::tNMToken),
+			std::make_pair(std::string("NMTOKENS"), StringType::eBaseType::tNMTokens),
+			std::make_pair(std::string("anyURI"), StringType::eBaseType::tAnyURI)
+		};
+
 		StringType::StringType(void)
 			: StringType("")
 		{
@@ -43,25 +62,6 @@ namespace XSDFrontend
 
 			return true;
 		}
-
-		const std::map<std::string, StringType::eBaseType> StringBaseTypeName2Type =
-		{
-			std::make_pair(std::string("QName"), StringType::eBaseType::tQName),
-			std::make_pair(std::string("string"), StringType::eBaseType::tString),
-			std::make_pair(std::string("normalizedString"), StringType::eBaseType::tNormalizedString),
-			std::make_pair(std::string("token"), StringType::eBaseType::tToken),
-			std::make_pair(std::string("language"), StringType::eBaseType::tLanguage),
-			std::make_pair(std::string("Name"), StringType::eBaseType::tName),
-			std::make_pair(std::string("NCName"), StringType::eBaseType::tNCName),
-			std::make_pair(std::string("ID"), StringType::eBaseType::tID),
-			std::make_pair(std::string("IDREF"), StringType::eBaseType::tIDRef),
-			std::make_pair(std::string("IDREFS"), StringType::eBaseType::tIDRefs),
-			std::make_pair(std::string("Entity"), StringType::eBaseType::tEntity),
-			std::make_pair(std::string("Entities"), StringType::eBaseType::tEntities),
-			std::make_pair(std::string("NMTOKEN"), StringType::eBaseType::tNMToken),
-			std::make_pair(std::string("NMTOKENS"), StringType::eBaseType::tNMTokens),
-			std::make_pair(std::string("anyURI"), StringType::eBaseType::tAnyURI)
-		};
 
 		std::string XSDString2String(const std::string & str)
 		{

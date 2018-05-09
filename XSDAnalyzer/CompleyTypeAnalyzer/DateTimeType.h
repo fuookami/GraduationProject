@@ -29,6 +29,7 @@ namespace XSDFrontend
 				gDay,
 				tDuration
 			};
+			static const std::map<std::string, DatetimeType::eBaseType> String2Type;
 
 		public:
 			DatetimeType(void);
@@ -48,8 +49,6 @@ namespace XSDFrontend
 		private:
 			eBaseType m_baseType;
 		};
-
-		extern const std::map<std::string, DatetimeType::eBaseType> DatetimeBaseTypeName2Type;
 
 		SSUtils::Datetime::DatetimeDuration XSDString2Datetime(const DatetimeType::eBaseType type, const std::string &str);
 	};

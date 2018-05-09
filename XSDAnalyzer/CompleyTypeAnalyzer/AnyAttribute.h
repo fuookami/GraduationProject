@@ -26,6 +26,9 @@ namespace XSDFrontend
 				Skip
 			};
 
+			static const std::map<std::string, AnyAttribute::eNamespaceValidator> String2NamespaceValidator;
+			static const std::map<std::string, AnyAttribute::eProcessContents> String2ProcessContents;
+
 		public:
 			AnyAttribute(const eNamespaceValidator namesapceValidator = eNamespaceValidator::Any, const eProcessContents processContents = eProcessContents::Skip) : IAttributeInterface(IAttributeInterface::eAttributeType::tAnyAttribute), m_namespaceValidator(namesapceValidator), m_processContents(processContents) {};
 			AnyAttribute(const AnyAttribute &ano) = default;
@@ -44,8 +47,5 @@ namespace XSDFrontend
 			eNamespaceValidator m_namespaceValidator;
 			eProcessContents m_processContents;
 		};
-
-		extern const std::map<std::string, AnyAttribute::eNamespaceValidator> NamespaceValidatorString2Validator;
-		extern const std::map<std::string, AnyAttribute::eProcessContents> ProcessContentsString2ProcessContents;
 	};
 };

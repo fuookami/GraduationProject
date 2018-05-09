@@ -47,6 +47,12 @@ namespace XSDFrontend
 				All
 			};
 
+			static const std::map<std::string, eForm> String2Form;
+			static const std::map<std::string, bool> String2Nillable;
+			static const std::map<std::string, bool> String2Abastract;
+			static const std::map<std::string, eBlock> String2Block;
+			static const std::map<std::string, eFinal> String2Final;
+
 		public:
 			Element(const eCategory category = eCategory::tUnknown, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
 			Element(const std::string &name, const eCategory category = eCategory::tUnknown, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);

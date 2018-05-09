@@ -31,6 +31,8 @@ namespace XSDFrontend
 				tElementGroup
 			};
 
+			static const std::map<std::string, ElementGroup::eElementGroupType> Tag2Type;
+
 			struct ValueType
 			{
 				eValueType flag;
@@ -90,7 +92,5 @@ namespace XSDFrontend
 
 			std::vector<ValueType> m_vals;
 		};
-
-		extern const std::map<std::string, ElementGroup::eElementGroupType> ElementGroupTag2Type;
 	};
 };

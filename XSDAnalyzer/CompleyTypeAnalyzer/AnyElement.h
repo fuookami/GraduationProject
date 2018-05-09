@@ -28,6 +28,8 @@ namespace XSDFrontend
 
 			static const std::string MaxOccursUnboundedString;
 			static const int MaxOccursUnbounded = -1;
+			static const std::map<std::string, AnyElement::eNamespaceValidator> String2NamespaceValidator;
+			static const std::map<std::string, AnyElement::eProcessContents> String2ProcessContents;
 
 		public:
 			AnyElement(const int minOccurs = 1, const int maxOccurs = 1, const eNamespaceValidator namesapceValidator = eNamespaceValidator::Any, const eProcessContents processContents = eProcessContents::Skip);
@@ -47,8 +49,5 @@ namespace XSDFrontend
 			eNamespaceValidator m_namespaceValidator;
 			eProcessContents m_processContents;
 		};
-
-		extern const std::map<std::string, AnyElement::eNamespaceValidator> NamespaceValidatorString2Validator;
-		extern const std::map<std::string, AnyElement::eProcessContents> ProcessContentsString2ProcessContents;
 	};
 };

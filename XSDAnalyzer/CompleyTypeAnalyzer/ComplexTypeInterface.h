@@ -38,6 +38,11 @@ namespace XSDFrontend
 				tAll
 			};
 
+			static const std::map<std::string, bool> String2Abstract;
+			static const std::map<std::string, bool> String2Mixed;
+			static const std::map<std::string, IComplexTypeInterface::eBlock> String2Block;
+			static const std::map<std::string, IComplexTypeInterface::eFinal> String2Final;
+
 		protected:
 			IComplexTypeInterface(const eComplexType type);
 			IComplexTypeInterface(const std::string &name, const eComplexType type);
@@ -87,8 +92,5 @@ namespace XSDFrontend
 			std::string m_baseTypeName;
 			std::string m_attributeGroup;
 		};
-
-		extern const std::map<std::string, IComplexTypeInterface::eBlock> BlockString2Block;
-		extern const std::map<std::string, IComplexTypeInterface::eFinal> FinalString2Final;
 	};
 };

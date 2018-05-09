@@ -4,7 +4,7 @@ namespace XSDFrontend
 {
 	namespace Attribute
 	{
-		const std::map<std::string, AnyAttribute::eNamespaceValidator> NamespaceValidatorString2Validator =
+		const std::map<std::string, AnyAttribute::eNamespaceValidator> AnyAttribute::String2NamespaceValidator =
 		{
 			std::make_pair(std::string("##any"), AnyAttribute::eNamespaceValidator::Any),
 			std::make_pair(std::string("##other"), AnyAttribute::eNamespaceValidator::Other),
@@ -12,7 +12,7 @@ namespace XSDFrontend
 			std::make_pair(std::string("##targetNamespace"), AnyAttribute::eNamespaceValidator::TargetNamespace)
 		};
 
-		const std::map<std::string, AnyAttribute::eProcessContents> ProcessContentsString2ProcessContents =
+		const std::map<std::string, AnyAttribute::eProcessContents> AnyAttribute::String2ProcessContents =
 		{
 			std::make_pair(std::string("strict"), AnyAttribute::eProcessContents::Strict),
 			std::make_pair(std::string("lax"), AnyAttribute::eProcessContents::Lax),

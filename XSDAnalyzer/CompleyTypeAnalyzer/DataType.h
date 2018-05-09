@@ -36,6 +36,7 @@ namespace XSDFrontend
 				tRaw
 			};
 			static const int NoLengthValidator = -1;
+			static const std::map<std::string, eBaseType> String2Type;
 
 		public:
 			DataType(void);
@@ -55,8 +56,6 @@ namespace XSDFrontend
 		private:
 			eBaseType m_baseType;
 		};
-
-		extern const std::map<std::string, DataType::eBaseType> DataBaseTypeName2Type;
 
 		SSUtils::Block XSDString2Data(const DataType::eBaseType type, const std::string & str);
 	};

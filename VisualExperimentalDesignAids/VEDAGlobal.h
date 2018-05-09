@@ -22,6 +22,7 @@ namespace VEDA
 		extern const std::string VerificationPrivateKey;
 		extern const std::string VerificationToken;
 		extern const std::string Name;
+		extern const std::string DataModelFileName;
 	};
 
 	namespace Attrs

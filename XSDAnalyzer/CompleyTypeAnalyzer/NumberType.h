@@ -38,6 +38,7 @@ namespace XSDFrontend
 				tUnsignedByte
 			};
 			static const int NoDigitValidator = -1;
+			static const std::map<std::string, eBaseType> String2Type;
 
 		public:
 			NumberType(void);
@@ -68,8 +69,6 @@ namespace XSDFrontend
 			int m_fractionDigits;
 			int m_totalDigits;
 		};
-
-		extern const std::map<std::string, NumberType::eBaseType> NumberBaseTypeName2Type;
 
 		SSUtils::Math::Real XSDString2NumberVairant(const NumberType::eBaseType type, const std::string &str);
 	}

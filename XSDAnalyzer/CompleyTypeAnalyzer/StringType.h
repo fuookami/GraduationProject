@@ -33,6 +33,7 @@ namespace XSDFrontend
 				tAnyURI
 			};
 			static const int NoLengthValidator = -1;
+			static const std::map<std::string, StringType::eBaseType> String2Type;
 			using ValueType = std::string;
 
 		public:
@@ -60,8 +61,6 @@ namespace XSDFrontend
 
 			std::string m_pattern;
 		};
-
-		extern const std::map<std::string, StringType::eBaseType> StringBaseTypeName2Type;
 
 		std::string XSDString2String(const std::string &str);
 	};

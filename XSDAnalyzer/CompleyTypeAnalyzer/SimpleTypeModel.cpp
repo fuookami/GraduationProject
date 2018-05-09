@@ -101,10 +101,10 @@ namespace XSDFrontend
 		boost::split(baseTypeParts, typeName, boost::is_any_of(XSDFrontend::Token::NamespaceSeparator));
 
 		return baseTypeParts.size() != 2 ? false :
-			(XSDFrontend::SimpleType::StringBaseTypeName2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::StringBaseTypeName2Type.cend()
-				|| XSDFrontend::SimpleType::NumberBaseTypeName2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::NumberBaseTypeName2Type.cend()
-				|| XSDFrontend::SimpleType::DatetimeBaseTypeName2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::DatetimeBaseTypeName2Type.cend()
-				|| XSDFrontend::SimpleType::DataBaseTypeName2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::DataBaseTypeName2Type.cend());
+			(XSDFrontend::SimpleType::StringType::String2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::StringType::String2Type.cend()
+				|| XSDFrontend::SimpleType::NumberType::String2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::NumberType::String2Type.cend()
+				|| XSDFrontend::SimpleType::DatetimeType::String2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::DatetimeType::String2Type.cend()
+				|| XSDFrontend::SimpleType::DataType::String2Type.find(baseTypeParts.back()) != XSDFrontend::SimpleType::DataType::String2Type.cend());
 	}
 
 	void SimpleTypeModel::checkAndEraseIlegalTypeInContainer(std::shared_ptr<XSDFrontend::SimpleType::ContainerType> type)

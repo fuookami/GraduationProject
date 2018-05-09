@@ -30,6 +30,14 @@ namespace VEDA
 		inline void setName(std::string &&name) { m_name.assign(std::move(name)); }
 		inline const std::string &getName(void) const { return m_name; }
 
+		inline void setPath(const std::string &path) { m_path.assign(path); }
+		inline void setPath(std::string &&path) { m_path.assign(path); }
+		inline const std::string &getPath(void) const { return m_path; }
+
+		inline void setDataModelFileName(const std::string &name) { m_dataModelFileName.assign(name); }
+		inline void setDataModelFileName(std::string &&name) { m_dataModelFileName.assign(std::move(name)); }
+		inline const std::string &getDataModelFileName(void) const { return m_dataModelFileName; }
+
 		inline SSUtils::Encryption::RSA::signer &signer(void) { return m_signer; }
 		inline const SSUtils::Encryption::RSA::signer &signer(void) const { return m_signer; }
 
@@ -48,6 +56,8 @@ namespace VEDA
 
 	private:
 		std::string m_name;
+		std::string m_path;
+		std::string m_dataModelFileName;
 
 		SSUtils::Encryption::RSA::signer m_signer;
 		SSUtils::Encryption::RSA::verifier m_verifier;

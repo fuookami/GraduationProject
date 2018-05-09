@@ -31,6 +31,7 @@ namespace XSDFrontend
 				Replace,
 				Collapse
 			};
+			static const std::map<std::string, ISimpleTypeInterface::eWhiteSpace> String2WhiteSpace;
 
 		protected:
 			ISimpleTypeInterface(const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::Preserve);
@@ -62,7 +63,5 @@ namespace XSDFrontend
 
 			std::string m_baseTypeName;
 		};
-
-		extern const std::map<std::string, ISimpleTypeInterface::eWhiteSpace> WhiteSpaceString2WhiteSpace;
 	}
 };

@@ -9,9 +9,9 @@ namespace XSDFrontend
 {
 	namespace Attribute
 	{
-		class Attribute final : public IAttributeInterface, 
-			public XSDElementUtils::IXSDNamedTypedElementInterface, 
-			public XSDElementUtils::IXSDValueStatedElementInterface, 
+		class Attribute final : public IAttributeInterface,
+			public XSDElementUtils::IXSDNamedTypedElementInterface,
+			public XSDElementUtils::IXSDValueStatedElementInterface,
 			public XSDElementUtils::IXSDReferenceElementInterface<Attribute>
 		{
 		public:
@@ -27,6 +27,9 @@ namespace XSDFrontend
 				Prohibited,
 				Required
 			};
+
+			static const std::map<std::string, Attribute::eForm> String2Form;
+			static const std::map<std::string, Attribute::eUse> String2Use;
 
 		public:
 			Attribute(const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
@@ -49,8 +52,5 @@ namespace XSDFrontend
 			eForm m_form;
 			eUse m_use;
 		};
-
-		extern const std::map<std::string, Attribute::eForm> FormString2Form;
-		extern const std::map<std::string, Attribute::eUse> UseString2Use;
 	};
 };

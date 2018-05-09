@@ -4,6 +4,13 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
+		const std::map<std::string, ISimpleTypeInterface::eWhiteSpace> ISimpleTypeInterface::String2WhiteSpace =
+		{
+			std::make_pair(std::string("preserve"), ISimpleTypeInterface::eWhiteSpace::Preserve),
+			std::make_pair(std::string("replace"), ISimpleTypeInterface::eWhiteSpace::Replace),
+			std::make_pair(std::string("collapse"), ISimpleTypeInterface::eWhiteSpace::Collapse)
+		};
+
 		ISimpleTypeInterface::ISimpleTypeInterface(const eSimpleType type, const eWhiteSpace whitSpace)
 			: IXSDNamedElementInterface(), 
 			m_type(type), m_whiteSpace(whitSpace), m_baseTypeName()
@@ -21,12 +28,5 @@ namespace XSDFrontend
 			m_type(type), m_whiteSpace(whitSpace), m_baseTypeName()
 		{
 		}
-
-		const std::map<std::string, ISimpleTypeInterface::eWhiteSpace> WhiteSpaceString2WhiteSpace =
-		{
-			std::make_pair(std::string("preserve"), ISimpleTypeInterface::eWhiteSpace::Preserve),
-			std::make_pair(std::string("replace"), ISimpleTypeInterface::eWhiteSpace::Replace),
-			std::make_pair(std::string("collapse"), ISimpleTypeInterface::eWhiteSpace::Collapse)
-		};
 	};
 };

@@ -47,7 +47,7 @@ namespace XSDAnalyzer
 					const auto whiteSpaceNode(child->getChildren()[child->findChild(typeName)]);
 					if (whiteSpaceNode != nullptr && whiteSpaceNode->hasAttr(XSDFrontend::Token::ValueAttr))
 					{
-						type->setWhiteSpace(XSDFrontend::SimpleType::WhiteSpaceString2WhiteSpace.find(whiteSpaceNode->getAttr(XSDFrontend::Token::ValueAttr))->second);
+						type->setWhiteSpace(XSDFrontend::SimpleType::ISimpleTypeInterface::String2WhiteSpace.find(whiteSpaceNode->getAttr(XSDFrontend::Token::ValueAttr))->second);
 					}
 				}
 			}
@@ -91,10 +91,10 @@ namespace XSDAnalyzer
 			if (baseTypeParts.size() == 2)
 			{
 				// 查一下是不是原子类型
-				if (checkAndInsertType(m_simpleTypeModel->getStringTypes(), XSDFrontend::SimpleType::StringBaseTypeName2Type, typeName, baseTypeParts.back(), node)
-					|| checkAndInsertType(m_simpleTypeModel->getNumberTypes(), XSDFrontend::SimpleType::NumberBaseTypeName2Type, typeName, baseTypeParts.back(), node)
-					|| checkAndInsertType(m_simpleTypeModel->getDatetimeTypes(), XSDFrontend::SimpleType::DatetimeBaseTypeName2Type, typeName, baseTypeParts.back(), node)
-					|| checkAndInsertType(m_simpleTypeModel->getDataTypes(), XSDFrontend::SimpleType::DataBaseTypeName2Type, typeName, baseTypeParts.back(), node)
+				if (checkAndInsertType(m_simpleTypeModel->getStringTypes(), XSDFrontend::SimpleType::StringType::String2Type, typeName, baseTypeParts.back(), node)
+					|| checkAndInsertType(m_simpleTypeModel->getNumberTypes(), XSDFrontend::SimpleType::NumberType::String2Type, typeName, baseTypeParts.back(), node)
+					|| checkAndInsertType(m_simpleTypeModel->getDatetimeTypes(), XSDFrontend::SimpleType::DatetimeType::String2Type, typeName, baseTypeParts.back(), node)
+					|| checkAndInsertType(m_simpleTypeModel->getDataTypes(), XSDFrontend::SimpleType::DataType::String2Type, typeName, baseTypeParts.back(), node)
 					)
 				{
 					return true;

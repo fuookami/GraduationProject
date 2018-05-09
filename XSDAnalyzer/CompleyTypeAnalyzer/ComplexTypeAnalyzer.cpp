@@ -206,6 +206,34 @@ namespace XSDAnalyzer
 			return nullptr;
 		}
 
+		if (element != nullptr && element->loadNumberLimitation(node) && element->loadValueStatement(node))
+		{
+			if (node->hasAttr(XSDFrontend::Token::FormAttr))
+			{
+				element->setForm(XSDFrontend::ComplexType::Element::String2Form.find(node->getAttr(XSDFrontend::Token::FormAttr))->second);
+			}
+			if (node->hasAttr(XSDFrontend::Token::NillableAttr))
+			{
+				element->setNillable(XSDFrontend::ComplexType::Element::String2Nillable.find(node->getAttr(XSDFrontend::Token::NillableAttr))->second);
+			}
+			if (node->hasAttr(XSDFrontend::Token::AbstractAttr))
+			{
+				element->setAbstract(XSDFrontend::ComplexType::Element::String2Abastract.find(node->getAttr(XSDFrontend::Token::AbstractAttr))->second);
+			}
+			if (node->hasAttr(XSDFrontend::Token::BlockAttr))
+			{
+				element->setBlock(XSDFrontend::ComplexType::Element::String2Block.find(node->getAttr(XSDFrontend::Token::BlockAttr))->second);
+			}
+			if (node->hasAttr(XSDFrontend::Token::FinalAttr))
+			{
+				element->setFinal(XSDFrontend::ComplexType::Element::String2Final.find(node->getAttr(XSDFrontend::Token::FinalAttr))->second);
+			}
+		}
+		else
+		{
+			return nullptr;
+		}
+
 		return element;
 	}
 
@@ -248,7 +276,7 @@ namespace XSDAnalyzer
 	std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> ComplexTypeAnalyzer::loadElementGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string & groupName)
 	{
 		int order(0), counter(0);
-		for (const auto &elementBodyTagPair : XSDFrontend::ComplexType::ElementGroupTag2Type)
+		for (const auto &elementBodyTagPair : XSDFrontend::ComplexType::ElementGroup::Tag2Type)
 		{
 			auto thisOrder(node->findChild(elementBodyTagPair.first));
 			if (thisOrder != SSUtils::XML::Node::npos)
@@ -271,8 +299,8 @@ namespace XSDAnalyzer
 		const auto groupBody(node->getChildren()[order]);
 		if (groupBody != nullptr)
 		{
-			const auto groupTypeIt(XSDFrontend::ComplexType::ElementGroupTag2Type.find(groupBody->getTag()));
-			if (groupTypeIt == XSDFrontend::ComplexType::ElementGroupTag2Type.cend())
+			const auto groupTypeIt(XSDFrontend::ComplexType::ElementGroup::Tag2Type.find(groupBody->getTag()));
+			if (groupTypeIt == XSDFrontend::ComplexType::ElementGroup::Tag2Type.cend())
 			{
 				std::cerr << "不存在的elementGroup类型tag" << std::endl;
 				return nullptr;
@@ -291,11 +319,11 @@ namespace XSDAnalyzer
 						std::shared_ptr<XSDFrontend::ComplexType::AnyElement> anyElement(new XSDFrontend::ComplexType::AnyElement());
 						if (child->hasAttr(XSDFrontend::Token::NamesapceAttr))
 						{
-							anyElement->setNamespaceValidator(XSDFrontend::ComplexType::NamespaceValidatorString2Validator.find(child->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
+							anyElement->setNamespaceValidator(XSDFrontend::ComplexType::AnyElement::String2NamespaceValidator.find(child->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
 						}
 						if (child->hasAttr(XSDFrontend::Token::ProcessContentsAttr))
 						{
-							anyElement->setProcessContents(XSDFrontend::ComplexType::ProcessContentsString2ProcessContents.find(child->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
+							anyElement->setProcessContents(XSDFrontend::ComplexType::AnyElement::String2ProcessContents.find(child->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
 						}
 						anyElement->setParent(XSDFrontend::ComplexType::IElementInterface::eParentType::tElementGroup, groupName);
 						anyElement->loadNumberLimitation(child);
@@ -476,19 +504,19 @@ namespace XSDAnalyzer
 
 		if (node->hasAttr(XSDFrontend::Token::AbstractAttr))
 		{
-			type->setAbstract(node->getAttr(XSDFrontend::Token::AbstractAttr) == SSUtils::String::True);
+			type->setAbstract(XSDFrontend::ComplexType::IComplexTypeInterface::String2Abstract.find(node->getAttr(XSDFrontend::Token::AbstractAttr))->second);
 		}
 		if (node->hasAttr(XSDFrontend::Token::MixedAttr))
 		{
-			type->setMixed(node->getAttr(XSDFrontend::Token::MixedAttr) == SSUtils::String::True);
+			type->setMixed(XSDFrontend::ComplexType::IComplexTypeInterface::String2Mixed.find(node->getAttr(XSDFrontend::Token::MixedAttr))->second);
 		}
 		if (node->hasAttr(XSDFrontend::Token::BlockAttr))
 		{
-			type->setBlock(XSDFrontend::ComplexType::BlockString2Block.find(node->getAttr(XSDFrontend::Token::BlockAttr))->second);
+			type->setBlock(XSDFrontend::ComplexType::IComplexTypeInterface::String2Block.find(node->getAttr(XSDFrontend::Token::BlockAttr))->second);
 		}
 		if (node->hasAttr(XSDFrontend::Token::FinalAttr))
 		{
-			type->setFinal(XSDFrontend::ComplexType::FinalString2Final.find(node->getAttr(XSDFrontend::Token::FinalAttr))->second);
+			type->setFinal(XSDFrontend::ComplexType::IComplexTypeInterface::String2Final.find(node->getAttr(XSDFrontend::Token::FinalAttr))->second);
 		}
 
 		return true;

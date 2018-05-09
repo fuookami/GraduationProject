@@ -121,11 +121,11 @@ namespace XSDAnalyzer
 
 		if (node->hasAttr(XSDFrontend::Token::FormAttr))
 		{
-			attribute->setForm(XSDFrontend::Attribute::FormString2Form.find(node->getAttr(XSDFrontend::Token::FormAttr))->second);
+			attribute->setForm(XSDFrontend::Attribute::Attribute::String2Form.find(node->getAttr(XSDFrontend::Token::FormAttr))->second);
 		}
 		if (node->hasAttr(XSDFrontend::Token::UseAttr))
 		{
-			attribute->setUse(XSDFrontend::Attribute::UseString2Use.find(node->getAttr(XSDFrontend::Token::UseAttr))->second);
+			attribute->setUse(XSDFrontend::Attribute::Attribute::String2Use.find(node->getAttr(XSDFrontend::Token::UseAttr))->second);
 		}
 
 		return attribute;
@@ -177,11 +177,11 @@ namespace XSDAnalyzer
 					std::shared_ptr<XSDFrontend::Attribute::AnyAttribute> anyAttribute(new XSDFrontend::Attribute::AnyAttribute());
 					if (child->hasAttr(XSDFrontend::Token::NamesapceAttr))
 					{
-						anyAttribute->setNamespaceValidator(XSDFrontend::Attribute::NamespaceValidatorString2Validator.find(child->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
+						anyAttribute->setNamespaceValidator(XSDFrontend::Attribute::AnyAttribute::String2NamespaceValidator.find(child->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
 					}
 					if (child->hasAttr(XSDFrontend::Token::ProcessContentsAttr))
 					{
-						anyAttribute->setProcessContents(XSDFrontend::Attribute::ProcessContentsString2ProcessContents.find(child->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
+						anyAttribute->setProcessContents(XSDFrontend::Attribute::AnyAttribute::String2ProcessContents.find(child->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
 					}
 					anyAttribute->setParent(XSDFrontend::XSDElementUtils::IXSDParentedElementInterface::eParentType::tAttributeGroup, groupName);
 

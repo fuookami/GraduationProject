@@ -5,6 +5,12 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
+		const std::map<std::string, DataType::eBaseType> DataType::String2Type =
+		{
+			std::make_pair(std::string("hexBinary"), DataType::eBaseType::tHexBinary),
+			std::make_pair(std::string("base64Binary"), DataType::eBaseType::tBase64Binary)
+		};
+
 		DataType::DataType(void)
 			: DataType("")
 		{
@@ -40,12 +46,6 @@ namespace XSDFrontend
 			m_baseType = baseType;
 			DefaultTranslator = std::bind(XSDString2Data, baseType, std::placeholders::_1);
 		}
-
-		const std::map<std::string, DataType::eBaseType> DataBaseTypeName2Type =
-		{
-			std::make_pair(std::string("hexBinary"), DataType::eBaseType::tHexBinary),
-			std::make_pair(std::string("base64Binary"), DataType::eBaseType::tBase64Binary)
-		};
 
 		SSUtils::Block XSDString2Data(const DataType::eBaseType type, const std::string & str)
 		{
