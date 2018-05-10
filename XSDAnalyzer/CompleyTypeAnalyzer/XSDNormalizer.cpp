@@ -2,9 +2,15 @@
 
 namespace XSDNormalizer
 {
-	const bool XSDNormalizer::XSDNormalizer::normalize(const std::shared_ptr<XSDFrontend::XSDModel> model)
+	XSDNormalizer::XSDNormalizer(const std::shared_ptr<XSDFrontend::XSDModel> model)
+		: m_xsdModel(model), m_simpleTypeNormalizer(model->getSimpleTypeModel()), 
+		m_attributeNormalizer(model->getSimpleTypeModel(), model->getAttributeModel(), m_simpleTypeNormalizer), 
+		m_complexTypeNormalizer(model->getSimpleTypeModel(), model->getAttributeModel(), model->getComplexTypeModel(), m_simpleTypeNormalizer, m_attributeNormalizer)
 	{
-		m_xsdModel = model;
+	}
+
+	const bool XSDNormalizer::XSDNormalizer::normalize(void)
+	{
 		auto root = m_xsdModel->generateXSDRoot();
 		if (normalizeSimpleType(root) && normalizeAttribute(root) && normalizeComplexType(root))
 		{
@@ -30,7 +36,15 @@ namespace XSDNormalizer
 		}
 
 		auto orders(topologicalSort(simpleTypes));
-		
+		for (const auto order : orders)
+		{
+			auto node(m_simpleTypeNormalizer.normalizeSimpleType(simpleTypes[order]));
+			if (node == nullptr)
+			{
+				return false;
+			}
+			root->addChild(node);
+		}
 		return true;
 	}
 

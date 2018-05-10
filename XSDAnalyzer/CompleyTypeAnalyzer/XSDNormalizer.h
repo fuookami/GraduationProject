@@ -1,5 +1,8 @@
 #pragma once
 
+#include "SimpleTypeNormalizer.h"
+#include "AttributeNormalizer.h"
+#include "ComplexTypeNormalizer.h"
 #include "XSDModel.h"
 
 namespace XSDNormalizer
@@ -7,14 +10,14 @@ namespace XSDNormalizer
 	class XSDNormalizer
 	{
 	public:
-		XSDNormalizer(void) = default;
+		XSDNormalizer(const std::shared_ptr<XSDFrontend::XSDModel> model);
 		XSDNormalizer(const XSDNormalizer &ano) = delete;
 		XSDNormalizer(XSDNormalizer &&ano) = delete;
 		XSDNormalizer &operator=(const XSDNormalizer &rhs) = delete;
 		XSDNormalizer &operator=(XSDNormalizer &&rhs) = delete;
 		~XSDNormalizer(void) = default;
 
-		const bool normalize(const std::shared_ptr<XSDFrontend::XSDModel> model);
+		const bool normalize(void);
 
 		inline const SSUtils::XML::Document &getDocument(void) const { return m_xmlDoc; }
 
@@ -32,8 +35,8 @@ namespace XSDNormalizer
 				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
 			}
 
-			std::vector<std::set<int>> topologicTable(root->getChildren().size());
-			for (int i(0), k(root->getChildren().size()); i != k; ++i)
+			std::vector<std::set<int>> topologicTable(items.size());
+			for (int i(0), k(items.size()); i != k; ++i)
 			{
 				for (int j(0); j != k; ++j)
 				{
@@ -55,5 +58,9 @@ namespace XSDNormalizer
 	private:
 		std::shared_ptr<XSDFrontend::XSDModel> m_xsdModel;
 		SSUtils::XML::Document m_xmlDoc;
+
+		SimpleTypeNormalizer m_simpleTypeNormalizer;
+		AttributeNormalizer m_attributeNormalizer;
+		ComplexTypeNormalizer m_complexTypeNormalizer;
 	};
 };

@@ -25,8 +25,8 @@ void testNewXSDAnalyzer(void)
 
 	model->setDescription(std::string("≤‚ ‘”√"));
 
-	XSDNormalizer::XSDNormalizer xsdNormalizer;
-	xsdNormalizer.normalize(model);
+	XSDNormalizer::XSDNormalizer xsdNormalizer(model);
+	xsdNormalizer.normalize();
 	xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8);
 
 	return;
@@ -38,8 +38,8 @@ void testXSDAnalyzerAndNormalizer(void)
 	xsdAnalyzer.scan(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8);
 	auto model = xsdAnalyzer.getModel();
 
-	XSDNormalizer::XSDNormalizer xsdNormalizer;
-	xsdNormalizer.normalize(model);
+	XSDNormalizer::XSDNormalizer xsdNormalizer(model);
+	xsdNormalizer.normalize();
 	xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test1.xsd", SSUtils::CharType::UTF8);
 
 	return;

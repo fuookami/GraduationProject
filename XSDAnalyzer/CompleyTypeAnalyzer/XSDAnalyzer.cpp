@@ -13,8 +13,8 @@ namespace XSDAnalyzer
 	XSDAnalyzer::XSDAnalyzer(void)
 		: m_scanedFiles(), m_xsdModel(XSDFrontend::XSDModel::generateNewXSDModel()), 
 		m_simpleTypeAnalyzer(m_xsdModel->getSimpleTypeModel()), 
-		m_attributeAnalyzer(m_xsdModel->getSimpleTypeModel(), m_xsdModel->getAttributeTypeModel(), m_simpleTypeAnalyzer), 
-		m_complexTypeAnalyzer(m_xsdModel->getSimpleTypeModel(), m_xsdModel->getAttributeTypeModel(), m_xsdModel->getComplexTypeModel(), m_simpleTypeAnalyzer, m_attributeAnalyzer)
+		m_attributeAnalyzer(m_xsdModel->getSimpleTypeModel(), m_xsdModel->getAttributeModel(), m_simpleTypeAnalyzer), 
+		m_complexTypeAnalyzer(m_xsdModel->getSimpleTypeModel(), m_xsdModel->getAttributeModel(), m_xsdModel->getComplexTypeModel(), m_simpleTypeAnalyzer, m_attributeAnalyzer)
 	{
 	}
 

@@ -32,7 +32,7 @@ namespace XSDFrontend
 		std::set<std::string> ISimpleTypeInterface::suppliedTokens(void) const
 		{
 			std::set<std::string> ret;
-			if (getAnonymous() && !getName().empty())
+			if (!getAnonymous() && !getName().empty())
 			{
 				ret.insert(getName());
 			}
