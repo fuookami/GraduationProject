@@ -20,14 +20,14 @@ void testXMLUtils(void)
 void testNewXSDAnalyzer(void)
 {
 	XSDAnalyzer::XSDAnalyzer xsdAnalyzer;
-	xsdAnalyzer.scan(SSUtils::File::InitailPath + "\\SCL.xsd", SSUtils::CharType::UTF8);
+	std::cout << xsdAnalyzer.scan(SSUtils::File::InitailPath + "\\SCL.xsd", SSUtils::CharType::UTF8) << std::endl;
 	auto model = xsdAnalyzer.getModel();
 
 	model->setDescription(std::string("≤‚ ‘”√"));
 
 	XSDNormalizer::XSDNormalizer xsdNormalizer(model);
-	xsdNormalizer.normalize();
-	xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8);
+	std::cout << xsdNormalizer.normalize() << std::endl;
+	std::cout << xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8) << std::endl;
 
 	return;
 }
@@ -35,12 +35,12 @@ void testNewXSDAnalyzer(void)
 void testXSDAnalyzerAndNormalizer(void)
 {
 	XSDAnalyzer::XSDAnalyzer xsdAnalyzer;
-	xsdAnalyzer.scan(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8);
+	std::cout << xsdAnalyzer.scan(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8) << std::endl;
 	auto model = xsdAnalyzer.getModel();
 
 	XSDNormalizer::XSDNormalizer xsdNormalizer(model);
-	xsdNormalizer.normalize();
-	xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test1.xsd", SSUtils::CharType::UTF8);
+	std::cout << xsdNormalizer.normalize() << std::endl;
+	std::cout << xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8) << std::endl;
 
 	return;
 }

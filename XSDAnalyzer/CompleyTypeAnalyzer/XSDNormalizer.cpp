@@ -1,4 +1,5 @@
 #include "XSDNormalizer.h"
+#include "ThreadUtils.h"
 
 namespace XSDNormalizer
 {
@@ -9,21 +10,34 @@ namespace XSDNormalizer
 	{
 	}
 
-	const bool XSDNormalizer::XSDNormalizer::normalize(void)
+	const bool XSDNormalizer::normalize(void)
 	{
 		auto root = m_xsdModel->generateXSDRoot();
-		if (normalizeSimpleType(root) && normalizeAttribute(root) && normalizeComplexType(root))
+
+		std::vector<decltype(SSUtils::Thread::sharedRun(std::bind(&XSDNormalizer::normalizeSimpleType, this)))> futures = 
 		{
-			m_xmlDoc.push_back(root);
-			return true;
-		}
-		else
+			SSUtils::Thread::run(std::bind(&XSDNormalizer::normalizeSimpleType, this)),
+			SSUtils::Thread::run(std::bind(&XSDNormalizer::normalizeAttribute, this)),
+			SSUtils::Thread::run(std::bind(&XSDNormalizer::normalizeComplexType, this))
+		};
+
+		for (auto &future : futures)
 		{
-			return false;
+			future.wait();
+			auto result(future.get());
+			if (!result.first)
+			{
+				return false;
+			}
+			
+			std::move(result.second.begin(), result.second.end(), std::back_inserter(root->getChildren()));
 		}
+
+		m_xmlDoc.push_back(root);
+		return true;
 	}
 
-	const bool XSDNormalizer::normalizeSimpleType(std::shared_ptr<SSUtils::XML::Node> root)
+	std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> XSDNormalizer::normalizeSimpleType(void)
 	{
 		const auto simpleTypeModel = m_xsdModel->getSimpleTypeModel();
 		std::vector<XSDFrontend::SimpleType::ISimpleTypeInterface *> simpleTypes;
@@ -35,26 +49,27 @@ namespace XSDNormalizer
 			}
 		}
 
+		std::vector<std::shared_ptr<SSUtils::XML::Node>> nodes;
 		auto orders(topologicalSort(simpleTypes));
 		for (const auto order : orders)
 		{
 			auto node(m_simpleTypeNormalizer.normalizeSimpleType(simpleTypes[order]));
 			if (node == nullptr)
 			{
-				return false;
+				return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
 			}
-			root->addChild(node);
+			nodes.push_back(node);
 		}
-		return true;
+		return std::make_pair(true, std::move(nodes));
 	}
 
-	const bool XSDNormalizer::normalizeAttribute(std::shared_ptr<SSUtils::XML::Node> root)
+	std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> XSDNormalizer::normalizeAttribute(void)
 	{
-		return true;
+		return std::make_pair(true, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
 	}
 
-	const bool XSDNormalizer::normalizeComplexType(std::shared_ptr<SSUtils::XML::Node> root)
+	std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> XSDNormalizer::normalizeComplexType(void)
 	{
-		return true;
+		return std::make_pair(true, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
 	}
 };

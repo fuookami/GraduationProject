@@ -17,6 +17,10 @@ namespace XSDNormalizer
 		std::shared_ptr<SSUtils::XML::Node> normalizeSimpleType(const XSDFrontend::SimpleType::ISimpleTypeInterface *type);
 
 	private:
+		std::shared_ptr<SSUtils::XML::Node> normalizeContainerType(const XSDFrontend::SimpleType::ContainerType *type);
+		std::shared_ptr<SSUtils::XML::Node> normalizeNotContainerType(const XSDFrontend::SimpleType::ISimpleTypeInterface *type);
+
+	private:
 		std::shared_ptr<XSDFrontend::SimpleTypeModel> m_simpleTypeModel;
 	};
 };

@@ -22,9 +22,9 @@ namespace XSDNormalizer
 		inline const SSUtils::XML::Document &getDocument(void) const { return m_xmlDoc; }
 
 	private:
-		const bool normalizeSimpleType(std::shared_ptr<SSUtils::XML::Node> root);
-		const bool normalizeAttribute(std::shared_ptr<SSUtils::XML::Node> root);
-		const bool normalizeComplexType(std::shared_ptr<SSUtils::XML::Node> root);
+		std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> normalizeSimpleType(void);
+		std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> normalizeAttribute(void);
+		std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> normalizeComplexType(void);
 
 		template<typename T>
 		std::vector<int> topologicalSort(const std::vector<T *> items)

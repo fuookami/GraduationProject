@@ -27,6 +27,7 @@ namespace XSDFrontend
 		public:
 			enum class eWhiteSpace
 			{
+				None,
 				Preserve,
 				Replace,
 				Collapse
@@ -34,9 +35,9 @@ namespace XSDFrontend
 			static const std::map<std::string, ISimpleTypeInterface::eWhiteSpace> String2WhiteSpace;
 
 		protected:
-			ISimpleTypeInterface(const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::Preserve);
-			ISimpleTypeInterface(const std::string &name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::Preserve);
-			ISimpleTypeInterface(std::string &&name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::Preserve);
+			ISimpleTypeInterface(const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::None);
+			ISimpleTypeInterface(const std::string &name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::None);
+			ISimpleTypeInterface(std::string &&name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::None);
 			ISimpleTypeInterface(const ISimpleTypeInterface &ano) = default;
 			ISimpleTypeInterface(ISimpleTypeInterface &&ano) = default;
 			ISimpleTypeInterface &operator=(const ISimpleTypeInterface &rhs) = default;
