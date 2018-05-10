@@ -28,5 +28,25 @@ namespace XSDFrontend
 			m_type(type), m_whiteSpace(whitSpace), m_baseTypeName()
 		{
 		}
+
+		std::set<std::string> ISimpleTypeInterface::suppliedTokens(void) const
+		{
+			std::set<std::string> ret;
+			if (getAnonymous() && !getName().empty())
+			{
+				ret.insert(getName());
+			}
+			return ret;
+		}
+
+		std::set<std::string> ISimpleTypeInterface::neededTokens(void) const
+		{
+			std::set<std::string> ret;
+			if (!m_baseTypeName.empty())
+			{
+				ret.insert(m_baseTypeName);
+			}
+			return ret;
+		}
 	};
 };

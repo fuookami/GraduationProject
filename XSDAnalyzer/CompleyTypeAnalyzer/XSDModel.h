@@ -28,9 +28,19 @@ namespace XSDFrontend
 		inline const bool hasToken(const std::string &token) { return m_simpleTypeModel->hasToken(token) || m_attributeTypeModel->hasToken(token) || m_complexTypeMode->hasToken(token); }
 		inline void clear(void) { m_simpleTypeModel->clear(); m_attributeTypeModel->clear(); m_complexTypeMode->clear(); }
 
+		inline void setDescription(const std::string &description, const std::string &lang = std::string("cn")) { m_description.assign(description); m_descriptionLang.assign(lang); }
+		inline void setDescription(std::string &&description, const std::string &lang = std::string("cn")) { m_description.assign(std::move(description)); m_descriptionLang .assign(lang); }
+		inline const std::string &getDescription(void) const { return m_description; }
+		inline const std::string &getDescriptionLang(void) const { return m_descriptionLang; }
+
+		std::shared_ptr<SSUtils::XML::Node> generateXSDRoot(void);
+
 	private:
 		std::shared_ptr<SimpleTypeModel> m_simpleTypeModel;
 		std::shared_ptr<AttributeModel> m_attributeTypeModel;
 		std::shared_ptr<ComplexTypeModel> m_complexTypeMode;
+
+		std::string m_description;
+		std::string m_descriptionLang;
 	};
 };

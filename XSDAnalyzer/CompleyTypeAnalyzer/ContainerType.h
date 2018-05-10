@@ -28,6 +28,7 @@ namespace XSDFrontend
 			~ContainerType(void) = default;
 
 			const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) override;
+			std::set<std::string> neededTokens(void) const override;
 
 			inline void addBaseType(const std::string &typeName) { m_baseTypeNames.insert(typeName); }
 			inline void addBaseType(std::string &&typeName) { m_baseTypeNames.insert(std::move(typeName)); }

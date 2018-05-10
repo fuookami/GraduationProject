@@ -145,10 +145,12 @@
     <ClInclude Include="AttributeAnalyzer.h" />
     <ClInclude Include="AttributeInterface.h" />
     <ClInclude Include="AttributeModel.h" />
+    <ClInclude Include="AttributeNormalizer.h" />
     <ClInclude Include="ComplexContent.h" />
     <ClInclude Include="ComplexTypeAnalyzer.h" />
     <ClInclude Include="ComplexTypeInterface.h" />
     <ClInclude Include="ComplexTypeModel.h" />
+    <ClInclude Include="ComplexTypeNormalizer.h" />
     <ClInclude Include="ContainerType.h" />
     <ClInclude Include="DataType.h" />
     <ClInclude Include="DateTimeType.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="SimpleTypeInterface.h" />
     <ClInclude Include="SimpleTypeLengthLimitConfiguration.h" />
     <ClInclude Include="SimpleTypeModel.h" />
+    <ClInclude Include="SimpleTypeNormalizer.h" />
     <ClInclude Include="SimpleTypeValueEnumrationConfiguration.h" />
     <ClInclude Include="SimpleTypeValueLimitConfiguration.h" />
     <ClInclude Include="StringType.h" />
@@ -184,10 +187,12 @@
     <ClCompile Include="Attribute.cpp" />
     <ClCompile Include="AttributeAnalyzer.cpp" />
     <ClCompile Include="AttributeModel.cpp" />
+    <ClCompile Include="AttributeNormalizer.cpp" />
     <ClCompile Include="ComplexContent.cpp" />
     <ClCompile Include="ComplexTypeModel.cpp" />
     <ClCompile Include="ComplexTypeAnalyzer.cpp" />
     <ClCompile Include="ComplexTypeInterface.cpp" />
+    <ClCompile Include="ComplexTypeNormalizer.cpp" />
     <ClCompile Include="ContainerType.cpp" />
     <ClCompile Include="DataType.cpp" />
     <ClCompile Include="DateTimeType.cpp" />
@@ -200,6 +205,7 @@
     <ClCompile Include="SimpleTypeInterface.cpp" />
     <ClCompile Include="SimpleTypeLengthLimitConfiguration.cpp" />
     <ClCompile Include="SimpleTypeModel.cpp" />
+    <ClCompile Include="SimpleTypeNormalizer.cpp" />
     <ClCompile Include="StringType.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="XSDAnalyzer.cpp" />

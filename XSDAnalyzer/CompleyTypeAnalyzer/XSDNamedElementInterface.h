@@ -23,9 +23,10 @@ namespace XSDFrontend
 			inline void setName(std::string &&name) { m_name.assign(std::move(name)); }
 			inline const std::string &getName(void) const { return m_name; }
 
-			inline void setDescription(const std::string &description) { m_description.assign(description); }
-			inline void setDescription(std::string &&description) { m_description.assign(description); }
+			inline void setDescription(const std::string &description, const std::string &lang = std::string("cn")) { m_description.assign(description); m_descriptionLang.assign(lang); }
+			inline void setDescription(std::string &&description, const std::string &lang = std::string("cn")) { m_description.assign(std::move(description)); m_descriptionLang.assign(lang); }
 			inline const std::string &getDescription(void) const { return m_description; }
+			inline const std::string &getDescriptionLang(void) const { return m_descriptionLang; }
 
 			inline void setAnonymous(const bool anonymous) { m_anonymous = anonymous; }
 			inline const bool getAnonymous(void) const { return m_anonymous; }
@@ -33,6 +34,7 @@ namespace XSDFrontend
 		private:
 			std::string m_name;
 			std::string m_description;
+			std::string m_descriptionLang;
 
 			bool m_anonymous;
 		};

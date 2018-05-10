@@ -171,6 +171,15 @@
     <ClInclude Include="XSDNormalizer.h">
       <Filter>头文件\XSDNormalizer</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleTypeNormalizer.h">
+      <Filter>头文件\XSDNormalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexTypeNormalizer.h">
+      <Filter>头文件\XSDNormalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="AttributeNormalizer.h">
+      <Filter>头文件\XSDNormalizer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContainerType.cpp">
@@ -267,6 +276,15 @@
       <Filter>源文件\XSDFrontend\Attribute</Filter>
     </ClCompile>
     <ClCompile Include="XSDNormalizer.cpp">
+      <Filter>源文件\XSDNormalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleTypeNormalizer.cpp">
+      <Filter>源文件\XSDNormalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="AttributeNormalizer.cpp">
+      <Filter>源文件\XSDNormalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexTypeNormalizer.cpp">
       <Filter>源文件\XSDNormalizer</Filter>
     </ClCompile>
   </ItemGroup>

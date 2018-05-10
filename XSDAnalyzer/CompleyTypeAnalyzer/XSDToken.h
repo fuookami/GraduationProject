@@ -16,6 +16,8 @@ namespace XSDFrontend
 		static const std::string AttrTag("<xmlattr>");
 
 		static const std::string SchemaTag = XSDTagPrefix + "schema";
+		static const std::string AnnotationTag = XSDTagPrefix + "annotation";
+		static const std::string DocumentationTag = XSDTagPrefix + "documentation";
 		static const std::string IncludeTag = XSDTagPrefix + "include";
 		static const std::string SimpleTypeTag = XSDTagPrefix + "simpleType";
 		static const std::string AttributeTag = XSDTagPrefix + "attribute";
@@ -49,6 +51,7 @@ namespace XSDFrontend
 		static const std::string WhiteSpaceTag = XSDTagPrefix + "whiteSpace";
 		static const std::string PatternTag = XSDTagPrefix + "pattern";
 
+		static const std::string LangAttr("xml:lang");
 		static const std::string NameAttr("name");
 		static const std::string TypeAttr("type");
 		static const std::string BaseTypeAttr("base");

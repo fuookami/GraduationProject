@@ -23,6 +23,8 @@ void testNewXSDAnalyzer(void)
 	xsdAnalyzer.scan(SSUtils::File::InitailPath + "\\SCL.xsd", SSUtils::CharType::UTF8);
 	auto model = xsdAnalyzer.getModel();
 
+	model->setDescription(std::string("≤‚ ‘”√"));
+
 	XSDNormalizer::XSDNormalizer xsdNormalizer;
 	xsdNormalizer.normalize(model);
 	xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8);

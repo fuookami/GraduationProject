@@ -35,5 +35,10 @@ namespace XSDFrontend
 
 			return true;
 		}
+
+		std::set<std::string> ContainerType::neededTokens(void) const
+		{
+			return m_baseTypeNames;
+		}
 	};
 };
