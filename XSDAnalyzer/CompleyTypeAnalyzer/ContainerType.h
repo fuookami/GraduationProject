@@ -4,6 +4,7 @@
 
 #include <set>
 #include <map>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -17,6 +18,7 @@ namespace XSDFrontend
 				tUnion,
 				tList
 			};
+			static const boost::bimap<std::string, eBaseType> String2ItemType;
 
 		public:
 			ContainerType(const std::string &name, const eBaseType baseType);
@@ -29,6 +31,9 @@ namespace XSDFrontend
 
 			const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) override;
 			std::set<std::string> neededTokens(void) const override;
+
+			inline void setBaseType(const eBaseType &type) { m_baseType = type; }
+			inline eBaseType getBaseType(void) const { return m_baseType; }
 
 			inline void addBaseType(const std::string &typeName) { m_baseTypeNames.insert(typeName); }
 			inline void addBaseType(std::string &&typeName) { m_baseTypeNames.insert(std::move(typeName)); }

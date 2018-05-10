@@ -278,13 +278,13 @@
     <ClCompile Include="XSDNormalizer.cpp">
       <Filter>源文件\XSDNormalizer</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleTypeNormalizer.cpp">
-      <Filter>源文件\XSDNormalizer</Filter>
-    </ClCompile>
     <ClCompile Include="AttributeNormalizer.cpp">
       <Filter>源文件\XSDNormalizer</Filter>
     </ClCompile>
     <ClCompile Include="ComplexTypeNormalizer.cpp">
+      <Filter>源文件\XSDNormalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleTypeNormalizer.cpp">
       <Filter>源文件\XSDNormalizer</Filter>
     </ClCompile>
   </ItemGroup>
