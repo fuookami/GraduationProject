@@ -9,13 +9,11 @@ namespace XSDNormalizer
 
 	std::shared_ptr<SSUtils::XML::Node> SimpleTypeNormalizer::normalizeSimpleType(const XSDFrontend::SimpleType::ISimpleTypeInterface * type)
 	{
-		if (type->getAnonymous())
-		{
-			return nullptr;
-		}
-
 		auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::SimpleTypeTag));
-		node->setAttr(XSDFrontend::Token::NameAttr, type->getName());
+		if (!type->getAnonymous())
+		{
+			node->setAttr(XSDFrontend::Token::NameAttr, type->getName());
+		}
 
 		if (!type->getDescription().empty())
 		{

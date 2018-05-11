@@ -9,11 +9,83 @@ namespace XSDNormalizer
 
 	std::shared_ptr<SSUtils::XML::Node> AttributeNormalizer::normalizeAttribute(const std::shared_ptr<XSDFrontend::Attribute::Attribute>& attr)
 	{
-		return std::shared_ptr<SSUtils::XML::Node>();
+		if (attr->getAnonymous())
+		{
+			return nullptr;
+		}
+
+		auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::AttributeTag));
+		if (attr->hasRef())
+		{
+			node->setAttr(XSDFrontend::Token::ReferenceAttr, attr->getRefName());
+		}
+		else
+		{
+			node->setAttr(XSDFrontend::Token::NameAttr, attr->getName());
+		}
+
+		return node;
 	}
 
 	std::shared_ptr<SSUtils::XML::Node> AttributeNormalizer::normalizeAttributeGroup(const std::shared_ptr<XSDFrontend::Attribute::AttributeGroup>& group)
 	{
-		return std::shared_ptr<SSUtils::XML::Node>();
+		auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::AttributeGroupTag));
+		if (group->hasRef())
+		{
+			node->setAttr(XSDFrontend::Token::ReferenceAttr, group->getRefName());
+		}
+		else if (!group->getAnonymous())
+		{
+			node->setAttr(XSDFrontend::Token::NameAttr, group->getName());
+		}
+
+		if (!group->getDescription().empty())
+		{
+			auto annotation(SSUtils::XML::Node::generate(XSDFrontend::Token::AnnotationTag));
+			auto documentation(SSUtils::XML::Node::generate(XSDFrontend::Token::DocumentationTag));
+
+			documentation->addAttr(XSDFrontend::Token::LangAttr, group->getDescriptionLang());
+			documentation->setContent(group->getDescription());
+			annotation->addChild(documentation);
+			node->addChild(annotation);
+		}
+
+		for (const auto &pair : group->getAttributes())
+		{
+			auto child(normalizeAttribute(pair.second));
+			if (child == nullptr)
+			{
+				return nullptr;
+			}
+			node->addChild(child);
+		}
+
+		for (const auto &pair : group->getAttributeGroups())
+		{
+			auto child(normalizeAttributeGroup(pair.second));
+			if (child == nullptr)
+			{
+				return nullptr;
+			}
+			node->addChild(child);
+		}
+
+		if (group->hasAnyAttribute())
+		{
+			auto child(normalizeAnyAttribute(group->getAnyAttribute()));
+			if (child == nullptr)
+			{
+				return nullptr;
+			}
+			node->addChild(child);
+		}
+
+		return node;
+	}
+
+	std::shared_ptr<SSUtils::XML::Node> AttributeNormalizer::normalizeAnyAttribute(const std::shared_ptr<const XSDFrontend::Attribute::AnyAttribute>& attr)
+	{
+		auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::AnyAttributeTag));
+		return node;
 	}
 };

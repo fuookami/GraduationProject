@@ -19,6 +19,9 @@ namespace XSDNormalizer
 		std::shared_ptr<SSUtils::XML::Node> normalizeAttributeGroup(const std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> &group);
 
 	private:
+		std::shared_ptr<SSUtils::XML::Node> normalizeAnyAttribute(const std::shared_ptr<const XSDFrontend::Attribute::AnyAttribute> &attr);
+
+	private:
 		std::shared_ptr<XSDFrontend::SimpleTypeModel> m_simpleTypeModel;
 		std::shared_ptr<XSDFrontend::AttributeModel> m_attributeModel;
 		std::reference_wrapper<SimpleTypeNormalizer> ref_simpleTypeNormalizer;

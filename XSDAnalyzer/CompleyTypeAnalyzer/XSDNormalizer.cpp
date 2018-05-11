@@ -65,11 +65,88 @@ namespace XSDNormalizer
 
 	std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> XSDNormalizer::normalizeAttribute(void)
 	{
-		return std::make_pair(true, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+		const auto attributeModel = m_xsdModel->getAttributeModel();
+		std::vector<std::shared_ptr<SSUtils::XML::Node>> nodes;
+
+		for (const auto &pair : attributeModel->getGlobalAttributes())
+		{
+			auto node(m_attributeNormalizer.normalizeAttribute(pair.second));
+			if (node == nullptr)
+			{
+				return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+			}
+			nodes.push_back(node);
+		}
+
+		std::vector<std::shared_ptr<XSDFrontend::Attribute::AttributeGroup>> groups;
+		for (const auto &pair : attributeModel->getAttributeGroups())
+		{
+			if (!pair.second->getAnonymous())
+			{
+				groups.push_back(pair.second);
+			}
+		}
+		
+		auto orders(topologicalSort(groups));
+		for (const auto order : orders)
+		{
+			auto node(m_attributeNormalizer.normalizeAttributeGroup(groups[order]));
+			if (node == nullptr)
+			{
+				return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+			}
+			nodes.push_back(node);
+		}
+
+		return std::make_pair(true, std::move(nodes));
 	}
 
 	std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> XSDNormalizer::normalizeComplexType(void)
 	{
-		return std::make_pair(true, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+		const auto complexTypeModel = m_xsdModel->getComplexTypeModel();
+		std::vector<XSDFrontend::ComplexType::IComplexTypeInterface *> complexTypes;
+		for (const auto &pair : complexTypeModel->getComplexTypes())
+		{
+			if (!pair.second->getAnonymous())
+			{
+				complexTypes.push_back(pair.second);
+			}
+		}
+
+		std::vector<std::shared_ptr<SSUtils::XML::Node>> nodes;
+		auto orders(topologicalSort(complexTypes));
+		for (const auto order : orders)
+		{
+			auto node(m_complexTypeNormalizer.normalizeComplexType(complexTypes[order]));
+			if (node == nullptr)
+			{
+				// return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+			}
+			nodes.push_back(node);
+		}
+
+		for (const auto &pair : complexTypeModel->getGlobalElements())
+		{
+			auto node(m_complexTypeNormalizer.normalizeElement(pair.second));
+			if (node == nullptr)
+			{
+				// return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+			}
+			nodes.push_back(node);
+		}
+
+		for (const auto &pair : complexTypeModel->getElementGroups())
+		{
+			if (!pair.second->getAnonymous())
+			{
+				auto node(m_complexTypeNormalizer.normalizeElementGroup(pair.second));
+				if (node == nullptr)
+				{
+					// return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+				}
+				nodes.push_back(node);
+			}
+		}
+		return std::make_pair(true, std::move(nodes));
 	}
 };

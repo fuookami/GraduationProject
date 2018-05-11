@@ -27,10 +27,10 @@ namespace XSDNormalizer
 		std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> normalizeComplexType(void);
 
 		template<typename T>
-		std::vector<int> topologicalSort(const std::vector<T *> items)
+		std::vector<int> topologicalSort(const std::vector<T> items)
 		{
 			std::vector<std::pair<std::set<std::string>, std::set<std::string>>> tokens;
-			for (const T *item : items)
+			for (const T item : items)
 			{
 				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
 			}

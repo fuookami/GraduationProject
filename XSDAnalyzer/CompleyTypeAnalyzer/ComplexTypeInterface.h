@@ -2,6 +2,8 @@
 
 #include "XSDElementUtils.h"
 
+#include <set>
+
 namespace XSDFrontend
 {
 	namespace ComplexType
@@ -78,6 +80,9 @@ namespace XSDFrontend
 			inline void setAttributeGroupName(const std::string &attributeGroupName) { m_attributeGroup.assign(attributeGroupName); }
 			inline void setAttributeGroupName(const std::string &&attributeGroupName) { m_attributeGroup.assign(std::move(attributeGroupName)); }
 			inline const std::string &getAttributeGroupName(void) const { return m_attributeGroup; }
+
+			virtual std::set<std::string> suppliedTokens(void) const;
+			virtual std::set<std::string> neededTokens(void) const;
 
 		private:
 			eComplexType m_type;

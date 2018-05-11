@@ -53,5 +53,15 @@ namespace XSDFrontend
 			m_deriveType(eDerivedType::tNone), m_baseTypeName(), m_attributeGroup()
 		{
 		}
+
+		std::set<std::string> IComplexTypeInterface::suppliedTokens(void) const
+		{
+			return std::set<std::string>();
+		}
+
+		std::set<std::string> IComplexTypeInterface::neededTokens(void) const
+		{
+			return std::set<std::string>();
+		}
 	};
 };

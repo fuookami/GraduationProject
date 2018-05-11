@@ -46,6 +46,33 @@ namespace XSDFrontend
 			return it != m_attributeGroups.cend() ? it->second : nullptr;
 		}
 
+		std::set<std::string> AttributeGroup::suppliedTokens(void) const
+		{
+			std::set<std::string> ret;
+			ret.insert(getName());
+			return ret;
+		}
+
+		std::set<std::string> AttributeGroup::neededTokens(void) const
+		{
+			std::set<std::string> ret;
+			for (const auto &pair : m_attributes)
+			{
+				if (pair.second->hasRef())
+				{
+					ret.insert(pair.second->getRefName());
+				}
+			}
+			for (const auto &pair : m_attributeGroups)
+			{
+				if (pair.second->hasRef())
+				{
+					ret.insert(pair.second->getRefName());
+				}
+			}
+			return ret;
+		}
+
 		const bool AttributeGroup::empty(void) const
 		{
 			return m_attributes.empty() && m_attributeGroups.empty() && m_anyAttribute == nullptr 
