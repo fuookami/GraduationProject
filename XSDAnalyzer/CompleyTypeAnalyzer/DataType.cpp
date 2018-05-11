@@ -5,11 +5,17 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
-		const std::map<std::string, DataType::eBaseType> DataType::String2Type =
+		const boost::bimap<std::string, DataType::eBaseType> DataType::String2Type =
+			[]()
 		{
-			std::make_pair(std::string("hexBinary"), DataType::eBaseType::tHexBinary),
-			std::make_pair(std::string("base64Binary"), DataType::eBaseType::tBase64Binary)
-		};
+			typedef boost::bimap<std::string, DataType::eBaseType> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("hexBinary"), DataType::eBaseType::tHexBinary));
+			ret.insert(pair_type(std::string("base64Binary"), DataType::eBaseType::tBase64Binary));
+			return ret;
+		}();
 
 		DataType::DataType(void)
 			: DataType("")
@@ -41,6 +47,16 @@ namespace XSDFrontend
 			return true;
 		}
 
+		std::shared_ptr<SSUtils::XML::Node> DataType::saveValidator(const std::shared_ptr<SSUtils::XML::Node> root) const
+		{
+			root->setAttr(XSDFrontend::Token::BaseTypeAttr, XSDFrontend::Token::XSNamespace + String2Type.right.find(m_baseType)->second);
+			ISimpleTypeInterface::saveValidator(root);
+			saveLengthLimitConfiguration(root);
+			saveValueEnumrationConfiguration(root, std::bind(XSDData2String, m_baseType, std::placeholders::_1));
+			
+			return root;
+		}
+
 		void DataType::setBaseType(const eBaseType baseType)
 		{
 			m_baseType = baseType;
@@ -61,6 +77,21 @@ namespace XSDFrontend
 				return SSUtils::Data::fromString(str);
 			}
 			return SSUtils::Data::fromString(str);
+		}
+
+		std::string XSDData2String(const DataType::eBaseType type, const SSUtils::Block & value)
+		{
+			switch (type)
+			{
+			case DataType::eBaseType::tBase64Binary:
+				return SSUtils::Data::toBase64String(value);
+			case DataType::eBaseType::tHexBinary:
+				return SSUtils::Data::toHexString(value);
+			case DataType::eBaseType::tRaw:
+			default:
+				return SSUtils::Data::toString(value);
+			}
+			return SSUtils::Data::toString(value);
 		}
 	};
 };

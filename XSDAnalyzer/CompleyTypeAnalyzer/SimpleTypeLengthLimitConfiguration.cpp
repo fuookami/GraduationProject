@@ -77,5 +77,22 @@ namespace XSDFrontend
 			}
 			return true;
 		}
+
+		std::shared_ptr<SSUtils::XML::Node> LengthLimitConfiguration::saveLengthLimitConfiguration(const std::shared_ptr<SSUtils::XML::Node> root) const
+		{
+			if (m_minLength >= 0)
+			{
+				auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::MinLengthValidatorTag));
+				node->setAttr(XSDFrontend::Token::ValueAttr, std::to_string(m_minLength));
+				root->addChild(node);
+			}
+			if (m_maxLength >= 0)
+			{
+				auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::MaxLengthValidatorTag));
+				node->setAttr(XSDFrontend::Token::ValueAttr, std::to_string(m_maxLength));
+				root->addChild(node);
+			}
+			return root;
+		}
 	};
 };

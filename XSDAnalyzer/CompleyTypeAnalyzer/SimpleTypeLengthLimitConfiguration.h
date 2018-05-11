@@ -34,6 +34,7 @@ namespace XSDFrontend
 			inline const int getMaxLengthValidator(void) const { return m_maxLength; }
 
 			const bool refreshLengthLimitConfiguration(const std::shared_ptr<SSUtils::XML::Node> node);
+			std::shared_ptr<SSUtils::XML::Node> saveLengthLimitConfiguration(const std::shared_ptr<SSUtils::XML::Node> root) const;
 
 		private:
 			int m_minLength;

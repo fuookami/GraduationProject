@@ -6,6 +6,7 @@
 #include <map>
 #include <set>
 #include <functional>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -36,7 +37,7 @@ namespace XSDFrontend
 				tRaw
 			};
 			static const int NoLengthValidator = -1;
-			static const std::map<std::string, eBaseType> String2Type;
+			static const boost::bimap<std::string, eBaseType> String2Type;
 
 		public:
 			DataType(void);
@@ -49,6 +50,7 @@ namespace XSDFrontend
 			~DataType(void) = default;
 
 			const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) override;
+			std::shared_ptr<SSUtils::XML::Node> saveValidator(const std::shared_ptr<SSUtils::XML::Node> root) const override;
 
 			void setBaseType(const eBaseType baseType);
 			inline const eBaseType getBaseType(void) const { return m_baseType; }
@@ -58,5 +60,6 @@ namespace XSDFrontend
 		};
 
 		SSUtils::Block XSDString2Data(const DataType::eBaseType type, const std::string & str);
+		std::string XSDData2String(const DataType::eBaseType type, const SSUtils::Block & value);
 	};
 };

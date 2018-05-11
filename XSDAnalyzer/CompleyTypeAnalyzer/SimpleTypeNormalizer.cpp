@@ -2,14 +2,6 @@
 
 namespace XSDNormalizer
 {
-	const std::map<XSDFrontend::SimpleType::eSimpleType, SimpleTypeNormalizer::NotContainerTypeNormalizer> SimpleTypeNormalizer::Type2Normalizer = 
-	{
-		std::make_pair(XSDFrontend::SimpleType::eSimpleType::tDataType, SimpleTypeNormalizer::NotContainerTypeNormalizer(&SimpleTypeNormalizer::normalizeDataType)),
-		std::make_pair(XSDFrontend::SimpleType::eSimpleType::tDatetimeType, SimpleTypeNormalizer::NotContainerTypeNormalizer(&SimpleTypeNormalizer::normalizeDatetimeType)),
-		std::make_pair(XSDFrontend::SimpleType::eSimpleType::tNumberType, SimpleTypeNormalizer::NotContainerTypeNormalizer(&SimpleTypeNormalizer::normalizeNumberType)),
-		std::make_pair(XSDFrontend::SimpleType::eSimpleType::tStringType, SimpleTypeNormalizer::NotContainerTypeNormalizer(&SimpleTypeNormalizer::normalizeStringType))
-	};
-
 	SimpleTypeNormalizer::SimpleTypeNormalizer(const std::shared_ptr<XSDFrontend::SimpleTypeModel>& simpleTypeModel)
 		: m_simpleTypeModel(simpleTypeModel)
 	{
@@ -58,41 +50,7 @@ namespace XSDNormalizer
 
 	std::shared_ptr<SSUtils::XML::Node> SimpleTypeNormalizer::normalizeNotContainerType(const XSDFrontend::SimpleType::ISimpleTypeInterface * type)
 	{
-		auto it(Type2Normalizer.find(type->getSimpleType()));
-		return it == Type2Normalizer.cend() ? nullptr : it->second(this, type);
-	}
-
-	std::shared_ptr<SSUtils::XML::Node> SimpleTypeNormalizer::generateNotContainerTypeNode(const XSDFrontend::SimpleType::ISimpleTypeInterface *type)
-	{
 		auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::RestrictionTag));
-		if (!type->getBaseTypeName().empty())
-		{
-			node->setAttr(XSDFrontend::Token::BaseTypeAttr, type->getBaseTypeName());
-		}
-		return node;
-	}
-
-	std::shared_ptr<SSUtils::XML::Node> SimpleTypeNormalizer::normalizeDataType(const XSDFrontend::SimpleType::ISimpleTypeInterface * type)
-	{
-		auto node(generateNotContainerTypeNode(type));
-		return node;
-	}
-
-	std::shared_ptr<SSUtils::XML::Node> SimpleTypeNormalizer::normalizeDatetimeType(const XSDFrontend::SimpleType::ISimpleTypeInterface * type)
-	{
-		auto node(generateNotContainerTypeNode(type));
-		return node;
-	}
-
-	std::shared_ptr<SSUtils::XML::Node> SimpleTypeNormalizer::normalizeNumberType(const XSDFrontend::SimpleType::ISimpleTypeInterface * type)
-	{
-		auto node(generateNotContainerTypeNode(type));
-		return node;
-	}
-
-	std::shared_ptr<SSUtils::XML::Node> SimpleTypeNormalizer::normalizeStringType(const XSDFrontend::SimpleType::ISimpleTypeInterface * type)
-	{
-		auto node(generateNotContainerTypeNode(type));
-		return node;
+		return type->saveValidator(node);
 	}
 };

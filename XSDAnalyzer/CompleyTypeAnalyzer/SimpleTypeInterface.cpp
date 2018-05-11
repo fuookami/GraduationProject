@@ -48,5 +48,14 @@ namespace XSDFrontend
 			}
 			return ret;
 		}
+
+		std::shared_ptr<SSUtils::XML::Node> ISimpleTypeInterface::saveValidator(const std::shared_ptr<SSUtils::XML::Node> root) const
+		{
+			if (!getBaseTypeName().empty())
+			{
+				root->setAttr(XSDFrontend::Token::BaseTypeAttr, getBaseTypeName());
+			}
+			return root;
+		}
 	};
 };

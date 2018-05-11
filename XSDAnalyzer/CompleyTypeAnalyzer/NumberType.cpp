@@ -6,26 +6,33 @@ namespace XSDFrontend
 	namespace SimpleType
 	{
 		const SSUtils::Math::Real ValueLimitConfiguration<SSUtils::Math::Real>::NoValueValidator = SSUtils::Math::Real();
-		const std::map<std::string, NumberType::eBaseType> NumberType::String2Type =
+		const boost::bimap<std::string, NumberType::eBaseType> NumberType::String2Type =
+			[]()
 		{
-			std::make_pair(std::string("boolean"), NumberType::eBaseType::tBoolean),
-			std::make_pair(std::string("float"), NumberType::eBaseType::tFloat),
-			std::make_pair(std::string("double"), NumberType::eBaseType::tDouble),
-			std::make_pair(std::string("decimal"), NumberType::eBaseType::tDecimal),
-			std::make_pair(std::string("integer"), NumberType::eBaseType::tInteger),
-			std::make_pair(std::string("nonPositiveInteger"), NumberType::eBaseType::tNonPositiveInteger),
-			std::make_pair(std::string("negativeInteger"), NumberType::eBaseType::tNegativeInteger),
-			std::make_pair(std::string("long"), NumberType::eBaseType::tLong),
-			std::make_pair(std::string("int"), NumberType::eBaseType::tInt),
-			std::make_pair(std::string("short"), NumberType::eBaseType::tShort),
-			std::make_pair(std::string("byte"), NumberType::eBaseType::tByte),
-			std::make_pair(std::string("nonNegativeInteger"), NumberType::eBaseType::tNonNegativeInteger),
-			std::make_pair(std::string("positiveInteger"), NumberType::eBaseType::tPositiveInteger),
-			std::make_pair(std::string("unsignedLong"), NumberType::eBaseType::tUnsignedLong),
-			std::make_pair(std::string("unsignedInt"), NumberType::eBaseType::tUnsignedInt),
-			std::make_pair(std::string("unsignedShort"), NumberType::eBaseType::tUnsignedShort),
-			std::make_pair(std::string("unsignedBytes"), NumberType::eBaseType::tUnsignedByte)
-		};
+			typedef boost::bimap<std::string, NumberType::eBaseType> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("boolean"), NumberType::eBaseType::tBoolean));
+			ret.insert(pair_type(std::string("float"), NumberType::eBaseType::tFloat));
+			ret.insert(pair_type(std::string("double"), NumberType::eBaseType::tDouble));
+			ret.insert(pair_type(std::string("decimal"), NumberType::eBaseType::tDecimal));
+			ret.insert(pair_type(std::string("integer"), NumberType::eBaseType::tInteger));
+			ret.insert(pair_type(std::string("nonPositiveInteger"), NumberType::eBaseType::tNonPositiveInteger));
+			ret.insert(pair_type(std::string("negativeInteger"), NumberType::eBaseType::tNegativeInteger));
+			ret.insert(pair_type(std::string("long"), NumberType::eBaseType::tLong));
+			ret.insert(pair_type(std::string("int"), NumberType::eBaseType::tInt));
+			ret.insert(pair_type(std::string("short"), NumberType::eBaseType::tShort));
+			ret.insert(pair_type(std::string("byte"), NumberType::eBaseType::tByte));
+			ret.insert(pair_type(std::string("nonNegativeInteger"), NumberType::eBaseType::tNonNegativeInteger));
+			ret.insert(pair_type(std::string("positiveInteger"), NumberType::eBaseType::tPositiveInteger));
+			ret.insert(pair_type(std::string("unsignedLong"), NumberType::eBaseType::tUnsignedLong));
+			ret.insert(pair_type(std::string("unsignedInt"), NumberType::eBaseType::tUnsignedInt));
+			ret.insert(pair_type(std::string("unsignedShort"), NumberType::eBaseType::tUnsignedShort));
+			ret.insert(pair_type(std::string("unsignedBytes"), NumberType::eBaseType::tUnsignedByte));
+
+			return ret;
+		}();
 
 		NumberType::NumberType(void)
 			: NumberType("")
@@ -75,6 +82,28 @@ namespace XSDFrontend
 			}
 
 			return true;
+		}
+
+		std::shared_ptr<SSUtils::XML::Node> NumberType::saveValidator(const std::shared_ptr<SSUtils::XML::Node> root) const
+		{
+			root->setAttr(XSDFrontend::Token::BaseTypeAttr, XSDFrontend::Token::XSNamespace + String2Type.right.find(m_baseType)->second);
+			ISimpleTypeInterface::saveValidator(root);
+			if (m_fractionDigits >= 0)
+			{
+				auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::FractionDigitsTag));
+				node->setAttr(XSDFrontend::Token::ValueAttr, std::to_string(m_fractionDigits));
+				root->addChild(node);
+			}
+			if (m_totalDigits >= 0)
+			{
+				auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::TotalDigitsTag));
+				node->setAttr(XSDFrontend::Token::ValueAttr, std::to_string(m_totalDigits));
+				root->addChild(node);
+			}
+			saveValueEnumrationConfiguration(root);
+			saveValueLimitConfiguration(root);
+
+			return root;
 		}
 
 		void NumberType::setBaseType(const eBaseType baseType)

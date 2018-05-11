@@ -51,10 +51,10 @@ namespace XSDAnalyzer
 		}
 
 		template<typename T, typename U>
-		typename std::enable_if_t<std::is_base_of_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && !std::is_same_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && std::is_same_v<typename T::eBaseType, U>, const bool> checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const std::map<std::string, U> &name2Type, const std::string &typeName, const std::string &baseTypeName, const std::shared_ptr<SSUtils::XML::Node> node, const bool anonymous)
+		typename std::enable_if_t<std::is_base_of_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && !std::is_same_v<XSDFrontend::SimpleType::ISimpleTypeInterface, T> && std::is_same_v<typename T::eBaseType, U>, const bool> checkAndInsertType(std::map<std::string, std::shared_ptr<T>> &types, const boost::bimap<std::string, U> &name2Type, const std::string &typeName, const std::string &baseTypeName, const std::shared_ptr<SSUtils::XML::Node> node, const bool anonymous)
 		{
-			auto typeIt(name2Type.find(baseTypeName));
-			return typeIt != name2Type.cend() && checkAndInsertType(types, typeIt->second, typeName, baseTypeName, node, anonymous);
+			auto typeIt(name2Type.left.find(baseTypeName));
+			return typeIt != name2Type.left.end() && checkAndInsertType(types, typeIt->second, typeName, baseTypeName, node, anonymous);
 		}
 
 		template<typename T>

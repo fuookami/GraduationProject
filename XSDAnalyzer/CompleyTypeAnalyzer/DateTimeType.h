@@ -6,7 +6,7 @@
 #include <map>
 #include <set>
 #include <memory>
-#include <boost/variant.hpp>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -29,8 +29,7 @@ namespace XSDFrontend
 				gDay,
 				tDuration
 			};
-			static const std::map<std::string, DatetimeType::eBaseType> String2Type;
-			static const std::map<eBaseType, std::string> Type2String;
+			static const boost::bimap<std::string, DatetimeType::eBaseType> String2Type;
 			static const std::map<eBaseType, std::pair<std::string, std::string>> Type2Pattern;
 
 		public:
@@ -44,6 +43,7 @@ namespace XSDFrontend
 			~DatetimeType(void) = default;
 
 			const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) override;
+			std::shared_ptr<SSUtils::XML::Node> saveValidator(const std::shared_ptr<SSUtils::XML::Node> root) const override;
 
 			void setBaseType(const eBaseType baseType);
 			inline const eBaseType getBaseType(void) const { return m_baseType; }
@@ -53,5 +53,6 @@ namespace XSDFrontend
 		};
 
 		SSUtils::Datetime::DatetimeDuration XSDString2Datetime(const DatetimeType::eBaseType type, const std::string &str);
+		std::string XSDDatetime2String(const DatetimeType::eBaseType type, const SSUtils::Datetime::DatetimeDuration &value);
 	};
 };

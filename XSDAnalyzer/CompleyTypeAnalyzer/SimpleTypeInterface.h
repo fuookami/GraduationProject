@@ -50,6 +50,7 @@ namespace XSDFrontend
 			virtual const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) = 0;
 			virtual std::set<std::string> suppliedTokens(void) const;
 			virtual std::set<std::string> neededTokens(void) const;
+			virtual std::shared_ptr<SSUtils::XML::Node> saveValidator(const std::shared_ptr<SSUtils::XML::Node> root) const;
 
 			inline void setSimpleType(const eSimpleType type) { m_type = type; }
 			inline const eSimpleType getSimpleType(void) const { return m_type; }

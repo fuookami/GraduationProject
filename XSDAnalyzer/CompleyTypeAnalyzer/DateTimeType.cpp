@@ -8,27 +8,22 @@ namespace XSDFrontend
 	{
 		const SSUtils::Datetime::DatetimeDuration ValueLimitConfiguration<SSUtils::Datetime::DatetimeDuration>::NoValueValidator = SSUtils::Datetime::DatetimeDuration();
 
-		const std::map<std::string, DatetimeType::eBaseType> DatetimeType::String2Type =
-		{
-			std::make_pair(std::string("date"), DatetimeType::eBaseType::tDate),
-			std::make_pair(std::string("time"), DatetimeType::eBaseType::tTime),
-			std::make_pair(std::string("dateTime"), DatetimeType::eBaseType::tDatetime),
-			std::make_pair(std::string("gYear"), DatetimeType::eBaseType::gYear),
-			std::make_pair(std::string("gYearMonth"), DatetimeType::eBaseType::gYearMonth),
-			std::make_pair(std::string("gMonth"), DatetimeType::eBaseType::gMonth),
-			std::make_pair(std::string("gMonthDay"), DatetimeType::eBaseType::gMonthDay),
-			std::make_pair(std::string("gDay"), DatetimeType::eBaseType::gDay),
-			std::make_pair(std::string("duration"), DatetimeType::eBaseType::tDuration)
-		};
-
-		const std::map<DatetimeType::eBaseType, std::string> DatetimeType::Type2String =
+		const boost::bimap<std::string, DatetimeType::eBaseType> DatetimeType::String2Type =
 			[]()
 		{
-			std::map<DatetimeType::eBaseType, std::string> ret;
-			for (const auto &pair : DatetimeType::String2Type)
-			{
-				ret.insert(std::make_pair(pair.second, pair.first));
-			}
+			typedef boost::bimap<std::string, DatetimeType::eBaseType> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("date"), DatetimeType::eBaseType::tDate));
+			ret.insert(pair_type(std::string("time"), DatetimeType::eBaseType::tTime));
+			ret.insert(pair_type(std::string("dateTime"), DatetimeType::eBaseType::tDatetime));
+			ret.insert(pair_type(std::string("gYear"), DatetimeType::eBaseType::gYear));
+			ret.insert(pair_type(std::string("gYearMonth"), DatetimeType::eBaseType::gYearMonth));
+			ret.insert(pair_type(std::string("gMonth"), DatetimeType::eBaseType::gMonth));
+			ret.insert(pair_type(std::string("gMonthDay"), DatetimeType::eBaseType::gMonthDay));
+			ret.insert(pair_type(std::string("gDay"), DatetimeType::eBaseType::gDay));
+			ret.insert(pair_type(std::string("duration"), DatetimeType::eBaseType::tDuration));
 			return ret;
 		}();
 		
@@ -86,6 +81,16 @@ namespace XSDFrontend
 			return true;
 		}
 
+		std::shared_ptr<SSUtils::XML::Node> DatetimeType::saveValidator(const std::shared_ptr<SSUtils::XML::Node> root) const
+		{
+			root->setAttr(XSDFrontend::Token::BaseTypeAttr, XSDFrontend::Token::XSNamespace + String2Type.right.find(m_baseType)->second);
+			ISimpleTypeInterface::saveValidator(root);
+			saveValueEnumrationConfiguration(root, std::bind(XSDDatetime2String, m_baseType, std::placeholders::_1));
+			saveValueLimitConfiguration(root, std::bind(XSDDatetime2String, m_baseType, std::placeholders::_1));
+
+			return root;
+		}
+
 		void DatetimeType::setBaseType(const eBaseType baseType)
 		{
 			m_baseType = baseType;
@@ -99,7 +104,7 @@ namespace XSDFrontend
 			const std::string &regexPattern(DatetimeType::Type2Pattern.find(type)->second.second);
 			if (!SSUtils::String::RegexChecker(regexPattern)(str))
 			{
-				std::cerr << str << "不是一个有效的" << DatetimeType::Type2String.find(type)->second << "类型（格式应为：" << pattern << "）" << std::endl;
+				std::cerr << str << "不是一个有效的" << DatetimeType::String2Type.right.find(type)->second << "类型（格式应为：" << pattern << "）" << std::endl;
 				return SSUtils::Datetime::DatetimeDuration();
 			}
 			else
@@ -131,6 +136,69 @@ namespace XSDFrontend
 				}
 				return SSUtils::Datetime::DatetimeDuration();
 			}
+		}
+
+		std::string XSDDatetime2String(const DatetimeType::eBaseType type, const SSUtils::Datetime::DatetimeDuration & value)
+		{
+			static const char DateSeperator('-');
+			static const char TimeSeperator(':');
+			static const char MillisecondSeperator('.');
+			static const char DatetimeSeperator('T');
+			std::ostringstream sout;
+			sout << std::setfill('0');
+
+			switch (type)
+			{
+			case DatetimeType::eBaseType::tDate:
+				sout << std::setw(4) << value.year() << DateSeperator 
+					<< std::setw(2) << value.month() << DateSeperator 
+					<< std::setw(2) << value.day();
+				break;
+			case DatetimeType::eBaseType::tTime:
+				sout << std::setw(2) << value.hour() << TimeSeperator
+					<< std::setw(2) << value.minute() << TimeSeperator
+					<< std::setw(2) << value.second() << MillisecondSeperator
+					<< std::setw(2) << value.millisecond();
+				break;
+			case DatetimeType::eBaseType::tDatetime:
+				sout << std::setw(4) << value.year() << DateSeperator
+					<< std::setw(2) << value.month() << DateSeperator
+					<< std::setw(2) << value.day() << DatetimeSeperator
+					<< std::setw(2) << value.hour() << TimeSeperator
+					<< std::setw(2) << value.minute() << TimeSeperator
+					<< std::setw(2) << value.second() << MillisecondSeperator
+					<< std::setw(2) << value.millisecond();
+				break;
+			case DatetimeType::eBaseType::gYear:
+				sout << std::setw(4) << value.year();
+				break;
+			case DatetimeType::eBaseType::gYearMonth:
+				sout << std::setw(4) << value.year() << DateSeperator
+					<< std::setw(2) << value.month();
+				break;
+			case DatetimeType::eBaseType::gMonth:
+				sout << "--" << std::setw(2) << value.month();
+				break;
+			case DatetimeType::eBaseType::gMonthDay:
+				sout << "--" << std::setw(2) << value.month() << DateSeperator
+					<< std::setw(2) << value.day();
+				break;
+			case DatetimeType::eBaseType::gDay:
+				sout << "---" << std::setw(3) << value.day();
+				break;
+			case DatetimeType::eBaseType::tDuration:
+				sout << "P" << value.year() << "Y"
+					<< value.month() << "M"
+					<< value.day() << "D" << DatetimeSeperator
+					<< value.hour() << "H"
+					<< value.minute() << "M"
+					<< value.second() << "S";
+				break;
+			default:
+				break;
+			}
+
+			return sout.str();
 		}
 	};
 };

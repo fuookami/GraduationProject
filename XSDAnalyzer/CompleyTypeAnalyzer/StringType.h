@@ -4,6 +4,7 @@
 
 #include <map>
 #include <set>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -33,7 +34,7 @@ namespace XSDFrontend
 				tAnyURI
 			};
 			static const int NoLengthValidator = -1;
-			static const std::map<std::string, StringType::eBaseType> String2Type;
+			static const boost::bimap<std::string, StringType::eBaseType> String2Type;
 			using ValueType = std::string;
 
 		public:
@@ -47,6 +48,7 @@ namespace XSDFrontend
 			~StringType(void) = default;
 
 			const bool refreshValidator(const std::shared_ptr<SSUtils::XML::Node> node) override;
+			std::shared_ptr<SSUtils::XML::Node> saveValidator(const std::shared_ptr<SSUtils::XML::Node> root) const override;
 
 			inline void setBaseType(const eBaseType baseType) { m_baseType = baseType; }
 			inline const eBaseType getBaseType(void) const { return m_baseType; }

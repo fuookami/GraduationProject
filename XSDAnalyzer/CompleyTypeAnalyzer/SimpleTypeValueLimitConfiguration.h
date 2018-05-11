@@ -165,6 +165,38 @@ namespace XSDFrontend
 
 				return true;
 			}
+			template<typename translator_t = SSUtils::String::StringTranslator>
+			std::shared_ptr<SSUtils::XML::Node> saveValueLimitConfiguration(const std::shared_ptr<SSUtils::XML::Node> root,
+				const translator_t &translator = translator_t()) const
+			{
+				if (hasMaxExclusive())
+				{
+					auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::MaxExclusiveTag));
+					node->setAttr(XSDFrontend::Token::ValueAttr, translator(getMaxExclusive()));
+					root->addChild(node);
+				}
+				else if (hasMaxInclusive())
+				{
+					auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::MaxInclusiveTag));
+					node->setAttr(XSDFrontend::Token::ValueAttr, translator(getMaxInclusive()));
+					root->addChild(node);
+				}
+
+				if (hasMinExclusive())
+				{
+					auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::MinExclusiveTag));
+					node->setAttr(XSDFrontend::Token::ValueAttr, translator(getMinExclusive()));
+					root->addChild(node);
+				}
+				else if (hasMinInclusive())
+				{
+					auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::MinInclusiveTag));
+					node->setAttr(XSDFrontend::Token::ValueAttr, translator(getMinInclusive()));
+					root->addChild(node);
+				}
+
+				return root;
+			}
 
 		private:
 			ValueType m_maxExclusive;

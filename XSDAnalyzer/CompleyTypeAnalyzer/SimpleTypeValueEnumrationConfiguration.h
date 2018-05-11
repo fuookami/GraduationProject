@@ -67,6 +67,22 @@ namespace XSDFrontend
 				}
 			}
 
+			template<typename translator_t = SSUtils::String::StringTranslator>
+			std::shared_ptr<SSUtils::XML::Node> saveValueEnumrationConfiguration(const std::shared_ptr<SSUtils::XML::Node> root, 
+				const translator_t &translator = translator_t()) const
+			{
+				if (m_isEnum)
+				{
+					for (const auto &value : m_enumValues)
+					{
+						auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::EnumValidatorTag));
+						node->setAttr(XSDFrontend::Token::ValueAttr, translator(value));
+						root->addChild(node);
+					}
+				}
+				return root;
+			}
+
 		private:
 			bool m_isEnum;
 			std::set<T, _ValueTypeCompare> m_enumValues;
