@@ -4,12 +4,18 @@ namespace XSDFrontend
 {
 	namespace SimpleType
 	{
-		const std::map<std::string, ISimpleTypeInterface::eWhiteSpace> ISimpleTypeInterface::String2WhiteSpace =
+		const boost::bimap<std::string, ISimpleTypeInterface::eWhiteSpace> ISimpleTypeInterface::String2WhiteSpace =
+			[]()
 		{
-			std::make_pair(std::string("preserve"), ISimpleTypeInterface::eWhiteSpace::Preserve),
-			std::make_pair(std::string("replace"), ISimpleTypeInterface::eWhiteSpace::Replace),
-			std::make_pair(std::string("collapse"), ISimpleTypeInterface::eWhiteSpace::Collapse)
-		};
+			typedef boost::bimap<std::string, ISimpleTypeInterface::eWhiteSpace> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("preserve"), ISimpleTypeInterface::eWhiteSpace::Preserve));
+			ret.insert(pair_type(std::string("replace"), ISimpleTypeInterface::eWhiteSpace::Replace));
+			ret.insert(pair_type(std::string("collapse"), ISimpleTypeInterface::eWhiteSpace::Collapse));
+			return ret;
+		}();
 
 		ISimpleTypeInterface::ISimpleTypeInterface(const eSimpleType type, const eWhiteSpace whitSpace)
 			: IXSDNamedElementInterface(), 
@@ -54,6 +60,12 @@ namespace XSDFrontend
 			if (!getBaseTypeName().empty())
 			{
 				root->setAttr(XSDFrontend::Token::BaseTypeAttr, getBaseTypeName());
+			}
+			if (m_whiteSpace != eWhiteSpace::None)
+			{
+				auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::WhiteSpaceTag));
+				node->setAttr(XSDFrontend::Token::ValueAttr, String2WhiteSpace.right.find(m_whiteSpace)->second);
+				root->addChild(node);
 			}
 			return root;
 		}

@@ -48,7 +48,7 @@ namespace XSDAnalyzer
 					const auto whiteSpaceNode(child->getChildren()[child->findChild(typeName)]);
 					if (whiteSpaceNode != nullptr && whiteSpaceNode->hasAttr(XSDFrontend::Token::ValueAttr))
 					{
-						type->setWhiteSpace(XSDFrontend::SimpleType::ISimpleTypeInterface::String2WhiteSpace.find(whiteSpaceNode->getAttr(XSDFrontend::Token::ValueAttr))->second);
+						type->setWhiteSpace(XSDFrontend::SimpleType::ISimpleTypeInterface::String2WhiteSpace.right.find(whiteSpaceNode->getAttr(XSDFrontend::Token::ValueAttr))->second);
 					}
 				}
 			}

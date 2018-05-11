@@ -7,6 +7,7 @@
 #include "SimpleTypeLengthLimitConfiguration.h"
 
 #include <string>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -32,7 +33,7 @@ namespace XSDFrontend
 				Replace,
 				Collapse
 			};
-			static const std::map<std::string, ISimpleTypeInterface::eWhiteSpace> String2WhiteSpace;
+			static const boost::bimap<std::string, ISimpleTypeInterface::eWhiteSpace> String2WhiteSpace;
 
 		protected:
 			ISimpleTypeInterface(const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::None);
