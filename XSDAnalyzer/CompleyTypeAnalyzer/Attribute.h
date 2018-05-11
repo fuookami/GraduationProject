@@ -4,6 +4,7 @@
 
 #include <map>
 #include <memory>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -28,14 +29,16 @@ namespace XSDFrontend
 				Required
 			};
 
-			static const std::map<std::string, Attribute::eForm> String2Form;
-			static const std::map<std::string, Attribute::eUse> String2Use;
+			static const boost::bimap<std::string, Attribute::eForm> String2Form;
+			static const boost::bimap<std::string, Attribute::eUse> String2Use;
+			static const eForm DefaultForm = eForm::Unqualified;
+			static const eUse DefaultUse = eUse::Optional;
 
 		public:
-			Attribute(const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
-			Attribute(const std::string &name, const std::string &type, const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
-			Attribute(std::string &&name, const std::string &type, const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
-			Attribute(std::string &&name, std::string &&type, const eForm form = eForm::Unqualified, const eUse use = eUse::Optional);
+			Attribute(const eForm form = DefaultForm, const eUse use = DefaultUse);
+			Attribute(const std::string &name, const std::string &type, const eForm form = DefaultForm, const eUse use = DefaultUse);
+			Attribute(std::string &&name, const std::string &type, const eForm form = DefaultForm, const eUse use = DefaultUse);
+			Attribute(std::string &&name, std::string &&type, const eForm form = DefaultForm, const eUse use = DefaultUse);
 			Attribute(const Attribute &ano) = default;
 			Attribute(Attribute &&ano) = default;
 			Attribute &operator=(const Attribute &rhs) = default;

@@ -28,17 +28,17 @@ namespace XSDFrontend
 		public:
 			enum class eWhiteSpace
 			{
-				None,
 				Preserve,
 				Replace,
 				Collapse
 			};
 			static const boost::bimap<std::string, ISimpleTypeInterface::eWhiteSpace> String2WhiteSpace;
+			static const eWhiteSpace DefaultWhiteSpace = eWhiteSpace::Preserve;
 
 		protected:
-			ISimpleTypeInterface(const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::None);
-			ISimpleTypeInterface(const std::string &name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::None);
-			ISimpleTypeInterface(std::string &&name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = eWhiteSpace::None);
+			ISimpleTypeInterface(const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = DefaultWhiteSpace);
+			ISimpleTypeInterface(const std::string &name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = DefaultWhiteSpace);
+			ISimpleTypeInterface(std::string &&name, const eSimpleType type = eSimpleType::tStringType, const eWhiteSpace whitSpace = DefaultWhiteSpace);
 			ISimpleTypeInterface(const ISimpleTypeInterface &ano) = default;
 			ISimpleTypeInterface(ISimpleTypeInterface &&ano) = default;
 			ISimpleTypeInterface &operator=(const ISimpleTypeInterface &rhs) = default;

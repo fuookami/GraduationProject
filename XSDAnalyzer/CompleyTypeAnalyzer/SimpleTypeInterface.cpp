@@ -61,7 +61,7 @@ namespace XSDFrontend
 			{
 				root->setAttr(XSDFrontend::Token::BaseTypeAttr, getBaseTypeName());
 			}
-			if (m_whiteSpace != eWhiteSpace::None)
+			if (m_whiteSpace != DefaultWhiteSpace)
 			{
 				auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::WhiteSpaceTag));
 				node->setAttr(XSDFrontend::Token::ValueAttr, String2WhiteSpace.right.find(m_whiteSpace)->second);

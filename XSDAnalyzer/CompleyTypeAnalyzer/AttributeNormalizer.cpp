@@ -22,8 +22,46 @@ namespace XSDNormalizer
 		else
 		{
 			node->setAttr(XSDFrontend::Token::NameAttr, attr->getName());
-		}
 
+			if (attr->getForm() != XSDFrontend::Attribute::Attribute::DefaultForm)
+			{
+				node->setAttr(XSDFrontend::Token::FormAttr, XSDFrontend::Attribute::Attribute::String2Form.right.find(attr->getForm())->second);
+			}
+			if (attr->getUse() != XSDFrontend::Attribute::Attribute::DefaultUse)
+			{
+				node->setAttr(XSDFrontend::Token::UseAttr, XSDFrontend::Attribute::Attribute::String2Use.right.find(attr->getUse())->second);
+			}
+
+			const std::string &typeName(attr->getType());
+			if (m_simpleTypeModel->isBaseType(typeName))
+			{
+				node->addAttr(XSDFrontend::Token::TypeAttr, typeName);
+			}
+			else
+			{
+				auto type(m_simpleTypeModel->getSimpleType(typeName));
+				if (type == nullptr)
+				{
+					return nullptr;
+				}
+
+				if (!type->getAnonymous())
+				{
+					node->addAttr(XSDFrontend::Token::TypeAttr, typeName);
+				}
+				else
+				{
+					auto child(ref_simpleTypeNormalizer.get().normalizeSimpleType(type));
+					if (child == nullptr)
+					{
+						return nullptr;
+					}
+					node->addChild(child);
+				}
+			}
+
+			node = attr->saveValueStatement(node);
+		}
 		return node;
 	}
 
@@ -86,6 +124,15 @@ namespace XSDNormalizer
 	std::shared_ptr<SSUtils::XML::Node> AttributeNormalizer::normalizeAnyAttribute(const std::shared_ptr<const XSDFrontend::Attribute::AnyAttribute>& attr)
 	{
 		auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::AnyAttributeTag));
+		if (attr->getNamesapceValidator() != XSDFrontend::Attribute::AnyAttribute::DefaultNamespaceValidator)
+		{
+			node->setAttr(XSDFrontend::Token::NamesapceAttr, XSDFrontend::Attribute::AnyAttribute::String2NamespaceValidator.right.find(attr->getNamesapceValidator())->second);
+		}
+		if (attr->getProcessContents() != XSDFrontend::Attribute::AnyAttribute::DefaultProcessContents)
+		{
+			node->setAttr(XSDFrontend::Token::NamesapceAttr, XSDFrontend::Attribute::AnyAttribute::String2ProcessContents.right.find(attr->getProcessContents())->second);
+		}
+
 		return node;
 	}
 };

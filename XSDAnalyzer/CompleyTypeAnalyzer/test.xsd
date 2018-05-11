@@ -852,50 +852,50 @@
 		<xs:union memberTypes="tAttributeNameEnum xs:unsignedInt"/>
 	</xs:simpleType>
 	<xs:attributeGroup name="agAuthentication">
-		<xs:attribute name="certificate"/>
-		<xs:attribute name="none"/>
-		<xs:attribute name="password"/>
-		<xs:attribute name="strong"/>
-		<xs:attribute name="weak"/>
+		<xs:attribute default="false" name="certificate" type="xs:boolean"/>
+		<xs:attribute default="true" name="none" type="xs:boolean"/>
+		<xs:attribute default="false" name="password" type="xs:boolean"/>
+		<xs:attribute default="false" name="strong" type="xs:boolean"/>
+		<xs:attribute default="false" name="weak" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agDATrgOp">
-		<xs:attribute name="dchg"/>
-		<xs:attribute name="dupd"/>
-		<xs:attribute name="qchg"/>
+		<xs:attribute default="false" name="dchg" type="xs:boolean"/>
+		<xs:attribute default="false" name="dupd" type="xs:boolean"/>
+		<xs:attribute default="false" name="qchg" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agDesc">
-		<xs:attribute name="desc"/>
+		<xs:attribute default="" name="desc" type="xs:normalizedString"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agOptFields">
-		<xs:attribute name="bufOvfl"/>
-		<xs:attribute name="configRef"/>
-		<xs:attribute name="dataRef"/>
-		<xs:attribute name="dataSet"/>
-		<xs:attribute name="entryID"/>
-		<xs:attribute name="reasonCode"/>
-		<xs:attribute name="seqNum"/>
-		<xs:attribute name="timeStamp"/>
+		<xs:attribute default="true" name="bufOvfl" type="xs:boolean"/>
+		<xs:attribute default="false" name="configRef" type="xs:boolean"/>
+		<xs:attribute default="false" name="dataRef" type="xs:boolean"/>
+		<xs:attribute default="false" name="dataSet" type="xs:boolean"/>
+		<xs:attribute default="false" name="entryID" type="xs:boolean"/>
+		<xs:attribute default="false" name="reasonCode" type="xs:boolean"/>
+		<xs:attribute default="false" name="seqNum" type="xs:boolean"/>
+		<xs:attribute default="false" name="timeStamp" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agSmvOpts">
-		<xs:attribute name="dataSet"/>
-		<xs:attribute name="refreshTime"/>
-		<xs:attribute name="sampleRate"/>
-		<xs:attribute name="sampleSynchronized"/>
-		<xs:attribute name="security"/>
-		<xs:attribute name="timestamp"/>
+		<xs:attribute default="false" name="dataSet" type="xs:boolean"/>
+		<xs:attribute default="false" name="refreshTime" type="xs:boolean"/>
+		<xs:attribute default="false" name="sampleRate" type="xs:boolean"/>
+		<xs:attribute fixed="true" name="sampleSynchronized" type="xs:boolean"/>
+		<xs:attribute default="false" name="security" type="xs:boolean"/>
+		<xs:attribute default="false" name="timestamp" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agVirtual">
-		<xs:attribute name="virtual"/>
+		<xs:attribute default="false" name="virtual" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agLDRef">
-		<xs:attribute name="iedName"/>
-		<xs:attribute name="ldInst"/>
+		<xs:attribute name="iedName" type="tIEDName" use="required"/>
+		<xs:attribute name="ldInst" type="tLDInst" use="required"/>
 		<xs:attributeGroup ref="agDesc"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agLNRef">
-		<xs:attribute name="lnClass"/>
-		<xs:attribute name="lnInst"/>
-		<xs:attribute name="prefix"/>
+		<xs:attribute name="lnClass" type="tLNClassEnum" use="required"/>
+		<xs:attribute name="lnInst" type="tLNInstOrEmpty" use="required"/>
+		<xs:attribute default="" name="prefix" type="tPrefix"/>
 		<xs:attributeGroup ref="agLDRef"/>
 	</xs:attributeGroup>
 </xs:schema>

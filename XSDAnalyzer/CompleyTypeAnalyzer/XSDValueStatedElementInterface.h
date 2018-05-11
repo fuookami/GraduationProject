@@ -35,6 +35,7 @@ namespace XSDFrontend
 			inline const std::string &getFixed(const std::string &fixedValue) const { return m_fixed; }
 
 			const bool loadValueStatement(const std::shared_ptr<SSUtils::XML::Node> &node);
+			std::shared_ptr<SSUtils::XML::Node> saveValueStatement(const std::shared_ptr<SSUtils::XML::Node> &node) const;
 
 		protected:
 			inline void setValueStatedEnabled(const bool enabled) { setDefaultEnabled(enabled); setFixedEnabled(enabled); }

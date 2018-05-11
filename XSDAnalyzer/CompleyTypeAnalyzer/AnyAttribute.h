@@ -3,6 +3,7 @@
 #include "AttributeInterface.h"
 
 #include <map>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -26,11 +27,13 @@ namespace XSDFrontend
 				Skip
 			};
 
-			static const std::map<std::string, AnyAttribute::eNamespaceValidator> String2NamespaceValidator;
-			static const std::map<std::string, AnyAttribute::eProcessContents> String2ProcessContents;
+			static const boost::bimap<std::string, AnyAttribute::eNamespaceValidator> String2NamespaceValidator;
+			static const boost::bimap<std::string, AnyAttribute::eProcessContents> String2ProcessContents;
+			static const eNamespaceValidator DefaultNamespaceValidator = eNamespaceValidator::Any;
+			static const eProcessContents DefaultProcessContents = eProcessContents::Skip;
 
 		public:
-			AnyAttribute(const eNamespaceValidator namesapceValidator = eNamespaceValidator::Any, const eProcessContents processContents = eProcessContents::Skip) : IAttributeInterface(IAttributeInterface::eAttributeType::tAnyAttribute), m_namespaceValidator(namesapceValidator), m_processContents(processContents) {};
+			AnyAttribute(const eNamespaceValidator namesapceValidator = DefaultNamespaceValidator, const eProcessContents processContents = DefaultProcessContents) : IAttributeInterface(IAttributeInterface::eAttributeType::tAnyAttribute), m_namespaceValidator(namesapceValidator), m_processContents(processContents) {};
 			AnyAttribute(const AnyAttribute &ano) = default;
 			AnyAttribute(AnyAttribute &&ano) = default;
 			AnyAttribute &operator=(const AnyAttribute &rhs) = default;

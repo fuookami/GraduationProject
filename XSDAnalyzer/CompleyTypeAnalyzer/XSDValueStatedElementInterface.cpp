@@ -87,6 +87,20 @@ namespace XSDFrontend
 			return ret;
 		}
 
+		std::shared_ptr<SSUtils::XML::Node> IXSDValueStatedElementInterface::saveValueStatement(const std::shared_ptr<SSUtils::XML::Node>& node) const
+		{
+			if (hasDefault())
+			{
+				node->addAttr(XSDFrontend::Token::DefaultAttr, m_default);
+			}
+			else if (hasFixed())
+			{
+				node->addAttr(XSDFrontend::Token::FixedAttr, m_fixed);
+			}
+
+			return node;
+		}
+
 		void IXSDValueStatedElementInterface::setDefaultEnabled(const bool enabled)
 		{
 			if (m_defaultEnabled && !enabled)

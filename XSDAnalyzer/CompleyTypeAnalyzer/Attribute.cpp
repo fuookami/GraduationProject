@@ -4,18 +4,30 @@ namespace XSDFrontend
 {
 	namespace Attribute
 	{
-		const std::map<std::string, Attribute::eForm> Attribute::String2Form =
+		const boost::bimap<std::string, Attribute::eForm> Attribute::String2Form =
+			[]()
 		{
-			std::make_pair(std::string("qualified"), Attribute::eForm::Qualified),
-			std::make_pair(std::string("unqualified"), Attribute::eForm::Unqualified)
-		};
+			typedef boost::bimap<std::string, Attribute::eForm> result_type;
+			typedef result_type::value_type pair_type;
 
-		const std::map<std::string, Attribute::eUse> Attribute::String2Use =
+			result_type ret;
+			ret.insert(pair_type(std::string("qualified"), Attribute::eForm::Qualified));
+			ret.insert(pair_type(std::string("unqualified"), Attribute::eForm::Unqualified));
+			return ret;
+		}();
+
+		const boost::bimap<std::string, Attribute::eUse> Attribute::String2Use =
+			[]()
 		{
-			std::make_pair(std::string("optional"), Attribute::eUse::Optional),
-			std::make_pair(std::string("required"), Attribute::eUse::Required),
-			std::make_pair(std::string("prohibited"), Attribute::eUse::Prohibited),
-		};
+			typedef boost::bimap<std::string, Attribute::eUse> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("optional"), Attribute::eUse::Optional));
+			ret.insert(pair_type(std::string("required"), Attribute::eUse::Required));
+			ret.insert(pair_type(std::string("prohibited"), Attribute::eUse::Prohibited));
+			return ret;
+		}();
 
 		Attribute::Attribute(const eForm form, const eUse use)
 			: IAttributeInterface(IAttributeInterface::eAttributeType::tAttribute), IXSDNamedTypedElementInterface(), IXSDValueStatedElementInterface(), IXSDReferenceElementInterface(), 
