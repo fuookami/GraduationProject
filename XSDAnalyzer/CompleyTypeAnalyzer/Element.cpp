@@ -78,13 +78,31 @@ namespace XSDFrontend
 			m_form(form), m_nillable(false), m_abstract(false), m_final(_final)
 		{
 		}
+
 		std::set<std::string> Element::suppliedTokens(void) const
 		{
-			return std::set<std::string>();
+			std::set<std::string> ret;
+			if (!hasRef())
+			{
+				ret.insert(getName());
+			}
+			return ret;
 		}
+
 		std::set<std::string> Element::neededTokens(void) const
 		{
-			return std::set<std::string>();
+			std::set<std::string> ret;
+			auto substatutions(SSUtils::String::split(m_substitutionGroup, SSUtils::String::SpaceCharacters));
+			std::move(substatutions.begin(), substatutions.end(), std::inserter(ret, ret.end()));
+			if (hasRef())
+			{
+				ret.insert(getRefName());
+			}
+			else
+			{
+				ret.insert(getType());
+			}
+			return ret;
 		}
 	};
 };

@@ -4,12 +4,18 @@ namespace XSDFrontend
 {
 	namespace ComplexType
 	{
-		const std::map<std::string, ElementGroup::eElementGroupType> ElementGroup::Tag2Type =
+		const boost::bimap<std::string, ElementGroup::eElementGroupType> ElementGroup::Tag2Type =
+			[]()
 		{
-			std::make_pair(Token::SequenceTag, ElementGroup::eElementGroupType::tSequence),
-			std::make_pair(Token::ChoiceTag, ElementGroup::eElementGroupType::tChoice),
-			std::make_pair(Token::AllTag, ElementGroup::eElementGroupType::tAll)
-		};
+			typedef boost::bimap<std::string, ElementGroup::eElementGroupType> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(Token::SequenceTag, ElementGroup::eElementGroupType::tSequence));
+			ret.insert(pair_type(Token::ChoiceTag, ElementGroup::eElementGroupType::tChoice));
+			ret.insert(pair_type(Token::AllTag, ElementGroup::eElementGroupType::tAll));
+			return ret;
+		}();
 
 		ElementGroup::ValueType::ValueType(void)
 			: flag(eValueType::tNone), element(nullptr), anyElement(nullptr), elementGroup(nullptr)
@@ -48,13 +54,41 @@ namespace XSDFrontend
 			m_type(type), m_vals()
 		{
 		}
+
 		std::set<std::string> ElementGroup::suppliedTokens(void) const
 		{
-			return std::set<std::string>();
+			std::set<std::string> ret;
+			if (!getAnonymous())
+			{
+				ret.insert(getName());
+			}
+			return ret;
 		}
+
 		std::set<std::string> ElementGroup::neededTokens(void) const
 		{
-			return std::set<std::string>();
+			std::set<std::string> ret;
+			if (hasRef())
+			{
+				ret.insert(getRefName());
+			}
+			else
+			{
+				for (const auto &value : m_vals)
+				{
+					decltype(ret) tokens;
+					if (value.isElement())
+					{
+						tokens = value.element->neededTokens();
+					}
+					else if (value.isElementGroup())
+					{
+						tokens = value.elementGroup->neededTokens();
+					}
+					std::move(tokens.begin(), tokens.end(), std::inserter(ret, ret.end()));
+				}
+			}
+			return ret;
 		}
 	};
 };

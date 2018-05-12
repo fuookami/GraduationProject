@@ -898,11 +898,603 @@
 		<xs:attribute default="" name="prefix" type="tPrefix"/>
 		<xs:attributeGroup ref="agLDRef"/>
 	</xs:attributeGroup>
-	<xs:element name="Communication"/>
-	<xs:element name="DataTypeTemplates"/>
-	<xs:element name="IED"/>
-	<xs:element name="LN"/>
+	<xs:complexType name="tAddress">
+		<xs:complexContent/>
+	</xs:complexType>
+	<xs:complexType name="tAnyContentFromOtherNamespace">
+		<xs:complexContent/>
+	</xs:complexType>
+	<xs:complexType name="tAssociation">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tBaseElement">
+		<xs:complexContent/>
+	</xs:complexType>
+	<xs:complexType name="tBitRateInMbPerSec">
+		<xs:simpleContent>
+			<xs:extension/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tCert">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tClientLN">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tClientServices">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tConfLNs">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tDataTypeTemplates">
+		<xs:complexContent/>
+	</xs:complexType>
+	<xs:complexType name="tDurationInMilliSec">
+		<xs:simpleContent>
+			<xs:extension/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tEnumVal">
+		<xs:simpleContent>
+			<xs:extension/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tExtRef">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tFCDA">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tHeader">
+		<xs:complexContent/>
+	</xs:complexType>
+	<xs:complexType name="tKDC">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tP">
+		<xs:simpleContent>
+			<xs:extension/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_PhysConn">
+		<xs:simpleContent>
+			<xs:extension/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tProtNs">
+		<xs:simpleContent>
+			<xs:extension/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tServiceSettings">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tServiceWithMax">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tServiceWithOptionalMax">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tServiceYesNo">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tServices">
+		<xs:complexContent/>
+	</xs:complexType>
+	<xs:complexType name="tTrgOps">
+		<xs:simpleContent/>
+	</xs:complexType>
+	<xs:complexType name="tVal">
+		<xs:simpleContent>
+			<xs:extension/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tValueWithUnit">
+		<xs:simpleContent>
+			<xs:extension/>
+		</xs:simpleContent>
+	</xs:complexType>
 	<xs:element name="LN0"/>
 	<xs:element name="SCL"/>
+	<xs:complexType name="tAccessControl">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tHitem">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tPrivate">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tText">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tIDNaming">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tNaming">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tUnNaming">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="DataTypeTemplates"/>
+	<xs:complexType name="tP_APPID">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_C37-118-IP-Port">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_DNSName">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IPbase">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IPv6ClassOfTraffic">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IPv6FlowLabel">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_MAC-Address">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-AE-Invoke">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-AE-Qualifier">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-AP-Invoke">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-AP-Title">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-NSAP">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-PSEL">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-SSEL">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-TSEL">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_Port">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_VLAN-ID">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_VLAN-PRIORITY">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tGSESettings">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLogSettings">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tReportSettings">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSMVSettings">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServiceConfReportControl">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServiceWithMaxAndMaxAttributes">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServiceWithMaxAndModify">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDurationInSec">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tVoltage">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tDAType">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDOType">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tEnumType">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLNodeType">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tCertificate">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLNodeContainer">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSubNetwork">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tAbstractDataAttribute">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tAccessPoint">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tAnyLN">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tCommunication">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tConnectedAP">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tControl">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tControlBlock">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDAI">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDO">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDOI">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDataSet">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tIED">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tInputs">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLDevice">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLNode">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLog">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tPhysConn">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tRptEnabled">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSDI">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSDO">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServer">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServerAt">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSettingControl">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tTerminal">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IP">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IP-GATEWAY">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IP-SUBNET">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_MMS-Port">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_SNTP-Port">
+		<xs:simpleContent>
+			<xs:restriction/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tServiceForConfDataSet">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tConnectivityNode">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tPowerSystemResource">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tBDA">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDA">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLN">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLN0">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Communication"/>
+	<xs:complexType name="tControlWithIEDName">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tControlWithTriggerOpt">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tGSE">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSMV">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IED"/>
+	<xs:complexType name="tEquipment">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tEquipmentContainer">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tFunction">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSubEquipment">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSubFunction">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tTapChanger">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="LN"/>
+	<xs:complexType name="tGSEControl">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSampledValueControl">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLogControl">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tReportControl">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tAbstractConductingEquipment">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tGeneralEquipment">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tPowerTransformer">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tBay">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSubstation">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tVoltageLevel">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tConductingEquipment">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tTransformerWinding">
+		<xs:complexContent>
+			<xs:extension/>
+		</xs:complexContent>
+	</xs:complexType>
 	<xs:element name="Substation"/>
 </xs:schema>

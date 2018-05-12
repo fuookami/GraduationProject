@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <memory>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -31,7 +32,7 @@ namespace XSDFrontend
 				tElementGroup
 			};
 
-			static const std::map<std::string, ElementGroup::eElementGroupType> Tag2Type;
+			static const boost::bimap<std::string, ElementGroup::eElementGroupType> Tag2Type;
 
 			struct ValueType
 			{

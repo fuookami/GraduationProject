@@ -30,11 +30,51 @@ namespace XSDNormalizer
 
 	std::shared_ptr<SSUtils::XML::Node> ComplexTypeNormalizer::normalizeElementGroup(const std::shared_ptr<XSDFrontend::ComplexType::ElementGroup>& group)
 	{
-		return std::shared_ptr<SSUtils::XML::Node>();
+		if (group->hasRef())
+		{
+			auto node = SSUtils::XML::Node::generate(XSDFrontend::Token::GroupTag);
+			node->setAttr(XSDFrontend::Token::ReferenceAttr, group->getRefName());
+			return node;
+		}
+		else
+		{
+			auto node = SSUtils::XML::Node::generate(XSDFrontend::ComplexType::ElementGroup::Tag2Type.right.find(group->getElementGroupType())->second);
+			decltype(node) ret;
+			if (!group->getAnonymous())
+			{
+				ret = SSUtils::XML::Node::generate(XSDFrontend::Token::GroupTag);
+				ret->setAttr(XSDFrontend::Token::NameAttr, group->getName());
+				ret->addChild(node);
+			}
+			else
+			{
+				ret = node;
+			}
+
+			return ret;
+		}
 	}
 
 	std::shared_ptr<SSUtils::XML::Node> ComplexTypeNormalizer::normalizeComplexType(const XSDFrontend::ComplexType::IComplexTypeInterface * type)
 	{
-		return std::shared_ptr<SSUtils::XML::Node>();
+		auto ret = SSUtils::XML::Node::generate(XSDFrontend::Token::ComplexTypeTag);
+		auto root = SSUtils::XML::Node::generate(XSDFrontend::ComplexType::IComplexTypeInterface::Tag2ComplexType.right.find(type->getComplexType())->second);
+		decltype(root) node;
+		if (!type->getAnonymous())
+		{
+			ret->addAttr(XSDFrontend::Token::NameAttr, type->getName());
+		}
+		if (type->getDeriveType() == XSDFrontend::ComplexType::IComplexTypeInterface::eDerivedType::tNone)
+		{
+			node = root;
+		}
+		else
+		{
+			node = SSUtils::XML::Node::generate(XSDFrontend::ComplexType::IComplexTypeInterface::Tag2DerivedType.right.find(type->getDeriveType())->second);
+			root->addChild(node);
+		}
+
+		ret->addChild(root);
+		return ret;
 	}
 };

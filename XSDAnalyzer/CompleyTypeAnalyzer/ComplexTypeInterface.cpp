@@ -1,34 +1,83 @@
 #include "ComplexTypeInterface.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
 	namespace ComplexType
 	{
-		const std::map<std::string, bool> IComplexTypeInterface::String2Abstract =
+		const boost::bimap<std::string, bool> IComplexTypeInterface::String2Abstract =
+			[]()
 		{
-			std::make_pair(SSUtils::String::True, true),
-			std::make_pair(SSUtils::String::False, true)
-		};
+			typedef boost::bimap<std::string, bool> result_type;
+			typedef result_type::value_type pair_type;
 
-		const std::map<std::string, bool> IComplexTypeInterface::String2Mixed = 
-		{
-			std::make_pair(SSUtils::String::True, true),
-			std::make_pair(SSUtils::String::False, false)
-		};
+			result_type ret;
+			ret.insert(pair_type(SSUtils::String::True, true));
+			ret.insert(pair_type(SSUtils::String::False, true));
+			return ret;
+		}();
 
-		const std::map<std::string, IComplexTypeInterface::eBlock> IComplexTypeInterface::String2Block =
+		const boost::bimap<std::string, bool> IComplexTypeInterface::String2Mixed =
+			[]()
 		{
-			std::make_pair(std::string("extension"), IComplexTypeInterface::eBlock::tExtension),
-			std::make_pair(std::string("restriction"), IComplexTypeInterface::eBlock::tRestriction),
-			std::make_pair(std::string("#all"), IComplexTypeInterface::eBlock::tAll)
-		};
+			typedef boost::bimap<std::string, bool> result_type;
+			typedef result_type::value_type pair_type;
 
-		const std::map<std::string, IComplexTypeInterface::eFinal> IComplexTypeInterface::String2Final =
+			result_type ret;
+			ret.insert(pair_type(SSUtils::String::True, true));
+			ret.insert(pair_type(SSUtils::String::False, false));
+			return ret;
+		}();
+
+		const boost::bimap<std::string, eComplexType> IComplexTypeInterface::Tag2ComplexType = 
+			[]()
 		{
-			std::make_pair(std::string("extension"), IComplexTypeInterface::eFinal::tExtension),
-			std::make_pair(std::string("restriction"), IComplexTypeInterface::eFinal::tRestriction),
-			std::make_pair(std::string("#all"), IComplexTypeInterface::eFinal::tAll)
-		};
+			typedef boost::bimap<std::string, eComplexType> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(Token::SimpleContentTag, eComplexType::tSimpleContent));
+			ret.insert(pair_type(Token::ComplexContentTag, eComplexType::tComplexContent));
+			return ret;
+		}();
+
+		const boost::bimap<std::string, IComplexTypeInterface::eDerivedType> IComplexTypeInterface::Tag2DerivedType = 
+			[]()
+		{
+			typedef boost::bimap<std::string, IComplexTypeInterface::eDerivedType> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(Token::RestrictionTag, IComplexTypeInterface::eDerivedType::tRestriction));
+			ret.insert(pair_type(Token::ExtensionTag, IComplexTypeInterface::eDerivedType::tExtension));
+			return ret;
+		}();
+
+		const boost::bimap<std::string, IComplexTypeInterface::eBlock> IComplexTypeInterface::String2Block =
+			[]()
+		{
+			typedef boost::bimap<std::string, IComplexTypeInterface::eBlock> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("extension"), IComplexTypeInterface::eBlock::tExtension));
+			ret.insert(pair_type(std::string("restriction"), IComplexTypeInterface::eBlock::tRestriction));
+			ret.insert(pair_type(std::string("#all"), IComplexTypeInterface::eBlock::tAll));
+			return ret;
+		}();
+
+		const boost::bimap<std::string, IComplexTypeInterface::eFinal> IComplexTypeInterface::String2Final =
+			[]()
+		{
+			typedef boost::bimap<std::string, IComplexTypeInterface::eFinal> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("extension"), IComplexTypeInterface::eFinal::tExtension));
+			ret.insert(pair_type(std::string("restriction"), IComplexTypeInterface::eFinal::tRestriction));
+			ret.insert(pair_type(std::string("#all"), IComplexTypeInterface::eFinal::tAll));
+			return ret;
+		}();
 
 		IComplexTypeInterface::IComplexTypeInterface(const eComplexType type)
 			: IXSDNamedElementInterface(), 
@@ -56,12 +105,26 @@ namespace XSDFrontend
 
 		std::set<std::string> IComplexTypeInterface::suppliedTokens(void) const
 		{
-			return std::set<std::string>();
+			std::set<std::string> ret;
+			if (!getAnonymous())
+			{
+				ret.insert(getName());
+			}
+			return ret;
 		}
 
 		std::set<std::string> IComplexTypeInterface::neededTokens(void) const
 		{
-			return std::set<std::string>();
+			std::set<std::string> ret;
+			if (m_deriveType != eDerivedType::tNone)
+			{
+				ret.insert(m_baseTypeName);
+			}
+			if (!m_attributeGroup.empty())
+			{
+				ret.insert(m_attributeGroup);
+			}
+			return ret;
 		}
 	};
 };

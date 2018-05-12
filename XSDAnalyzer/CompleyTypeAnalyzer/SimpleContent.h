@@ -22,6 +22,8 @@ namespace XSDFrontend
 			inline void setSimpleTypeName(const std::string &&simpleTypeName) { m_simpleTypeName.assign(std::move(simpleTypeName)); }
 			inline const std::string &getSimpleTypeName(void) const { return m_simpleTypeName; }
 
+			std::set<std::string> neededTokens(void) const override;
+
 		private:
 			std::string m_simpleTypeName;
 		};

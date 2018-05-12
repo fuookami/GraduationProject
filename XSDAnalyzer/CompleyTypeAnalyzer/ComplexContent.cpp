@@ -21,5 +21,15 @@ namespace XSDFrontend
 			m_elementGroup()
 		{
 		}
+
+		std::set<std::string> ComplexContent::neededTokens(void) const
+		{
+			auto ret = IComplexTypeInterface::neededTokens();
+			if (!m_elementGroup.empty())
+			{
+				ret.insert(m_elementGroup);
+			}
+			return ret;
+		}
 	};
 };

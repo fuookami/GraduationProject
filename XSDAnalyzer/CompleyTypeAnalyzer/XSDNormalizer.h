@@ -46,7 +46,7 @@ namespace XSDNormalizer
 			{
 				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
 			}
-			for (const T item : itemBs)
+			for (const U item : itemBs)
 			{
 				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
 			}
@@ -68,11 +68,11 @@ namespace XSDNormalizer
 			{
 				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
 			}
-			for (const T item : itemBs)
+			for (const U item : itemBs)
 			{
 				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
 			}
-			for (const T item : itemCs)
+			for (const S item : itemCs)
 			{
 				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
 			}
@@ -80,11 +80,11 @@ namespace XSDNormalizer
 			auto orders(_topologicalSort(tokens));
 			const int offset_c = itemAs.size() + itemBs.size();
 			std::vector<std::pair<int, int>> ret;
-			for (const auto &order : orders)
+			for (const auto order : orders)
 			{
 				ret.push_back(order < itemAs.size() ? std::make_pair(0, order)
-					: order < offset_c ? std::make_pair(1, order - itemAs.size())
-					: std::make_pair(2, order - offset_c));
+					: order < offset_c ? std::make_pair(1, static_cast<int>(order - itemAs.size()))
+					: std::make_pair(2, static_cast<int>(order - offset_c)));
 			}
 			return ret;
 		}

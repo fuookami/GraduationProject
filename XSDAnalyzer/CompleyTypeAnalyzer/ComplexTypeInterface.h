@@ -3,6 +3,7 @@
 #include "XSDElementUtils.h"
 
 #include <set>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -40,10 +41,12 @@ namespace XSDFrontend
 				tAll
 			};
 
-			static const std::map<std::string, bool> String2Abstract;
-			static const std::map<std::string, bool> String2Mixed;
-			static const std::map<std::string, IComplexTypeInterface::eBlock> String2Block;
-			static const std::map<std::string, IComplexTypeInterface::eFinal> String2Final;
+			static const boost::bimap<std::string, bool> String2Abstract;
+			static const boost::bimap<std::string, bool> String2Mixed;
+			static const boost::bimap<std::string, eComplexType> Tag2ComplexType;
+			static const boost::bimap<std::string, eDerivedType> Tag2DerivedType;
+			static const boost::bimap<std::string, IComplexTypeInterface::eBlock> String2Block;
+			static const boost::bimap<std::string, IComplexTypeInterface::eFinal> String2Final;
 
 		protected:
 			IComplexTypeInterface(const eComplexType type);
@@ -74,8 +77,8 @@ namespace XSDFrontend
 
 			inline void setBaseType(const eDerivedType deriveType, const std::string &baseTypeName) { m_deriveType = deriveType; m_baseTypeName.assign(baseTypeName); }
 			inline void setBaseType(const eDerivedType deriveType, const std::string &&baseTypeName) { m_deriveType = deriveType; m_baseTypeName.assign(std::move(baseTypeName)); }
-			inline const eDerivedType getDeriveType(void) { return m_deriveType; }
-			inline const std::string &getBaseTypeName(void) { return m_baseTypeName; }
+			inline const eDerivedType getDeriveType(void) const { return m_deriveType; }
+			inline const std::string &getBaseTypeName(void) const { return m_baseTypeName; }
 
 			inline void setAttributeGroupName(const std::string &attributeGroupName) { m_attributeGroup.assign(attributeGroupName); }
 			inline void setAttributeGroupName(const std::string &&attributeGroupName) { m_attributeGroup.assign(std::move(attributeGroupName)); }

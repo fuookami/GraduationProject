@@ -22,6 +22,8 @@ namespace XSDFrontend
 			inline void setElementGroupName(const std::string &&elementGroupName) { m_elementGroup.assign(std::move(elementGroupName)); }
 			inline const std::string &getElementGroupName(void) const { return m_elementGroup; }
 
+			std::set<std::string> neededTokens(void) const override;
+
 		private:
 			std::string m_elementGroup;
 		};

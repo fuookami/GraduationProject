@@ -21,5 +21,15 @@ namespace XSDFrontend
 			m_simpleTypeName()
 		{
 		}
+
+		std::set<std::string> SimpleContent::neededTokens(void) const
+		{
+			auto ret = IComplexTypeInterface::neededTokens();
+			if (!m_simpleTypeName.empty())
+			{
+				ret.insert(m_simpleTypeName);
+			}
+			return ret;
+		}
 	};
 };

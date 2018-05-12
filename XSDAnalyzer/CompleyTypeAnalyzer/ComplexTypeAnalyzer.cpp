@@ -99,7 +99,7 @@ namespace XSDAnalyzer
 		{
 			return nullptr;
 		}
-
+		
 		std::shared_ptr<XSDFrontend::ComplexType::Element> element(nullptr);
 		if (node->hasAttr(XSDFrontend::Token::ReferenceAttr))
 		{
@@ -276,7 +276,7 @@ namespace XSDAnalyzer
 	std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> ComplexTypeAnalyzer::loadElementGroup(const std::shared_ptr<SSUtils::XML::Node> node, const std::string & groupName, const bool anonymous)
 	{
 		int order(0), counter(0);
-		for (const auto &elementBodyTagPair : XSDFrontend::ComplexType::ElementGroup::Tag2Type)
+		for (const auto &elementBodyTagPair : XSDFrontend::ComplexType::ElementGroup::Tag2Type.left)
 		{
 			auto thisOrder(node->findChild(elementBodyTagPair.first));
 			if (thisOrder != SSUtils::XML::Node::npos)
@@ -299,8 +299,8 @@ namespace XSDAnalyzer
 		const auto groupBody(node->getChildren()[order]);
 		if (groupBody != nullptr)
 		{
-			const auto groupTypeIt(XSDFrontend::ComplexType::ElementGroup::Tag2Type.find(groupBody->getTag()));
-			if (groupTypeIt == XSDFrontend::ComplexType::ElementGroup::Tag2Type.cend())
+			const auto groupTypeIt(XSDFrontend::ComplexType::ElementGroup::Tag2Type.left.find(groupBody->getTag()));
+			if (groupTypeIt == XSDFrontend::ComplexType::ElementGroup::Tag2Type.left.end())
 			{
 				std::cerr << "不存在的elementGroup类型tag" << std::endl;
 				return nullptr;
@@ -308,8 +308,10 @@ namespace XSDAnalyzer
 
 			std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> group(new XSDFrontend::ComplexType::ElementGroup());
 			group->setName(groupName);
-			group->loadNumberLimitation(node);
 			group->setAnonymous(anonymous);
+			group->setElementGroupType(groupTypeIt->second);
+			group->loadNumberLimitation(node);
+			group->loadNumberLimitation(groupBody);
 
 			for (const auto child : groupBody->getChildren())
 			{
@@ -459,10 +461,10 @@ namespace XSDAnalyzer
 
 				if (child->getChildren().size() >= 1)
 				{
-					auto complexContentNode(child->getChildren().front());
-					if (complexContentNode != nullptr)
+					auto simpleContentNode(child->getChildren().front());
+					if (simpleContentNode != nullptr)
 					{
-						loadSimpleContent(ret, complexContentNode);
+						loadSimpleContent(ret, simpleContentNode);
 
 						if (!isDerivedSimpleContentValid(ret))
 						{
@@ -506,19 +508,19 @@ namespace XSDAnalyzer
 
 		if (node->hasAttr(XSDFrontend::Token::AbstractAttr))
 		{
-			type->setAbstract(XSDFrontend::ComplexType::IComplexTypeInterface::String2Abstract.find(node->getAttr(XSDFrontend::Token::AbstractAttr))->second);
+			type->setAbstract(XSDFrontend::ComplexType::IComplexTypeInterface::String2Abstract.left.find(node->getAttr(XSDFrontend::Token::AbstractAttr))->second);
 		}
 		if (node->hasAttr(XSDFrontend::Token::MixedAttr))
 		{
-			type->setMixed(XSDFrontend::ComplexType::IComplexTypeInterface::String2Mixed.find(node->getAttr(XSDFrontend::Token::MixedAttr))->second);
+			type->setMixed(XSDFrontend::ComplexType::IComplexTypeInterface::String2Mixed.left.find(node->getAttr(XSDFrontend::Token::MixedAttr))->second);
 		}
 		if (node->hasAttr(XSDFrontend::Token::BlockAttr))
 		{
-			type->setBlock(XSDFrontend::ComplexType::IComplexTypeInterface::String2Block.find(node->getAttr(XSDFrontend::Token::BlockAttr))->second);
+			type->setBlock(XSDFrontend::ComplexType::IComplexTypeInterface::String2Block.left.find(node->getAttr(XSDFrontend::Token::BlockAttr))->second);
 		}
 		if (node->hasAttr(XSDFrontend::Token::FinalAttr))
 		{
-			type->setFinal(XSDFrontend::ComplexType::IComplexTypeInterface::String2Final.find(node->getAttr(XSDFrontend::Token::FinalAttr))->second);
+			type->setFinal(XSDFrontend::ComplexType::IComplexTypeInterface::String2Final.left.find(node->getAttr(XSDFrontend::Token::FinalAttr))->second);
 		}
 
 		return true;
@@ -577,6 +579,7 @@ namespace XSDAnalyzer
 
 	const bool ComplexTypeAnalyzer::loadComplexContent(std::shared_ptr<XSDFrontend::ComplexType::ComplexContent> type, const std::shared_ptr<SSUtils::XML::Node> node)
 	{
+		type->setComplexType(XSDFrontend::ComplexType::eComplexType::tComplexContent);
 		auto attributeGroup(ref_attributeAnalyzer.get().scanAttributeGroup(node));
 		if (attributeGroup != nullptr)
 		{
@@ -594,6 +597,7 @@ namespace XSDAnalyzer
 
 	const bool ComplexTypeAnalyzer::loadSimpleContent(std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> type, const std::shared_ptr<SSUtils::XML::Node> node)
 	{
+		type->setComplexType(XSDFrontend::ComplexType::eComplexType::tSimpleContent);
 		auto attributeGroup(ref_attributeAnalyzer.get().scanAttributeGroup(node));
 		if (attributeGroup != nullptr)
 		{

@@ -4,6 +4,7 @@
 #include "XSDElementUtils.h"
 
 #include <memory>
+#include <set>
 
 namespace XSDFrontend
 {
