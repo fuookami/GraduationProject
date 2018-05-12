@@ -123,10 +123,7 @@ namespace XSDNormalizer
 		std::vector<XSDFrontend::ComplexType::IComplexTypeInterface *> complexTypes;
 		for (const auto &pair : complexTypeModel->getComplexTypes())
 		{
-			if (!pair.second->getAnonymous())
-			{
-				complexTypes.push_back(pair.second);
-			}
+			complexTypes.push_back(pair.second);
 		}
 
 		std::vector<std::shared_ptr<XSDFrontend::ComplexType::Element>> elements;
@@ -142,10 +139,7 @@ namespace XSDNormalizer
 		std::vector<std::shared_ptr<XSDFrontend::ComplexType::ElementGroup>> elementGroups;
 		for (const auto &pair : complexTypeModel->getElementGroups())
 		{
-			if (!pair.second->getAnonymous())
-			{
-				elementGroups.push_back(pair.second);
-			}
+			elementGroups.push_back(pair.second);
 		}
 
 		auto orders = topologicalSort(complexTypes, elements, elementGroups);
@@ -155,12 +149,15 @@ namespace XSDNormalizer
 			{
 			case 0:
 			{
-				auto node = m_complexTypeNormalizer.normalizeComplexType(complexTypes[order.second]);
-				if (node == nullptr)
+				if (!complexTypes[order.second]->getAnonymous())
 				{
-					return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+					auto node = m_complexTypeNormalizer.normalizeComplexType(complexTypes[order.second]);
+					if (node == nullptr)
+					{
+						return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+					}
+					nodes.push_back(node);
 				}
-				nodes.push_back(node);
 			}
 				break;
 			case 1:
@@ -175,12 +172,15 @@ namespace XSDNormalizer
 				break;
 			case 2:
 			{
-				auto node = m_complexTypeNormalizer.normalizeElementGroup(elementGroups[order.second]);
-				if (node == nullptr)
+				if (!elementGroups[order.second]->getAnonymous())
 				{
-					return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+					auto node = m_complexTypeNormalizer.normalizeElementGroup(elementGroups[order.second]);
+					if (node == nullptr)
+					{
+						return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+					}
+					nodes.push_back(node);
 				}
-				nodes.push_back(node);
 			}
 				break;
 			default:

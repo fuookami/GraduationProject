@@ -106,10 +106,7 @@ namespace XSDFrontend
 		std::set<std::string> IComplexTypeInterface::suppliedTokens(void) const
 		{
 			std::set<std::string> ret;
-			if (!getAnonymous())
-			{
-				ret.insert(getName());
-			}
+			ret.insert(getName());
 			return ret;
 		}
 

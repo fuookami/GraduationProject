@@ -58,10 +58,7 @@ namespace XSDFrontend
 		std::set<std::string> ElementGroup::suppliedTokens(void) const
 		{
 			std::set<std::string> ret;
-			if (!getAnonymous())
-			{
-				ret.insert(getName());
-			}
+			ret.insert(getName());
 			return ret;
 		}
 

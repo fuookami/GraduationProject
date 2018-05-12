@@ -20,6 +20,11 @@ namespace XSDNormalizer
 		std::shared_ptr<SSUtils::XML::Node> normalizeComplexType(const XSDFrontend::ComplexType::IComplexTypeInterface *type);
 
 	private:
+		std::shared_ptr<SSUtils::XML::Node> normalizeAnyElement(const std::shared_ptr<XSDFrontend::ComplexType::AnyElement> &element);
+		std::shared_ptr<SSUtils::XML::Node> normalizeSimpleContent(const std::shared_ptr<SSUtils::XML::Node> node, const XSDFrontend::ComplexType::SimpleContent *type);
+		std::shared_ptr<SSUtils::XML::Node> normalizeComplexContent(const std::shared_ptr<SSUtils::XML::Node> node, const XSDFrontend::ComplexType::ComplexContent *type);
+
+	private:
 		std::shared_ptr<XSDFrontend::SimpleTypeModel> m_simpleTypeModel;
 		std::shared_ptr<XSDFrontend::AttributeModel> m_attributeModel;
 		std::shared_ptr<XSDFrontend::ComplexTypeModel> m_complexTypeModel;

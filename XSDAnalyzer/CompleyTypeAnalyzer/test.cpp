@@ -40,7 +40,7 @@ void testXSDAnalyzerAndNormalizer(void)
 
 	XSDNormalizer::XSDNormalizer xsdNormalizer(model);
 	std::cout << xsdNormalizer.normalize() << std::endl;
-	std::cout << xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8) << std::endl;
+	std::cout << xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test1.xsd", SSUtils::CharType::UTF8) << std::endl;
 
 	return;
 }
