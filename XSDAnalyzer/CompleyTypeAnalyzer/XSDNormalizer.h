@@ -27,7 +27,7 @@ namespace XSDNormalizer
 		std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> normalizeComplexType(void);
 
 		template<typename T>
-		std::vector<int> topologicalSort(const std::vector<T> items)
+		std::vector<int> topologicalSort(const std::vector<T> &items)
 		{
 			std::vector<std::pair<std::set<std::string>, std::set<std::string>>> tokens;
 			for (const T item : items)
@@ -35,25 +35,62 @@ namespace XSDNormalizer
 				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
 			}
 
-			std::vector<std::set<int>> topologicTable(items.size());
-			for (int i(0), k(items.size()); i != k; ++i)
-			{
-				for (int j(0); j != k; ++j)
-				{
-					if (i != j)
-					{
-						for (const auto &needToken : tokens[i].second)
-						{
-							if (tokens[j].first.find(needToken) != tokens[j].first.cend())
-							{
-								topologicTable[i].insert(j);
-							}
-						}
-					}
-				}
-			}
-			return SSUtils::Math::TopologicalSort(topologicTable);
+			return _topologicalSort(tokens);
 		}
+
+		template<typename T, typename U>
+		std::vector<std::pair<int, int>> topologicalSort(const std::vector<T> &itemAs, const std::vector<U> &itemBs)
+		{
+			std::vector<std::pair<std::set<std::string>, std::set<std::string>>> tokens;
+			for (const T item : itemAs)
+			{
+				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
+			}
+			for (const T item : itemBs)
+			{
+				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
+			}
+
+			auto orders(_topologicalSort(tokens));
+			std::vector<std::pair<int, int>> ret;
+			for (const auto &order : orders)
+			{
+				ret.push_back(order < itemAs.size() ? std::make_pair(0, order) : std::make_pair(1, order - itemAs.size()));
+			}
+			return ret;
+		}
+
+		template<typename T, typename U, typename S>
+		std::vector<std::pair<int, int>> topologicalSort(const std::vector<T> &itemAs, const std::vector<U> &itemBs, const std::vector<S> &itemCs)
+		{
+			std::vector<std::pair<std::set<std::string>, std::set<std::string>>> tokens;
+			for (const T item : itemAs)
+			{
+				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
+			}
+			for (const T item : itemBs)
+			{
+				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
+			}
+			for (const T item : itemCs)
+			{
+				tokens.push_back(std::make_pair(item->suppliedTokens(), item->neededTokens()));
+			}
+
+			auto orders(_topologicalSort(tokens));
+			const int offset_c = itemAs.size() + itemBs.size();
+			std::vector<std::pair<int, int>> ret;
+			for (const auto &order : orders)
+			{
+				ret.push_back(order < itemAs.size() ? std::make_pair(0, order)
+					: order < offset_c ? std::make_pair(1, order - itemAs.size())
+					: std::make_pair(2, order - offset_c));
+			}
+			return ret;
+		}
+
+	private:
+		std::vector<int> _topologicalSort(const std::vector<std::pair<std::set<std::string>, std::set<std::string>>> &tokens);
 
 	private:
 		std::shared_ptr<XSDFrontend::XSDModel> m_xsdModel;

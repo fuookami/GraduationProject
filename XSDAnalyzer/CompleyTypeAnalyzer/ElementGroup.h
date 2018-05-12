@@ -87,6 +87,9 @@ namespace XSDFrontend
 			inline std::vector<ValueType> &getValues(void) { return m_vals; }
 			inline const std::vector<ValueType> &getValues(void) const { return m_vals; }
 
+			std::set<std::string> suppliedTokens(void) const;
+			std::set<std::string> neededTokens(void) const;
+
 		private:
 			eElementGroupType m_type;
 

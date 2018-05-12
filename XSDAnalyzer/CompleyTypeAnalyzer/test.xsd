@@ -898,4 +898,11 @@
 		<xs:attribute default="" name="prefix" type="tPrefix"/>
 		<xs:attributeGroup ref="agLDRef"/>
 	</xs:attributeGroup>
+	<xs:element name="Communication"/>
+	<xs:element name="DataTypeTemplates"/>
+	<xs:element name="IED"/>
+	<xs:element name="LN"/>
+	<xs:element name="LN0"/>
+	<xs:element name="SCL"/>
+	<xs:element name="Substation"/>
 </xs:schema>

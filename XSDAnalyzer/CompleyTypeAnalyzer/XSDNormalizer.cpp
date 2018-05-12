@@ -103,7 +103,23 @@ namespace XSDNormalizer
 
 	std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> XSDNormalizer::normalizeComplexType(void)
 	{
+		const auto simpleTypeModel = m_xsdModel->getSimpleTypeModel();
 		const auto complexTypeModel = m_xsdModel->getComplexTypeModel();
+		std::vector<std::shared_ptr<SSUtils::XML::Node>> nodes;
+		for (const auto &pair : complexTypeModel->getGlobalElements())
+		{
+			if (pair.second->getCategory() == XSDFrontend::ComplexType::Element::eCategory::tBaseType 
+				|| pair.second->getCategory() == XSDFrontend::ComplexType::Element::eCategory::tSimpleType)
+			{
+				auto node(m_complexTypeNormalizer.normalizeElement(pair.second));
+				if (node == nullptr)
+				{
+					// return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+				}
+				nodes.push_back(node);
+			}
+		}
+
 		std::vector<XSDFrontend::ComplexType::IComplexTypeInterface *> complexTypes;
 		for (const auto &pair : complexTypeModel->getComplexTypes())
 		{
@@ -113,40 +129,89 @@ namespace XSDNormalizer
 			}
 		}
 
-		std::vector<std::shared_ptr<SSUtils::XML::Node>> nodes;
-		auto orders(topologicalSort(complexTypes));
-		for (const auto order : orders)
-		{
-			auto node(m_complexTypeNormalizer.normalizeComplexType(complexTypes[order]));
-			if (node == nullptr)
-			{
-				// return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
-			}
-			nodes.push_back(node);
-		}
-
+		std::vector<std::shared_ptr<XSDFrontend::ComplexType::Element>> elements;
 		for (const auto &pair : complexTypeModel->getGlobalElements())
 		{
-			auto node(m_complexTypeNormalizer.normalizeElement(pair.second));
-			if (node == nullptr)
+			if (pair.second->getCategory() == XSDFrontend::ComplexType::Element::eCategory::tSimpleContent
+				|| pair.second->getCategory() == XSDFrontend::ComplexType::Element::eCategory::tComplexContent)
 			{
-				// return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+				elements.push_back(pair.second);
 			}
-			nodes.push_back(node);
 		}
 
+		std::vector<std::shared_ptr<XSDFrontend::ComplexType::ElementGroup>> elementGroups;
 		for (const auto &pair : complexTypeModel->getElementGroups())
 		{
 			if (!pair.second->getAnonymous())
 			{
-				auto node(m_complexTypeNormalizer.normalizeElementGroup(pair.second));
+				elementGroups.push_back(pair.second);
+			}
+		}
+
+		auto orders = topologicalSort(complexTypes, elements, elementGroups);
+		for (const auto order : orders)
+		{
+			switch (order.first)
+			{
+			case 0:
+			{
+				auto node = m_complexTypeNormalizer.normalizeComplexType(complexTypes[order.second]);
 				if (node == nullptr)
 				{
 					// return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
 				}
 				nodes.push_back(node);
 			}
+				break;
+			case 1:
+			{
+				auto node = m_complexTypeNormalizer.normalizeElement(elements[order.second]);
+				if (node == nullptr)
+				{
+					// return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+				}
+				nodes.push_back(node);
+			}
+				break;
+			case 2:
+			{
+				auto node = m_complexTypeNormalizer.normalizeElementGroup(elementGroups[order.second]);
+				if (node == nullptr)
+				{
+					// return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+				}
+				nodes.push_back(node);
+			}
+				break;
+			default:
+				return std::make_pair(false, std::vector<std::shared_ptr<SSUtils::XML::Node>>());
+			}
 		}
+
+		
 		return std::make_pair(true, std::move(nodes));
+	}
+
+	std::vector<int> XSDNormalizer::_topologicalSort(const std::vector<std::pair<std::set<std::string>, std::set<std::string>>> &tokens)
+	{
+		std::vector<std::set<int>> topologicTable(tokens.size());
+		for (int i(0), k(tokens.size()); i != k; ++i)
+		{
+			for (int j(0); j != k; ++j)
+			{
+				if (i != j)
+				{
+					for (const auto &needToken : tokens[i].second)
+					{
+						if (tokens[j].first.find(needToken) != tokens[j].first.cend())
+						{
+							topologicTable[i].insert(j);
+						}
+					}
+				}
+			}
+		}
+
+		return SSUtils::Math::TopologicalSort(topologicTable);
 	}
 };

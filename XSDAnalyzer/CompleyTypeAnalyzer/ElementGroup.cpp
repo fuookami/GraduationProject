@@ -48,5 +48,13 @@ namespace XSDFrontend
 			m_type(type), m_vals()
 		{
 		}
+		std::set<std::string> ElementGroup::suppliedTokens(void) const
+		{
+			return std::set<std::string>();
+		}
+		std::set<std::string> ElementGroup::neededTokens(void) const
+		{
+			return std::set<std::string>();
+		}
 	};
 };

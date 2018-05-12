@@ -88,6 +88,9 @@ namespace XSDFrontend
 			inline void setFinal(const eFinal _final) { m_final = _final; }
 			inline const eFinal getFinal(void) const { return m_final; }
 
+			std::set<std::string> suppliedTokens(void) const;
+			std::set<std::string> neededTokens(void) const;
+
 		private:
 			inline const bool valueStatedEnabled(void) const { return m_category == eCategory::tBaseType || m_category == eCategory::tSimpleType; }
 

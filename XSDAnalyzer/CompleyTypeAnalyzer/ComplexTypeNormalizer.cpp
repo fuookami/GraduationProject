@@ -10,7 +10,22 @@ namespace XSDNormalizer
 
 	std::shared_ptr<SSUtils::XML::Node> ComplexTypeNormalizer::normalizeElement(const std::shared_ptr<XSDFrontend::ComplexType::Element>& element)
 	{
-		return std::shared_ptr<SSUtils::XML::Node>();
+		if (element->getAnonymous())
+		{
+			return nullptr;
+		}
+
+		auto node(SSUtils::XML::Node::generate(XSDFrontend::Token::ElementTag));
+		if (element->hasRef())
+		{
+			node->setAttr(XSDFrontend::Token::ReferenceAttr, element->getRefName());
+		}
+		else
+		{
+			node->setAttr(XSDFrontend::Token::NameAttr, element->getName());
+		}
+
+		return node;
 	}
 
 	std::shared_ptr<SSUtils::XML::Node> ComplexTypeNormalizer::normalizeElementGroup(const std::shared_ptr<XSDFrontend::ComplexType::ElementGroup>& group)
