@@ -12,29 +12,37 @@ namespace XSDNormalizer
 
 	const bool XSDNormalizer::normalize(void)
 	{
-		auto root = m_xsdModel->generateXSDRoot();
-
-		std::vector<decltype(SSUtils::Thread::sharedRun(std::bind(&XSDNormalizer::normalizeSimpleType, this)))> futures = 
+		try
 		{
-			SSUtils::Thread::run(std::bind(&XSDNormalizer::normalizeSimpleType, this)),
-			SSUtils::Thread::run(std::bind(&XSDNormalizer::normalizeAttribute, this)),
-			SSUtils::Thread::run(std::bind(&XSDNormalizer::normalizeComplexType, this))
-		};
+			auto root = m_xsdModel->generateXSDRoot();
 
-		for (auto &future : futures)
-		{
-			future.wait();
-			auto result(future.get());
-			if (!result.first)
+			std::vector<decltype(SSUtils::Thread::sharedRun(std::bind(&XSDNormalizer::normalizeSimpleType, this)))> futures =
 			{
-				return false;
-			}
-			
-			std::move(result.second.begin(), result.second.end(), std::back_inserter(root->getChildren()));
-		}
+				SSUtils::Thread::run(std::bind(&XSDNormalizer::normalizeSimpleType, this)),
+				SSUtils::Thread::run(std::bind(&XSDNormalizer::normalizeAttribute, this)),
+				SSUtils::Thread::run(std::bind(&XSDNormalizer::normalizeComplexType, this))
+			};
 
-		m_xmlDoc.push_back(root);
-		return true;
+			for (auto &future : futures)
+			{
+				future.wait();
+				auto result(future.get());
+				if (!result.first)
+				{
+					return false;
+				}
+
+				std::move(result.second.begin(), result.second.end(), std::back_inserter(root->getChildren()));
+			}
+
+			m_xmlDoc.push_back(root);
+			return true;
+		}
+		catch (std::exception &e)
+		{
+			std::cerr << e.what() << std::endl;
+			return false;
+		}
 	}
 
 	std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> XSDNormalizer::normalizeSimpleType(void)

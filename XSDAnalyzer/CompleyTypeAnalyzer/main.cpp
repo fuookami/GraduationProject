@@ -5,8 +5,8 @@
 int main(void)
 {
 	//testXMLUtils();
-	testNewXSDAnalyzer();
-	//testXSDAnalyzerAndNormalizer();
+	//testNewXSDAnalyzer();
+	testXSDAnalyzerAndNormalizer();
 
 	system("pause");
 	return 0;

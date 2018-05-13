@@ -130,7 +130,7 @@ namespace XSDNormalizer
 		}
 		if (attr->getProcessContents() != XSDFrontend::Attribute::AnyAttribute::DefaultProcessContents)
 		{
-			node->setAttr(XSDFrontend::Token::NamesapceAttr, XSDFrontend::Attribute::AnyAttribute::String2ProcessContents.right.find(attr->getProcessContents())->second);
+			node->setAttr(XSDFrontend::Token::ProcessContentsAttr, XSDFrontend::Attribute::AnyAttribute::String2ProcessContents.right.find(attr->getProcessContents())->second);
 		}
 
 		return node;

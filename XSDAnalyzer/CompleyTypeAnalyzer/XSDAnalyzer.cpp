@@ -38,53 +38,61 @@ namespace XSDAnalyzer
 			return false;
 		}
 
-		for (const auto &child : xml.front()->getChildren())
+		try
 		{
-			if (child != nullptr && child->getTag() == XSDFrontend::Token::IncludeTag)
+			for (const auto &child : xml.front()->getChildren())
 			{
-				if (!scanIncludeTag(fileName, filePath, child, charType))
+				if (child != nullptr && child->getTag() == XSDFrontend::Token::IncludeTag)
 				{
-					return false;
+					if (!scanIncludeTag(fileName, filePath, child, charType))
+					{
+						return false;
+					}
 				}
 			}
-		}
 
-		const auto topologicalOrder(SSUtils::Math::TopologicalSort(generateTopologicalTable(xml.front())));
-		const auto &childrens(xml.front()->getChildren());
-		for (const auto order : topologicalOrder)
-		{
-			auto childNode(childrens[order]);
-			if (childNode != nullptr)
+			const auto topologicalOrder(SSUtils::Math::TopologicalSort(generateTopologicalTable(xml.front())));
+			const auto &childrens(xml.front()->getChildren());
+			for (const auto order : topologicalOrder)
 			{
-				if (childNode->getTag() == XSDFrontend::Token::SimpleTypeTag)
+				auto childNode(childrens[order]);
+				if (childNode != nullptr)
 				{
-					m_simpleTypeAnalyzer.scanSimpleType(childNode);
-				}
-				else if (childNode->getTag() == XSDFrontend::Token::AttributeTag)
-				{
-					m_attributeAnalyzer.scanAttribute(childNode);
-				}
-				else if (childNode->getTag() == XSDFrontend::Token::AttributeGroupTag)
-				{
-					m_attributeAnalyzer.scanAttributeGroup(childNode);
-				}
-				else if (childNode->getTag() == XSDFrontend::Token::ElementTag)
-				{
-					m_complexTypeAnalyzer.scanElement(childNode);
-				}
-				else if (childNode->getTag() == XSDFrontend::Token::GroupTag)
-				{
-					m_complexTypeAnalyzer.scanElementGroup(childNode);
-				}
-				else if (childNode->getTag() == XSDFrontend::Token::ComplexTypeTag)
-				{
-					m_complexTypeAnalyzer.scanComplexType(childNode);
+					if (childNode->getTag() == XSDFrontend::Token::SimpleTypeTag)
+					{
+						m_simpleTypeAnalyzer.scanSimpleType(childNode);
+					}
+					else if (childNode->getTag() == XSDFrontend::Token::AttributeTag)
+					{
+						m_attributeAnalyzer.scanAttribute(childNode);
+					}
+					else if (childNode->getTag() == XSDFrontend::Token::AttributeGroupTag)
+					{
+						m_attributeAnalyzer.scanAttributeGroup(childNode);
+					}
+					else if (childNode->getTag() == XSDFrontend::Token::ElementTag)
+					{
+						m_complexTypeAnalyzer.scanElement(childNode);
+					}
+					else if (childNode->getTag() == XSDFrontend::Token::GroupTag)
+					{
+						m_complexTypeAnalyzer.scanElementGroup(childNode);
+					}
+					else if (childNode->getTag() == XSDFrontend::Token::ComplexTypeTag)
+					{
+						m_complexTypeAnalyzer.scanComplexType(childNode);
+					}
 				}
 			}
-		}
 
-		m_scanedFiles.insert(fileUrl);
-		return true;
+			m_scanedFiles.insert(fileUrl);
+			return true;
+		}
+		catch (std::exception &e)
+		{
+			std::cerr << e.what() << std::endl;
+			return false;
+		}
 	}
 
 	const bool XSDAnalyzer::scanIncludeTag(const std::string &fileName, const std::string &filePath, const std::shared_ptr<SSUtils::XML::Node> node, const SSUtils::CharType charType)
@@ -161,6 +169,18 @@ namespace XSDAnalyzer
 							{
 								thisTokens.second.insert(node.getAttr(attr));
 							}
+						}
+
+						if (node.hasAttr(XSDFrontend::Token::ListItemTypeAttr))
+						{
+							auto tokens(SSUtils::String::split(node.getAttr(XSDFrontend::Token::ListItemTypeAttr), SSUtils::String::SpaceCharacters));
+							thisTokens.second.insert(tokens.begin(), tokens.end());
+						}
+
+						if (node.hasAttr(XSDFrontend::Token::UnionItemTypeAttr))
+						{
+							auto tokens(SSUtils::String::split(node.getAttr(XSDFrontend::Token::UnionItemTypeAttr), SSUtils::String::SpaceCharacters));
+							thisTokens.second.insert(tokens.begin(), tokens.end());
 						}
 
 						std::copy(node.getChildren().cbegin(), node.getChildren().cend(), std::back_inserter(nextNodes));

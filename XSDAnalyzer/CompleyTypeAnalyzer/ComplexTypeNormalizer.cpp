@@ -117,74 +117,83 @@ namespace XSDNormalizer
 
 	std::shared_ptr<SSUtils::XML::Node> ComplexTypeNormalizer::normalizeComplexType(const XSDFrontend::ComplexType::IComplexTypeInterface * type)
 	{
-		auto ret = SSUtils::XML::Node::generate(XSDFrontend::Token::ComplexTypeTag);
-		decltype(ret) root, node;
-		if (!type->getAnonymous())
+		try
 		{
-			ret->addAttr(XSDFrontend::Token::NameAttr, type->getName());
-		}
-		if (type->getDeriveType() == XSDFrontend::ComplexType::IComplexTypeInterface::eDerivedType::tNone)
-		{
-			node = root = ret;
-		}
-		else
-		{
-			root = SSUtils::XML::Node::generate(XSDFrontend::ComplexType::IComplexTypeInterface::Tag2ComplexType.right.find(type->getComplexType())->second);
-			node = SSUtils::XML::Node::generate(XSDFrontend::ComplexType::IComplexTypeInterface::Tag2DerivedType.right.find(type->getDeriveType())->second);
-			node->setAttr(XSDFrontend::Token::BaseTypeAttr, type->getBaseTypeName());
-			root->addChild(node);
-			ret->addChild(root);
-		}
-
-		if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tComplexContent)
-		{
-			if (normalizeComplexContent(node, dynamic_cast<const XSDFrontend::ComplexType::ComplexContent *>(type)) == nullptr)
+			auto ret = SSUtils::XML::Node::generate(XSDFrontend::Token::ComplexTypeTag);
+			decltype(ret) root, node;
+			if (!type->getAnonymous())
 			{
-				return nullptr;
-			}
-		}
-		else if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tSimpleContent)
-		{
-			if (normalizeSimpleContent(node, dynamic_cast<const XSDFrontend::ComplexType::SimpleContent *>(type)) == nullptr)
-			{
-				return nullptr;
-			}
-		}
-
-		if (!type->getAttributeGroupName().empty())
-		{
-			auto attributeGroup(m_attributeModel->getAttributeGroup(type->getAttributeGroupName()));
-			if (attributeGroup == nullptr)
-			{
-				return nullptr;
+				ret->addAttr(XSDFrontend::Token::NameAttr, type->getName());
 			}
 
-			if (!attributeGroup->empty())
+			if (type->getDeriveType() == XSDFrontend::ComplexType::IComplexTypeInterface::eDerivedType::tNone)
 			{
-				auto group(ref_attributeNormalizer.get().normalizeAttributeGroup(attributeGroup));
-				if (group == nullptr)
+				node = root = ret;
+			}
+			else
+			{
+				root = SSUtils::XML::Node::generate(XSDFrontend::ComplexType::IComplexTypeInterface::Tag2ComplexType.right.find(type->getComplexType())->second);
+				node = SSUtils::XML::Node::generate(XSDFrontend::ComplexType::IComplexTypeInterface::Tag2DerivedType.right.find(type->getDeriveType())->second);
+				node->setAttr(XSDFrontend::Token::BaseTypeAttr, type->getBaseTypeName());
+				root->addChild(node);
+				ret->addChild(root);
+			}
+
+			if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tComplexContent)
+			{
+				if (normalizeComplexContent(node, dynamic_cast<const XSDFrontend::ComplexType::ComplexContent *>(type)) == nullptr)
+				{
+					return nullptr;
+				}
+			}
+			else if (type->getComplexType() == XSDFrontend::ComplexType::eComplexType::tSimpleContent)
+			{
+				if (normalizeSimpleContent(node, dynamic_cast<const XSDFrontend::ComplexType::SimpleContent *>(type)) == nullptr)
+				{
+					return nullptr;
+				}
+			}
+
+			if (!type->getAttributeGroupName().empty())
+			{
+				auto attributeGroup(m_attributeModel->getAttributeGroup(type->getAttributeGroupName()));
+				if (attributeGroup == nullptr)
 				{
 					return nullptr;
 				}
 
-				if (!attributeGroup->getAnonymous())
+				if (!attributeGroup->empty())
 				{
-					node->addChild(group);
-				}
-				else
-				{
-					for (const auto &child : group->getChildren())
+					auto group(ref_attributeNormalizer.get().normalizeAttributeGroup(attributeGroup));
+					if (group == nullptr)
 					{
-						if (child->getTag() != XSDFrontend::Token::AnnotationTag)
+						return nullptr;
+					}
+
+					if (!attributeGroup->getAnonymous())
+					{
+						node->addChild(group);
+					}
+					else
+					{
+						for (const auto &child : group->getChildren())
 						{
-							node->addChild(child);
+							if (child->getTag() != XSDFrontend::Token::AnnotationTag)
+							{
+								node->addChild(child);
+							}
 						}
 					}
 				}
 			}
-		}
 
-		return ret;
+			return ret;
+		}
+		catch (std::exception &e)
+		{
+			std::cerr << e.what() << std::endl;
+			return nullptr;
+		}
 	}
 
 	std::shared_ptr<SSUtils::XML::Node> ComplexTypeNormalizer::normalizeAnyElement(const std::shared_ptr<XSDFrontend::ComplexType::AnyElement>& element)
