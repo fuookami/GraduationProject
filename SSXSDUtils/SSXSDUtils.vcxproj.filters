@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\Analyzer">
+      <UniqueIdentifier>{c9fb352e-6a92-480b-a90b-dfcf5717b963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Normalizer">
+      <UniqueIdentifier>{a21ad26a-dbd4-42a2-9846-fa0879afe749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Frontend">
+      <UniqueIdentifier>{85c2f74b-ee3f-4133-89f4-4dbb7630da4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Frontend\Attribute">
+      <UniqueIdentifier>{5f152071-e89d-4f02-9ccc-200242fb4c8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Frontend\ComplexType">
+      <UniqueIdentifier>{79f8f7d3-db86-4cc1-af8a-e5894b5a682f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Frontend\Public">
+      <UniqueIdentifier>{ca422c67-4126-4fcc-9c11-7140509373ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Frontend\SimpleType">
+      <UniqueIdentifier>{5f1241ca-c9b1-4c55-ba8f-7436495a330e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Analyzer">
+      <UniqueIdentifier>{b2a36a08-f6ef-4328-8386-174e11040bee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Frontend">
+      <UniqueIdentifier>{77a9d085-6a19-4c48-9359-2f02f7e79e8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Normalizer">
+      <UniqueIdentifier>{d94cb9fb-5966-4923-b92d-5622a82aa545}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Frontend\Attribute">
+      <UniqueIdentifier>{97ee1c0f-0a63-469f-929f-cb67e2e875b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Frontend\ComplexType">
+      <UniqueIdentifier>{3c131043-b995-4de9-82f3-82a771c28cff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Frontend\SimpleType">
+      <UniqueIdentifier>{78323ab6-633e-4976-90bf-a75d5125301c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Frontend\Public">
+      <UniqueIdentifier>{21059121-3f33-407a-b133-d14b219105d6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ComplexTypeAnalyzer.h">
+      <Filter>头文件\Analyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleTypeAnalyzer.h">
+      <Filter>头文件\Analyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="AttributeAnalyzer.h">
+      <Filter>头文件\Analyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDAnalyzer.h">
+      <Filter>头文件\Analyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDNormalizer.h">
+      <Filter>头文件\Normalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="AttributeNormalizer.h">
+      <Filter>头文件\Normalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleTypeNormalizer.h">
+      <Filter>头文件\Normalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexTypeNormalizer.h">
+      <Filter>头文件\Normalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="AnyAttribute.h">
+      <Filter>头文件\Frontend\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="Attribute.h">
+      <Filter>头文件\Frontend\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="AttributeGroup.h">
+      <Filter>头文件\Frontend\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="AttributeInterface.h">
+      <Filter>头文件\Frontend\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="AttributeModel.h">
+      <Filter>头文件\Frontend\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexTypeModel.h">
+      <Filter>头文件\Frontend\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexTypeInterface.h">
+      <Filter>头文件\Frontend\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexContent.h">
+      <Filter>头文件\Frontend\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="AnyElement.h">
+      <Filter>头文件\Frontend\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="ElementInterface.h">
+      <Filter>头文件\Frontend\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="ElementGroup.h">
+      <Filter>头文件\Frontend\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="Element.h">
+      <Filter>头文件\Frontend\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDElementUtils.h">
+      <Filter>头文件\Frontend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDNamedElementInterface.h">
+      <Filter>头文件\Frontend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDNamedTypedElementInterface.h">
+      <Filter>头文件\Frontend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDNumberLimitedElementInterface.h">
+      <Filter>头文件\Frontend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDParentedElementInterface.h">
+      <Filter>头文件\Frontend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDReferenceElementInterface.h">
+      <Filter>头文件\Frontend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDToken.h">
+      <Filter>头文件\Frontend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDValueStatedElementInterface.h">
+      <Filter>头文件\Frontend\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="XSDModel.h">
+      <Filter>头文件\Frontend</Filter>
+    </ClInclude>
+    <ClInclude Include="ContainerType.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+    <ClInclude Include="DataType.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+    <ClInclude Include="DateTimeType.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberType.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleContent.h">
+      <Filter>头文件\Frontend\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleTypeValueEnumrationConfiguration.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleTypeValueLimitConfiguration.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleTypeModel.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleTypeLengthLimitConfiguration.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleTypeInterface.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+    <ClInclude Include="StringType.h">
+      <Filter>头文件\Frontend\SimpleType</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AttributeAnalyzer.cpp">
+      <Filter>源文件\Analyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexTypeAnalyzer.cpp">
+      <Filter>源文件\Analyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleTypeAnalyzer.cpp">
+      <Filter>源文件\Analyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDAnalyzer.cpp">
+      <Filter>源文件\Analyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDNormalizer.cpp">
+      <Filter>源文件\Normalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleTypeNormalizer.cpp">
+      <Filter>源文件\Normalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexTypeNormalizer.cpp">
+      <Filter>源文件\Normalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="AttributeNormalizer.cpp">
+      <Filter>源文件\Normalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDModel.cpp">
+      <Filter>源文件\Frontend</Filter>
+    </ClCompile>
+    <ClCompile Include="AnyAttribute.cpp">
+      <Filter>源文件\Frontend\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="Attribute.cpp">
+      <Filter>源文件\Frontend\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="AttributeGroup.cpp">
+      <Filter>源文件\Frontend\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="AttributeModel.cpp">
+      <Filter>源文件\Frontend\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="AnyElement.cpp">
+      <Filter>源文件\Frontend\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexContent.cpp">
+      <Filter>源文件\Frontend\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexTypeInterface.cpp">
+      <Filter>源文件\Frontend\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexTypeModel.cpp">
+      <Filter>源文件\Frontend\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="ElementGroup.cpp">
+      <Filter>源文件\Frontend\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="Element.cpp">
+      <Filter>源文件\Frontend\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleContent.cpp">
+      <Filter>源文件\Frontend\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberType.cpp">
+      <Filter>源文件\Frontend\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="DateTimeType.cpp">
+      <Filter>源文件\Frontend\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="DataType.cpp">
+      <Filter>源文件\Frontend\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="ContainerType.cpp">
+      <Filter>源文件\Frontend\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleTypeInterface.cpp">
+      <Filter>源文件\Frontend\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleTypeLengthLimitConfiguration.cpp">
+      <Filter>源文件\Frontend\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleTypeModel.cpp">
+      <Filter>源文件\Frontend\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="StringType.cpp">
+      <Filter>源文件\Frontend\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDNamedElementInterface.cpp">
+      <Filter>源文件\Frontend\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDNamedTypedElementInterface.cpp">
+      <Filter>源文件\Frontend\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDNumberLimitedElementInterface.cpp">
+      <Filter>源文件\Frontend\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDToken.cpp">
+      <Filter>源文件\Frontend\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="XSDValueStatedElementInterface.cpp">
+      <Filter>源文件\Frontend\Public</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -21,8 +21,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestChineseNumberUtils", "t
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestRealBlockTranslator", "test\TestRealBlockTranslator\TestRealBlockTranslator.vcxproj", "{E862B89C-7C7C-4F4F-B30A-6E6A8975DA4F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SSXSDUtils", "SSXSDUtils\SSXSDUtils.vcxproj", "{0E8F621B-CF34-4374-90A9-89FE0C1CD436}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		PublicModule\PublicModule.vcxitems*{0e8f621b-cf34-4374-90a9-89fe0c1cd436}*SharedItemsImports = 4
 		PublicModuleGUI\PublicModuleGUI.vcxitems*{0f14e02b-6fe7-4510-b827-610ebe37f8f7}*SharedItemsImports = 9
 		PublicModule\PublicModule.vcxitems*{12454e6c-f7b1-4798-9918-ad85728d90cf}*SharedItemsImports = 4
 		PublicModule\PublicModule.vcxitems*{4233e0a3-b03d-4e69-92da-6aa2e17dadd7}*SharedItemsImports = 4
@@ -77,6 +80,14 @@ Global
 		{E862B89C-7C7C-4F4F-B30A-6E6A8975DA4F}.Release|x64.Build.0 = Release|x64
 		{E862B89C-7C7C-4F4F-B30A-6E6A8975DA4F}.Release|x86.ActiveCfg = Release|Win32
 		{E862B89C-7C7C-4F4F-B30A-6E6A8975DA4F}.Release|x86.Build.0 = Release|Win32
+		{0E8F621B-CF34-4374-90A9-89FE0C1CD436}.Debug|x64.ActiveCfg = Debug|x64
+		{0E8F621B-CF34-4374-90A9-89FE0C1CD436}.Debug|x64.Build.0 = Debug|x64
+		{0E8F621B-CF34-4374-90A9-89FE0C1CD436}.Debug|x86.ActiveCfg = Debug|Win32
+		{0E8F621B-CF34-4374-90A9-89FE0C1CD436}.Debug|x86.Build.0 = Debug|Win32
+		{0E8F621B-CF34-4374-90A9-89FE0C1CD436}.Release|x64.ActiveCfg = Release|x64
+		{0E8F621B-CF34-4374-90A9-89FE0C1CD436}.Release|x64.Build.0 = Release|x64
+		{0E8F621B-CF34-4374-90A9-89FE0C1CD436}.Release|x86.ActiveCfg = Release|Win32
+		{0E8F621B-CF34-4374-90A9-89FE0C1CD436}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
