@@ -6,20 +6,32 @@ namespace XSDFrontend
 	{
 		const std::string AnyElement::MaxOccursUnboundedString("unbounded");
 
-		const std::map<std::string, AnyElement::eNamespaceValidator> AnyElement::String2NamespaceValidator =
+		const boost::bimap<std::string, AnyElement::eNamespaceValidator> AnyElement::String2NamespaceValidator =
+			[]()
 		{
-			std::make_pair(std::string("##any"), AnyElement::eNamespaceValidator::Any),
-			std::make_pair(std::string("##other"), AnyElement::eNamespaceValidator::Other),
-			std::make_pair(std::string("##local"), AnyElement::eNamespaceValidator::Local),
-			std::make_pair(std::string("##targetNamespace"), AnyElement::eNamespaceValidator::TargetNamespace)
-		};
+			typedef boost::bimap<std::string, AnyElement::eNamespaceValidator> result_type;
+			typedef result_type::value_type pair_type;
 
-		const std::map<std::string, AnyElement::eProcessContents> AnyElement::String2ProcessContents =
+			result_type ret;
+			ret.insert(pair_type(std::string("##any"), AnyElement::eNamespaceValidator::Any));
+			ret.insert(pair_type(std::string("##other"), AnyElement::eNamespaceValidator::Other));
+			ret.insert(pair_type(std::string("##local"), AnyElement::eNamespaceValidator::Local));
+			ret.insert(pair_type(std::string("##targetNamespace"), AnyElement::eNamespaceValidator::TargetNamespace));
+			return ret;
+		}();
+
+		const boost::bimap<std::string, AnyElement::eProcessContents> AnyElement::String2ProcessContents =
+			[]()
 		{
-			std::make_pair(std::string("strict"), AnyElement::eProcessContents::Strict),
-			std::make_pair(std::string("lax"), AnyElement::eProcessContents::Lax),
-			std::make_pair(std::string("skip"), AnyElement::eProcessContents::Skip)
-		};
+			typedef boost::bimap<std::string, AnyElement::eProcessContents> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("strict"), AnyElement::eProcessContents::Strict));
+			ret.insert(pair_type(std::string("lax"), AnyElement::eProcessContents::Lax));
+			ret.insert(pair_type(std::string("skip"), AnyElement::eProcessContents::Skip));
+			return ret;
+		}();
 
 		AnyElement::AnyElement(const int minOccurs, const int maxOccurs, const eNamespaceValidator namesapceValidator, const eProcessContents processContents)
 			: IElementInterface(IElementInterface::eElementType::tAnyElement), 

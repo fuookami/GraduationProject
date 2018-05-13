@@ -3,6 +3,7 @@
 #include "ElementInterface.h"
 
 #include <map>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -27,12 +28,13 @@ namespace XSDFrontend
 			};
 
 			static const std::string MaxOccursUnboundedString;
-			static const int MaxOccursUnbounded = -1;
-			static const std::map<std::string, AnyElement::eNamespaceValidator> String2NamespaceValidator;
-			static const std::map<std::string, AnyElement::eProcessContents> String2ProcessContents;
+			static const boost::bimap<std::string, AnyElement::eNamespaceValidator> String2NamespaceValidator;
+			static const boost::bimap<std::string, AnyElement::eProcessContents> String2ProcessContents;
+			static const eNamespaceValidator DefaultNamespaceValidator = eNamespaceValidator::Any;
+			static const eProcessContents DefaultProcessContents = eProcessContents::Skip;
 
 		public:
-			AnyElement(const int minOccurs = 1, const int maxOccurs = 1, const eNamespaceValidator namesapceValidator = eNamespaceValidator::Any, const eProcessContents processContents = eProcessContents::Skip);
+			AnyElement(const int minOccurs = 1, const int maxOccurs = 1, const eNamespaceValidator namesapceValidator = DefaultNamespaceValidator, const eProcessContents processContents = DefaultProcessContents);
 			AnyElement(const AnyElement &ano) = default;
 			AnyElement(AnyElement &&ano) = default;
 			AnyElement &operator=(const AnyElement &rhs) = default;

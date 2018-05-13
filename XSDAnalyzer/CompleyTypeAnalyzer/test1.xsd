@@ -1018,7 +1018,7 @@
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="tServiceSettings">
+	<xs:complexType abstract="true" name="tServiceSettings">
 		<xs:attribute default="Fix" name="cbName" type="tServiceSettingsEnum"/>
 		<xs:attribute default="Fix" name="datSet" type="tServiceSettingsEnum"/>
 	</xs:complexType>
@@ -1072,7 +1072,7 @@
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="tP_IPbase">
+	<xs:complexType abstract="true" name="tP_IPbase">
 		<xs:simpleContent>
 			<xs:restriction base="tP"/>
 		</xs:simpleContent>
@@ -1154,7 +1154,7 @@
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="tP_Port">
+	<xs:complexType abstract="true" name="tP_Port">
 		<xs:simpleContent>
 			<xs:restriction base="tP"/>
 		</xs:simpleContent>
@@ -1248,16 +1248,16 @@
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="tAnyContentFromOtherNamespace">
-		<xs:sequence>
-			<xs:any/>
+	<xs:complexType abstract="true" mixed="true" name="tAnyContentFromOtherNamespace">
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+			<xs:any namespace="##other" processContents="lax"/>
 		</xs:sequence>
 		<xs:anyAttribute namespace="##other" processContents="lax"/>
 	</xs:complexType>
 	<xs:complexType name="tSMVSettings">
 		<xs:complexContent>
 			<xs:extension base="tServiceSettings">
-				<xs:choice>
+				<xs:choice maxOccurs="unbounded">
 					<xs:element name="SmpRate">
 						<xs:simpleType>
 							<xs:restriction base="xs:unsignedInt">
@@ -1324,7 +1324,7 @@
 	</xs:complexType>
 	<xs:complexType name="tAddress">
 		<xs:sequence>
-			<xs:element name="P" type="tP"/>
+			<xs:element maxOccurs="unbounded" name="P" type="tP"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="tServiceForConfDataSet">
@@ -1334,12 +1334,12 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tAccessControl">
+	<xs:complexType mixed="true" name="tAccessControl">
 		<xs:complexContent>
 			<xs:extension base="tAnyContentFromOtherNamespace"/>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tHitem">
+	<xs:complexType mixed="true" name="tHitem">
 		<xs:complexContent>
 			<xs:extension base="tAnyContentFromOtherNamespace">
 				<xs:attribute name="revision" type="xs:normalizedString" use="required"/>
@@ -1351,7 +1351,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tPrivate">
+	<xs:complexType mixed="true" name="tPrivate">
 		<xs:complexContent>
 			<xs:extension base="tAnyContentFromOtherNamespace">
 				<xs:attribute name="source" type="xs:anyURI"/>
@@ -1365,7 +1365,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tText">
+	<xs:complexType mixed="true" name="tText">
 		<xs:complexContent>
 			<xs:extension base="tAnyContentFromOtherNamespace">
 				<xs:attribute name="source" type="xs:anyURI"/>
@@ -1374,42 +1374,42 @@
 	</xs:complexType>
 	<xs:complexType name="tServices">
 		<xs:all>
-			<xs:element name="DynAssociation" type="tServiceWithOptionalMax"/>
-			<xs:element name="SettingGroups">
+			<xs:element minOccurs="0" name="DynAssociation" type="tServiceWithOptionalMax"/>
+			<xs:element minOccurs="0" name="SettingGroups">
 				<xs:complexType>
 					<xs:all>
-						<xs:element name="SGEdit" type="tServiceYesNo"/>
-						<xs:element name="ConfSG" type="tServiceYesNo"/>
+						<xs:element minOccurs="0" name="SGEdit" type="tServiceYesNo"/>
+						<xs:element minOccurs="0" name="ConfSG" type="tServiceYesNo"/>
 					</xs:all>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="GetDirectory" type="tServiceYesNo"/>
-			<xs:element name="GetDataObjectDefinition" type="tServiceYesNo"/>
-			<xs:element name="DataObjectDirectory" type="tServiceYesNo"/>
-			<xs:element name="GetDataSetValue" type="tServiceYesNo"/>
-			<xs:element name="SetDataSetValue" type="tServiceYesNo"/>
-			<xs:element name="DataSetDirectory" type="tServiceYesNo"/>
-			<xs:element name="ConfDataSet" type="tServiceForConfDataSet"/>
-			<xs:element name="DynDataSet" type="tServiceWithMaxAndMaxAttributes"/>
-			<xs:element name="ReadWrite" type="tServiceYesNo"/>
-			<xs:element name="TimerActivatedControl" type="tServiceYesNo"/>
-			<xs:element name="ConfReportControl" type="tServiceConfReportControl"/>
-			<xs:element name="GetCBValues" type="tServiceYesNo"/>
-			<xs:element name="ConfLogControl" type="tServiceWithMax"/>
-			<xs:element name="ReportSettings" type="tReportSettings"/>
-			<xs:element name="LogSettings" type="tLogSettings"/>
-			<xs:element name="GSESettings" type="tGSESettings"/>
-			<xs:element name="SMVSettings" type="tSMVSettings"/>
-			<xs:element name="GSEDir" type="tServiceYesNo"/>
-			<xs:element name="GOOSE" type="tServiceWithMax"/>
-			<xs:element name="GSSE" type="tServiceWithMax"/>
-			<xs:element name="SMVsc" type="tServiceWithMax"/>
-			<xs:element name="FileHandling" type="tServiceYesNo"/>
-			<xs:element name="ConfLNs" type="tConfLNs"/>
-			<xs:element name="ClientServices" type="tClientServices"/>
-			<xs:element name="ConfLdName" type="tServiceYesNo"/>
-			<xs:element name="SupSubscription" type="tServiceWithMax"/>
-			<xs:element name="ConfSigRef" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="GetDirectory" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="GetDataObjectDefinition" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="DataObjectDirectory" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="GetDataSetValue" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="SetDataSetValue" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="DataSetDirectory" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="ConfDataSet" type="tServiceForConfDataSet"/>
+			<xs:element minOccurs="0" name="DynDataSet" type="tServiceWithMaxAndMaxAttributes"/>
+			<xs:element minOccurs="0" name="ReadWrite" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="TimerActivatedControl" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="ConfReportControl" type="tServiceConfReportControl"/>
+			<xs:element minOccurs="0" name="GetCBValues" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="ConfLogControl" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="ReportSettings" type="tReportSettings"/>
+			<xs:element minOccurs="0" name="LogSettings" type="tLogSettings"/>
+			<xs:element minOccurs="0" name="GSESettings" type="tGSESettings"/>
+			<xs:element minOccurs="0" name="SMVSettings" type="tSMVSettings"/>
+			<xs:element minOccurs="0" name="GSEDir" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="GOOSE" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="GSSE" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="SMVsc" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="FileHandling" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="ConfLNs" type="tConfLNs"/>
+			<xs:element minOccurs="0" name="ClientServices" type="tClientServices"/>
+			<xs:element minOccurs="0" name="ConfLdName" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="SupSubscription" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="ConfSigRef" type="tServiceWithMax"/>
 		</xs:all>
 		<xs:attribute default="32" name="nameLength">
 			<xs:simpleType>
@@ -1419,15 +1419,15 @@
 			</xs:simpleType>
 		</xs:attribute>
 	</xs:complexType>
-	<xs:complexType name="tBaseElement">
+	<xs:complexType abstract="true" name="tBaseElement">
 		<xs:sequence>
-			<xs:any/>
-			<xs:element name="Text" type="tText"/>
-			<xs:element name="Private" type="tPrivate"/>
+			<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+			<xs:element minOccurs="0" name="Text" type="tText"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Private" type="tPrivate"/>
 		</xs:sequence>
 		<xs:anyAttribute namespace="##other" processContents="lax"/>
 	</xs:complexType>
-	<xs:complexType name="tIDNaming">
+	<xs:complexType abstract="true" name="tIDNaming">
 		<xs:complexContent>
 			<xs:extension base="tBaseElement">
 				<xs:attribute name="id" type="tName" use="required"/>
@@ -1435,7 +1435,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tNaming">
+	<xs:complexType abstract="true" name="tNaming">
 		<xs:complexContent>
 			<xs:extension base="tBaseElement">
 				<xs:attribute name="name" type="tName" use="required"/>
@@ -1443,7 +1443,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tUnNaming">
+	<xs:complexType abstract="true" name="tUnNaming">
 		<xs:complexContent>
 			<xs:extension base="tBaseElement">
 				<xs:attributeGroup ref="agDesc"/>
@@ -1452,11 +1452,11 @@
 	</xs:complexType>
 	<xs:complexType name="tHeader">
 		<xs:sequence>
-			<xs:element name="Text" type="tText"/>
-			<xs:element name="History">
+			<xs:element minOccurs="0" name="Text" type="tText"/>
+			<xs:element minOccurs="0" name="History">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Hitem" type="tHitem"/>
+						<xs:element maxOccurs="unbounded" name="Hitem" type="tHitem"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -1477,7 +1477,7 @@
 		<xs:complexContent>
 			<xs:extension base="tIDNaming">
 				<xs:sequence>
-					<xs:element name="EnumVal" type="tEnumVal"/>
+					<xs:element maxOccurs="unbounded" name="EnumVal" type="tEnumVal"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -1501,11 +1501,11 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tAbstractDataAttribute">
+	<xs:complexType abstract="true" name="tAbstractDataAttribute">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="Val" type="tVal"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Val" type="tVal"/>
 				</xs:sequence>
 				<xs:attribute name="bType" type="tBasicTypeEnum" use="required"/>
 				<xs:attribute default="0" name="count" type="tDACount"/>
@@ -1516,7 +1516,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tControl">
+	<xs:complexType abstract="true" name="tControl">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:attribute name="datSet" type="tDataSetName"/>
@@ -1524,11 +1524,11 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tControlBlock">
+	<xs:complexType abstract="true" name="tControlBlock">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="Address" type="tAddress"/>
+					<xs:element minOccurs="0" name="Address" type="tAddress"/>
 				</xs:sequence>
 				<xs:attribute name="cbName" type="tCBName" use="required"/>
 				<xs:attribute name="ldInst" type="tLDInst" use="required"/>
@@ -1539,7 +1539,7 @@
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="Val" type="tVal"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Val" type="tVal"/>
 				</xs:sequence>
 				<xs:attribute name="ix" type="xs:unsignedInt"/>
 				<xs:attribute name="name" type="tAttributeNameEnum" use="required"/>
@@ -1561,7 +1561,7 @@
 	<xs:complexType name="tDataSet">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
-				<xs:choice>
+				<xs:choice maxOccurs="unbounded">
 					<xs:element name="FCDA" type="tFCDA"/>
 				</xs:choice>
 				<xs:attribute name="name" type="tDataSetName" use="required"/>
@@ -1572,7 +1572,7 @@
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="ExtRef" type="tExtRef"/>
+					<xs:element maxOccurs="unbounded" name="ExtRef" type="tExtRef"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -1600,7 +1600,7 @@
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="P" type="tP_PhysConn"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="P" type="tP_PhysConn"/>
 				</xs:sequence>
 				<xs:attribute name="type" type="tPhysConnTypeEnum" use="required"/>
 			</xs:extension>
@@ -1610,7 +1610,7 @@
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="ClientLN" type="tClientLN"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ClientLN" type="tClientLN"/>
 				</xs:sequence>
 				<xs:attribute default="1" name="max" type="xs:unsignedInt"/>
 			</xs:extension>
@@ -1682,7 +1682,7 @@
 		<xs:complexContent>
 			<xs:extension base="tControl">
 				<xs:sequence>
-					<xs:element name="IEDName">
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="IEDName">
 						<xs:complexType>
 							<xs:simpleContent>
 								<xs:extension base="tIEDName">
@@ -1700,11 +1700,11 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tControlWithTriggerOpt">
+	<xs:complexType abstract="true" name="tControlWithTriggerOpt">
 		<xs:complexContent>
 			<xs:extension base="tControl">
 				<xs:sequence>
-					<xs:element name="TrgOps" type="tTrgOps"/>
+					<xs:element minOccurs="0" name="TrgOps" type="tTrgOps"/>
 				</xs:sequence>
 				<xs:attribute default="0" name="intgPd" type="xs:unsignedInt"/>
 			</xs:extension>
@@ -1714,8 +1714,8 @@
 		<xs:complexContent>
 			<xs:extension base="tControlBlock">
 				<xs:sequence>
-					<xs:element name="MinTime" type="tDurationInMilliSec"/>
-					<xs:element name="MaxTime" type="tDurationInMilliSec"/>
+					<xs:element minOccurs="0" name="MinTime" type="tDurationInMilliSec"/>
+					<xs:element minOccurs="0" name="MaxTime" type="tDurationInMilliSec"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -1729,9 +1729,9 @@
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="Services" type="tServices"/>
-					<xs:element name="GOOSESecurity" type="tCertificate"/>
-					<xs:element name="SMVSecurity" type="tCertificate"/>
+					<xs:element minOccurs="0" name="Services" type="tServices"/>
+					<xs:element maxOccurs="7" minOccurs="0" name="GOOSESecurity" type="tCertificate"/>
+					<xs:element maxOccurs="7" minOccurs="0" name="SMVSecurity" type="tCertificate"/>
 				</xs:sequence>
 				<xs:attribute default="false" name="clock" type="xs:boolean"/>
 				<xs:attribute default="false" name="kdc" type="xs:boolean"/>
@@ -1744,7 +1744,7 @@
 		<xs:complexContent>
 			<xs:extension base="tControlWithIEDName">
 				<xs:sequence>
-					<xs:element name="Protocol">
+					<xs:element fixed="R-GOOSE" minOccurs="0" name="Protocol">
 						<xs:complexType>
 							<xs:simpleContent>
 								<xs:extension base="xs:normalizedString">
@@ -1770,7 +1770,7 @@
 							<xs:attributeGroup ref="agSmvOpts"/>
 						</xs:complexType>
 					</xs:element>
-					<xs:element name="Protocol">
+					<xs:element fixed="R-SV" minOccurs="0" name="Protocol">
 						<xs:complexType>
 							<xs:simpleContent>
 								<xs:extension base="xs:normalizedString">
@@ -1807,18 +1807,18 @@
 		<xs:complexContent>
 			<xs:extension base="tIDNaming">
 				<xs:sequence>
-					<xs:element name="DO" type="tDO"/>
+					<xs:element maxOccurs="unbounded" name="DO" type="tDO"/>
 				</xs:sequence>
 				<xs:attribute default="" name="iedType" type="tAnyName"/>
 				<xs:attribute name="lnClass" type="tLNClassEnum" use="required"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tLNodeContainer">
+	<xs:complexType abstract="true" name="tLNodeContainer">
 		<xs:complexContent>
 			<xs:extension base="tNaming">
 				<xs:sequence>
-					<xs:element name="LNode" type="tLNode"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="LNode" type="tLNode"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -1832,7 +1832,7 @@
 							<xs:attributeGroup ref="agOptFields"/>
 						</xs:complexType>
 					</xs:element>
-					<xs:element name="RptEnabled" type="tRptEnabled"/>
+					<xs:element minOccurs="0" name="RptEnabled" type="tRptEnabled"/>
 				</xs:sequence>
 				<xs:attribute default="0" name="bufTime" type="xs:unsignedInt"/>
 				<xs:attribute default="false" name="buffered" type="xs:boolean"/>
@@ -1846,8 +1846,8 @@
 		<xs:complexContent>
 			<xs:extension base="tIDNaming">
 				<xs:sequence>
-					<xs:element name="BDA" type="tBDA"/>
-					<xs:element name="ProtNs" type="tProtNs"/>
+					<xs:element maxOccurs="unbounded" name="BDA" type="tBDA"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ProtNs" type="tProtNs"/>
 				</xs:sequence>
 				<xs:attribute default="" name="iedType" type="tAnyName"/>
 			</xs:extension>
@@ -1856,7 +1856,7 @@
 	<xs:complexType name="tDOType">
 		<xs:complexContent>
 			<xs:extension base="tIDNaming">
-				<xs:choice>
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
 					<xs:element name="SDO" type="tSDO"/>
 					<xs:element name="DA" type="tDA"/>
 				</xs:choice>
@@ -1869,10 +1869,10 @@
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="Address" type="tAddress"/>
-					<xs:element name="GSE" type="tGSE"/>
-					<xs:element name="SMV" type="tSMV"/>
-					<xs:element name="PhysConn" type="tPhysConn"/>
+					<xs:element minOccurs="0" name="Address" type="tAddress"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="GSE" type="tGSE"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SMV" type="tSMV"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="PhysConn" type="tPhysConn"/>
 				</xs:sequence>
 				<xs:attribute name="apName" type="tAccessPointName" use="required"/>
 				<xs:attribute name="iedName" type="tIEDName" use="required"/>
@@ -1886,7 +1886,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tPowerSystemResource">
+	<xs:complexType abstract="true" name="tPowerSystemResource">
 		<xs:complexContent>
 			<xs:extension base="tLNodeContainer"/>
 		</xs:complexContent>
@@ -1895,9 +1895,9 @@
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="Services" type="tServices"/>
-					<xs:element name="AccessPoint" type="tAccessPoint"/>
-					<xs:element name="KDC" type="tKDC"/>
+					<xs:element minOccurs="0" name="Services" type="tServices"/>
+					<xs:element maxOccurs="unbounded" name="AccessPoint" type="tAccessPoint"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="KDC" type="tKDC"/>
 				</xs:sequence>
 				<xs:attribute name="configVersion" type="xs:normalizedString"/>
 				<xs:attribute default="full" name="engRight" type="tRightEnum"/>
@@ -1910,7 +1910,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tEquipment">
+	<xs:complexType abstract="true" name="tEquipment">
 		<xs:complexContent>
 			<xs:extension base="tPowerSystemResource">
 				<xs:attributeGroup ref="agVirtual"/>
@@ -1928,18 +1928,18 @@
 	<xs:element name="IED" type="tIED"/>
 	<xs:complexType name="tDataTypeTemplates">
 		<xs:sequence>
-			<xs:element name="LNodeType" type="tLNodeType"/>
-			<xs:element name="DOType" type="tDOType"/>
-			<xs:element name="DAType" type="tDAType"/>
-			<xs:element name="EnumType" type="tEnumType"/>
+			<xs:element maxOccurs="unbounded" name="LNodeType" type="tLNodeType"/>
+			<xs:element maxOccurs="unbounded" name="DOType" type="tDOType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="DAType" type="tDAType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="EnumType" type="tEnumType"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="tSubNetwork">
 		<xs:complexContent>
 			<xs:extension base="tNaming">
 				<xs:sequence>
-					<xs:element name="BitRate" type="tBitRateInMbPerSec"/>
-					<xs:element name="ConnectedAP" type="tConnectedAP"/>
+					<xs:element minOccurs="0" name="BitRate" type="tBitRateInMbPerSec"/>
+					<xs:element maxOccurs="unbounded" name="ConnectedAP" type="tConnectedAP"/>
 				</xs:sequence>
 				<xs:attribute name="type" type="xs:normalizedString"/>
 			</xs:extension>
@@ -1953,12 +1953,12 @@
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:element name="DataTypeTemplates" type="tDataTypeTemplates"/>
-	<xs:complexType name="tAbstractConductingEquipment">
+	<xs:complexType abstract="true" name="tAbstractConductingEquipment">
 		<xs:complexContent>
 			<xs:extension base="tEquipment">
 				<xs:sequence>
-					<xs:element name="Terminal" type="tTerminal"/>
-					<xs:element name="SubEquipment" type="tSubEquipment"/>
+					<xs:element maxOccurs="2" minOccurs="0" name="Terminal" type="tTerminal"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SubEquipment" type="tSubEquipment"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -1967,7 +1967,7 @@
 		<xs:complexContent>
 			<xs:extension base="tPowerSystemResource">
 				<xs:sequence>
-					<xs:element name="SubEquipment" type="tSubEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SubEquipment" type="tSubEquipment"/>
 				</xs:sequence>
 				<xs:attribute fixed="LTC" name="type" type="xs:Name" use="required"/>
 				<xs:attributeGroup ref="agVirtual"/>
@@ -1978,7 +1978,7 @@
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
 				<xs:sequence>
-					<xs:element name="SubNetwork" type="tSubNetwork"/>
+					<xs:element maxOccurs="unbounded" name="SubNetwork" type="tSubNetwork"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -1995,8 +1995,8 @@
 		<xs:complexContent>
 			<xs:extension base="tAbstractConductingEquipment">
 				<xs:sequence>
-					<xs:element name="TapChanger" type="tTapChanger"/>
-					<xs:element name="NeutralPoint" type="tTerminal"/>
+					<xs:element minOccurs="0" name="TapChanger" type="tTapChanger"/>
+					<xs:element minOccurs="0" name="NeutralPoint" type="tTerminal"/>
 				</xs:sequence>
 				<xs:attribute fixed="PTW" name="type" type="tTransformerWindingEnum" use="required"/>
 			</xs:extension>
@@ -2006,8 +2006,8 @@
 		<xs:complexContent>
 			<xs:extension base="tPowerSystemResource">
 				<xs:sequence>
-					<xs:element name="GeneralEquipment" type="tGeneralEquipment"/>
-					<xs:element name="ConductingEquipment" type="tConductingEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="GeneralEquipment" type="tGeneralEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConductingEquipment" type="tConductingEquipment"/>
 				</xs:sequence>
 				<xs:attribute name="type" type="xs:normalizedString"/>
 			</xs:extension>
@@ -2017,8 +2017,8 @@
 		<xs:complexContent>
 			<xs:extension base="tEquipment">
 				<xs:sequence>
-					<xs:element name="TransformerWinding" type="tTransformerWinding"/>
-					<xs:element name="SubEquipment" type="tSubEquipment"/>
+					<xs:element maxOccurs="unbounded" name="TransformerWinding" type="tTransformerWinding"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SubEquipment" type="tSubEquipment"/>
 				</xs:sequence>
 				<xs:attribute fixed="PTR" name="type" type="tPowerTransformerEnum" use="required"/>
 			</xs:extension>
@@ -2028,20 +2028,20 @@
 		<xs:complexContent>
 			<xs:extension base="tPowerSystemResource">
 				<xs:sequence>
-					<xs:element name="SubFunction" type="tSubFunction"/>
-					<xs:element name="GeneralEquipment" type="tGeneralEquipment"/>
-					<xs:element name="ConductingEquipment" type="tConductingEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SubFunction" type="tSubFunction"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="GeneralEquipment" type="tGeneralEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConductingEquipment" type="tConductingEquipment"/>
 				</xs:sequence>
 				<xs:attribute name="type" type="xs:normalizedString"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="tEquipmentContainer">
+	<xs:complexType abstract="true" name="tEquipmentContainer">
 		<xs:complexContent>
 			<xs:extension base="tPowerSystemResource">
 				<xs:sequence>
-					<xs:element name="PowerTransformer" type="tPowerTransformer"/>
-					<xs:element name="GeneralEquipment" type="tGeneralEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="PowerTransformer" type="tPowerTransformer"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="GeneralEquipment" type="tGeneralEquipment"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -2050,9 +2050,9 @@
 		<xs:complexContent>
 			<xs:extension base="tEquipmentContainer">
 				<xs:sequence>
-					<xs:element name="ConductingEquipment" type="tConductingEquipment"/>
-					<xs:element name="ConnectivityNode" type="tConnectivityNode"/>
-					<xs:element name="Function" type="tFunction"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConductingEquipment" type="tConductingEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConnectivityNode" type="tConnectivityNode"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Function" type="tFunction"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -2061,9 +2061,9 @@
 		<xs:complexContent>
 			<xs:extension base="tEquipmentContainer">
 				<xs:sequence>
-					<xs:element name="Voltage" type="tVoltage"/>
-					<xs:element name="Bay" type="tBay"/>
-					<xs:element name="Function" type="tFunction"/>
+					<xs:element minOccurs="0" name="Voltage" type="tVoltage"/>
+					<xs:element maxOccurs="unbounded" name="Bay" type="tBay"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Function" type="tFunction"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -2072,8 +2072,8 @@
 		<xs:complexContent>
 			<xs:extension base="tEquipmentContainer">
 				<xs:sequence>
-					<xs:element name="VoltageLevel" type="tVoltageLevel"/>
-					<xs:element name="Function" type="tFunction"/>
+					<xs:element maxOccurs="unbounded" name="VoltageLevel" type="tVoltageLevel"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Function" type="tFunction"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>

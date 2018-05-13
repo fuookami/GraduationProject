@@ -4,38 +4,68 @@ namespace XSDFrontend
 {
 	namespace ComplexType
 	{
-		const std::map<std::string, Element::eForm> Element::String2Form = 
+		const boost::bimap<std::string, Element::eForm> Element::String2Form = 
+			[]()
 		{
-			std::make_pair(std::string("qualified"), Element::eForm::Qualified),
-			std::make_pair(std::string("unqualified"), Element::eForm::Unqualified)
-		};
+			typedef boost::bimap<std::string, Element::eForm> result_type;
+			typedef result_type::value_type pair_type;
 
-		const std::map<std::string, bool> Element::String2Nillable = 
-		{
-			std::make_pair(SSUtils::String::True, true),
-			std::make_pair(SSUtils::String::False, false)
-		};
+			result_type ret;
+			ret.insert(pair_type(std::string("qualified"), Element::eForm::Qualified));
+			ret.insert(pair_type(std::string("unqualified"), Element::eForm::Unqualified));
+			return ret;
+		}();
 
-		const std::map<std::string, bool> Element::String2Abastract = 
+		const boost::bimap<std::string, bool> Element::String2Nillable = 
+			[]()
 		{
-			std::make_pair(SSUtils::String::True, true),
-			std::make_pair(SSUtils::String::False, false)
-		};
+			typedef boost::bimap<std::string, bool> result_type;
+			typedef result_type::value_type pair_type;
 
-		const std::map<std::string, Element::eBlock> Element::String2Block = 
-		{
-			std::make_pair(std::string("#all"), Element::eBlock::All),
-			std::make_pair(std::string("extension"), Element::eBlock::Extension),
-			std::make_pair(std::string("restriction"), Element::eBlock::Restriction),
-			std::make_pair(std::string("substitution"), Element::eBlock::Substitution)
-		};
+			result_type ret;
+			ret.insert(pair_type(SSUtils::String::True, true));
+			ret.insert(pair_type(SSUtils::String::False, false));
+			return ret;
+		}();
 
-		const std::map<std::string, Element::eFinal> Element::String2Final = 
+		const boost::bimap<std::string, bool> Element::String2Abstract = 
+			[]()
 		{
-			std::make_pair(std::string("#all"), Element::eFinal::All),
-			std::make_pair(std::string("extension"), Element::eFinal::Extension),
-			std::make_pair(std::string("restriction"), Element::eFinal::Restriction)
-		};
+			typedef boost::bimap<std::string, bool> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(SSUtils::String::True, true));
+			ret.insert(pair_type(SSUtils::String::False, false));
+			return ret;
+		}();
+
+		const boost::bimap<std::string, Element::eBlock> Element::String2Block = 
+			[]()
+		{
+			typedef boost::bimap<std::string, Element::eBlock> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("#all"), Element::eBlock::All));
+			ret.insert(pair_type(std::string("extension"), Element::eBlock::Extension));
+			ret.insert(pair_type(std::string("restriction"), Element::eBlock::Restriction));
+			ret.insert(pair_type(std::string("substitution"), Element::eBlock::Substitution));
+			return ret;
+		}();
+
+		const boost::bimap<std::string, Element::eFinal> Element::String2Final = 
+			[]()
+		{
+			typedef boost::bimap<std::string, Element::eFinal> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(std::string("#all"), Element::eFinal::All));
+			ret.insert(pair_type(std::string("extension"), Element::eFinal::Extension));
+			ret.insert(pair_type(std::string("restriction"), Element::eFinal::Restriction));
+			return ret;
+		}();
 
 		Element::Element(const eCategory category, const eForm form, const eBlock block, const eFinal _final)
 			: IElementInterface(IElementInterface::eElementType::tElement), IXSDNamedTypedElementInterface(), IXSDReferenceElementInterface(), IXSDValueStatedElementInterface(), 

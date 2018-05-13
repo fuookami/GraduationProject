@@ -210,23 +210,27 @@ namespace XSDAnalyzer
 		{
 			if (node->hasAttr(XSDFrontend::Token::FormAttr))
 			{
-				element->setForm(XSDFrontend::ComplexType::Element::String2Form.find(node->getAttr(XSDFrontend::Token::FormAttr))->second);
+				element->setForm(XSDFrontend::ComplexType::Element::String2Form.left.find(node->getAttr(XSDFrontend::Token::FormAttr))->second);
 			}
 			if (node->hasAttr(XSDFrontend::Token::NillableAttr))
 			{
-				element->setNillable(XSDFrontend::ComplexType::Element::String2Nillable.find(node->getAttr(XSDFrontend::Token::NillableAttr))->second);
+				element->setNillable(XSDFrontend::ComplexType::Element::String2Nillable.left.find(node->getAttr(XSDFrontend::Token::NillableAttr))->second);
 			}
 			if (node->hasAttr(XSDFrontend::Token::AbstractAttr))
 			{
-				element->setAbstract(XSDFrontend::ComplexType::Element::String2Abastract.find(node->getAttr(XSDFrontend::Token::AbstractAttr))->second);
+				element->setAbstract(XSDFrontend::ComplexType::Element::String2Abstract.left.find(node->getAttr(XSDFrontend::Token::AbstractAttr))->second);
 			}
 			if (node->hasAttr(XSDFrontend::Token::BlockAttr))
 			{
-				element->setBlock(XSDFrontend::ComplexType::Element::String2Block.find(node->getAttr(XSDFrontend::Token::BlockAttr))->second);
+				element->setBlock(XSDFrontend::ComplexType::Element::String2Block.left.find(node->getAttr(XSDFrontend::Token::BlockAttr))->second);
 			}
 			if (node->hasAttr(XSDFrontend::Token::FinalAttr))
 			{
-				element->setFinal(XSDFrontend::ComplexType::Element::String2Final.find(node->getAttr(XSDFrontend::Token::FinalAttr))->second);
+				element->setFinal(XSDFrontend::ComplexType::Element::String2Final.left.find(node->getAttr(XSDFrontend::Token::FinalAttr))->second);
+			}
+			if (node->hasAttr(XSDFrontend::Token::SubstitutionGroupAttr))
+			{
+				element->setSubstitutionGroup(node->getAttr(XSDFrontend::Token::SubstitutionGroupAttr));
 			}
 		}
 		else
@@ -322,11 +326,11 @@ namespace XSDAnalyzer
 						std::shared_ptr<XSDFrontend::ComplexType::AnyElement> anyElement(new XSDFrontend::ComplexType::AnyElement());
 						if (child->hasAttr(XSDFrontend::Token::NamesapceAttr))
 						{
-							anyElement->setNamespaceValidator(XSDFrontend::ComplexType::AnyElement::String2NamespaceValidator.find(child->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
+							anyElement->setNamespaceValidator(XSDFrontend::ComplexType::AnyElement::String2NamespaceValidator.left.find(child->getAttr(XSDFrontend::Token::NamesapceAttr))->second);
 						}
 						if (child->hasAttr(XSDFrontend::Token::ProcessContentsAttr))
 						{
-							anyElement->setProcessContents(XSDFrontend::ComplexType::AnyElement::String2ProcessContents.find(child->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
+							anyElement->setProcessContents(XSDFrontend::ComplexType::AnyElement::String2ProcessContents.left.find(child->getAttr(XSDFrontend::Token::ProcessContentsAttr))->second);
 						}
 						anyElement->setParent(XSDFrontend::ComplexType::IElementInterface::eParentType::tElementGroup, groupName);
 						anyElement->loadNumberLimitation(child);

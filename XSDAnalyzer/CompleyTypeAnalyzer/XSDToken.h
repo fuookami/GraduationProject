@@ -74,6 +74,7 @@ namespace XSDFrontend
 		static const std::string ProcessContentsAttr("processContents");
 		static const std::string MinOccursAttr("minOccurs");
 		static const std::string MaxOccursAttr("maxOccurs");
+		static const std::string SubstitutionGroupAttr("substitutionGroup");
 
 		const bool isInXSDNameSpace(const std::string &token);
 	};

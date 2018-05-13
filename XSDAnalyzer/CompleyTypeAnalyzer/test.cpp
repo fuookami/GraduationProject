@@ -38,6 +38,8 @@ void testXSDAnalyzerAndNormalizer(void)
 	std::cout << xsdAnalyzer.scan(SSUtils::File::InitailPath + "\\test.xsd", SSUtils::CharType::UTF8) << std::endl;
 	auto model = xsdAnalyzer.getModel();
 
+	model->setDescription(std::string("≤‚ ‘”√"));
+
 	XSDNormalizer::XSDNormalizer xsdNormalizer(model);
 	std::cout << xsdNormalizer.normalize() << std::endl;
 	std::cout << xsdNormalizer.getDocument().toFile(SSUtils::File::InitailPath + "\\test1.xsd", SSUtils::CharType::UTF8) << std::endl;

@@ -30,6 +30,7 @@ namespace XSDFrontend
 			inline const unsigned int getMaxOccurs(void) const { return m_maxOccurs; }
 
 			const bool loadNumberLimitation(const std::shared_ptr<SSUtils::XML::Node> &node);
+			std::shared_ptr<SSUtils::XML::Node> saveNumberLimitation(const std::shared_ptr<SSUtils::XML::Node> &node);
 
 		private:
 			unsigned int m_minOccurs;

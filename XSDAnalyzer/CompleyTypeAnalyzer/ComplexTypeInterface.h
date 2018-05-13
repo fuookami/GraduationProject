@@ -47,6 +47,10 @@ namespace XSDFrontend
 			static const boost::bimap<std::string, eDerivedType> Tag2DerivedType;
 			static const boost::bimap<std::string, IComplexTypeInterface::eBlock> String2Block;
 			static const boost::bimap<std::string, IComplexTypeInterface::eFinal> String2Final;
+			static const bool DefaultAbstract = false;
+			static const bool DefaultMixed = false;
+			static const eBlock DefaultBlock = eBlock::tNone;
+			static const eFinal DefaultFinal = eFinal::tNone;
 
 		protected:
 			IComplexTypeInterface(const eComplexType type);

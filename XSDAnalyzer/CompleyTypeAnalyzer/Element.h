@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <set>
+#include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
@@ -48,19 +49,25 @@ namespace XSDFrontend
 				All
 			};
 
-			static const std::map<std::string, eForm> String2Form;
-			static const std::map<std::string, bool> String2Nillable;
-			static const std::map<std::string, bool> String2Abastract;
-			static const std::map<std::string, eBlock> String2Block;
-			static const std::map<std::string, eFinal> String2Final;
+			static const boost::bimap<std::string, eForm> String2Form;
+			static const boost::bimap<std::string, bool> String2Nillable;
+			static const boost::bimap<std::string, bool> String2Abstract;
+			static const boost::bimap<std::string, eBlock> String2Block;
+			static const boost::bimap<std::string, eFinal> String2Final;
+			static const eCategory DefaultCategory = eCategory::tUnknown;
+			static const eForm DefaultForm = eForm::Unqualified;
+			static const eBlock DefaultBlock = eBlock::NonBlock;
+			static const eFinal DefaultFinal = eFinal::NonFinal;
+			static const bool DefaultNillable = false;
+			static const bool DefaultAbstract = false;
 
 		public:
-			Element(const eCategory category = eCategory::tUnknown, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(const std::string &name, const eCategory category = eCategory::tUnknown, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(std::string &&name, const eCategory category = eCategory::tUnknown, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(const std::string &name, const std::string &type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(std::string &&name, const std::string &type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
-			Element(std::string &&name, std::string &&type, const eCategory category, const eForm form = eForm::Unqualified, const eBlock block = eBlock::NonBlock, const eFinal _final = eFinal::NonFinal);
+			Element(const eCategory category = DefaultCategory, const eForm form = DefaultForm, const eBlock block = DefaultBlock, const eFinal _final = DefaultFinal);
+			Element(const std::string &name, const eCategory category = DefaultCategory, const eForm form = DefaultForm, const eBlock block = DefaultBlock, const eFinal _final = DefaultFinal);
+			Element(std::string &&name, const eCategory category = DefaultCategory, const eForm form = DefaultForm, const eBlock block = DefaultBlock, const eFinal _final = DefaultFinal);
+			Element(const std::string &name, const std::string &type, const eCategory category, const eForm form = DefaultForm, const eBlock block = DefaultBlock, const eFinal _final = DefaultFinal);
+			Element(std::string &&name, const std::string &type, const eCategory category, const eForm form = DefaultForm, const eBlock block = DefaultBlock, const eFinal _final = DefaultFinal);
+			Element(std::string &&name, std::string &&type, const eCategory category, const eForm form = DefaultForm, const eBlock block = DefaultBlock, const eFinal _final = DefaultFinal);
 			Element(const Element &ano) = default;
 			Element(Element &&ano) = default;
 			Element &operator=(const Element &rhs) = default;
