@@ -1,4 +1,5 @@
 #include "ElementGroup.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -16,6 +17,11 @@ namespace XSDFrontend
 			ret.insert(pair_type(Token::AllTag, ElementGroup::eElementGroupType::tAll));
 			return ret;
 		}();
+
+		const std::set<std::string> ElementGroup::BaseAttrs = 
+		{
+			Token::NameAttr, Token::ReferenceAttr, Token::MaxOccursAttr, Token::MinOccursAttr
+		};
 
 		ElementGroup::ValueType::ValueType(void)
 			: flag(eValueType::tNone), element(nullptr), anyElement(nullptr), elementGroup(nullptr)

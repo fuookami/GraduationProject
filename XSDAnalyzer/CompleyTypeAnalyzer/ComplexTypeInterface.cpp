@@ -79,6 +79,11 @@ namespace XSDFrontend
 			return ret;
 		}();
 
+		const std::set<std::string> IComplexTypeInterface::BaseAttrs = 
+		{
+			Token::NameAttr, Token::AbstractAttr, Token::MixedAttr, Token::BlockAttr, Token::FinalAttr
+		};
+
 		IComplexTypeInterface::IComplexTypeInterface(const eComplexType type)
 			: IXSDNamedElementInterface(), 
 			m_type(type), m_abstract(false), m_mixed(false), 

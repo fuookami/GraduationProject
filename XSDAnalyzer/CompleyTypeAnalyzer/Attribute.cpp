@@ -1,4 +1,5 @@
 #include "Attribute.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -28,6 +29,11 @@ namespace XSDFrontend
 			ret.insert(pair_type(std::string("prohibited"), Attribute::eUse::Prohibited));
 			return ret;
 		}();
+
+		const std::set<std::string> Attribute::BaseAttrs = 
+		{
+			Token::DefaultAttr, Token::FixedAttr, Token::FormAttr, Token::NameAttr, Token::ReferenceAttr, Token::TypeAttr, Token::UseAttr
+		};
 
 		Attribute::Attribute(const eForm form, const eUse use)
 			: IAttributeInterface(IAttributeInterface::eAttributeType::tAttribute), IXSDNamedTypedElementInterface(), IXSDValueStatedElementInterface(), IXSDReferenceElementInterface(), 

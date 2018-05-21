@@ -3,6 +3,7 @@
 #include "AttributeInterface.h"
 
 #include <map>
+#include <set>
 #include <memory>
 #include <boost/bimap.hpp>
 
@@ -12,6 +13,7 @@ namespace XSDFrontend
 	{
 		class Attribute final : public IAttributeInterface,
 			public XSDElementUtils::IXSDNamedTypedElementInterface,
+			public XSDElementUtils::IXSDExtraAttributeInterface,
 			public XSDElementUtils::IXSDValueStatedElementInterface,
 			public XSDElementUtils::IXSDReferenceElementInterface<Attribute>
 		{
@@ -31,6 +33,7 @@ namespace XSDFrontend
 
 			static const boost::bimap<std::string, Attribute::eForm> String2Form;
 			static const boost::bimap<std::string, Attribute::eUse> String2Use;
+			static const std::set<std::string> BaseAttrs;
 			static const eForm DefaultForm = eForm::Unqualified;
 			static const eUse DefaultUse = eUse::Optional;
 

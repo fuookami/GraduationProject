@@ -1,4 +1,5 @@
 #include "AnyAttribute.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -30,5 +31,10 @@ namespace XSDFrontend
 			ret.insert(pair_type(std::string("skip"), AnyAttribute::eProcessContents::Skip));
 			return ret;
 		}();
+
+		const std::set<std::string> AnyAttribute::BaseAttrs = 
+		{
+			Token::NamesapceAttr, Token::ProcessContentsAttr
+		};
 	};
 };

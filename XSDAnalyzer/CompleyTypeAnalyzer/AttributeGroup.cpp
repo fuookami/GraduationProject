@@ -1,9 +1,15 @@
 #include "AttributeGroup.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
 	namespace Attribute
 	{
+		const std::set<std::string> AttributeGroup::BaseAttrs = 
+		{
+			Token::NameAttr, Token::ReferenceAttr
+		};
+
 		AttributeGroup::AttributeGroup(void)
 			: IXSDNamedElementInterface(), IXSDReferenceElementInterface(), 
 			m_attributes(), m_attributeGroups(), m_anyAttribute(nullptr), m_baseAttributeGroup(nullptr)

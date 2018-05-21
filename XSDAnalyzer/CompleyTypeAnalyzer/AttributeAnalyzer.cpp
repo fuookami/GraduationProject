@@ -63,7 +63,7 @@ namespace XSDAnalyzer
 		}
 
 		std::shared_ptr<XSDFrontend::Attribute::Attribute> attribute(nullptr);
-
+		
 		if (node->hasAttr(XSDFrontend::Token::ReferenceAttr))
 		{
 			std::string refName(node->getAttr(XSDFrontend::Token::ReferenceAttr));
@@ -128,6 +128,7 @@ namespace XSDAnalyzer
 			attribute->setUse(XSDFrontend::Attribute::Attribute::String2Use.left.find(node->getAttr(XSDFrontend::Token::UseAttr))->second);
 		}
 
+		attribute->loadExAttr(node, XSDFrontend::Attribute::Attribute::BaseAttrs);
 		return attribute;
 	}
 
@@ -151,6 +152,7 @@ namespace XSDAnalyzer
 
 			std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> group(new XSDFrontend::Attribute::AttributeGroup());
 			group->setRef(refName, it->second);
+			group->loadExAttr(node, XSDFrontend::Attribute::AttributeGroup::BaseAttrs);
 
 			return group;
 		}
@@ -168,6 +170,7 @@ namespace XSDAnalyzer
 	{
 		std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> group(new XSDFrontend::Attribute::AttributeGroup(groupName));
 		group->setAnonymous(anonymous);
+		group->loadExAttr(node, XSDFrontend::Attribute::AttributeGroup::BaseAttrs);
 
 		for (const auto &child : node->getChildren())
 		{
@@ -176,6 +179,7 @@ namespace XSDAnalyzer
 				if (child->getTag() == XSDFrontend::Token::AnyAttributeTag)
 				{
 					std::shared_ptr<XSDFrontend::Attribute::AnyAttribute> anyAttribute(new XSDFrontend::Attribute::AnyAttribute());
+					anyAttribute->loadExAttr(child, XSDFrontend::Attribute::AnyAttribute::BaseAttrs);
 					if (child->hasAttr(XSDFrontend::Token::NamesapceAttr))
 					{
 						anyAttribute->setNamespaceValidator(XSDFrontend::Attribute::AnyAttribute::String2NamespaceValidator.left.find(child->getAttr(XSDFrontend::Token::NamesapceAttr))->second);

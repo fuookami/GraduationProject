@@ -12,8 +12,9 @@ namespace XSDFrontend
 	namespace ComplexType
 	{
 		class Element final : public IElementInterface,
-			public XSDElementUtils::IXSDNamedTypedElementInterface,
-			public XSDElementUtils::IXSDReferenceElementInterface<Element>,
+			public XSDElementUtils::IXSDNamedTypedElementInterface, 
+			public XSDElementUtils::IXSDExtraAttributeInterface, 
+			public XSDElementUtils::IXSDReferenceElementInterface<Element>, 
 			public XSDElementUtils::IXSDValueStatedElementInterface
 		{
 		public:
@@ -54,6 +55,7 @@ namespace XSDFrontend
 			static const boost::bimap<std::string, bool> String2Abstract;
 			static const boost::bimap<std::string, eBlock> String2Block;
 			static const boost::bimap<std::string, eFinal> String2Final;
+			static const std::set<std::string> BaseAttrs;
 			static const eCategory DefaultCategory = eCategory::tUnknown;
 			static const eForm DefaultForm = eForm::Unqualified;
 			static const eBlock DefaultBlock = eBlock::NonBlock;

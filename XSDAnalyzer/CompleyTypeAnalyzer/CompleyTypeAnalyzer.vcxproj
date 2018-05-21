@@ -159,6 +159,7 @@
     <ClInclude Include="Element.h" />
     <ClInclude Include="ElementGroup.h" />
     <ClInclude Include="ElementInterface.h" />
+    <ClInclude Include="XSDExtraAttributeInterface.h" />
     <ClInclude Include="NumberType.h" />
     <ClInclude Include="SimpleContent.h" />
     <ClInclude Include="SimpleTypeAnalyzer.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="StringType.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="XSDAnalyzer.cpp" />
+    <ClCompile Include="XSDExtraAttributeInterface.cpp" />
     <ClCompile Include="XSDModel.cpp" />
     <ClCompile Include="XSDNamedElementInterface.cpp" />
     <ClCompile Include="XSDNamedTypedElementInterface.cpp" />

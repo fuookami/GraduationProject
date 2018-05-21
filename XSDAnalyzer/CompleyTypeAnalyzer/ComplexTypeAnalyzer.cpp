@@ -232,6 +232,8 @@ namespace XSDAnalyzer
 			{
 				element->setSubstitutionGroup(node->getAttr(XSDFrontend::Token::SubstitutionGroupAttr));
 			}
+
+			element->loadExAttr(node, XSDFrontend::ComplexType::Element::BaseAttrs);
 		}
 		else
 		{
@@ -261,7 +263,7 @@ namespace XSDAnalyzer
 
 			std::shared_ptr<XSDFrontend::ComplexType::ElementGroup> group(new XSDFrontend::ComplexType::ElementGroup());
 			group->setRef(refName, it->second);
-
+			group->loadExAttr(node, XSDFrontend::ComplexType::ElementGroup::BaseAttrs);
 			group->loadNumberLimitation(node);
 
 			return group;
@@ -316,6 +318,7 @@ namespace XSDAnalyzer
 			group->setElementGroupType(groupTypeIt->second);
 			group->loadNumberLimitation(node);
 			group->loadNumberLimitation(groupBody);
+			group->loadExAttr(node, XSDFrontend::ComplexType::ElementGroup::BaseAttrs);
 
 			for (const auto child : groupBody->getChildren())
 			{
@@ -509,6 +512,7 @@ namespace XSDAnalyzer
 		}
 		type->setName(typeName);
 		type->setAnonymous(!node->hasAttr(XSDFrontend::Token::NameAttr));
+		type->loadExAttr(node, XSDFrontend::ComplexType::IComplexTypeInterface::BaseAttrs);
 
 		if (node->hasAttr(XSDFrontend::Token::AbstractAttr))
 		{

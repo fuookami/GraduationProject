@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <memory>
+#include <set>
 #include <boost/bimap.hpp>
 
 namespace XSDFrontend
@@ -13,6 +14,7 @@ namespace XSDFrontend
 	namespace ComplexType
 	{
 		class ElementGroup final : public XSDElementUtils::IXSDNamedElementInterface, 
+			public XSDElementUtils::IXSDExtraAttributeInterface, 
 			public XSDElementUtils::IXSDReferenceElementInterface<ElementGroup>, 
 			public XSDElementUtils::IXSDNumberLimitedElementInterface
 		{
@@ -33,6 +35,7 @@ namespace XSDFrontend
 			};
 
 			static const boost::bimap<std::string, ElementGroup::eElementGroupType> Tag2Type;
+			static const std::set<std::string> BaseAttrs;
 
 			struct ValueType
 			{

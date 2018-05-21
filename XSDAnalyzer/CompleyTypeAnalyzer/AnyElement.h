@@ -3,13 +3,15 @@
 #include "ElementInterface.h"
 
 #include <map>
+#include <set>
 #include <boost/bimap.hpp>
 
 namespace XSDFrontend
 {
 	namespace ComplexType
 	{
-		class AnyElement final : public IElementInterface
+		class AnyElement final : public IElementInterface, 
+			public XSDElementUtils::IXSDExtraAttributeInterface
 		{
 		public:
 			enum class eNamespaceValidator
@@ -30,6 +32,7 @@ namespace XSDFrontend
 			static const std::string MaxOccursUnboundedString;
 			static const boost::bimap<std::string, AnyElement::eNamespaceValidator> String2NamespaceValidator;
 			static const boost::bimap<std::string, AnyElement::eProcessContents> String2ProcessContents;
+			static const std::set<std::string> BaseAttrs;
 			static const eNamespaceValidator DefaultNamespaceValidator = eNamespaceValidator::Any;
 			static const eProcessContents DefaultProcessContents = eProcessContents::Skip;
 

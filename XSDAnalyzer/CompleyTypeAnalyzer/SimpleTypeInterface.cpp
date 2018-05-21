@@ -17,6 +17,11 @@ namespace XSDFrontend
 			return ret;
 		}();
 
+		const std::set<std::string> ISimpleTypeInterface::BaseAttrs = 
+		{
+			Token::NameAttr
+		};
+
 		ISimpleTypeInterface::ISimpleTypeInterface(const eSimpleType type, const eWhiteSpace whitSpace)
 			: IXSDNamedElementInterface(), 
 			m_type(type), m_whiteSpace(whitSpace), m_baseTypeName()

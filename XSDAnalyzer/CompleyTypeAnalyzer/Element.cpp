@@ -1,4 +1,5 @@
 #include "Element.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -66,6 +67,11 @@ namespace XSDFrontend
 			ret.insert(pair_type(std::string("restriction"), Element::eFinal::Restriction));
 			return ret;
 		}();
+
+		const std::set<std::string> Element::BaseAttrs = 
+		{
+			Token::NameAttr, Token::ReferenceAttr, Token::TypeAttr, Token::SubstitutionGroupAttr, Token::DefaultAttr, Token::FixedAttr, Token::FormAttr, Token::MaxOccursAttr, Token::MinOccursAttr, Token::NillableAttr, Token::AbstractAttr, Token::BlockAttr, Token::FinalAttr
+		};
 
 		Element::Element(const eCategory category, const eForm form, const eBlock block, const eFinal _final)
 			: IElementInterface(IElementInterface::eElementType::tElement), IXSDNamedTypedElementInterface(), IXSDReferenceElementInterface(), IXSDValueStatedElementInterface(), 

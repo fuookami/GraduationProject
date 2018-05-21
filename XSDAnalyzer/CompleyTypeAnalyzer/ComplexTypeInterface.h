@@ -15,7 +15,8 @@ namespace XSDFrontend
 			tComplexContent
 		};
 
-		class IComplexTypeInterface abstract : public XSDElementUtils::IXSDNamedElementInterface
+		class IComplexTypeInterface abstract : public XSDElementUtils::IXSDNamedElementInterface,
+			public XSDElementUtils::IXSDExtraAttributeInterface
 		{
 		public:
 			enum class eDerivedType
@@ -47,6 +48,7 @@ namespace XSDFrontend
 			static const boost::bimap<std::string, eDerivedType> Tag2DerivedType;
 			static const boost::bimap<std::string, IComplexTypeInterface::eBlock> String2Block;
 			static const boost::bimap<std::string, IComplexTypeInterface::eFinal> String2Final;
+			static const std::set<std::string> BaseAttrs;
 			static const bool DefaultAbstract = false;
 			static const bool DefaultMixed = false;
 			static const eBlock DefaultBlock = eBlock::tNone;

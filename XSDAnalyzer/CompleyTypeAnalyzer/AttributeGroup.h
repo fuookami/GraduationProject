@@ -11,9 +11,13 @@ namespace XSDFrontend
 {
 	namespace Attribute
 	{
-		class AttributeGroup : public XSDElementUtils::IXSDNamedElementInterface,
+		class AttributeGroup : public XSDElementUtils::IXSDNamedElementInterface, 
+			public XSDElementUtils::IXSDExtraAttributeInterface, 
 			public XSDElementUtils::IXSDReferenceElementInterface<AttributeGroup>
 		{
+		public:
+			static const std::set<std::string> BaseAttrs;
+
 		public:
 			AttributeGroup(void);
 			AttributeGroup(const std::string &name);

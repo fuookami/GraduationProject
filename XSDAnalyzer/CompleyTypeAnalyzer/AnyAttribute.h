@@ -9,7 +9,8 @@ namespace XSDFrontend
 {
 	namespace Attribute
 	{
-		class AnyAttribute final : public IAttributeInterface
+		class AnyAttribute final : public IAttributeInterface, 
+			public XSDElementUtils::IXSDExtraAttributeInterface
 		{
 		public:
 			enum class eNamespaceValidator
@@ -29,6 +30,7 @@ namespace XSDFrontend
 
 			static const boost::bimap<std::string, AnyAttribute::eNamespaceValidator> String2NamespaceValidator;
 			static const boost::bimap<std::string, AnyAttribute::eProcessContents> String2ProcessContents;
+			static const std::set<std::string> BaseAttrs;
 			static const eNamespaceValidator DefaultNamespaceValidator = eNamespaceValidator::Any;
 			static const eProcessContents DefaultProcessContents = eProcessContents::Skip;
 

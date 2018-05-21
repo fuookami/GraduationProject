@@ -1249,7 +1249,7 @@
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType abstract="true" mixed="true" name="tAnyContentFromOtherNamespace">
-		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+		<xs:sequence maxOccurs="unbounded" minOccurs="0" name="tAnyContentFromOtherNamespace">
 			<xs:any namespace="##other" processContents="lax"/>
 		</xs:sequence>
 		<xs:anyAttribute namespace="##other" processContents="lax"/>
@@ -1323,7 +1323,7 @@
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="tAddress">
-		<xs:sequence>
+		<xs:sequence name="tAddress">
 			<xs:element maxOccurs="unbounded" name="P" type="tP"/>
 		</xs:sequence>
 	</xs:complexType>
@@ -1373,7 +1373,7 @@
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tServices">
-		<xs:all>
+		<xs:all name="tServices">
 			<xs:element minOccurs="0" name="DynAssociation" type="tServiceWithOptionalMax"/>
 			<xs:element minOccurs="0" name="SettingGroups">
 				<xs:complexType>
@@ -1420,7 +1420,7 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType abstract="true" name="tBaseElement">
-		<xs:sequence>
+		<xs:sequence name="tBaseElement">
 			<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
 			<xs:element minOccurs="0" name="Text" type="tText"/>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="Private" type="tPrivate"/>
@@ -1451,7 +1451,7 @@
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tHeader">
-		<xs:sequence>
+		<xs:sequence name="tHeader">
 			<xs:element minOccurs="0" name="Text" type="tText"/>
 			<xs:element minOccurs="0" name="History">
 				<xs:complexType>
@@ -1927,7 +1927,7 @@
 	</xs:complexType>
 	<xs:element name="IED" type="tIED"/>
 	<xs:complexType name="tDataTypeTemplates">
-		<xs:sequence>
+		<xs:sequence name="tDataTypeTemplates">
 			<xs:element maxOccurs="unbounded" name="LNodeType" type="tLNodeType"/>
 			<xs:element maxOccurs="unbounded" name="DOType" type="tDOType"/>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="DAType" type="tDAType"/>

@@ -23,7 +23,8 @@ namespace XSDFrontend
 			tNonExist
 		};
 
-		class ISimpleTypeInterface abstract : public XSDElementUtils::IXSDNamedElementInterface
+		class ISimpleTypeInterface abstract : public XSDElementUtils::IXSDNamedElementInterface, 
+			public XSDElementUtils::IXSDExtraAttributeInterface
 		{
 		public:
 			enum class eWhiteSpace
@@ -33,6 +34,7 @@ namespace XSDFrontend
 				Collapse
 			};
 			static const boost::bimap<std::string, ISimpleTypeInterface::eWhiteSpace> String2WhiteSpace;
+			static const std::set<std::string> BaseAttrs;
 			static const eWhiteSpace DefaultWhiteSpace = eWhiteSpace::Preserve;
 
 		protected:

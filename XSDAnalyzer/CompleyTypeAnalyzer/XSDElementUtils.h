@@ -1,5 +1,6 @@
 #pragma once
 
+#include "XSDExtraAttributeInterface.h"
 #include "XSDNamedElementInterface.h"
 #include "XSDNamedTypedElementInterface.h"
 #include "XSDReferenceElementInterface.h"

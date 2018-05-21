@@ -1,4 +1,5 @@
 #include "AnyElement.h"
+#include "XSDToken.h"
 
 namespace XSDFrontend
 {
@@ -32,6 +33,11 @@ namespace XSDFrontend
 			ret.insert(pair_type(std::string("skip"), AnyElement::eProcessContents::Skip));
 			return ret;
 		}();
+
+		const std::set<std::string> AnyElement::BaseAttrs =
+		{
+			Token::MaxOccursAttr, Token::MinOccursAttr, Token::NamespaceSeparator, Token::ProcessContentsAttr
+		};
 
 		AnyElement::AnyElement(const int minOccurs, const int maxOccurs, const eNamespaceValidator namesapceValidator, const eProcessContents processContents)
 			: IElementInterface(IElementInterface::eElementType::tAnyElement), 
