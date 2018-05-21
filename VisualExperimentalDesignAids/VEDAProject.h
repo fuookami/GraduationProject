@@ -2,6 +2,7 @@
 
 #include "XMLUtils.h"
 #include "EncryptionUtils/RSA.h"
+#include "XSDModel.h"
 
 namespace VEDA
 {
@@ -57,11 +58,12 @@ namespace VEDA
 	private:
 		std::string m_name;
 		std::string m_path;
-		std::string m_dataModelFileName;
+		std::string m_publicDataModelFileName;
 
 		SSUtils::Encryption::RSA::signer m_signer;
 		SSUtils::Encryption::RSA::verifier m_verifier;
 		SSUtils::Block m_verificationToken;
+		std::shared_ptr<XSDFrontend::XSDModel> m_dataModel;
 
 		std::map<std::string, VEDAProcess> m_processes;
 	};

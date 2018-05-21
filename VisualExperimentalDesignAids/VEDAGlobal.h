@@ -4,11 +4,12 @@
 
 namespace VEDA
 {
-	extern const std::string ProjectFileSuffix;
-	extern const std::string ProcessFileSuffix;
-	extern const std::string OperationFileSuffix;
-	extern const std::string DataModalDefinitionFileSuffix;
-	extern const std::string DataFileSuffix;
+	extern const std::string ProjectFileExtension;
+	extern const std::string ProcessFileExtension;
+	extern const std::string OperationFileExtension;
+	extern const std::string ReportFileExtensionl;
+	extern const std::string DataModalDefinitionFileExtension;
+	extern const std::string DataFileExtension;
 
 	extern const std::string GithubUrl;
 	extern const std::string CodingUrl;
