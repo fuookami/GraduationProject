@@ -35,6 +35,7 @@ namespace XSDNormalizer
 		}
 		node->addChild(child);
 
+		type->saveExAttr(node);
 		return node;
 	}
 

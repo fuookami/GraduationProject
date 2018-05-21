@@ -111,7 +111,7 @@ namespace XSDNormalizer
 				return nullptr;
 			}
 		}
-
+		element->saveExAttr(node);
 		return node;
 	}
 
@@ -121,6 +121,7 @@ namespace XSDNormalizer
 		{
 			auto node = SSUtils::XML::Node::generate(XSDFrontend::Token::GroupTag);
 			node->setAttr(XSDFrontend::Token::ReferenceAttr, group->getRefName());
+			group->saveExAttr(node);
 			return node;
 		}
 		else
@@ -167,7 +168,7 @@ namespace XSDNormalizer
 			{
 				return nullptr;
 			}
-
+			group->saveExAttr(node);
 			return ret;
 		}
 	}
@@ -269,6 +270,7 @@ namespace XSDNormalizer
 			}
 		}
 
+		type->saveExAttr(ret);
 		return ret;
 	}
 

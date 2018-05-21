@@ -62,6 +62,7 @@ namespace XSDNormalizer
 
 			node = attr->saveValueStatement(node);
 		}
+		attr->saveExAttr(node);
 		return node;
 	}
 
@@ -118,6 +119,7 @@ namespace XSDNormalizer
 			node->addChild(child);
 		}
 
+		group->saveExAttr(node);
 		return node;
 	}
 

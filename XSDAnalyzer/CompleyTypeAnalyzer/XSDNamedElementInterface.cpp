@@ -84,5 +84,17 @@ namespace XSDFrontend
 		{
 			return m_exAttrs;
 		}
+
+		std::shared_ptr<SSUtils::XML::Node> IXSDNamedElementInterface::saveExAttr(const std::shared_ptr<SSUtils::XML::Node>& node) const
+		{
+			for (const auto &pair : m_exAttrs)
+			{
+				if (!pair.second.empty())
+				{
+					node->addAttr(pair);
+				}
+			}
+			return node;
+		}
 	};
 };

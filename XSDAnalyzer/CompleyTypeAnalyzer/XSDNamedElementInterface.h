@@ -2,6 +2,8 @@
 
 #include <string>
 #include <map>
+#include <memory>
+#include "XMLUtils.h"
 
 namespace XSDFrontend
 {
@@ -47,6 +49,9 @@ namespace XSDFrontend
 			const std::string &getExAttr(const std::string &key, const std::string &defaultValue = DefaultAttrValue) const;
 			const std::map<std::string, std::string> &getExAttrs(void) const;
 			std::map<std::string, std::string> &getExAttrs(void);
+
+			virtual bool loadExAttr(const std::shared_ptr<SSUtils::XML::Node> &node) = 0;
+			std::shared_ptr<SSUtils::XML::Node> saveExAttr(const std::shared_ptr<SSUtils::XML::Node> &node) const;
 
 		private:
 			std::string m_name;
