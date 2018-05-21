@@ -21,13 +21,16 @@ namespace XSDFrontend
 		};
 
 		auto ret(SSUtils::XML::Node::generate(XSDFrontend::Token::SchemaTag));
-		auto annotation(SSUtils::XML::Node::generate(XSDFrontend::Token::AnnotationTag));
-		auto documentation(SSUtils::XML::Node::generate(XSDFrontend::Token::DocumentationTag));
+		if (!m_description.empty())
+		{
+			auto annotation(SSUtils::XML::Node::generate(XSDFrontend::Token::AnnotationTag));
+			auto documentation(SSUtils::XML::Node::generate(XSDFrontend::Token::DocumentationTag));
 
-		documentation->addAttr(XSDFrontend::Token::LangAttr, getDescriptionLang());
-		documentation->setContent(getDescription());
-		annotation->addChild(documentation);
-		ret->addChild(annotation);
+			documentation->addAttr(XSDFrontend::Token::LangAttr, getDescriptionLang());
+			documentation->setContent(getDescription());
+			annotation->addChild(documentation);
+			ret->addChild(annotation);
+		}
 
 		for (const auto &pair : SchemeNodeAttrs)
 		{

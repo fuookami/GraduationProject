@@ -28,8 +28,25 @@ namespace XSDFrontend
 
 	const ComplexType::IComplexTypeInterface * ComplexTypeModel::getComplexType(const std::string & name) const
 	{
-		auto it(m_complexTypes.find(name));
-		return it != m_complexTypes.cend() ? it->second : nullptr;
+		auto complexTypes(getComplexTypes());
+		auto it(complexTypes.find(name));
+		return it != complexTypes.cend() ? it->second : nullptr;
+	}
+
+	std::map<std::string, ComplexType::IComplexTypeInterface*> ComplexTypeModel::getComplexTypes(void)
+	{
+		std::map<std::string, ComplexType::IComplexTypeInterface*> ret;
+		toComplexTypes(ret, m_simpleContent);
+		toComplexTypes(ret, m_complexContent);
+		return ret;
+	}
+
+	const std::map<std::string, const ComplexType::IComplexTypeInterface*> ComplexTypeModel::getComplexTypes(void) const
+	{
+		std::map<std::string, const ComplexType::IComplexTypeInterface*> ret;
+		toComplexTypes(ret, m_simpleContent);
+		toComplexTypes(ret, m_complexContent);
+		return ret;
 	}
 
 	std::string ComplexTypeModel::getNewDefaultElementGroupName(void) const

@@ -66,21 +66,46 @@ namespace XSDFrontend
 
 	SimpleType::ISimpleTypeInterface * SimpleTypeModel::getSimpleType(const std::string & typeName)
 	{
-		auto it(m_simpleTypes.find(typeName));
-		return it != m_simpleTypes.cend() ? it->second : nullptr;
+		auto simpleTypes(getSimpleTypes());
+		auto it(simpleTypes.find(typeName));
+		return it != simpleTypes.cend() ? it->second : nullptr;
 	}
 
 	const SimpleType::ISimpleTypeInterface * SimpleTypeModel::getSimpleType(const std::string & typeName) const
 	{
-		auto it(m_simpleTypes.find(typeName));
-		return it != m_simpleTypes.cend() ? it->second : nullptr;
+		auto simpleTypes(getSimpleTypes());
+		auto it(simpleTypes.find(typeName));
+		return it != simpleTypes.cend() ? it->second : nullptr;
+	}
+
+	std::map<std::string, SimpleType::ISimpleTypeInterface*> SimpleTypeModel::getSimpleTypes(void)
+	{
+		std::map<std::string, SimpleType::ISimpleTypeInterface *> ret;
+		toSimpleTypes(ret, m_containerTypes);
+		toSimpleTypes(ret, m_dataTypes);
+		toSimpleTypes(ret, m_datetimeTypes);
+		toSimpleTypes(ret, m_numberTypes);
+		toSimpleTypes(ret, m_stringTypes);
+		return ret;
+	}
+
+	const std::map<std::string, const SimpleType::ISimpleTypeInterface*> SimpleTypeModel::getSimpleTypes(void) const
+	{
+		std::map<std::string, const SimpleType::ISimpleTypeInterface *> ret;
+		toSimpleTypes(ret, m_containerTypes);
+		toSimpleTypes(ret, m_dataTypes);
+		toSimpleTypes(ret, m_datetimeTypes);
+		toSimpleTypes(ret, m_numberTypes);
+		toSimpleTypes(ret, m_stringTypes);
+		return ret;
 	}
 
 	const XSDFrontend::SimpleType::eSimpleType SimpleTypeModel::getType(const std::string & typeName) const
 	{
-		auto it(m_simpleTypes.find(typeName));
+		auto simpleTypes(getSimpleTypes());
+		auto it(simpleTypes.find(typeName));
 
-		if (it != m_simpleTypes.cend())
+		if (it != simpleTypes.cend())
 		{
 			return it->second->getSimpleType();
 		}

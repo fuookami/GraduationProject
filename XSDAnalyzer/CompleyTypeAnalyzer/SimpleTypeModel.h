@@ -45,8 +45,8 @@ namespace XSDFrontend
 
 		SimpleType::ISimpleTypeInterface *getSimpleType(const std::string &typeName);
 		const SimpleType::ISimpleTypeInterface *getSimpleType(const std::string &typeName) const;
-		inline std::map<std::string, SimpleType::ISimpleTypeInterface *> &getSimpleTypes(void) { return m_simpleTypes; }
-		inline const std::map<std::string, SimpleType::ISimpleTypeInterface *> &getSimpleTypes(void) const { return m_simpleTypes; }
+		std::map<std::string, SimpleType::ISimpleTypeInterface *> getSimpleTypes(void);
+		const std::map<std::string, const SimpleType::ISimpleTypeInterface *> getSimpleTypes(void) const;
 
 		const XSDFrontend::SimpleType::eSimpleType getType(const std::string &typeName) const;
 		inline const bool isTypeExist(const std::string &typeName) const { return isSimpleType(typeName) || isBaseType(typeName); }
@@ -54,7 +54,7 @@ namespace XSDFrontend
 		inline const bool isSimpleType(const std::string &typeName) const { return getType(typeName) != XSDFrontend::SimpleType::eSimpleType::tNonExist; }
 
 		inline const bool hasToken(const std::string &token) { return isTypeExist(token); }
-		inline void clear(void) { m_stringTypes.clear(); m_numberTypes.clear(); m_datetimeTypes.clear(); m_dataTypes.clear(); m_containerTypes.clear(); m_simpleTypes.clear(); }
+		inline void clear(void) { m_stringTypes.clear(); m_numberTypes.clear(); m_datetimeTypes.clear(); m_dataTypes.clear(); m_containerTypes.clear(); }
 
 		void checkAndEraseIlegalTypeInContainer(std::shared_ptr<XSDFrontend::SimpleType::ContainerType> type);
 
@@ -62,12 +62,29 @@ namespace XSDFrontend
 		std::string getNewDefaultSimpleTypeName(void) const;
 
 	private:
+		template<typename T>
+		static void toSimpleTypes(std::map<std::string, SimpleType::ISimpleTypeInterface *> &ret, const std::map<std::string, std::shared_ptr<T>> &types)
+		{
+			for (const auto &pair : types)
+			{
+				ret.insert(std::make_pair(pair.first, dynamic_cast<SimpleType::ISimpleTypeInterface *>(pair.second.get())));
+			}
+		}
+
+		template<typename T>
+		static void toSimpleTypes(std::map<std::string, const SimpleType::ISimpleTypeInterface *> &ret, const std::map<std::string, std::shared_ptr<T>> &types)
+		{
+			for (const auto &pair : types)
+			{
+				ret.insert(std::make_pair(pair.first, dynamic_cast<const SimpleType::ISimpleTypeInterface *>(pair.second.get())));
+			}
+		}
+
+	private:
 		std::map<std::string, std::shared_ptr<SimpleType::StringType>> m_stringTypes;
 		std::map<std::string, std::shared_ptr<SimpleType::NumberType>> m_numberTypes;
 		std::map<std::string, std::shared_ptr<SimpleType::DatetimeType>> m_datetimeTypes;
 		std::map<std::string, std::shared_ptr<SimpleType::DataType>> m_dataTypes;
 		std::map<std::string, std::shared_ptr<SimpleType::ContainerType>> m_containerTypes;
-
-		std::map<std::string, SimpleType::ISimpleTypeInterface *> m_simpleTypes;
 	};
 };

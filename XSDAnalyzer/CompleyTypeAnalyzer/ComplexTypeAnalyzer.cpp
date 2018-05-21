@@ -69,7 +69,6 @@ namespace XSDAnalyzer
 			else
 			{
 				m_complexTypeModel->getComplexContents().insert(std::make_pair(ptr->getName(), ptr));
-				m_complexTypeModel->getComplexTypes().insert(std::make_pair(ptr->getName(), dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ptr.get())));
 				return ptr->getName();
 			}
 		}
@@ -83,7 +82,6 @@ namespace XSDAnalyzer
 			else
 			{
 				m_complexTypeModel->getSimpleContents().insert(std::make_pair(ptr->getName(), ptr));
-				m_complexTypeModel->getComplexTypes().insert(std::make_pair(ptr->getName(), dynamic_cast<XSDFrontend::ComplexType::IComplexTypeInterface *>(ptr.get())));
 				return ptr->getName();
 			}
 		}

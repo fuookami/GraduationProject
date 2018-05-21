@@ -45,7 +45,6 @@ namespace XSDAnalyzer
 			if (ok)
 			{
 				types.insert(std::make_pair(typeName, newType));
-				m_simpleTypeModel->getSimpleTypes().insert(std::make_pair(typeName, INewType));
 			}
 
 			return ok;
@@ -70,7 +69,6 @@ namespace XSDAnalyzer
 			if (ok)
 			{
 				types.insert(std::make_pair(typeName, newType));
-				m_simpleTypeModel->getSimpleTypes().insert(std::make_pair(typeName, INewType));
 			}
 
 			return ok;
