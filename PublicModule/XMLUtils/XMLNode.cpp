@@ -195,12 +195,7 @@ namespace SSUtils
 			{
 				ori_parent->removeChild(m_self.lock());
 			}
-			auto new_parent(parent.lock());
-			if (new_parent != nullptr)
-			{
-				new_parent->addChild(m_self.lock());
-				m_parent = new_parent;
-			}
+			m_parent = parent;
 		}
 
 		void Node::removeParent(void)

@@ -852,40 +852,40 @@
 		<xs:union memberTypes="tAttributeNameEnum xs:unsignedInt"/>
 	</xs:simpleType>
 	<xs:attributeGroup name="agAuthentication">
-		<xs:attribute default="false" name="certificate" type="xs:boolean" use="optional"/>
-		<xs:attribute default="true" name="none" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="password" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="strong" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="weak" type="xs:boolean" use="optional"/>
+		<xs:attribute default="false" name="certificate" type="xs:boolean"/>
+		<xs:attribute default="true" name="none" type="xs:boolean"/>
+		<xs:attribute default="false" name="password" type="xs:boolean"/>
+		<xs:attribute default="false" name="strong" type="xs:boolean"/>
+		<xs:attribute default="false" name="weak" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agDATrgOp">
-		<xs:attribute default="false" name="dchg" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="dupd" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="qchg" type="xs:boolean" use="optional"/>
+		<xs:attribute default="false" name="dchg" type="xs:boolean"/>
+		<xs:attribute default="false" name="dupd" type="xs:boolean"/>
+		<xs:attribute default="false" name="qchg" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agDesc">
-		<xs:attribute default="" name="desc" type="xs:normalizedString" use="optional"/>
+		<xs:attribute default="" name="desc" type="xs:normalizedString"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agOptFields">
-		<xs:attribute default="true" name="bufOvfl" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="configRef" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="dataRef" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="dataSet" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="entryID" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="reasonCode" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="seqNum" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="timeStamp" type="xs:boolean" use="optional"/>
+		<xs:attribute default="true" name="bufOvfl" type="xs:boolean"/>
+		<xs:attribute default="false" name="configRef" type="xs:boolean"/>
+		<xs:attribute default="false" name="dataRef" type="xs:boolean"/>
+		<xs:attribute default="false" name="dataSet" type="xs:boolean"/>
+		<xs:attribute default="false" name="entryID" type="xs:boolean"/>
+		<xs:attribute default="false" name="reasonCode" type="xs:boolean"/>
+		<xs:attribute default="false" name="seqNum" type="xs:boolean"/>
+		<xs:attribute default="false" name="timeStamp" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agSmvOpts">
-		<xs:attribute default="false" name="dataSet" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="refreshTime" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="sampleRate" type="xs:boolean" use="optional"/>
-		<xs:attribute fixed="true" name="sampleSynchronized" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="security" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="timestamp" type="xs:boolean" use="optional"/>
+		<xs:attribute default="false" name="dataSet" type="xs:boolean"/>
+		<xs:attribute default="false" name="refreshTime" type="xs:boolean"/>
+		<xs:attribute default="false" name="sampleRate" type="xs:boolean"/>
+		<xs:attribute fixed="true" name="sampleSynchronized" type="xs:boolean"/>
+		<xs:attribute default="false" name="security" type="xs:boolean"/>
+		<xs:attribute default="false" name="timestamp" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agVirtual">
-		<xs:attribute default="false" name="virtual" type="xs:boolean" use="optional"/>
+		<xs:attribute default="false" name="virtual" type="xs:boolean"/>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="agLDRef">
 		<xs:attribute name="iedName" type="tIEDName" use="required"/>
@@ -895,19 +895,19 @@
 	<xs:attributeGroup name="agLNRef">
 		<xs:attribute name="lnClass" type="tLNClassEnum" use="required"/>
 		<xs:attribute name="lnInst" type="tLNInstOrEmpty" use="required"/>
-		<xs:attribute default="" name="prefix" type="tPrefix" use="optional"/>
+		<xs:attribute default="" name="prefix" type="tPrefix"/>
 		<xs:attributeGroup ref="agLDRef"/>
 	</xs:attributeGroup>
 	<xs:complexType name="tAssociation">
-		<xs:attribute name="associationID" type="tAssociationID" use="optional"/>
+		<xs:attribute name="associationID" type="tAssociationID"/>
 		<xs:attribute name="kind" type="tAssociationKindEnum" use="required"/>
 		<xs:attributeGroup ref="agLNRef"/>
 	</xs:complexType>
 	<xs:complexType name="tBitRateInMbPerSec">
 		<xs:simpleContent>
 			<xs:extension base="xs:decimal">
-				<xs:attribute fixed="M" name="multiplier" type="tUnitMultiplierEnum" use="optional"/>
-				<xs:attribute fixed="b/s" name="unit" type="xs:normalizedString" use="optional"/>
+				<xs:attribute fixed="M" name="multiplier" type="tUnitMultiplierEnum"/>
+				<xs:attribute fixed="b/s" name="unit" type="xs:normalizedString"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -929,26 +929,26 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="tClientLN">
-		<xs:attribute name="apRef" type="tAccessPointName" use="optional"/>
+		<xs:attribute name="apRef" type="tAccessPointName"/>
 		<xs:attributeGroup ref="agLNRef"/>
 	</xs:complexType>
 	<xs:complexType name="tClientServices">
-		<xs:attribute default="false" name="bufReport" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="goose" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="gsse" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="readLog" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="sv" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="unbufReport" type="xs:boolean" use="optional"/>
+		<xs:attribute default="false" name="bufReport" type="xs:boolean"/>
+		<xs:attribute default="false" name="goose" type="xs:boolean"/>
+		<xs:attribute default="false" name="gsse" type="xs:boolean"/>
+		<xs:attribute default="false" name="readLog" type="xs:boolean"/>
+		<xs:attribute default="false" name="sv" type="xs:boolean"/>
+		<xs:attribute default="false" name="unbufReport" type="xs:boolean"/>
 	</xs:complexType>
 	<xs:complexType name="tConfLNs">
-		<xs:attribute default="false" name="fixLnInst" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="fixPrefix" type="xs:boolean" use="optional"/>
+		<xs:attribute default="false" name="fixLnInst" type="xs:boolean"/>
+		<xs:attribute default="false" name="fixPrefix" type="xs:boolean"/>
 	</xs:complexType>
 	<xs:complexType name="tDurationInMilliSec">
 		<xs:simpleContent>
 			<xs:extension base="xs:decimal">
-				<xs:attribute fixed="m" name="multiplier" type="tUnitMultiplierEnum" use="optional"/>
-				<xs:attribute fixed="s" name="unit" type="tSIUnitEnum" use="optional"/>
+				<xs:attribute fixed="m" name="multiplier" type="tUnitMultiplierEnum"/>
+				<xs:attribute fixed="s" name="unit" type="tSIUnitEnum"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -961,31 +961,31 @@
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="tExtRef">
-		<xs:attribute name="daName" type="tFullAttributeName" use="optional"/>
-		<xs:attribute name="doName" type="tFullDOName" use="optional"/>
-		<xs:attribute name="iedName" type="tIEDName" use="optional"/>
-		<xs:attribute name="intAddr" type="xs:normalizedString" use="optional"/>
-		<xs:attribute name="ldInst" type="tLDInst" use="optional"/>
-		<xs:attribute name="lnClass" type="tLNClassEnum" use="optional"/>
-		<xs:attribute name="lnInst" type="tLNInst" use="optional"/>
-		<xs:attribute name="prefix" type="tPrefix" use="optional"/>
-		<xs:attribute name="serviceType" type="tServiceType" use="optional"/>
-		<xs:attribute name="srcCBName" type="tCBName" use="optional"/>
-		<xs:attribute name="srcLDInst" type="tLDInst" use="optional"/>
-		<xs:attribute name="srcLNClass" type="tLNClassEnum" use="optional"/>
-		<xs:attribute name="srcLNInst" type="tLNInst" use="optional"/>
-		<xs:attribute name="srcPrefix" type="tPrefix" use="optional"/>
+		<xs:attribute name="daName" type="tFullAttributeName"/>
+		<xs:attribute name="doName" type="tFullDOName"/>
+		<xs:attribute name="iedName" type="tIEDName"/>
+		<xs:attribute name="intAddr" type="xs:normalizedString"/>
+		<xs:attribute name="ldInst" type="tLDInst"/>
+		<xs:attribute name="lnClass" type="tLNClassEnum"/>
+		<xs:attribute name="lnInst" type="tLNInst"/>
+		<xs:attribute name="prefix" type="tPrefix"/>
+		<xs:attribute name="serviceType" type="tServiceType"/>
+		<xs:attribute name="srcCBName" type="tCBName"/>
+		<xs:attribute name="srcLDInst" type="tLDInst"/>
+		<xs:attribute name="srcLNClass" type="tLNClassEnum"/>
+		<xs:attribute name="srcLNInst" type="tLNInst"/>
+		<xs:attribute name="srcPrefix" type="tPrefix"/>
 		<xs:attributeGroup ref="agDesc"/>
 	</xs:complexType>
 	<xs:complexType name="tFCDA">
-		<xs:attribute name="daName" type="tFullAttributeName" use="optional"/>
-		<xs:attribute name="doName" type="tFullDOName" use="optional"/>
+		<xs:attribute name="daName" type="tFullAttributeName"/>
+		<xs:attribute name="doName" type="tFullDOName"/>
 		<xs:attribute name="fc" type="tFCEnum" use="required"/>
-		<xs:attribute name="ix" type="xs:unsignedInt" use="optional"/>
-		<xs:attribute name="ldInst" type="tLDInst" use="optional"/>
-		<xs:attribute name="lnClass" type="tLNClassEnum" use="optional"/>
-		<xs:attribute name="lnInst" type="tLNInst" use="optional"/>
-		<xs:attribute default="" name="prefix" type="tPrefix" use="optional"/>
+		<xs:attribute name="ix" type="xs:unsignedInt"/>
+		<xs:attribute name="ldInst" type="tLDInst"/>
+		<xs:attribute name="lnClass" type="tLNClassEnum"/>
+		<xs:attribute name="lnInst" type="tLNInst"/>
+		<xs:attribute default="" name="prefix" type="tPrefix"/>
 	</xs:complexType>
 	<xs:complexType name="tKDC">
 		<xs:attribute name="apName" type="tAccessPointName" use="required"/>
@@ -1008,7 +1008,7 @@
 	<xs:complexType name="tProtNs">
 		<xs:simpleContent>
 			<xs:extension base="tNamespaceName">
-				<xs:attribute default="8-MMS" name="type" use="optional">
+				<xs:attribute default="8-MMS" name="type">
 					<xs:simpleType>
 						<xs:restriction base="xs:normalizedString">
 							<xs:minLength value="1"/>
@@ -1019,34 +1019,34 @@
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType abstract="true" name="tServiceSettings">
-		<xs:attribute default="Fix" name="cbName" type="tServiceSettingsEnum" use="optional"/>
-		<xs:attribute default="Fix" name="datSet" type="tServiceSettingsEnum" use="optional"/>
+		<xs:attribute default="Fix" name="cbName" type="tServiceSettingsEnum"/>
+		<xs:attribute default="Fix" name="datSet" type="tServiceSettingsEnum"/>
 	</xs:complexType>
 	<xs:complexType name="tServiceWithMax">
 		<xs:attribute name="max" type="xs:unsignedInt" use="required"/>
 	</xs:complexType>
 	<xs:complexType name="tServiceWithOptionalMax">
-		<xs:attribute name="max" type="xs:unsignedInt" use="optional"/>
+		<xs:attribute name="max" type="xs:unsignedInt"/>
 	</xs:complexType>
 	<xs:complexType name="tServiceYesNo"/>
 	<xs:complexType name="tTrgOps">
-		<xs:attribute default="false" name="dchg" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="dupd" type="xs:boolean" use="optional"/>
-		<xs:attribute default="true" name="gi" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="period" type="xs:boolean" use="optional"/>
-		<xs:attribute default="false" name="qchg" type="xs:boolean" use="optional"/>
+		<xs:attribute default="false" name="dchg" type="xs:boolean"/>
+		<xs:attribute default="false" name="dupd" type="xs:boolean"/>
+		<xs:attribute default="true" name="gi" type="xs:boolean"/>
+		<xs:attribute default="false" name="period" type="xs:boolean"/>
+		<xs:attribute default="false" name="qchg" type="xs:boolean"/>
 	</xs:complexType>
 	<xs:complexType name="tVal">
 		<xs:simpleContent>
 			<xs:extension base="xs:normalizedString">
-				<xs:attribute name="sGroup" type="xs:unsignedInt" use="optional"/>
+				<xs:attribute name="sGroup" type="xs:unsignedInt"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="tValueWithUnit">
 		<xs:simpleContent>
 			<xs:extension base="xs:decimal">
-				<xs:attribute default="" name="multiplier" type="tUnitMultiplierEnum" use="optional"/>
+				<xs:attribute default="" name="multiplier" type="tUnitMultiplierEnum"/>
 				<xs:attribute name="unit" type="tSIUnitEnum" use="required"/>
 			</xs:extension>
 		</xs:simpleContent>
@@ -1176,37 +1176,37 @@
 	<xs:complexType name="tGSESettings">
 		<xs:complexContent>
 			<xs:extension base="tServiceSettings">
-				<xs:attribute default="Fix" name="appID" type="tServiceSettingsEnum" use="optional"/>
-				<xs:attribute default="Fix" name="dataLabel" type="tServiceSettingsEnum" use="optional"/>
+				<xs:attribute default="Fix" name="appID" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="dataLabel" type="tServiceSettingsEnum"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tLogSettings">
 		<xs:complexContent>
 			<xs:extension base="tServiceSettings">
-				<xs:attribute default="Fix" name="intgPd" type="tServiceSettingsEnum" use="optional"/>
-				<xs:attribute default="Fix" name="logEna" type="tServiceSettingsEnum" use="optional"/>
-				<xs:attribute default="Fix" name="trgOps" type="tServiceSettingsEnum" use="optional"/>
+				<xs:attribute default="Fix" name="intgPd" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="logEna" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="trgOps" type="tServiceSettingsEnum"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tReportSettings">
 		<xs:complexContent>
 			<xs:extension base="tServiceSettings">
-				<xs:attribute default="Fix" name="bufTime" type="tServiceSettingsEnum" use="optional"/>
-				<xs:attribute default="Fix" name="intgPd" type="tServiceSettingsEnum" use="optional"/>
-				<xs:attribute default="Fix" name="optFields" type="tServiceSettingsEnum" use="optional"/>
-				<xs:attribute default="false" name="resvTms" type="xs:boolean" use="optional"/>
-				<xs:attribute default="Fix" name="rptID" type="tServiceSettingsEnum" use="optional"/>
-				<xs:attribute default="Fix" name="trgOps" type="tServiceSettingsEnum" use="optional"/>
+				<xs:attribute default="Fix" name="bufTime" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="intgPd" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="optFields" type="tServiceSettingsEnum"/>
+				<xs:attribute default="false" name="resvTms" type="xs:boolean"/>
+				<xs:attribute default="Fix" name="rptID" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="trgOps" type="tServiceSettingsEnum"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tServiceConfReportControl">
 		<xs:complexContent>
 			<xs:extension base="tServiceWithMax">
-				<xs:attribute default="false" name="bufConf" type="xs:boolean" use="optional"/>
-				<xs:attribute name="bufMode" use="optional">
+				<xs:attribute default="false" name="bufConf" type="xs:boolean"/>
+				<xs:attribute name="bufMode">
 					<xs:simpleType>
 						<xs:restriction base="xs:Name">
 							<xs:enumeration value="both"/>
@@ -1221,21 +1221,21 @@
 	<xs:complexType name="tServiceWithMaxAndMaxAttributes">
 		<xs:complexContent>
 			<xs:extension base="tServiceWithMax">
-				<xs:attribute name="maxAttributes" type="xs:unsignedInt" use="optional"/>
+				<xs:attribute name="maxAttributes" type="xs:unsignedInt"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tServiceWithMaxAndModify">
 		<xs:complexContent>
 			<xs:extension base="tServiceWithMax">
-				<xs:attribute default="true" name="modify" type="xs:boolean" use="optional"/>
+				<xs:attribute default="true" name="modify" type="xs:boolean"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tDurationInSec">
 		<xs:simpleContent>
 			<xs:restriction base="tValueWithUnit">
-				<xs:attribute default="" name="multiplier" type="tUnitMultiplierEnum" use="optional"/>
+				<xs:attribute default="" name="multiplier" type="tUnitMultiplierEnum"/>
 				<xs:attribute fixed="s" name="unit" type="tSIUnitEnum" use="required"/>
 			</xs:restriction>
 		</xs:simpleContent>
@@ -1243,13 +1243,13 @@
 	<xs:complexType name="tVoltage">
 		<xs:simpleContent>
 			<xs:restriction base="tValueWithUnit">
-				<xs:attribute default="" name="multiplier" type="tUnitMultiplierEnum" use="optional"/>
+				<xs:attribute default="" name="multiplier" type="tUnitMultiplierEnum"/>
 				<xs:attribute fixed="V" name="unit" type="tSIUnitEnum" use="required"/>
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType abstract="true" mixed="true" name="tAnyContentFromOtherNamespace">
-		<xs:sequence maxOccurs="unbounded" minOccurs="0" name="tAnyContentFromOtherNamespace">
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
 			<xs:any namespace="##other" processContents="lax"/>
 		</xs:sequence>
 		<xs:anyAttribute namespace="##other" processContents="lax"/>
@@ -1280,10 +1280,10 @@
 						</xs:simpleType>
 					</xs:element>
 				</xs:choice>
-				<xs:attribute default="Fix" name="optFields" type="tServiceSettingsEnum" use="optional"/>
-				<xs:attribute default="false" name="samplesPerSec" type="xs:boolean" use="optional"/>
-				<xs:attribute default="Fix" name="smpRate" type="tServiceSettingsEnum" use="optional"/>
-				<xs:attribute default="Fix" name="svID" type="tServiceSettingsEnum" use="optional"/>
+				<xs:attribute default="Fix" name="optFields" type="tServiceSettingsEnum"/>
+				<xs:attribute default="false" name="samplesPerSec" type="xs:boolean"/>
+				<xs:attribute default="Fix" name="smpRate" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="svID" type="tServiceSettingsEnum"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1323,14 +1323,14 @@
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="tAddress">
-		<xs:sequence name="tAddress">
+		<xs:sequence>
 			<xs:element maxOccurs="unbounded" name="P" type="tP"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="tServiceForConfDataSet">
 		<xs:complexContent>
 			<xs:extension base="tServiceWithMaxAndMaxAttributes">
-				<xs:attribute default="true" name="modify" type="xs:boolean" use="optional"/>
+				<xs:attribute default="true" name="modify" type="xs:boolean"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1354,7 +1354,7 @@
 	<xs:complexType mixed="true" name="tPrivate">
 		<xs:complexContent>
 			<xs:extension base="tAnyContentFromOtherNamespace">
-				<xs:attribute name="source" type="xs:anyURI" use="optional"/>
+				<xs:attribute name="source" type="xs:anyURI"/>
 				<xs:attribute name="type" use="required">
 					<xs:simpleType>
 						<xs:restriction base="xs:normalizedString">
@@ -1368,12 +1368,12 @@
 	<xs:complexType mixed="true" name="tText">
 		<xs:complexContent>
 			<xs:extension base="tAnyContentFromOtherNamespace">
-				<xs:attribute name="source" type="xs:anyURI" use="optional"/>
+				<xs:attribute name="source" type="xs:anyURI"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tServices">
-		<xs:all name="tServices">
+		<xs:all>
 			<xs:element minOccurs="0" name="DynAssociation" type="tServiceWithOptionalMax"/>
 			<xs:element minOccurs="0" name="SettingGroups">
 				<xs:complexType>
@@ -1411,7 +1411,7 @@
 			<xs:element minOccurs="0" name="SupSubscription" type="tServiceWithMax"/>
 			<xs:element minOccurs="0" name="ConfSigRef" type="tServiceWithMax"/>
 		</xs:all>
-		<xs:attribute default="32" name="nameLength" use="optional">
+		<xs:attribute default="32" name="nameLength">
 			<xs:simpleType>
 				<xs:restriction base="xs:unsignedInt">
 					<xs:minExclusive value="empty"/>
@@ -1420,7 +1420,7 @@
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType abstract="true" name="tBaseElement">
-		<xs:sequence name="tBaseElement">
+		<xs:sequence>
 			<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
 			<xs:element minOccurs="0" name="Text" type="tText"/>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="Private" type="tPrivate"/>
@@ -1451,7 +1451,7 @@
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tHeader">
-		<xs:sequence name="tHeader">
+		<xs:sequence>
 			<xs:element minOccurs="0" name="Text" type="tText"/>
 			<xs:element minOccurs="0" name="History">
 				<xs:complexType>
@@ -1462,16 +1462,16 @@
 			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="id" type="xs:normalizedString" use="required"/>
-		<xs:attribute default="IEDName" name="nameStructure" use="optional">
+		<xs:attribute default="IEDName" name="nameStructure">
 			<xs:simpleType>
 				<xs:restriction base="xs:Name">
 					<xs:enumeration value="IEDName"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
-		<xs:attribute default="" name="revision" type="xs:normalizedString" use="optional"/>
-		<xs:attribute name="toolID" type="xs:normalizedString" use="optional"/>
-		<xs:attribute name="version" type="xs:normalizedString" use="optional"/>
+		<xs:attribute default="" name="revision" type="xs:normalizedString"/>
+		<xs:attribute name="toolID" type="xs:normalizedString"/>
+		<xs:attribute name="version" type="xs:normalizedString"/>
 	</xs:complexType>
 	<xs:complexType name="tEnumType">
 		<xs:complexContent>
@@ -1497,7 +1497,7 @@
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:attribute>
-				<xs:attribute name="xferNumber" type="xs:unsignedInt" use="optional"/>
+				<xs:attribute name="xferNumber" type="xs:unsignedInt"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1508,18 +1508,18 @@
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="Val" type="tVal"/>
 				</xs:sequence>
 				<xs:attribute name="bType" type="tBasicTypeEnum" use="required"/>
-				<xs:attribute default="0" name="count" type="tDACount" use="optional"/>
+				<xs:attribute default="0" name="count" type="tDACount"/>
 				<xs:attribute name="name" type="tAttributeNameEnum" use="required"/>
-				<xs:attribute name="sAddr" type="xs:normalizedString" use="optional"/>
-				<xs:attribute name="type" type="tAnyName" use="optional"/>
-				<xs:attribute default="Set" name="valKind" type="tValKindEnum" use="optional"/>
+				<xs:attribute name="sAddr" type="xs:normalizedString"/>
+				<xs:attribute name="type" type="tAnyName"/>
+				<xs:attribute default="Set" name="valKind" type="tValKindEnum"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType abstract="true" name="tControl">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
-				<xs:attribute name="datSet" type="tDataSetName" use="optional"/>
+				<xs:attribute name="datSet" type="tDataSetName"/>
 				<xs:attribute name="name" type="tCBName" use="required"/>
 			</xs:extension>
 		</xs:complexContent>
@@ -1541,19 +1541,19 @@
 				<xs:sequence>
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="Val" type="tVal"/>
 				</xs:sequence>
-				<xs:attribute name="ix" type="xs:unsignedInt" use="optional"/>
+				<xs:attribute name="ix" type="xs:unsignedInt"/>
 				<xs:attribute name="name" type="tAttributeNameEnum" use="required"/>
-				<xs:attribute name="sAddr" type="xs:normalizedString" use="optional"/>
-				<xs:attribute name="valKind" type="tValKindEnum" use="optional"/>
+				<xs:attribute name="sAddr" type="xs:normalizedString"/>
+				<xs:attribute name="valKind" type="tValKindEnum"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tDO">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
-				<xs:attribute name="accessControl" type="xs:normalizedString" use="optional"/>
+				<xs:attribute name="accessControl" type="xs:normalizedString"/>
 				<xs:attribute name="name" type="tDataName" use="required"/>
-				<xs:attribute default="false" name="transient" type="xs:boolean" use="optional"/>
+				<xs:attribute default="false" name="transient" type="xs:boolean"/>
 				<xs:attribute name="type" type="tName" use="required"/>
 			</xs:extension>
 		</xs:complexContent>
@@ -1580,19 +1580,19 @@
 	<xs:complexType name="tLNode">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
-				<xs:attribute default="None" name="iedName" type="tIEDName" use="optional"/>
-				<xs:attribute default="" name="ldInst" type="tLDInstOrEmpty" use="optional"/>
+				<xs:attribute default="None" name="iedName" type="tIEDName"/>
+				<xs:attribute default="" name="ldInst" type="tLDInstOrEmpty"/>
 				<xs:attribute name="lnClass" type="tLNClassEnum" use="required"/>
-				<xs:attribute default="" name="lnInst" type="tLNInstOrEmpty" use="optional"/>
-				<xs:attribute name="lnType" type="tName" use="optional"/>
-				<xs:attribute default="" name="prefix" type="tPrefix" use="optional"/>
+				<xs:attribute default="" name="lnInst" type="tLNInstOrEmpty"/>
+				<xs:attribute name="lnType" type="tName"/>
+				<xs:attribute default="" name="prefix" type="tPrefix"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tLog">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
-				<xs:attribute name="name" type="tLogName" use="optional"/>
+				<xs:attribute name="name" type="tLogName"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1612,14 +1612,14 @@
 				<xs:sequence>
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="ClientLN" type="tClientLN"/>
 				</xs:sequence>
-				<xs:attribute default="1" name="max" type="xs:unsignedInt" use="optional"/>
+				<xs:attribute default="1" name="max" type="xs:unsignedInt"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="tSDO">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
-				<xs:attribute default="0" name="count" type="tSDOCount" use="optional"/>
+				<xs:attribute default="0" name="count" type="tSDOCount"/>
 				<xs:attribute name="name" type="tSubDataName" use="required"/>
 				<xs:attribute name="type" type="tName" use="required"/>
 			</xs:extension>
@@ -1635,7 +1635,7 @@
 	<xs:complexType name="tSettingControl">
 		<xs:complexContent>
 			<xs:extension base="tUnNaming">
-				<xs:attribute default="1" name="actSG" use="optional">
+				<xs:attribute default="1" name="actSG">
 					<xs:simpleType>
 						<xs:restriction base="xs:unsignedInt">
 							<xs:minExclusive value="empty"/>
@@ -1649,7 +1649,7 @@
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:attribute>
-				<xs:attribute name="resvTms" type="xs:unsignedShort" use="optional"/>
+				<xs:attribute name="resvTms" type="xs:unsignedShort"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1659,7 +1659,7 @@
 				<xs:attribute name="bayName" type="tName" use="required"/>
 				<xs:attribute name="cNodeName" type="tName" use="required"/>
 				<xs:attribute name="connectivityNode" type="tRef" use="required"/>
-				<xs:attribute default="" name="name" type="tAnyName" use="optional"/>
+				<xs:attribute default="" name="name" type="tAnyName"/>
 				<xs:attribute name="substationName" type="tName" use="required"/>
 				<xs:attribute name="voltageLevelName" type="tName" use="required"/>
 			</xs:extension>
@@ -1686,17 +1686,17 @@
 						<xs:complexType>
 							<xs:simpleContent>
 								<xs:extension base="tIEDName">
-									<xs:attribute name="apRef" type="tAccessPointName" use="optional"/>
-									<xs:attribute name="ldInst" type="tLDInst" use="optional"/>
-									<xs:attribute name="lnClass" type="tLNClassEnum" use="optional"/>
-									<xs:attribute name="lnInst" type="tLNInst" use="optional"/>
-									<xs:attribute name="prefix" type="tPrefix" use="optional"/>
+									<xs:attribute name="apRef" type="tAccessPointName"/>
+									<xs:attribute name="ldInst" type="tLDInst"/>
+									<xs:attribute name="lnClass" type="tLNClassEnum"/>
+									<xs:attribute name="lnInst" type="tLNInst"/>
+									<xs:attribute name="prefix" type="tPrefix"/>
 								</xs:extension>
 							</xs:simpleContent>
 						</xs:complexType>
 					</xs:element>
 				</xs:sequence>
-				<xs:attribute name="confRev" type="xs:unsignedInt" use="optional"/>
+				<xs:attribute name="confRev" type="xs:unsignedInt"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1706,7 +1706,7 @@
 				<xs:sequence>
 					<xs:element minOccurs="0" name="TrgOps" type="tTrgOps"/>
 				</xs:sequence>
-				<xs:attribute default="0" name="intgPd" type="xs:unsignedInt" use="optional"/>
+				<xs:attribute default="0" name="intgPd" type="xs:unsignedInt"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1733,10 +1733,10 @@
 					<xs:element maxOccurs="7" minOccurs="0" name="GOOSESecurity" type="tCertificate"/>
 					<xs:element maxOccurs="7" minOccurs="0" name="SMVSecurity" type="tCertificate"/>
 				</xs:sequence>
-				<xs:attribute default="false" name="clock" type="xs:boolean" use="optional"/>
-				<xs:attribute default="false" name="kdc" type="xs:boolean" use="optional"/>
+				<xs:attribute default="false" name="clock" type="xs:boolean"/>
+				<xs:attribute default="false" name="kdc" type="xs:boolean"/>
 				<xs:attribute name="name" type="tAccessPointName" use="required"/>
-				<xs:attribute default="false" name="router" type="xs:boolean" use="optional"/>
+				<xs:attribute default="false" name="router" type="xs:boolean"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1755,9 +1755,9 @@
 					</xs:element>
 				</xs:sequence>
 				<xs:attribute name="appID" type="tMessageID" use="required"/>
-				<xs:attribute default="false" name="fixedOffs" type="xs:boolean" use="optional"/>
-				<xs:attribute default="None" name="securityEnable" type="tPredefinedTypeOfSecurityEnum" use="optional"/>
-				<xs:attribute default="GOOSE" name="type" type="tGSEControlTypeEnum" use="optional"/>
+				<xs:attribute default="false" name="fixedOffs" type="xs:boolean"/>
+				<xs:attribute default="None" name="securityEnable" type="tPredefinedTypeOfSecurityEnum"/>
+				<xs:attribute default="GOOSE" name="type" type="tGSEControlTypeEnum"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1781,9 +1781,9 @@
 					</xs:element>
 				</xs:sequence>
 				<xs:attribute default="true" name="multicast" type="xs:boolean"/>
-				<xs:attribute default="1" name="nofASDU" type="xs:unsignedInt" use="optional"/>
-				<xs:attribute default="None" name="securityEnable" type="tPredefinedTypeOfSecurityEnum" use="optional"/>
-				<xs:attribute default="SmpPerPeriod" name="smpMod" type="tSmpMod" use="optional"/>
+				<xs:attribute default="1" name="nofASDU" type="xs:unsignedInt"/>
+				<xs:attribute default="None" name="securityEnable" type="tPredefinedTypeOfSecurityEnum"/>
+				<xs:attribute default="SmpPerPeriod" name="smpMod" type="tSmpMod"/>
 				<xs:attribute name="smpRate" type="xs:unsignedInt" use="required"/>
 				<xs:attribute name="smvID" type="tMessageID" use="required"/>
 			</xs:extension>
@@ -1792,14 +1792,14 @@
 	<xs:complexType name="tLogControl">
 		<xs:complexContent>
 			<xs:extension base="tControlWithTriggerOpt">
-				<xs:attribute default="0" name="bufTime" type="xs:unsignedInt" use="optional"/>
-				<xs:attribute name="ldInst" type="tLDInst" use="optional"/>
-				<xs:attribute default="LLN0" name="lnClass" type="tLNClassEnum" use="optional"/>
-				<xs:attribute name="lnInst" type="tLNInst" use="optional"/>
-				<xs:attribute default="true" name="logEna" type="xs:boolean" use="optional"/>
+				<xs:attribute default="0" name="bufTime" type="xs:unsignedInt"/>
+				<xs:attribute name="ldInst" type="tLDInst"/>
+				<xs:attribute default="LLN0" name="lnClass" type="tLNClassEnum"/>
+				<xs:attribute name="lnInst" type="tLNInst"/>
+				<xs:attribute default="true" name="logEna" type="xs:boolean"/>
 				<xs:attribute name="logName" type="tLogName" use="required"/>
-				<xs:attribute default="" name="prefix" type="tPrefix" use="optional"/>
-				<xs:attribute default="true" name="reasonCode" type="xs:boolean" use="optional"/>
+				<xs:attribute default="" name="prefix" type="tPrefix"/>
+				<xs:attribute default="true" name="reasonCode" type="xs:boolean"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1809,7 +1809,7 @@
 				<xs:sequence>
 					<xs:element maxOccurs="unbounded" name="DO" type="tDO"/>
 				</xs:sequence>
-				<xs:attribute default="" name="iedType" type="tAnyName" use="optional"/>
+				<xs:attribute default="" name="iedType" type="tAnyName"/>
 				<xs:attribute name="lnClass" type="tLNClassEnum" use="required"/>
 			</xs:extension>
 		</xs:complexContent>
@@ -1834,11 +1834,11 @@
 					</xs:element>
 					<xs:element minOccurs="0" name="RptEnabled" type="tRptEnabled"/>
 				</xs:sequence>
-				<xs:attribute default="0" name="bufTime" type="xs:unsignedInt" use="optional"/>
-				<xs:attribute default="false" name="buffered" type="xs:boolean" use="optional"/>
+				<xs:attribute default="0" name="bufTime" type="xs:unsignedInt"/>
+				<xs:attribute default="false" name="buffered" type="xs:boolean"/>
 				<xs:attribute name="confRev" type="xs:unsignedInt" use="required"/>
-				<xs:attribute default="true" name="indexed" type="xs:boolean" use="optional"/>
-				<xs:attribute name="rptID" type="tMessageID" use="optional"/>
+				<xs:attribute default="true" name="indexed" type="xs:boolean"/>
+				<xs:attribute name="rptID" type="tMessageID"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1849,7 +1849,7 @@
 					<xs:element maxOccurs="unbounded" name="BDA" type="tBDA"/>
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="ProtNs" type="tProtNs"/>
 				</xs:sequence>
-				<xs:attribute default="" name="iedType" type="tAnyName" use="optional"/>
+				<xs:attribute default="" name="iedType" type="tAnyName"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1861,7 +1861,7 @@
 					<xs:element name="DA" type="tDA"/>
 				</xs:choice>
 				<xs:attribute name="cdc" type="tCDCEnum" use="required"/>
-				<xs:attribute default="" name="iedType" type="tAnyName" use="optional"/>
+				<xs:attribute default="" name="iedType" type="tAnyName"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1899,14 +1899,14 @@
 					<xs:element maxOccurs="unbounded" name="AccessPoint" type="tAccessPoint"/>
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="KDC" type="tKDC"/>
 				</xs:sequence>
-				<xs:attribute name="configVersion" type="xs:normalizedString" use="optional"/>
-				<xs:attribute default="full" name="engRight" type="tRightEnum" use="optional"/>
-				<xs:attribute name="manufacturer" type="xs:normalizedString" use="optional"/>
+				<xs:attribute name="configVersion" type="xs:normalizedString"/>
+				<xs:attribute default="full" name="engRight" type="tRightEnum"/>
+				<xs:attribute name="manufacturer" type="xs:normalizedString"/>
 				<xs:attribute name="name" type="tIEDName" use="required"/>
-				<xs:attribute name="originalSclRevision" type="tSclRevision" use="optional"/>
-				<xs:attribute name="originalSclVersion" type="tSclVersion" use="optional"/>
-				<xs:attribute name="owner" type="xs:normalizedString" use="optional"/>
-				<xs:attribute name="type" type="xs:normalizedString" use="optional"/>
+				<xs:attribute name="originalSclRevision" type="tSclRevision"/>
+				<xs:attribute name="originalSclVersion" type="tSclVersion"/>
+				<xs:attribute name="owner" type="xs:normalizedString"/>
+				<xs:attribute name="type" type="xs:normalizedString"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1920,14 +1920,14 @@
 	<xs:complexType name="tSubEquipment">
 		<xs:complexContent>
 			<xs:extension base="tPowerSystemResource">
-				<xs:attribute default="none" name="phase" type="tPhaseEnum" use="optional"/>
+				<xs:attribute default="none" name="phase" type="tPhaseEnum"/>
 				<xs:attributeGroup ref="agVirtual"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:element name="IED" type="tIED"/>
 	<xs:complexType name="tDataTypeTemplates">
-		<xs:sequence name="tDataTypeTemplates">
+		<xs:sequence>
 			<xs:element maxOccurs="unbounded" name="LNodeType" type="tLNodeType"/>
 			<xs:element maxOccurs="unbounded" name="DOType" type="tDOType"/>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="DAType" type="tDAType"/>
@@ -1941,7 +1941,7 @@
 					<xs:element minOccurs="0" name="BitRate" type="tBitRateInMbPerSec"/>
 					<xs:element maxOccurs="unbounded" name="ConnectedAP" type="tConnectedAP"/>
 				</xs:sequence>
-				<xs:attribute name="type" type="xs:normalizedString" use="optional"/>
+				<xs:attribute name="type" type="xs:normalizedString"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -2009,7 +2009,7 @@
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="GeneralEquipment" type="tGeneralEquipment"/>
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConductingEquipment" type="tConductingEquipment"/>
 				</xs:sequence>
-				<xs:attribute name="type" type="xs:normalizedString" use="optional"/>
+				<xs:attribute name="type" type="xs:normalizedString"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -2032,7 +2032,7 @@
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="GeneralEquipment" type="tGeneralEquipment"/>
 					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConductingEquipment" type="tConductingEquipment"/>
 				</xs:sequence>
-				<xs:attribute name="type" type="xs:normalizedString" use="optional"/>
+				<xs:attribute name="type" type="xs:normalizedString"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -2085,10 +2085,10 @@
 				<xs:extension base="tBaseElement">
 					<xs:sequence>
 						<xs:element name="Header" type="tHeader"/>
-						<xs:element maxOccurs="unbounded" minOccurs="0" ref="Substation"/>
-						<xs:element minOccurs="0" ref="Communication"/>
-						<xs:element maxOccurs="unbounded" minOccurs="0" ref="IED"/>
-						<xs:element minOccurs="0" ref="DataTypeTemplates"/>
+						<xs:element ref="Substation"/>
+						<xs:element ref="Communication"/>
+						<xs:element ref="IED"/>
+						<xs:element ref="DataTypeTemplates"/>
 					</xs:sequence>
 					<xs:attribute fixed="B" name="revision" type="tSclRevision" use="required"/>
 					<xs:attribute fixed="2007" name="version" type="tSclVersion" use="required"/>

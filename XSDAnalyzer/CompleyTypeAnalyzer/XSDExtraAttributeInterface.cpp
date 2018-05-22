@@ -82,7 +82,7 @@ namespace XSDFrontend
 		{
 			for (const auto &pair : node->getAttrs())
 			{
-				if (BaseAttrs.find(pair.first) != BaseAttrs.cend())
+				if (BaseAttrs.find(pair.first) == BaseAttrs.cend())
 				{
 					addExAttr(pair);
 				}

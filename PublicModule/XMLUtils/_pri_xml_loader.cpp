@@ -67,6 +67,7 @@ namespace SSUtils
 						if (tree != nullptr)
 						{
 							node->addChild(tree);
+							tree->setParent(node);
 						}
 					}
 				}

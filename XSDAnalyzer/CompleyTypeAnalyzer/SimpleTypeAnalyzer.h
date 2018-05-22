@@ -41,7 +41,7 @@ namespace XSDAnalyzer
 			XSDFrontend::SimpleType::ISimpleTypeInterface *INewType(dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(newType.get()));
 			bool ok(INewType->refreshValidator(node));
 			INewType->setAnonymous(anonymous);
-			INewType->loadExAttr(node, XSDFrontend::SimpleType::ISimpleTypeInterface::BaseAttrs);
+			INewType->loadExAttr(node->getParent().lock(), XSDFrontend::SimpleType::ISimpleTypeInterface::BaseAttrs);
 			if (ok)
 			{
 				types.insert(std::make_pair(typeName, newType));
@@ -64,7 +64,7 @@ namespace XSDAnalyzer
 			XSDFrontend::SimpleType::ISimpleTypeInterface *INewType(dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(newType.get()));
 			INewType->setBaseTypeName(prototypeSimpleType->getName());
 			INewType->setAnonymous(anonymous);
-			INewType->loadExAttr(node, XSDFrontend::SimpleType::ISimpleTypeInterface::BaseAttrs);
+			INewType->loadExAttr(node->getParent().lock(), XSDFrontend::SimpleType::ISimpleTypeInterface::BaseAttrs);
 			bool ok(INewType->refreshValidator(node));
 			if (ok)
 			{

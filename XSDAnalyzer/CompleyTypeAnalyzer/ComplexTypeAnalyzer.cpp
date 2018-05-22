@@ -316,7 +316,7 @@ namespace XSDAnalyzer
 			group->setElementGroupType(groupTypeIt->second);
 			group->loadNumberLimitation(node);
 			group->loadNumberLimitation(groupBody);
-			group->loadExAttr(node, XSDFrontend::ComplexType::ElementGroup::BaseAttrs);
+			group->loadExAttr(groupBody, XSDFrontend::ComplexType::ElementGroup::BaseAttrs);
 
 			for (const auto child : groupBody->getChildren())
 			{
