@@ -7,9 +7,9 @@ namespace SSUtils
 {
 	namespace XML
 	{
-		extern const std::string AttrTag;
-		extern const std::string PathSeperator;
-		extern const std::string AttrSeperator;
+		extern API_DECLSPEC const std::string AttrTag;
+		extern API_DECLSPEC const std::string PathSeperator;
+		extern API_DECLSPEC const std::string AttrSeperator;
 
 		class Node;
 		class Document;

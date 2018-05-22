@@ -1,8 +1,8 @@
 #pragma once
 
 #include "_pri_thread_global.h"
-#include "SystemUtils.h"
 #include "FunctionUtils.h"
+#include "SystemUtils.h"
 #include <deque>
 #include <mutex>
 #include <condition_variable>
@@ -13,7 +13,7 @@ namespace SSUtils
 {
 	namespace Thread
 	{
-		class ThreadPool
+		class API_DECLSPEC ThreadPool
 		{
 		public:
 			ThreadPool(const uint32 size = System::CPUCoreNumber, const Function::TaskCompareFunction taskCompareFun = Function::DefaultTaskCompareFunction);
@@ -25,7 +25,7 @@ namespace SSUtils
 
 			template<typename F, typename... Args>
 			auto commit(F &&f, Args&&... args)
-				-> std::pair<bool, std::future<typename std::result_of<F(Args...)>::type>>;
+				->std::pair<bool, std::future<typename std::result_of<F(Args...)>::type>>;
 			template<typename F, typename... Args>
 			auto commit(const std::shared_ptr<std::packaged_task<typename std::result_of<F(Args...)>::type>> task, const uint32 priority = 0, const uint32 time = static_cast<uint32>(clock()))
 				->std::pair<bool, std::future<typename std::result_of<F(Args...)>::type>>;

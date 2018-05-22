@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "UuidUtils.h"
 
 #include <boost/uuid/uuid.hpp>

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "StringRegexChecker.h"
 
 namespace SSUtils

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "StringUtils.h"
 #include <sstream>
 #include <iomanip>

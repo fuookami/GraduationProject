@@ -16,34 +16,34 @@ namespace SSUtils
 
 	namespace String
 	{
-		extern const std::string EmptyString;
+		extern API_DECLSPEC const std::string EmptyString;
 
-		extern const std::string Empty;
-		extern const std::string Null;
-		extern const std::string None;
+		extern API_DECLSPEC const std::string Empty;
+		extern API_DECLSPEC const std::string Null;
+		extern API_DECLSPEC const std::string None;
 
-		extern const std::string Right;
-		extern const std::string Error;
-		extern const std::string Wrong;
+		extern API_DECLSPEC const std::string Right;
+		extern API_DECLSPEC const std::string Error;
+		extern API_DECLSPEC const std::string Wrong;
 
-		extern const std::string Enabled;
-		extern const std::string Disabled;
+		extern API_DECLSPEC const std::string Enabled;
+		extern API_DECLSPEC const std::string Disabled;
 
-		extern const std::string True;
-		extern const std::string False;
+		extern API_DECLSPEC const std::string True;
+		extern API_DECLSPEC const std::string False;
 
-		extern const std::string Infinity;
-		extern const std::string NegativeInfinity;
-		extern const std::string PositiveInfinity;
-		extern const std::string NotANumber;
+		extern API_DECLSPEC const std::string Infinity;
+		extern API_DECLSPEC const std::string NegativeInfinity;
+		extern API_DECLSPEC const std::string PositiveInfinity;
+		extern API_DECLSPEC const std::string NotANumber;
 
-		extern const std::string SpaceCharacters;
+		extern API_DECLSPEC const std::string SpaceCharacters;
 
-		extern const std::string HexStringPrefix;
+		extern API_DECLSPEC const std::string HexStringPrefix;
 
-		extern const std::map<CharType, std::string> CharTypeCode;
+		extern API_DECLSPEC const std::map<CharType, std::string> CharTypeCode;
 
-		extern const CharType LocalCharType;
-		extern const std::string LocalCharTypeCode;
+		extern API_DECLSPEC const CharType LocalCharType;
+		extern API_DECLSPEC const std::string LocalCharTypeCode;
 	};
 };

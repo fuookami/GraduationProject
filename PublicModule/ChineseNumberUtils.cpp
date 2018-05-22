@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ChineseNumberUtils.h"
 #include "ChineseNumberUntils/_pri_chinese_number.h"
 

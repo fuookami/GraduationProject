@@ -8,7 +8,7 @@ namespace SSUtils
 {
 	namespace XML
 	{
-		class Document
+		class API_DECLSPEC Document
 		{
 		public:
 			Document(void) = default;

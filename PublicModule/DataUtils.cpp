@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DataUtils.h"
 #include "DataUtils/DataTranslator.h"
 #include "RandomUtils.h"
@@ -8,6 +9,7 @@
 
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 
 namespace SSUtils
 {
@@ -133,7 +135,7 @@ const bool operator!=(const SSUtils::Block & lhs, const SSUtils::Block & rhs)
 
 const bool operator<(const SSUtils::Block & lhs, const SSUtils::Block & rhs)
 {
-	for (SSUtils::uint32 i(0), j(std::min(lhs.size(), rhs.size())); i != j; ++i)
+	for (SSUtils::uint32 i(0), j(lhs.size() < rhs.size() ? lhs.size() : rhs.size()); i != j; ++i)
 	{
 		if (lhs[i] < rhs[i])
 		{
@@ -145,7 +147,7 @@ const bool operator<(const SSUtils::Block & lhs, const SSUtils::Block & rhs)
 
 const bool operator<=(const SSUtils::Block & lhs, const SSUtils::Block & rhs)
 {
-	for (SSUtils::uint32 i(0), j(std::min(lhs.size(), rhs.size())); i != j; ++i)
+	for (SSUtils::uint32 i(0), j(lhs.size() < rhs.size() ? lhs.size() : rhs.size()); i != j; ++i)
 	{
 		if (lhs[i] < rhs[i])
 		{
@@ -157,7 +159,7 @@ const bool operator<=(const SSUtils::Block & lhs, const SSUtils::Block & rhs)
 
 const bool operator>(const SSUtils::Block & lhs, const SSUtils::Block & rhs)
 {
-	for (SSUtils::uint32 i(0), j(std::min(lhs.size(), rhs.size())); i != j; ++i)
+	for (SSUtils::uint32 i(0), j(lhs.size() < rhs.size() ? lhs.size() : rhs.size()); i != j; ++i)
 	{
 		if (lhs[i] > rhs[i])
 		{
@@ -169,7 +171,7 @@ const bool operator>(const SSUtils::Block & lhs, const SSUtils::Block & rhs)
 
 const bool operator>=(const SSUtils::Block & lhs, const SSUtils::Block & rhs)
 {
-	for (SSUtils::uint32 i(0), j(std::min(lhs.size(), rhs.size())); i != j; ++i)
+	for (SSUtils::uint32 i(0), j(lhs.size() < rhs.size() ? lhs.size() : rhs.size()); i != j; ++i)
 	{
 		if (lhs[i] > rhs[i])
 		{

@@ -217,33 +217,33 @@ namespace SSUtils
 			}
 		};
 
-		const bool toBool(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromBool(const bool value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const bool toBool(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromBool(const bool value, const Endian endian = System::LocalEndian);
 
-		const float toFloat(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromFloat(const float value, const Endian endian = System::LocalEndian);
-		const double toDouble(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromDouble(const double value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const float toFloat(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromFloat(const float value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const double toDouble(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromDouble(const double value, const Endian endian = System::LocalEndian);
 
-		const int8 toInt8(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromInt8(const int8 value, const Endian endian = System::LocalEndian);
-		const uint8 toUInt8(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromUInt8(const uint8 value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const int8 toInt8(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromInt8(const int8 value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const uint8 toUInt8(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromUInt8(const uint8 value, const Endian endian = System::LocalEndian);
 
-		const int16 toInt16(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromInt16(const int16 value, const Endian endian = System::LocalEndian);
-		const uint16 toUInt16(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromUInt16(const uint16 value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const int16 toInt16(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromInt16(const int16 value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const uint16 toUInt16(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromUInt16(const uint16 value, const Endian endian = System::LocalEndian);
 
-		const int32 toInt32(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromInt32(const int32 value, const Endian endian = System::LocalEndian);
-		const uint32 toUInt32(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromUInt32(const uint32 value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const int32 toInt32(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromInt32(const int32 value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const uint32 toUInt32(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromUInt32(const uint32 value, const Endian endian = System::LocalEndian);
 		
-		const int64 toInt64(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromInt64(const int64 value, const Endian endian = System::LocalEndian);
-		const uint64 toUInt64(const Block &data, const Endian endian = System::LocalEndian);
-		Block fromUInt64(const uint64 value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const int64 toInt64(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromInt64(const int64 value, const Endian endian = System::LocalEndian);
+		API_DECLSPEC const uint64 toUInt64(const Block &data, const Endian endian = System::LocalEndian);
+		API_DECLSPEC Block fromUInt64(const uint64 value, const Endian endian = System::LocalEndian);
 
 		template<typename T>
 		Block fromData(const T &data, const Endian endian = System::LocalEndian)

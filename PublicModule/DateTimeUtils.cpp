@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DatetimeUtils.h"
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>

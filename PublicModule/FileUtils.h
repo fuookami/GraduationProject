@@ -13,20 +13,20 @@ namespace SSUtils
 {
 	namespace File
 	{
-		extern const std::string PathSeperator;
-		extern const std::string ExtensionSeperator;
-		extern const std::string InitailPath;
+		extern API_DECLSPEC const std::string PathSeperator;
+		extern API_DECLSPEC const std::string ExtensionSeperator;
+		extern API_DECLSPEC const std::string InitailPath;
 
-		const bool checkFileExist(const std::string &targetUrl);
-		void createFile(const std::string &targetUrl);
-		const bool removeFile(const std::string &targetUrl);
+		API_DECLSPEC const bool checkFileExist(const std::string &targetUrl);
+		API_DECLSPEC void createFile(const std::string &targetUrl);
+		API_DECLSPEC const bool removeFile(const std::string &targetUrl);
 
-		std::string getPathOfUrl(const std::string &targetUrl);
-		std::string getFileNameOfUrl(const std::string &targetUrl);
-		std::string getFileMainNameOfUrl(const std::string &targetUrl);
-		std::string getFileExtensionOfUrl(const std::string &targetUrl);
-		std::vector<std::string> getAllFilesUrlsOfPath(const std::string &targetPath);
-		std::vector<std::string> getAllDirectoryPathsOfPath(const std::string &targetPath);
+		API_DECLSPEC std::string getPathOfUrl(const std::string &targetUrl);
+		API_DECLSPEC std::string getFileNameOfUrl(const std::string &targetUrl);
+		API_DECLSPEC std::string getFileMainNameOfUrl(const std::string &targetUrl);
+		API_DECLSPEC std::string getFileExtensionOfUrl(const std::string &targetUrl);
+		API_DECLSPEC std::vector<std::string> getAllFilesUrlsOfPath(const std::string &targetPath);
+		API_DECLSPEC std::vector<std::string> getAllDirectoryPathsOfPath(const std::string &targetPath);
 
 		template<typename T, uint32 DataLength = sizeof(T)>
 		struct FileLoader
@@ -98,7 +98,7 @@ namespace SSUtils
 				}
 			}
 		};
-		Block loadFile(const std::string & targetUrl);
+		API_DECLSPEC Block loadFile(const std::string & targetUrl);
 		template<typename container>
 		container loadFile(const std::string &targetUrl)
 		{
@@ -112,7 +112,7 @@ namespace SSUtils
 			return loader.toIter(targetUrl, it);
 		}
 
-		std::vector<std::string> loadFileByLine(const std::string &targetUrl);
+		API_DECLSPEC std::vector<std::string> loadFileByLine(const std::string &targetUrl);
 
 		template<typename T, uint32 DataLength = sizeof(T)>
 		struct FileSaver
@@ -167,8 +167,8 @@ namespace SSUtils
 				fout.close();
 			}
 		};
-		void saveFile(const std::string &targetUrl, const Block &fileData);
-		void saveFile(const std::string &targetUrl, const std::string &fileData);
+		API_DECLSPEC void saveFile(const std::string &targetUrl, const Block &fileData);
+		API_DECLSPEC void saveFile(const std::string &targetUrl, const std::string &fileData);
 		template<typename iter>
 		void saveFile(const std::string &targetUrl, const iter bgIt, const iter edIt)
 		{
@@ -182,9 +182,9 @@ namespace SSUtils
 			saver(targetUrl, fileData);
 		}
 
-		const bool checkPathExist(const std::string &targetPath);
-		const bool insurePathExist(const std::string &targetPath);
-		const bool removePath(const std::string &targetPath);
-		std::string getSystemNativePath(const std::string &targetPath);
+		API_DECLSPEC const bool checkPathExist(const std::string &targetPath);
+		API_DECLSPEC const bool insurePathExist(const std::string &targetPath);
+		API_DECLSPEC const bool removePath(const std::string &targetPath);
+		API_DECLSPEC std::string getSystemNativePath(const std::string &targetPath);
 	};
 };

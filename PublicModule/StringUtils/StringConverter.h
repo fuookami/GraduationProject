@@ -6,10 +6,10 @@ namespace SSUtils
 {
 	namespace String
 	{
-		std::wstring toWString(const std::string &src, const CharType charType = LocalCharType);
-		std::string toString(const std::wstring &src, const CharType charType = LocalCharType);
+		API_DECLSPEC std::wstring toWString(const std::string &src, const CharType charType = LocalCharType);
+		API_DECLSPEC std::string toString(const std::wstring &src, const CharType charType = LocalCharType);
 
-		struct Converter
+		struct API_DECLSPEC Converter
 		{
 			CharType srcCharType;
 			CharType destCharType;
@@ -25,12 +25,12 @@ namespace SSUtils
 			std::wstring operator()(const std::wstring &src) const;
 		};
 
-		std::string fromLocal(const CharType targetCharType, const std::string &src);
-		std::wstring fromLocal(const CharType targetCharType, const std::wstring &src);
-		std::string toLocal(const CharType srcCharType, const std::string &src);
-		std::wstring toLocal(const CharType srcCharType, const std::wstring &src);
+		API_DECLSPEC std::string fromLocal(const CharType targetCharType, const std::string &src);
+		API_DECLSPEC std::wstring fromLocal(const CharType targetCharType, const std::wstring &src);
+		API_DECLSPEC std::string toLocal(const CharType srcCharType, const std::string &src);
+		API_DECLSPEC std::wstring toLocal(const CharType srcCharType, const std::wstring &src);
 
-		std::string toDBS(const std::string &src, const CharType charType = LocalCharType);
-		std::string toQBS(const std::string &src, const CharType charType = LocalCharType);
+		API_DECLSPEC std::string toDBS(const std::string &src, const CharType charType = LocalCharType);
+		API_DECLSPEC std::string toQBS(const std::string &src, const CharType charType = LocalCharType);
 	};
 };

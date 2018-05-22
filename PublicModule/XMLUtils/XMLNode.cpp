@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "XMLNode.h"
 #include "StringUtils.h"
 

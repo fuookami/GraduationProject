@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "_pri_xml_loader.h"
 #include "XMLNode.h"
 #include "FileUtils.h"

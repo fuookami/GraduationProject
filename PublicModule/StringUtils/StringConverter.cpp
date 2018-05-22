@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "StringConverter.h"
 #include "_pri_string_convert.h"
 #include <boost/locale.hpp>

@@ -9,7 +9,7 @@ namespace SSUtils
 {
 	namespace XML
 	{
-		struct Loader
+		struct API_DECLSPEC Loader
 		{
 			boost::property_tree::ptree ori_pt;
 			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> pt;
@@ -33,7 +33,7 @@ namespace SSUtils
 			std::vector<std::shared_ptr<Node>> operator()(const boost::property_tree::ptree &_pt, const CharType _charType = String::LocalCharType);
 		};
 
-		struct Scaner
+		struct API_DECLSPEC Scaner
 		{
 			boost::property_tree::ptree ori_pt;
 			std::shared_ptr<std::reference_wrapper<const boost::property_tree::ptree>> pt;

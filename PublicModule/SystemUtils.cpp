@@ -1,3 +1,5 @@
+#include "stdafx.h"
+#include "SystemUtils.h"
 #include "SystemUtils/_pri_cpu_id.h"
 
 namespace SSUtils

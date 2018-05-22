@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "_pri_string_convert.h"
 
 namespace SSUtils

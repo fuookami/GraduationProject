@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Global.h"
+
 namespace SSUtils
 {
 	enum class Endian
@@ -33,6 +35,6 @@ namespace SSUtils
 		static const OperationSystemType LocalSystemType = OperationSystemType::Android;
 #endif
 
-		extern const Endian LocalEndian;
+		extern API_DECLSPEC const Endian LocalEndian;
 	};
 };

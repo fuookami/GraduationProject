@@ -8,19 +8,19 @@ namespace SSUtils
 {
 	namespace Datetime
 	{
-		extern const std::array<uint8, 12> DaysOfMonth;
-		extern const std::array<std::string, 12> MonthShortName;
-		extern const std::array<std::wstring, 7> DayInWeekChineseName;
+		extern API_DECLSPEC const std::array<uint8, 12> DaysOfMonth;
+		extern API_DECLSPEC const std::array<std::string, 12> MonthShortName;
+		extern API_DECLSPEC const std::array<std::wstring, 7> DayInWeekChineseName;
 
-		extern const uint16 MillisecondsPerSecond;
-		extern const uint16 MicrosecondsPerMillisecond;
-		extern const uint16 SecondsPerHour;
-		extern const uint8 SecondsPerMinute;
-		extern const uint8 MinutesPerHour;
-		extern const uint8 HoursPerDay;
+		extern API_DECLSPEC const uint16 MillisecondsPerSecond;
+		extern API_DECLSPEC const uint16 MicrosecondsPerMillisecond;
+		extern API_DECLSPEC const uint16 SecondsPerHour;
+		extern API_DECLSPEC const uint8 SecondsPerMinute;
+		extern API_DECLSPEC const uint8 MinutesPerHour;
+		extern API_DECLSPEC const uint8 HoursPerDay;
 
-		extern const uint8 FractionSecondDigits;
-		extern const uint32 MicrosecondPerFractionSecond;
+		extern API_DECLSPEC const uint8 FractionSecondDigits;
+		extern API_DECLSPEC const uint32 MicrosecondPerFractionSecond;
 
 		class Date;
 		class DateDuration;

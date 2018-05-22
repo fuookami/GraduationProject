@@ -7,7 +7,7 @@ namespace SSUtils
 {
 	namespace Datetime
 	{
-		class Datetime : public Date
+		class API_DECLSPEC Datetime : public Date
 		{
 		public:
 			static const Datetime EmptyDatetime;
@@ -67,7 +67,7 @@ namespace SSUtils
 			Precision m_precision;
 		};
 
-		class DatetimeDuration : public DateDuration
+		class API_DECLSPEC DatetimeDuration : public DateDuration
 		{
 		public:
 			DatetimeDuration(void);
@@ -123,32 +123,32 @@ namespace SSUtils
 			Precision m_precision;
 		};
 
-		Datetime getLocalDatetime(void);
-		Datetime getDatetimeAfterLocalDatetime(const DatetimeDuration &duration);
-		Datetime getDatetimeBeforeLocalDatetime(const DatetimeDuration &duration);
+		API_DECLSPEC Datetime getLocalDatetime(void);
+		API_DECLSPEC Datetime getDatetimeAfterLocalDatetime(const DatetimeDuration &duration);
+		API_DECLSPEC Datetime getDatetimeBeforeLocalDatetime(const DatetimeDuration &duration);
 	};
 };
 
-const bool operator<(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
-const bool operator<=(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
-const bool operator>(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
-const bool operator>=(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
-const bool operator==(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
-const bool operator!=(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
+API_DECLSPEC const bool operator<(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
+API_DECLSPEC const bool operator<=(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
+API_DECLSPEC const bool operator>(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
+API_DECLSPEC const bool operator>=(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
+API_DECLSPEC const bool operator==(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
+API_DECLSPEC const bool operator!=(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
 
-const bool operator<(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
-const bool operator<=(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
-const bool operator>(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
-const bool operator>=(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
-const bool operator==(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
-const bool operator!=(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const bool operator<(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const bool operator<=(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const bool operator>(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const bool operator>=(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const bool operator==(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const bool operator!=(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
 
-const SSUtils::Datetime::Datetime operator+(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
-const SSUtils::Datetime::Datetime operator-(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
-const SSUtils::Datetime::DatetimeDuration operator-(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
+API_DECLSPEC const SSUtils::Datetime::Datetime operator+(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const SSUtils::Datetime::Datetime operator-(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const SSUtils::Datetime::DatetimeDuration operator-(const SSUtils::Datetime::Datetime &lhs, const SSUtils::Datetime::Datetime &rhs);
 
-const SSUtils::Datetime::DatetimeDuration operator+(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
-const SSUtils::Datetime::DatetimeDuration operator-(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const SSUtils::Datetime::DatetimeDuration operator+(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
+API_DECLSPEC const SSUtils::Datetime::DatetimeDuration operator-(const SSUtils::Datetime::DatetimeDuration &lhs, const SSUtils::Datetime::DatetimeDuration &rhs);
 
-std::ostream &operator<<(std::ostream &os, const SSUtils::Datetime::Datetime &datetime);
-std::ostream &operator<<(std::ostream &os, const SSUtils::Datetime::DatetimeDuration &datetimeDuration);
+API_DECLSPEC std::ostream &operator<<(std::ostream &os, const SSUtils::Datetime::Datetime &datetime);
+API_DECLSPEC std::ostream &operator<<(std::ostream &os, const SSUtils::Datetime::DatetimeDuration &datetimeDuration);

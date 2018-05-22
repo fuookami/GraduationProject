@@ -94,24 +94,24 @@ namespace SSUtils
 			return translator.fromLocalEndian_ref(targetEndian, src);
 		}
 
-		const uint16 toLocalEndian(const Endian srcEndian, const uint16 src);
-		const uint16 fromLocalEndian(const Endian targetEndian, const uint16 src);
-		const int16 toLocalEndian(const Endian srcEndian, const int16 src);
-		const int16 fromLocalEndian(const Endian targetEndian, const int16 src);
+		API_DECLSPEC const uint16 toLocalEndian(const Endian srcEndian, const uint16 src);
+		API_DECLSPEC const uint16 fromLocalEndian(const Endian targetEndian, const uint16 src);
+		API_DECLSPEC const int16 toLocalEndian(const Endian srcEndian, const int16 src);
+		API_DECLSPEC const int16 fromLocalEndian(const Endian targetEndian, const int16 src);
 
-		const uint32 toLocalEndian(const Endian srcEndian, const uint32 src);
-		const uint32 fromLocalEndian(const Endian targetEndian, const uint32 src);
-		const int32 toLocalEndian(const Endian srcEndian, const int32 src);
-		const int32 fromLocalEndian(const Endian targetEndian, const int32 src);
+		API_DECLSPEC const uint32 toLocalEndian(const Endian srcEndian, const uint32 src);
+		API_DECLSPEC const uint32 fromLocalEndian(const Endian targetEndian, const uint32 src);
+		API_DECLSPEC const int32 toLocalEndian(const Endian srcEndian, const int32 src);
+		API_DECLSPEC const int32 fromLocalEndian(const Endian targetEndian, const int32 src);
 
-		const uint64 toLocalEndian(const Endian srcEndian, const uint64 src);
-		const uint64 fromLocalEndian(const Endian targetEndian, const uint64 src);
-		const int64 toLocalEndian(const Endian srcEndian, const int64 src);
-		const int64 fromLocalEndian(const Endian targetEndian, const int64 src);
+		API_DECLSPEC const uint64 toLocalEndian(const Endian srcEndian, const uint64 src);
+		API_DECLSPEC const uint64 fromLocalEndian(const Endian targetEndian, const uint64 src);
+		API_DECLSPEC const int64 toLocalEndian(const Endian srcEndian, const int64 src);
+		API_DECLSPEC const int64 fromLocalEndian(const Endian targetEndian, const int64 src);
 
-		const float toLocalEndian(const Endian srcEndian, const float src);
-		const float fromLocalEndian(const Endian targetEndian, const float src);
-		const double toLocalEndian(const Endian srcEndian, const double src);
-		const double fromLocalEndian(const Endian targetEndian, const double src);
+		API_DECLSPEC const float toLocalEndian(const Endian srcEndian, const float src);
+		API_DECLSPEC const float fromLocalEndian(const Endian targetEndian, const float src);
+		API_DECLSPEC const double toLocalEndian(const Endian srcEndian, const double src);
+		API_DECLSPEC const double fromLocalEndian(const Endian targetEndian, const double src);
 	};
 };

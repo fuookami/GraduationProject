@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "_pri_cpu_id.h"
 #include <numeric>
 

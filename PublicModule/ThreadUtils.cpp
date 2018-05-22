@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ThreadUtils.h"
 #include <thread>
 #include <chrono>

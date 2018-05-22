@@ -8,10 +8,10 @@ namespace SSUtils
 {
 	namespace String
 	{
-		std::string toString(const bool val);
-		const bool toBoolean(const std::string &src);
+		API_DECLSPEC std::string toString(const bool val);
+		API_DECLSPEC const bool toBoolean(const std::string &src);
 
-		struct StringTranslator
+		struct API_DECLSPEC StringTranslator
 		{
 			StringTranslator(void) = default;
 			StringTranslator(const StringTranslator &ano) = delete;

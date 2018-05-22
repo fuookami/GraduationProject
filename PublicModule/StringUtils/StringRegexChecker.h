@@ -8,7 +8,7 @@ namespace SSUtils
 {
 	namespace String
 	{
-		struct RegexChecker
+		struct API_DECLSPEC RegexChecker
 		{
 			const std::string pattern;
 			const std::regex reg;
@@ -24,7 +24,7 @@ namespace SSUtils
 			const bool operator()(const std::string &src) const;
 		};
 
-		struct RegexCatcher
+		struct API_DECLSPEC RegexCatcher
 		{
 			const std::string pattern;
 			const std::regex reg;
@@ -40,7 +40,7 @@ namespace SSUtils
 			std::vector<std::string> operator()(const std::string &src) const;
 		};
 
-		struct RegexMatcher
+		struct API_DECLSPEC RegexMatcher
 		{
 			const std::string pattern;
 			const std::regex reg;
@@ -58,49 +58,49 @@ namespace SSUtils
 
 		namespace RegexPatterns
 		{
-			extern const std::string PatternPrefix;
-			extern const std::string PatternSuffix;
-			extern const std::string NaturalNumberPattern;
-			extern const std::string DecIntegerPattern;
-			extern const std::string PositiveDecIntegerPattern;
-			extern const std::string HexIntegerPattern;
-			extern const std::string DecimalPattern;
+			extern API_DECLSPEC const std::string PatternPrefix;
+			extern API_DECLSPEC const std::string PatternSuffix;
+			extern API_DECLSPEC const std::string NaturalNumberPattern;
+			extern API_DECLSPEC const std::string DecIntegerPattern;
+			extern API_DECLSPEC const std::string PositiveDecIntegerPattern;
+			extern API_DECLSPEC const std::string HexIntegerPattern;
+			extern API_DECLSPEC const std::string DecimalPattern;
 		};
 
 		namespace RegexCheckers
 		{
-			extern const RegexChecker NaturalNumberChecker;
-			extern const RegexChecker DecIntegerChecker;
-			extern const RegexChecker PositiveDecIntegerChecker;
-			extern const RegexChecker HexIntegerChecker;
-			extern const RegexChecker DecimalChecker;
+			extern API_DECLSPEC const RegexChecker NaturalNumberChecker;
+			extern API_DECLSPEC const RegexChecker DecIntegerChecker;
+			extern API_DECLSPEC const RegexChecker PositiveDecIntegerChecker;
+			extern API_DECLSPEC const RegexChecker HexIntegerChecker;
+			extern API_DECLSPEC const RegexChecker DecimalChecker;
 		};
 
 		namespace RegexMatchers
 		{
-			extern const RegexMatcher NaturalNumberMatcher;
-			extern const RegexMatcher DecIntegerMatcher;
-			extern const RegexMatcher PositiveDecIntegerMatcher;
-			extern const RegexMatcher HexIntegerMatcher;
-			extern const RegexMatcher DecimalMatcher;
+			extern API_DECLSPEC const RegexMatcher NaturalNumberMatcher;
+			extern API_DECLSPEC const RegexMatcher DecIntegerMatcher;
+			extern API_DECLSPEC const RegexMatcher PositiveDecIntegerMatcher;
+			extern API_DECLSPEC const RegexMatcher HexIntegerMatcher;
+			extern API_DECLSPEC const RegexMatcher DecimalMatcher;
 		};
 
-		const bool isNaturalNumber(const std::string &src);
-		std::vector<std::string> matchNaturalNumber(const std::string &src);
+		API_DECLSPEC const bool isNaturalNumber(const std::string &src);
+		API_DECLSPEC std::vector<std::string> matchNaturalNumber(const std::string &src);
 
-		const bool isInteger(const std::string &src);
-		std::vector<std::string> matchInteger(const std::string &src);
+		API_DECLSPEC const bool isInteger(const std::string &src);
+		API_DECLSPEC std::vector<std::string> matchInteger(const std::string &src);
 
-		const bool isDecInteger(const std::string &src);
-		std::vector<std::string> mathchDecInteger(const std::string &src);
+		API_DECLSPEC const bool isDecInteger(const std::string &src);
+		API_DECLSPEC std::vector<std::string> mathchDecInteger(const std::string &src);
 
-		const bool isPositiveDecInteger(const std::string &src);
-		std::vector<std::string> matchPositiveDecInteger(const std::string &src);
+		API_DECLSPEC const bool isPositiveDecInteger(const std::string &src);
+		API_DECLSPEC std::vector<std::string> matchPositiveDecInteger(const std::string &src);
 
-		const bool isHexInteger(const std::string &src);
-		std::vector<std::string> matchHexInteger(const std::string &src);
+		API_DECLSPEC const bool isHexInteger(const std::string &src);
+		API_DECLSPEC std::vector<std::string> matchHexInteger(const std::string &src);
 
-		const bool isDecimal(const std::string &src);
-		std::vector<std::string> matchDecimal(const std::string &src);
+		API_DECLSPEC const bool isDecimal(const std::string &src);
+		API_DECLSPEC std::vector<std::string> matchDecimal(const std::string &src);
 	};
 };

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "StringTranslator.h"
 #include "_pri_string_global.h"
 

@@ -8,7 +8,7 @@ namespace SSUtils
 {
 	namespace XML
 	{
-		class Node
+		class API_DECLSPEC Node
 		{
 		public:
 			static const int npos;

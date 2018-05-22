@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Time.h"
 #include "Datetime.h"
 #include "StringUtils.h"

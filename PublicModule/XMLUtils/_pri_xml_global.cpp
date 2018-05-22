@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "_pri_xml_global.h"
 
 namespace SSUtils

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MailUtils.h"
 
 namespace SSUtils

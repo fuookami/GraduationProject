@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "_pri_encryption_global.h"
 
 #ifdef _DEBUG

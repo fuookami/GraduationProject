@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Global.h"
 
 namespace std

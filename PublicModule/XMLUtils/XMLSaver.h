@@ -9,7 +9,7 @@ namespace SSUtils
 {
 	namespace XML
 	{
-		struct Saver
+		struct API_DECLSPEC Saver
 		{
 			std::string url;
 			std::shared_ptr<std::reference_wrapper<const std::vector<std::shared_ptr<Node>>>> roots;

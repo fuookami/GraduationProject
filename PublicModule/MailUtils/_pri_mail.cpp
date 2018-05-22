@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "_pri_mail.h"
 
 #ifdef _DEBUG

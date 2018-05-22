@@ -8,7 +8,7 @@ namespace SSUtils
 {
 	namespace Mail
 	{
-		struct Sender
+		struct API_DECLSPEC Sender
 		{
 			std::string senderMail;
 			std::string senderPassword;

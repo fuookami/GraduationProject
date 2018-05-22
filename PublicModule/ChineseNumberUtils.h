@@ -7,7 +7,7 @@ namespace SSUtils
 {
 	namespace ChineseNumber
 	{
-		std::wstring toChineseNumber(uint32 num);
-		uint32 fromChineseNumber(const std::wstring &str);
+		API_DECLSPEC std::wstring toChineseNumber(uint32 num);
+		API_DECLSPEC uint32 fromChineseNumber(const std::wstring &str);
 	};
 };

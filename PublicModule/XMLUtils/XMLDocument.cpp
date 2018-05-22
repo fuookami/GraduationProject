@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "XMLDocument.h"
 #include "XMLLoader.h"
 #include "XMLSaver.h"

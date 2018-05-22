@@ -9,6 +9,6 @@ namespace SSUtils
 {
 	namespace Datetime
 	{
-		Datetime getBuildDatetime(const std::string &BuildOriginalDateString, const std::string &BuildTimeString);
+		API_DECLSPEC Datetime getBuildDatetime(const std::string &BuildOriginalDateString, const std::string &BuildTimeString);
 	};
 };

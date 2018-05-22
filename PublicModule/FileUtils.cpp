@@ -1,4 +1,5 @@
-﻿#include "FileUtils.h"
+﻿#include "stdafx.h"
+#include "FileUtils.h"
 #include "StringUtils.h"
 #include "SystemUtils.h"
 

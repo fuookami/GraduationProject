@@ -18,7 +18,7 @@ namespace SSUtils
 			*	\返回值:   	std::pair<std::string, std::string>	RSA公钥和私钥对
 			*	\说明: 		生成RSA公钥和私钥对，用于验证器、激活码生成器生成请求码、激活
 			*/
-			std::pair<std::string, std::string> generateKey(const uint32 keyLength, const std::string &seed = Data::toString(Data::generateRandomBlock()));
+			API_DECLSPEC std::pair<std::string, std::string> generateKey(const uint32 keyLength, const std::string &seed = Data::toString(Data::generateRandomBlock()));
 
 			/*!
 			*	\函数名:   	encrypt
@@ -28,9 +28,9 @@ namespace SSUtils
 			*	\返回值:   	std::string						密文
 			*	\说明: 		使用RSA公钥对信息进行加密
 			*/
-			std::string encrypt(const std::string &publicKey, const std::string &origin, const std::string &seed = Data::toString(Data::generateRandomBlock()));
+			API_DECLSPEC std::string encrypt(const std::string &publicKey, const std::string &origin, const std::string &seed = Data::toString(Data::generateRandomBlock()));
 
-			struct encrypter
+			struct API_DECLSPEC encrypter
 			{
 				encrypter(const std::string &_seed = Data::toString(Data::generateRandomBlock()));
 				encrypter(const std::string &_publicKey, const std::string &_seed = Data::toString(Data::generateRandomBlock()));
@@ -53,9 +53,9 @@ namespace SSUtils
 			*	\返回值:   	std::string						解密后明文
 			*	\说明: 		使用RSA私钥对密文进行解密
 			*/
-			std::string decrypt(const std::string &privateKey, const std::string &cipher);
+			API_DECLSPEC std::string decrypt(const std::string &privateKey, const std::string &cipher);
 
-			struct decrypter
+			struct API_DECLSPEC decrypter
 			{
 				decrypter(void) = default;
 				decrypter(const std::string &_privateKey);
@@ -77,9 +77,9 @@ namespace SSUtils
 			*	\返回值:   	std::string						已签名数据
 			*	\说明: 		使用RSA私钥签名文件
 			*/
-			std::string sign(const std::string &privateKey, const std::string &msg);
+			API_DECLSPEC std::string sign(const std::string &privateKey, const std::string &msg);
 
-			struct signer
+			struct API_DECLSPEC signer
 			{
 				signer(void) = default;
 				signer(const std::string &_privateKey);
@@ -102,9 +102,9 @@ namespace SSUtils
 			*	\返回值:   	const bool						是否匹配，true表示匹配，false表示不匹配
 			*	\说明: 		使用RSA公钥验证文件签名
 			*/
-			const bool verify(const std::string &publicKey, const std::string &msg, const std::string &signature);
+			API_DECLSPEC const bool verify(const std::string &publicKey, const std::string &msg, const std::string &signature);
 
-			struct verifier
+			struct API_DECLSPEC verifier
 			{
 				verifier(void) = default;
 				verifier(const std::string &_publicKey);

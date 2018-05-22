@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MailSender.h"
 #include "_pri_mail.h"
 

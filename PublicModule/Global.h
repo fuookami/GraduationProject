@@ -1,5 +1,16 @@
 #pragma once
 
+#ifdef _EXPORTING
+#define API_DECLSPEC __declspec(dllexport)
+#else
+#define API_DECLSPEC __declspec(dllimport)
+#ifdef _DEBUG
+#pragma comment(lib, "SSUtilsd.lib")
+#else
+#pragma comment(lib, "SSUtils.lib")
+#endif
+#endif
+
 #include <iostream>
 #include <vector>
 #include <cstdint>
@@ -50,29 +61,29 @@ namespace SSUtils
 
 namespace std
 {
-	string to_string(const SSUtils::int128 &value);
-	SSUtils::int128 stoint128(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::int128 &value);
+	API_DECLSPEC SSUtils::int128 stoint128(const string &str);
 
-	string to_string(const SSUtils::uint128 &value);
-	SSUtils::uint128 stouint128(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::uint128 &value);
+	API_DECLSPEC SSUtils::uint128 stouint128(const string &str);
 
-	string to_string(const SSUtils::int256 &value);
-	SSUtils::int256 stoint256(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::int256 &value);
+	API_DECLSPEC SSUtils::int256 stoint256(const string &str);
 
-	string to_string(const SSUtils::uint256 &value);
-	SSUtils::uint256 stouint256(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::uint256 &value);
+	API_DECLSPEC SSUtils::uint256 stouint256(const string &str);
 
-	string to_string(const SSUtils::int512 &value);
-	SSUtils::int512 stoint512(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::int512 &value);
+	API_DECLSPEC SSUtils::int512 stoint512(const string &str);
 
-	string to_string(const SSUtils::uint512 &value);
-	SSUtils::uint512 stouint512(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::uint512 &value);
+	API_DECLSPEC SSUtils::uint512 stouint512(const string &str);
 
-	string to_string(const SSUtils::int1024 &value);
-	SSUtils::int1024 stoint1024(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::int1024 &value);
+	API_DECLSPEC SSUtils::int1024 stoint1024(const string &str);
 
-	string to_string(const SSUtils::uint1024 &value);
-	SSUtils::uint1024 stouint1024(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::uint1024 &value);
+	API_DECLSPEC SSUtils::uint1024 stouint1024(const string &str);
 
 	template<SSUtils::uint32 bits>
 	string to_string(const SSUtils::intx<bits> &value)
@@ -112,30 +123,30 @@ namespace std
 		}
 	}
 
-	string to_string(const SSUtils::integer &value);
-	SSUtils::integer stointeger(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::integer &value);
+	API_DECLSPEC SSUtils::integer stointeger(const string &str);
 
-	string to_string(const SSUtils::rational &value);
-	SSUtils::rational storational(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::rational &value);
+	API_DECLSPEC SSUtils::rational storational(const string &str);
 
-	string to_string(const SSUtils::float32 &value);
-	SSUtils::float32 stofloat32(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::float32 &value);
+	API_DECLSPEC SSUtils::float32 stofloat32(const string &str);
 
-	string to_string(const SSUtils::float64 &value);
-	SSUtils::float64 stofloat64(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::float64 &value);
+	API_DECLSPEC SSUtils::float64 stofloat64(const string &str);
 
-	string to_string(const SSUtils::float128 &value);
-	SSUtils::float128 stofloat128(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::float128 &value);
+	API_DECLSPEC SSUtils::float128 stofloat128(const string &str);
 
-	string to_string(const SSUtils::float256 &value);
-	SSUtils::float256 stofloat256(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::float256 &value);
+	API_DECLSPEC SSUtils::float256 stofloat256(const string &str);
 
-	string to_string(const SSUtils::dec50 &value);
-	SSUtils::dec50 stodec50(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::dec50 &value);
+	API_DECLSPEC SSUtils::dec50 stodec50(const string &str);
 
-	string to_string(const SSUtils::dec100 &value);
-	SSUtils::dec100 stodec100(const string &str);
-	SSUtils::real storeal(const string &str);
+	API_DECLSPEC string to_string(const SSUtils::dec100 &value);
+	API_DECLSPEC SSUtils::dec100 stodec100(const string &str);
+	API_DECLSPEC SSUtils::real storeal(const string &str);
 
 	template<SSUtils::uint32 Digits>
 	string to_string(const SSUtils::decimal<Digits> &value)

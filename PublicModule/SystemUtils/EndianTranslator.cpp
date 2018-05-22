@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "EndianTranslator.h"
 
 namespace SSUtils

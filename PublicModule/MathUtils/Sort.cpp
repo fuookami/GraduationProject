@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Sort.h"
 #include <deque>
 #include <algorithm>

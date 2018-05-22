@@ -11,7 +11,7 @@ namespace SSUtils
 {
 	namespace Function
 	{
-		struct Task
+		struct API_DECLSPEC Task
 		{
 			std::function<void()> task;
 			uint32 priority;

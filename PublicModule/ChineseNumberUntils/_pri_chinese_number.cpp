@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "_pri_chinese_number.h"
 #include <algorithm>
 

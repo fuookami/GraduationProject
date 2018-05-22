@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "_pri_datetime_global.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <cmath>
