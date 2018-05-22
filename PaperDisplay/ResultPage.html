@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1.0'/>
+
+    <link href='materialize.min.css' type='text/css' rel='stylesheet' media='screen, projection'/>
+    <link href='materialize.supplement.css' type='text/css' rel='stylesheet' media='screen, projection'/>
+    <link href='public.css' type='text/css' rel='stylesheet' media='screen, projection'/>
+</head>
+<body>
+<main>
+    <div class="section row container">
+        <div class="section" style="position: relative;">
+            <i class="material-icons" style="position: absolute; right: 1em; top: .5em;">close</i>
+
+            <div class="row" style="margin: .25em; ">
+                <div class="col s6 input-field">
+                    <select id="function_1">
+                        <option selected>方差法（有交互作用，原始）</option>
+                    </select>
+                    <label>分析方法：</label>
+                </div>
+
+                <div class="col s12">
+                    <table class="centered">
+                        <thead>
+                            <tr>
+                                <td rowspan="2" class="center">电极材料</td>
+                                <td colspan="3" class="center">温度</td>
+                                <td rowspan="2" class="center">y</td>
+                            </tr>
+                            <tr>
+                                <td class="center">15°F</td>
+                                <td class="center">70°F</td>
+                                <td class="center">125°F</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>74.00, 130.00, 155.00, 180.00 (539.00)</td>
+                            <td>34.00, 40.00, 75.00, 80.00 (229.00)</td>
+                            <td>20.00, 58.00, 70.00, 82.00 (230.00)</td>
+                            <td>998.00</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>126.00, 150.00, 159.00, 188.00 (623.00)</td>
+                            <td>105.00, 115.00, 122.00, 136.00 (479.00)</td>
+                            <td>25.00, 45.00, 58.00, 70.00 (198.00)</td>
+                            <td>1300.00</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>110.00, 138.00, 160.00, 168.00 (576.00)</td>
+                            <td>120.00, 130.00, 150.00, 174.00 (583.00)</td>
+                            <td>60.00, 82.00, 96.00, 104.00 (342.00)</td>
+                            <td>1501.00</td>
+                        </tr>
+                        <tr>
+                            <td>y</td>
+                            <td>1738.00</td>
+                            <td>1291.00</td>
+                            <td>770.00</td>
+                            <td>3799.00</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="centered">
+                        <thead>
+                            <tr>
+                                <td class="center">偏差来源</td>
+                                <td class="center">偏差平方和</td>
+                                <td class="center">自由度</td>
+                                <td class="center">方差</td>
+                                <td class="center">F值</td>
+                                <td class="center">F临界值</td>
+                                <td class="center">显著性</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>材料类型</td>
+                                <td>10683.72</td>
+                                <td>2</td>
+                                <td>5341.86</td>
+                                <td>7.91</td>
+                                <td>3.35</td>
+                                <td>**</td>
+                            </tr>
+                            <tr>
+                                <td>温度</td>
+                                <td>39118.72</td>
+                                <td>2</td>
+                                <td>19558.36</td>
+                                <td>28.97</td>
+                                <td>3.35</td>
+                                <td>***</td>
+                            </tr>
+                            <tr>
+                                <td>温度</td>
+                                <td>39118.72</td>
+                                <td>2</td>
+                                <td>19558.36</td>
+                                <td>28.97</td>
+                                <td>3.35</td>
+                                <td>***</td>
+                            </tr>
+                            <tr>
+                                <td>交互作用</td>
+                                <td>9613.78</td>
+                                <td>4</td>
+                                <td>2403.44</td>
+                                <td>3.56</td>
+                                <td>2.73</td>
+                                <td>*</td>
+                            </tr>
+                            <tr>
+                                <td>随机误差</td>
+                                <td>1823.08</td>
+                                <td>27</td>
+                                <td>675.21</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>总和</td>
+                                <td>77646.97</td>
+                                <td>35</td>
+                                <td>2218.48</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section" style="position: relative;">
+            <i class="material-icons" style="position: absolute; right: 1em; top: .5em;">close</i>
+
+            <div class="row" style="margin: .25em; ">
+                <div class="col s6 input-field">
+                    <select id="function_2">
+                        <option selected>无（因子1-因子2-指标和值）</option>
+                    </select>
+                    <label>分析方法：</label>
+                </div>
+
+                <div class="col s6 input-field">
+                    <select id="type_2">
+                        <option selected>热力图</option>
+                    </select>
+                    <label>图表类型：</label>
+                </div>
+
+                <div class="col s12" id="charts_2"></div>
+            </div>
+        </div>
+
+        <div class="right">
+            <a class="waves-effect waves-light btn">添加分析结果</a>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section row container">
+        <div class="right">
+            <a class="waves-effect waves-light btn">添加对比</a>
+        </div>
+    </div>
+</main>
+
+<script src='jquery-3.2.1.min.js' type='text/javascript'></script>
+<script src='materialize.min.js' type='text/javascript'></script>
+<script src='highcharts/highcharts.js' type="text/javascript"></script>
+<script src='highcharts/modules/heatmap.js' type='text/javascript'></script>
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+        $('.chips').material_chip();
+        $('.chips-placeholder').material_chip({
+            placeholder: '（回车间隔）',
+            secondaryPlaceholder: '+添加枚举值'
+        });
+
+        $('#charts_2').highcharts({
+            credits: {
+                enabled: false
+            },
+            chart: {
+                type: 'heatmap',
+                marginTop: 40,
+                marginBottom: 80,
+                plotBorderWidth: 1
+            },
+            title: {
+                text: ""
+            },
+            yAxis: {
+                categories: ['15.00°F', '70.00°F', '125.00°F'],
+                title: null
+            },
+            xAxis: {
+                categories: ['1', '2', '3']
+            },
+            colorAxis: {
+                min: 0,
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+            legend: {
+                align: 'right',
+                layout: 'vertical',
+                margin: 0,
+                verticalAlign: 'top',
+                y: 25,
+                symbolHeight: 280
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.xAxis.categories[this.point.x] + '</b>, <b>' +
+                        this.series.yAxis.categories[this.point.y] + '</b>: <b>' + this.point.value + '</b>';
+                }
+            },
+            series: [{
+                borderWidth: 1,
+                data: [[0, 0, 539.00], [1, 0, 623.00], [2, 0, 576.00], [0, 1, 229.00], [1, 1, 479.00], [2, 1, 583.00], [0, 2, 230.00], [1, 2, 198.00], [2, 2, 342.00]],
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000'
+                }
+            }]
+        });
+    });
+</script>
+</body>
+</html>

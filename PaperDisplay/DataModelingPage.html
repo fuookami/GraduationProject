@@ -9,15 +9,394 @@
     <link href='public.css' type='text/css' rel='stylesheet' media='screen, projection'/>
 </head>
 <body>
-    <div class="row" style="margin: .25em; ">
-        <div class="col s12 input-field">
-            <input id="project_name" type="text" class="validate" placeholder="请填写实验项目名称" pattern="^\S*$">
-            <label for="project_name" data-error="实验项目名称不能为空">名称：</label>
-        </div>
-    </div>
+    <main style="margin: .5em;">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header">
+                    <span>电极材料</span>
+                    <span class="badge"><i class="material-icons">close</i></span>
+                </div>
+                <div class="collapsible-body">
+                    <div class="section">
+                        <div class="row" style="margin: .25em; ">
+                            <div class="col s12 input-field">
+                                <input id="type_name_1" type="text" class="validate" placeholder="请填写实验因素名" value="电极材料">
+                                <label for="type_name_1" data-error="实验因素名不能为空">实验因素名：</label>
+                            </div>
 
+                            <div class="input-field col s6" style="z-index: 1;">
+                                <select id="type_class_1">
+                                    <option selected>实数</option>
+                                </select>
+                                <label>基础类型：</label>
+                            </div>
+
+                            <div class="input-field col s6" style="z-index: 1;">
+                                <select id="type_class_type_1">
+                                    <option selected>整数</option>
+                                </select>
+                                <label>类型类别：</label>
+                            </div>
+
+                            <p class="col s6">
+                                <input type="checkbox" class="filled-in" id="is_factor_1" checked="checked" />
+                                <label for="is_factor_1">是否是实验因素</label>
+                            </p>
+
+                            <div class="input-field col s6" style="z-index: 1;">
+                                <select id="factor_type_1">
+                                    <option selected>实验因素</option>
+                                </select>
+                                <label>实验因素类型：</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <textarea id="description_1" class="materialize-textarea"></textarea>
+                                <label for="description_1">备注：</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="section">
+                        <div class="row" style="margin: .25em; ">
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_max_1"/>
+                                    <label for="has_max_1">是否有最大值</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_min_1"/>
+                                    <label for="has_max_1">是否有最小值</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_fraction_digits_1"/>
+                                    <label for="has_fraction_digits_1">是否有有效位数</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_total_digits_1"/>
+                                    <label for="has_total_digits_1">是否有总位数</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col s2">
+                                    <input type="checkbox" class="filled-in" id="has_enum_1" checked="checked"/>
+                                    <label for="has_max_1">是否有枚举值</label>
+                                </p>
+
+                                <div class="input-field col s10">
+                                    <div class="chips chips-placeholder"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="section">
+                        <div class="row" style="margin: .25em; ">
+                            <div class="row col s12">
+                                <p class="col s2">属性表：</p>
+
+                                <div class="right">
+                                    <a class="waves-effect waves-light btn">新增属性</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">
+                    <span>温度</span>
+                    <span class="badge"><i class="material-icons">close</i></span>
+                </div>
+                <div class="collapsible-body">
+                    <div class="section">
+                        <div class="row" style="margin: .25em; ">
+                            <div class="col s12 input-field">
+                                <input id="type_name_3" type="text" class="validate" placeholder="请填写实验因素名" value="温度">
+                                <label for="type_name_3" data-error="实验因素名不能为空">实验因素名：</label>
+                            </div>
+
+                            <div class="input-field col s6" style="z-index: 1;">
+                                <select id="type_class_2">
+                                    <option selected>实数</option>
+                                </select>
+                                <label>基础类型：</label>
+                            </div>
+
+                            <div class="input-field col s6" style="z-index: 1;">
+                                <select id="type_class_type_2">
+                                    <option selected>实数</option>
+                                </select>
+                                <label>类型类别：</label>
+                            </div>
+
+                            <p class="col s6">
+                                <input type="checkbox" class="filled-in" id="is_factor_2" checked="checked" />
+                                <label for="is_factor_2">是否是实验因素</label>
+                            </p>
+
+                            <div class="input-field col s6" style="z-index: 1;">
+                                <select id="factor_type_2">
+                                    <option selected>实验因素</option>
+                                </select>
+                                <label>实验因素类型：</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <textarea id="description_2" class="materialize-textarea"></textarea>
+                                <label for="description_2">备注：</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="section">
+                        <div class="row" style="margin: .25em; ">
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_max_2"/>
+                                    <label for="has_max_2">是否有最大值</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_min_2"/>
+                                    <label for="has_max_2">是否有最小值</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_fraction_digits_2"/>
+                                    <label for="has_fraction_digits_2">是否有有效位数</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_total_digits_2"/>
+                                    <label for="has_total_digits_2">是否有总位数</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col s2">
+                                    <input type="checkbox" class="filled-in" id="has_enum_2" checked="checked"/>
+                                    <label for="has_max_2">是否有枚举值</label>
+                                </p>
+
+                                <div class="input-field col s10">
+                                    <div class="chips chips-placeholder"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="section">
+                        <div class="row" style="margin: .25em; ">
+                            <div class="row col s12">
+                                <p class="col s2">属性表：</p>
+
+                                <div class="row col s10">
+                                    <div class="input-field col s6" style="z-index: 1;">
+                                        <select id="attr_2_1_type">
+                                            <option selected>小数点后位数</option>
+                                        </select>
+                                        <label>属性名：</label>
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <input id="attr_2_1_value" type="text" class="validate" placeholder="请填写属性值" value="2">
+                                        <label for="attr_2_1_value" data-error="属性值不能为空">属性值：</label>
+                                    </div>
+
+                                    <div class="input-field col s6" style="z-index: 1;">
+                                        <select id="attr_2_2_type">
+                                            <option selected>单位</option>
+                                        </select>
+                                        <label>属性名：</label>
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <input id="attr_2_2_value" type="text" class="validate" placeholder="请填写属性值" value="°F">
+                                        <label for="attr_2_2_value" data-error="属性值不能为空">属性值：</label>
+                                    </div>
+                                </div>
+
+                                <div class="right">
+                                    <a class="waves-effect waves-light btn">新增属性</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">
+                    <span>电池有效寿命</span>
+                    <span class="badge"><i class="material-icons">close</i></span>
+                </div>
+                <div class="collapsible-body">
+                    <div class="section">
+                        <div class="row" style="margin: .25em; ">
+                            <div class="col s12 input-field">
+                                <input id="type_name_2" type="text" class="validate" placeholder="请填写实验因素名" value="电池有效寿命">
+                                <label for="type_name_2" data-error="实验因素名不能为空">实验因素名：</label>
+                            </div>
+
+                            <div class="input-field col s6" style="z-index: 1;">
+                                <select id="type_class_3">
+                                    <option selected>实数</option>
+                                </select>
+                                <label>基础类型：</label>
+                            </div>
+
+                            <div class="input-field col s6" style="z-index: 1;">
+                                <select id="type_class_type_3">
+                                    <option selected>实数</option>
+                                </select>
+                                <label>类型类别：</label>
+                            </div>
+
+                            <p class="col s6">
+                                <input type="checkbox" class="filled-in" id="is_factor_3" checked="checked" />
+                                <label for="is_factor_3">是否是实验因素</label>
+                            </p>
+
+                            <div class="input-field col s6" style="z-index: 1;">
+                                <select id="factor_type_3">
+                                    <option selected>指标因素</option>
+                                </select>
+                                <label>实验因素类型：</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <textarea id="description_3" class="materialize-textarea"></textarea>
+                                <label for="description_3">备注：</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="section">
+                        <div class="row" style="margin: .25em; ">
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_max_3"/>
+                                    <label for="has_max_3">是否有最大值</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_min_3"/>
+                                    <label for="has_max_3">是否有最小值</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_fraction_digits_3"/>
+                                    <label for="has_fraction_digits_3">是否有有效位数</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col">
+                                    <input type="checkbox" class="filled-in" id="has_total_digits_3"/>
+                                    <label for="has_total_digits_3">是否有总位数</label>
+                                </p>
+                            </div>
+
+                            <div class="row col s12">
+                                <p class="col s2">
+                                    <input type="checkbox" class="filled-in" id="has_enum_3"/>
+                                    <label for="has_max_3">是否有枚举值</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="section">
+                        <div class="row" style="margin: .25em; ">
+                            <div class="row col s12">
+                                <p class="col s2">属性表：</p>
+
+                                <div class="row col s10">
+                                    <div class="input-field col s6" style="z-index: 1;">
+                                        <select id="attr_3_1_type">
+                                            <option selected>小数点后位数</option>
+                                        </select>
+                                        <label>属性名：</label>
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <input id="attr_3_1_value" type="text" class="validate" placeholder="请填写属性值" value="2">
+                                        <label for="attr_3_1_value" data-error="属性值不能为空">属性值：</label>
+                                    </div>
+
+                                    <div class="input-field col s6" style="z-index: 1;">
+                                        <select id="attr_3_2_type">
+                                            <option selected>单位</option>
+                                        </select>
+                                        <label>属性名：</label>
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <input id="attr_3_2_value" type="text" class="validate" placeholder="请填写属性值" value="h">
+                                        <label for="attr_3_2_value" data-error="属性值不能为空">属性值：</label>
+                                    </div>
+                                </div>
+
+                                <div class="right">
+                                    <a class="waves-effect waves-light btn">新增属性</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="right">
+            <a class="waves-effect waves-light btn">新增实验因素</a>
+            <a class="waves-effect waves-light btn">保存</a>
+            <a class="waves-effect waves-light btn">重置</a>
+        </div>
+    </main>
 
     <script src='jquery-3.2.1.min.js' type='text/javascript'></script>
     <script src='materialize.min.js' type='text/javascript'></script>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+            $('.chips').material_chip();
+            $('.chips-placeholder').material_chip({
+                placeholder: '（回车间隔）',
+                secondaryPlaceholder: '+添加枚举值'
+            });
+        });
+    </script>
 </body>
 </html>

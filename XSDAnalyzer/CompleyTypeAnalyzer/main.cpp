@@ -8,6 +8,8 @@ int main(void)
 	//testNewXSDAnalyzer();
 	//testXSDAnalyzerAndNormalizer();
 	testPaper();
+	testPaper2();
+	testPaper3();
 
 	system("pause");
 	return 0;
