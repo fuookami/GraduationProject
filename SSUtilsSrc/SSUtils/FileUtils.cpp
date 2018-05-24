@@ -28,6 +28,12 @@ namespace SSUtils
 			return ret;
 		}
 
+		const std::string & SharedLibraryExtension(void)
+		{
+			static const std::string ret = System::LocalSystemType == OperationSystemType::Windows ? std::string("dll") : std::string("so");
+			return ret;
+		}
+
 		const bool checkFileExist(const std::string & targetUrl)
 		{
 			std::ifstream fin(targetUrl);

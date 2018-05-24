@@ -16,6 +16,7 @@ namespace SSUtils
 		SSUtils_API_DECLSPEC const std::string &PathSeperator(void);
 		SSUtils_API_DECLSPEC const std::string &ExtensionSeperator(void);
 		SSUtils_API_DECLSPEC const std::string &InitailPath(void);
+		SSUtils_API_DECLSPEC const std::string &SharedLibraryExtension(void);
 
 		SSUtils_API_DECLSPEC const bool checkFileExist(const std::string &targetUrl);
 		SSUtils_API_DECLSPEC void createFile(const std::string &targetUrl);

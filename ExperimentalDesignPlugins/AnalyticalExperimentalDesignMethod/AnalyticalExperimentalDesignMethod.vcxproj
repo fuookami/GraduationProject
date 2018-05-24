@@ -100,7 +100,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\SDK_API\C_C++\jwsmtp\lib\msvc2017_x64;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\lib;D:\SDK_API\C_C++\Boost\boost\lib\msvc2017_x64;$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\SDK_API\C_C++\jwsmtp\lib\msvc2017_x64;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\lib;D:\SDK_API\C_C++\Boost\boost\lib\msvc2017_x64;$(OutDir)..\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

@@ -4,8 +4,7 @@
 
 namespace CARSDK
 {
-	class DataHandlingModule
+	class ExperimentalDesignTable
 	{
-
 	};
 };
