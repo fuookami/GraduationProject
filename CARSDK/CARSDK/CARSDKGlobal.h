@@ -25,14 +25,12 @@ namespace CARSDK
 	class IExperimentalDesignMethodUtilsInterface;
 	class ExperimentalDesignMethodModule;
 
-	using EDMUtilsFactoryMethod = std::function<IExperimentalDesignMethodUtilsInterface *(void)>;
 	extern const std::string EDMUtilsFactoryMethodName;
 
 	class IExperimentalAnalyzerInterface;
 	class IExperimentalAnalyzerUtilsInterface;
 	class ExperimentalAnalyzerModule;
 
-	using EAUtilsFactoryMethod = std::function<IExperimentalAnalyzerUtilsInterface *(void)>;
 	extern const std::string EAUtilsFactoryMethodName;
 
 	enum class ExperimentalFactorType

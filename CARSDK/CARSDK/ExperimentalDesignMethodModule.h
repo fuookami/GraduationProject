@@ -7,7 +7,7 @@
 
 namespace CARSDK
 {
-	class ExperimentalDesignMethodModule
+	class CARSDK_API_DECLSPEC ExperimentalDesignMethodModule
 	{
 	public:
 		static std::shared_ptr<ExperimentalDesignMethodModule> instance(void);

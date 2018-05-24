@@ -4,6 +4,7 @@
 #include "SSUtils\FileUtils.h"
 
 #include <boost/dll.hpp>
+#include <boost/function.hpp>
 
 namespace CARSDK
 {
@@ -49,7 +50,7 @@ namespace CARSDK
 		boost::dll::shared_library lib(url);
 		if (lib.has(EDMUtilsFactoryMethodName))
 		{
-			auto &factoryMethod(lib.get<EDMUtilsFactoryMethod>(EDMUtilsFactoryMethodName));
+			boost::function<const IExperimentalDesignMethodUtilsInterface *()> factoryMethod(lib.get_alias<const IExperimentalDesignMethodUtilsInterface *()>(EDMUtilsFactoryMethodName));
 			auto *util = factoryMethod();
 			m_urls.insert(url);
 			m_utils.insert(std::make_pair(util->name(), util));

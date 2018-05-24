@@ -5,7 +5,7 @@
 
 namespace CARSDK
 {
-	class ExperimentalAnalyzerModule
+	class CARSDK_API_DECLSPEC ExperimentalAnalyzerModule
 	{
 	};
 };

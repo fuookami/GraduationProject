@@ -4,7 +4,7 @@
 
 namespace CARSDK
 {
-	class DataModelingModule
+	class CARSDK_API_DECLSPEC DataModelingModule
 	{
 
 	};

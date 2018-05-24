@@ -21,7 +21,10 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="AEDMUtilsInterface.h">
+    <ClInclude Include="AEDMUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TwoFactorsAEDM.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -33,6 +36,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AEDMUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TwoFactorsAEDM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

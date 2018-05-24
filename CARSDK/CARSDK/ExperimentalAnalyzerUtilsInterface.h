@@ -4,7 +4,7 @@
 
 namespace CARSDK
 {
-	class IExperimentalAnalyzerUtilsInterface abstract
+	class CARSDK_API_DECLSPEC IExperimentalAnalyzerUtilsInterface abstract
 	{
 	};
 };

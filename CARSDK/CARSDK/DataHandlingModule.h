@@ -4,7 +4,7 @@
 
 namespace CARSDK
 {
-	class DataHandlingModule
+	class CARSDK_API_DECLSPEC DataHandlingModule
 	{
 
 	};

@@ -4,7 +4,7 @@
 
 namespace CARSDK
 {
-	class ExperimentalDesignTable
+	class CARSDK_API_DECLSPEC ExperimentalDesignTable
 	{
 	};
 };

@@ -154,11 +154,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AEDMUtilsInterface.h" />
+    <ClInclude Include="TwoFactorsAEDM.h" />
+    <ClInclude Include="AEDMUtils.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="TwoFactorsAEDM.cpp" />
+    <ClCompile Include="AEDMUtils.cpp" />
     <ClCompile Include="AnalyticalExperimentalDesignMethod.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="stdafx.cpp">
