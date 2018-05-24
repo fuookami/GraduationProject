@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\Boost\boost\include;$(SolutionDir)SSXSDUtilsSrc;$(SolutionDir)PublicModule;$(IncludePath)</IncludePath>
+    <IncludePath>D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\Boost\boost\include;$(SolutionDir)SSXSDUtilsSrc;$(SolutionDir)SSUtilsSrc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

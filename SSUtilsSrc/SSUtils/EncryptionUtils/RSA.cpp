@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "RSA.h"
 #include "_pri_encryption_global.h"
-#include "StringUtils.h"
+#include "..\StringUtils.h"
 #include <cryptopp/rsa.h>
 #include <cryptopp/hex.h>
 #include <numeric>

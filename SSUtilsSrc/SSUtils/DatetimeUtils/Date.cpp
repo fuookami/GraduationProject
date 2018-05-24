@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Date.h"
-#include "StringUtils.h"
+#include "..\StringUtils.h"
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <sstream>

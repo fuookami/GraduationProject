@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Datetime.h"
 #include "Time.h"
-#include "StringUtils.h"
-#include "MathUtils.h"
+#include "..\StringUtils.h"
+#include "..\MathUtils.h"
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <sstream>

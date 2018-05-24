@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "QWebEngineWidget.h"
+#include "SSUtils/GUI/QWebEngineWidget.h"
 #include <memory>
 
 namespace Ui

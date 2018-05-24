@@ -1,6 +1,6 @@
 #include "VEDAVersion.h"
-#include "DatetimeUtils.h"
-#include "StringUtils.h"
+#include "SSUtils\DatetimeUtils.h"
+#include "SSUtils\StringUtils.h"
 
 namespace VEDA
 {

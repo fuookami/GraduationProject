@@ -1,9 +1,9 @@
 #include "test.h"
-#include "XMLUtils.h"
-#include "MathUtils.h"
-#include "FileUtils.h"
-#include "XSDAnalyzer.h"
-#include "XSDNormalizer.h"
+#include "SSUtils\XMLUtils.h"
+#include "SSUtils\MathUtils.h"
+#include "SSUtils\FileUtils.h"
+#include "SSUtils\XSD\XSDAnalyzer.h"
+#include "SSUtils\XSD\XSDNormalizer.h"
 
 #include <iostream>
 #include <algorithm>

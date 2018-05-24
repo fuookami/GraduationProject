@@ -1,6 +1,6 @@
 #include "VEDAMenuBarHelp.h"
 #include "VEDAAboutDialog.h"
-#include "QMessageBoxUtils.h"
+#include "SSUtils\GUI\QMessageBoxUtils.h"
 #include <boost/version.hpp>
 
 namespace VEDA

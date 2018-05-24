@@ -3,7 +3,7 @@
 #include <QtCore/QObject>
 #include <memory>
 #include <utility>
-#include <XSDModel.h>
+#include "SSUtils\XSD\XSDModel.h"
 
 namespace VEDA
 {

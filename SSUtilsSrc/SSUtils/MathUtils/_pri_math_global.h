@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Global.h"
+#include "..\Global.h"
 #include <cmath>
 #include <type_traits>
 #include <boost/math/constants/constants.hpp>

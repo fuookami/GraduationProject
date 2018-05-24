@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "_pri_string_global.h"
-#include "SystemUtils.h"
+#include "..\SystemUtils.h"
 #include <cctype>
 
 namespace SSUtils

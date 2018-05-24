@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IWebEngineDialogWidget.h"
+#include "SSUtils\GUI\IWebEngineDialogWidget.h"
 #include <QtCore/QObject>
 #include <QtCore/QJsonValue>
 #include <memory>

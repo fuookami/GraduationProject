@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "_pri_xml_loader.h"
 #include "XMLNode.h"
-#include "FileUtils.h"
+#include "..\FileUtils.h"
 #include <boost/property_tree/xml_parser.hpp>
 #include <iostream>
 

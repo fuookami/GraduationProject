@@ -2,8 +2,8 @@
 
 #include "Integer.h"
 #include "Decimal.h"
-#include "DataUtils.h"
-#include "StringUtils.h"
+#include "..\DataUtils.h"
+#include "..\StringUtils.h"
 #include <limits>
 
 namespace SSUtils

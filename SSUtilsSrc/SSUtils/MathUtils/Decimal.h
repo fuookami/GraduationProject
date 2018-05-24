@@ -1,8 +1,8 @@
 #pragma once
 
 #include "_pri_real_global.h"
-#include "DataUtils.h"
-#include "StringUtils.h"
+#include "..\DataUtils.h"
+#include "..\StringUtils.h"
 #include <limits>
 #include <boost/math/special_functions.hpp>
 

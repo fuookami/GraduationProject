@@ -9,7 +9,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QWebEngineWidget.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\IWebEngineDialogWidget.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QDraggableFlatteningDialog.h">
@@ -21,18 +21,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QMessageBoxUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\IWebEngineDialogWidget.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QWebEngineWidget.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QWebEngineWidget.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\IWebEngineDialogWidget.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QMessageBoxUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\IWebEngineDialogWidget.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QWebEngineWidget.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

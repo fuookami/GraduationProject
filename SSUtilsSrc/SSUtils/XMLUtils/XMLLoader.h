@@ -1,7 +1,7 @@
 #pragma once
 
 #include "_pri_xml_global.h"
-#include "StringUtils.h"
+#include "..\StringUtils.h"
 #include <boost/property_tree/ptree.hpp>
 #include <memory>
 

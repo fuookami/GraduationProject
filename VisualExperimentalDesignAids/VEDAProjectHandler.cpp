@@ -1,8 +1,8 @@
 #include "VEDAProjectHandler.h"
 #include "VEDAGlobal.h"
 #include "VEDAProject.h"
-#include "FileUtils.h"
-#include "XMLUtils.h"
+#include "SSUtils\FileUtils.h"
+#include "SSUtils\XMLUtils.h"
 
 namespace VEDA
 {
@@ -29,13 +29,13 @@ namespace VEDA
 
 	const std::pair<bool, std::string> VEDAProjectHandler::initProject(const std::string & name, const std::string & path, const bool newDir)
 	{
-		std::string basePath(newDir ? (path + SSUtils::File::PathSeperator + name) : path);
+		std::string basePath(newDir ? (path + SSUtils::File::PathSeperator() + name) : path);
 		if (!SSUtils::File::insurePathExist(basePath))
 		{
 			return std::make_pair(false, std::string("´´½¨Ä¿Â¼Ê§°Ü£º") + basePath);
 		}
 
-		std::string projectFileUrl(basePath + SSUtils::File::PathSeperator + name + SSUtils::File::ExtensionSeperator + ProjectFileExtension);
+		std::string projectFileUrl(basePath + SSUtils::File::PathSeperator() + name + SSUtils::File::ExtensionSeperator() + ProjectFileExtension);
 		
 		auto project(VEDAProject::generate(name));
 		auto doc(project->toXML());

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "XMLSaver.h"
 #include "_pri_xml_saver.h"
-#include "FileUtils.h"
+#include "..\FileUtils.h"
 
 namespace SSUtils
 {

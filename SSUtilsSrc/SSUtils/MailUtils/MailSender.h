@@ -1,7 +1,7 @@
 #pragma once
 
 #include "_pri_mail_global.h"
-#include "StringUtils.h"
+#include "..\StringUtils.h"
 #include <memory>
 
 namespace SSUtils

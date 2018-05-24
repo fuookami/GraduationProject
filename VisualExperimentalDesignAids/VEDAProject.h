@@ -1,8 +1,8 @@
 #pragma once
 
-#include "XMLUtils.h"
-#include "EncryptionUtils/RSA.h"
-#include "XSDModel.h"
+#include "SSUtils\XMLUtils.h"
+#include "SSUtils\EncryptionUtils\RSA.h"
+#include "SSUtils\XSD\XSDModel.h"
 
 namespace VEDA
 {
@@ -63,6 +63,8 @@ namespace VEDA
 		SSUtils::Encryption::RSA::signer m_signer;
 		SSUtils::Encryption::RSA::verifier m_verifier;
 		SSUtils::Block m_verificationToken;
+
+		std::string m_dataModelFileName;
 		std::shared_ptr<XSDFrontend::XSDModel> m_dataModel;
 
 		std::map<std::string, VEDAProcess> m_processes;

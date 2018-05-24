@@ -1,7 +1,7 @@
 #pragma once
 
 #include "_pri_system_global.h"
-#include "DataUtils/_pri_data.h"
+#include "..\DataUtils\_pri_data.h"
 
 #include <array>
 #include <algorithm>

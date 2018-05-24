@@ -1,7 +1,7 @@
 #include "VEDAInitProjectDialog.h"
 #include "VEDAProjectHandler.h"
 #include "VEDAGUIEnterence.h"
-#include "QMessageBoxUtils.h"
+#include "SSUtils\GUI\QMessageBoxUtils.h"
 #include <QtWidgets/QFileDialog>
 
 namespace VEDA

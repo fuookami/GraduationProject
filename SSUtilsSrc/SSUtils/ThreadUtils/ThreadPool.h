@@ -1,8 +1,8 @@
 #pragma once
 
 #include "_pri_thread_global.h"
-#include "FunctionUtils.h"
-#include "SystemUtils.h"
+#include "..\FunctionUtils.h"
+#include "..\SystemUtils.h"
 #include <deque>
 #include <mutex>
 #include <condition_variable>
