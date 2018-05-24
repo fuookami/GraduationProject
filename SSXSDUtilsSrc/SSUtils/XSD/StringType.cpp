@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "StringType.h"
-#include "StringUtils.h"
+#include "SSUtils\StringUtils.h"
 #include "XSDToken.h"
 
 namespace XSDFrontend

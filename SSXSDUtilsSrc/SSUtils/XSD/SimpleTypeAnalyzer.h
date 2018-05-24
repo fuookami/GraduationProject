@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SimpleTypeModel.h"
-#include "XMLUtils.h"
+#include "SSUtils\XMLUtils.h"
 
 #include <vector>
 #include <string>

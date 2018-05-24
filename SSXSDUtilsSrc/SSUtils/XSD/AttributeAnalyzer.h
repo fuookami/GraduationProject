@@ -3,7 +3,7 @@
 #include "SimpleTypeModel.h"
 #include "AttributeModel.h"
 #include "SimpleTypeAnalyzer.h"
-#include "XMLUtils.h"
+#include "SSUtils\XMLUtils.h"
 
 #include <functional>
 

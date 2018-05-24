@@ -2,7 +2,7 @@
 
 #include "XSDGlobal.h"
 #include <string>
-#include "XMLUtils.h"
+#include "SSUtils\XMLUtils.h"
 
 namespace XSDFrontend
 {

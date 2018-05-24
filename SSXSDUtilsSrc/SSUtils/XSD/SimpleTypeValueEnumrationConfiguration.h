@@ -2,7 +2,7 @@
 
 #include <set>
 #include <functional>
-#include "XMLUtils.h"
+#include "SSUtils\XMLUtils.h"
 #include "XSDToken.h"
 
 namespace XSDFrontend

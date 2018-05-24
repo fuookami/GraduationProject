@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "XSDExtraAttributeInterface.h"
-#include "StringUtils.h"
+#include "SSUtils\StringUtils.h"
 
 namespace XSDFrontend
 {

@@ -8,7 +8,6 @@ namespace XSDFrontend
 	{
 		const std::string IXSDNumberLimitedElementInterface::MaxOccursUnboundedString("unbounded");
 
-
 		IXSDNumberLimitedElementInterface::IXSDNumberLimitedElementInterface(const int minOccurs, const int maxOccurs)
 			: m_minOccurs(1), m_maxOccurs(1)
 		{

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "XSDGlobal.h"
-#include "XMLUtils.h"
+#include "SSUtils\XMLUtils.h"
 
 namespace XSDFrontend
 {

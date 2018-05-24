@@ -73,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)PublicModule;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\Boost\boost\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SSUtilsSrc;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\Boost\boost\include;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

@@ -3,7 +3,7 @@
 #include "XSDGlobal.h"
 #include <string>
 #include <cstdint>
-#include "XMLUtils.h"
+#include "SSUtils\XMLUtils.h"
 
 namespace XSDFrontend
 {

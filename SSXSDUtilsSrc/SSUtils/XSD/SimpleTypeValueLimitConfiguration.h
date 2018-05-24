@@ -1,6 +1,6 @@
 #pragma once
 
-#include "XMLUtils.h"
+#include "SSUtils\XMLUtils.h"
 #include "XSDToken.h"
 
 namespace XSDFrontend

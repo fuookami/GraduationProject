@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "XSDNormalizer.h"
-#include "ThreadUtils.h"
+#include "SSUtils\ThreadUtils.h"
 
 namespace XSDNormalizer
 {

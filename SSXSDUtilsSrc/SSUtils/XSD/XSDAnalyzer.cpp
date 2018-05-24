@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "XSDAnalyzer.h"
 #include "XSDToken.h"
-#include "FileUtils.h"
+#include "SSUtils\FileUtils.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>

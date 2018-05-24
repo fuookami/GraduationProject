@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SimpleTypeInterface.h"
-#include "MathUtils.h"
+#include "SSUtils\MathUtils.h"
 #include "SimpleTypeValueLimitConfiguration.h"
 #include "SimpleTypeValueEnumrationConfiguration.h"
 

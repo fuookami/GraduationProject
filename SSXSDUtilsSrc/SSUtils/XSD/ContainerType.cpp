@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ContainerType.h"
 #include "XSDToken.h"
-#include "StringUtils.h"
+#include "SSUtils\StringUtils.h"
 
 #include <boost/algorithm/string.hpp>
 
