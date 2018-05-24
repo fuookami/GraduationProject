@@ -47,4 +47,11 @@ namespace CARSDK
 		Html5,
 		None
 	};
+
+	enum class AttributeType
+	{
+		Boolean,
+		Number,
+		String
+	};
 };

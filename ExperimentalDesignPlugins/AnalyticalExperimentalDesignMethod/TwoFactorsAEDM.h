@@ -7,10 +7,11 @@ namespace AEDM
 	class TwoFactorsAEDM : public CARSDK::IExperimentalDesignMethodInterface
 	{
 	public:
-		static std::shared_ptr<TwoFactorsAEDM> instance(void);
+		static boost::shared_ptr<TwoFactorsAEDM> create(void);
 
-	public:
+	private:
 		TwoFactorsAEDM(void) = default;
+	public:
 		TwoFactorsAEDM(const TwoFactorsAEDM &ano) = delete;
 		TwoFactorsAEDM(TwoFactorsAEDM &&ano) = delete;
 		TwoFactorsAEDM &operator=(const TwoFactorsAEDM &rhs) = delete;
@@ -19,7 +20,7 @@ namespace AEDM
 
 		const std::string &category(void) const override;
 		const std::string &displayName(void) const override;
-		std::map<std::string, std::string> neededAttributes(void) const override;
+		const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> &neededAttributes(void) const override;
 		const bool valid(const std::map<std::string, std::string> &attributes) const override;
 		CARSDK::ExperimentalDesignTable generateExperimentalDesignTable(const std::shared_ptr<XSDFrontend::XSDModel> &xsdModel, const std::map<std::string, std::string> &attributes) const override;
 	};

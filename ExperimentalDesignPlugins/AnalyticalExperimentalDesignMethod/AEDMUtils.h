@@ -2,15 +2,14 @@
 
 #include "CARSDK/ExperimentalDesignMethodUtilsInterface.h"
 #include <boost/dll/alias.hpp>
+#include <boost/shared_ptr.hpp>
 
 namespace AEDM
 {
-	const CARSDK::IExperimentalDesignMethodUtilsInterface * getEDMUtilsInterface(void);
-
 	class AEDMUtils : public CARSDK::IExperimentalDesignMethodUtilsInterface
 	{
 	public:
-		static std::shared_ptr<AEDMUtils> instance(void);
+		static boost::shared_ptr<AEDMUtils> create(void);
 
 	private:
 		AEDMUtils(void) = default;
@@ -23,8 +22,8 @@ namespace AEDM
 
 		const std::string &name(void) const override;
 		const std::string &displayName(void) const override;
-		const std::map<std::string, const CARSDK::IExperimentalDesignMethodInterface *> &methods(void) const override;
+		const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalDesignMethodInterface>> &methods(void) const override;
 	};
 };
 
-BOOST_DLL_ALIAS(AEDM::getEDMUtilsInterface, getEDMUtilsInterface);
+BOOST_DLL_ALIAS(AEDM::AEDMUtils::create, getEDMUtilsInterface);

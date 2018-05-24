@@ -3,7 +3,6 @@
 #include "ExperimentalDesignMethodModule.h"
 #include "SSUtils\FileUtils.h"
 
-#include <boost/dll.hpp>
 #include <boost/function.hpp>
 
 namespace CARSDK
@@ -26,7 +25,7 @@ namespace CARSDK
 		return m_urls.find(url) != m_urls.cend();
 	}
 
-	const IExperimentalDesignMethodUtilsInterface * ExperimentalDesignMethodModule::util(const std::string & name) const
+	boost::shared_ptr<IExperimentalDesignMethodUtilsInterface> ExperimentalDesignMethodModule::util(const std::string & name) const
 	{
 		auto it(m_utils.find(name));
 		return it == m_utils.cend() ? nullptr : it->second;
@@ -47,12 +46,13 @@ namespace CARSDK
 
 	void ExperimentalDesignMethodModule::loadUtil(const std::string & url)
 	{
-		boost::dll::shared_library lib(url);
-		if (lib.has(EDMUtilsFactoryMethodName))
+		std::shared_ptr<boost::dll::shared_library> lib(new boost::dll::shared_library(url));
+		if (lib->has(EDMUtilsFactoryMethodName))
 		{
-			boost::function<const IExperimentalDesignMethodUtilsInterface *()> factoryMethod(lib.get_alias<const IExperimentalDesignMethodUtilsInterface *()>(EDMUtilsFactoryMethodName));
-			auto *util = factoryMethod();
+			boost::function<boost::shared_ptr<IExperimentalDesignMethodUtilsInterface>()> factoryMethod(lib->get_alias<boost::shared_ptr<IExperimentalDesignMethodUtilsInterface>()>(EDMUtilsFactoryMethodName));
+			auto util = factoryMethod();
 			m_urls.insert(url);
+			m_libs.insert(lib);
 			m_utils.insert(std::make_pair(util->name(), util));
 		}
 	}

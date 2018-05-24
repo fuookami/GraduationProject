@@ -4,6 +4,7 @@
 #include "ExperimentalDesignMethodUtilsInterface.h"
 
 #include <set>
+#include <boost/dll.hpp>
 
 namespace CARSDK
 {
@@ -25,8 +26,8 @@ namespace CARSDK
 		const bool hasLoaded(const std::string &url) const;
 		inline const std::set<std::string> &urls(void) const { return m_urls; }
 
-		const IExperimentalDesignMethodUtilsInterface *util(const std::string &name) const;
-		inline const std::map<std::string, const IExperimentalDesignMethodUtilsInterface *> &utils(void) const { return m_utils; }
+		boost::shared_ptr<IExperimentalDesignMethodUtilsInterface> util(const std::string &name) const;
+		inline const std::map<std::string, boost::shared_ptr<IExperimentalDesignMethodUtilsInterface>> &utils(void) const { return m_utils; }
 
 	private:
 		void loadUtils(const std::string &path);
@@ -34,6 +35,7 @@ namespace CARSDK
 
 	private:
 		std::set<std::string> m_urls;
-		std::map<std::string, const IExperimentalDesignMethodUtilsInterface *> m_utils;
+		std::set<std::shared_ptr<boost::dll::shared_library>> m_libs;
+		std::map<std::string, boost::shared_ptr<IExperimentalDesignMethodUtilsInterface>> m_utils;
 	};
 };

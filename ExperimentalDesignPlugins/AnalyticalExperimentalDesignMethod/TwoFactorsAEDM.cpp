@@ -3,27 +3,26 @@
 
 namespace AEDM
 {
-	std::shared_ptr<TwoFactorsAEDM> TwoFactorsAEDM::instance(void)
+	boost::shared_ptr<TwoFactorsAEDM> TwoFactorsAEDM::create(void)
 	{
-		static std::shared_ptr<TwoFactorsAEDM> ret(new TwoFactorsAEDM());
-		return ret;
+		return boost::shared_ptr<TwoFactorsAEDM>(new TwoFactorsAEDM());
 	}
-
-	const std::string & TwoFactorsAEDM::category(void) const
+	const std::string &TwoFactorsAEDM::category(void) const
 	{
 		static const std::string ret("TwoFactorAEDM");
 		return ret;
 	}
 
-	const std::string & TwoFactorsAEDM::displayName(void) const
+	const std::string &TwoFactorsAEDM::displayName(void) const
 	{
 		static const std::string ret("二因子析因设计方法");
 		return ret;
 	}
 
-	std::map<std::string, std::string> TwoFactorsAEDM::neededAttributes(void) const
+	const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> &TwoFactorsAEDM::neededAttributes(void) const
 	{
-		return std::map<std::string, std::string>();
+		static const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> ret = {};
+		return ret;
 	}
 
 	const bool TwoFactorsAEDM::valid(const std::map<std::string, std::string>& attributes) const
