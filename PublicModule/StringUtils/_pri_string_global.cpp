@@ -7,57 +7,79 @@ namespace SSUtils
 {
 	namespace String
 	{
-		const std::string EmptyString("");
+#define String_Definition(name, str)\
+		const std::string &##name##(void)\
+		{\
+			static const std::string name = std::string(str);\
+			return name;\
+		}\
 
-		const std::string Empty("empty");
-		const std::string Null("null");
-		const std::string None("none");
+		String_Definition(EmptyString, "");
 
-		const std::string Right("right");
-		const std::string Error("error");
-		const std::string Wrong("wrong");
+		String_Definition(Empty, "empty");
+		String_Definition(Null, "null");
+		String_Definition(None, "none");
 
-		const std::string Enabled("enabled");
-		const std::string Disabled("disabled");
+		String_Definition(Right, "right");
+		String_Definition(Error, "error");
+		String_Definition(Wrong, "wrong");
 
-		const std::string True("true");
-		const std::string False("false");
+		String_Definition(Enabled, "enabled");
+		String_Definition(Disabled, "disabled");
 
-		const std::string Infinity("inf");
-		const std::string NegativeInfinity("+inf");
-		const std::string PositiveInfinity("-inf");
-		const std::string NotANumber("nan");
+		String_Definition(True, "true");
+		String_Definition(False, "false");
 
-		const std::string SpaceCharacters = []()
+		String_Definition(Infinity, "inf");
+		String_Definition(NegativeInfinity, "+inf");
+		String_Definition(PositiveInfinity, "-inf");
+		String_Definition(NotANumber, "nan");
+
+		const std::string &SpaceCharacters(void)
 		{
-			std::string ret;
-			if (ret.empty())
+			static const std::string ret = []()
 			{
-				for (int i(0); i != INT8_MAX; ++i)
+				std::string ret;
+				if (ret.empty())
 				{
-					if (isspace(i))
+					for (int i(0); i != INT8_MAX; ++i)
 					{
-						ret.push_back(static_cast<char>(i));
+						if (isspace(i))
+						{
+							ret.push_back(static_cast<char>(i));
+						}
 					}
 				}
-			}
 
+				return ret;
+			}();
 			return ret;
-		}();
+		}
 
-		const std::string HexStringPrefix("0x");
+		String_Definition(HexStringPrefix, "0x");
 
-		const std::map<CharType, std::string> CharTypeCode =
+		const std::map<CharType, std::string> &CharTypeCode(void)
 		{
-			std::make_pair(CharType::UTF8, std::string("UTF-8")), 
-			std::make_pair(CharType::UTF16, std::string("UTF-16")),
-			std::make_pair(CharType::BIG5, std::string("BIG5")), 
-			std::make_pair(CharType::GBK, std::string("GBK")), 
-			std::make_pair(CharType::GB2312, std::string("GB2312"))
-		};
+			static const std::map<CharType, std::string> CharTypeCode =
+			{
+				std::make_pair(CharType::UTF8, std::string("UTF-8")),
+				std::make_pair(CharType::UTF16, std::string("UTF-16")),
+				std::make_pair(CharType::BIG5, std::string("BIG5")),
+				std::make_pair(CharType::GBK, std::string("GBK")),
+				std::make_pair(CharType::GB2312, std::string("GB2312"))
+			};
 
-		const CharType LocalCharType = System::LocalSystemType == OperationSystemType::Windows ? CharType::GB2312 : CharType::UTF8;
+			return CharTypeCode;
+		} 
 
-		const std::string LocalCharTypeCode = CharTypeCode.find(LocalCharType)->second;
+		const CharType LocalCharType(void)
+		{
+			static const CharType LocalCharType = System::LocalSystemType == OperationSystemType::Windows ? CharType::GB2312 : CharType::UTF8;
+			return LocalCharType;
+		}
+
+		String_Definition(LocalCharTypeCode, CharTypeCode().find(LocalCharType())->second);
+
+#undef String_Definition
 	};
 };

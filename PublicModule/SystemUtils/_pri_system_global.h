@@ -35,6 +35,6 @@ namespace SSUtils
 		static const OperationSystemType LocalSystemType = OperationSystemType::Android;
 #endif
 
-		extern API_DECLSPEC const Endian LocalEndian;
+		SSUtils_API_DECLSPEC const Endian LocalEndian();
 	};
 };

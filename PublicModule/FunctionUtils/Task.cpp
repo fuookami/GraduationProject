@@ -20,6 +20,10 @@ namespace SSUtils
 			return lhs->priority > rhs->priority;
 		}
 
-		const TaskCompareFunction DefaultTaskCompareFunction = DefaultTaskCompare;
+		const TaskCompareFunction &DefaultTaskCompareFunction(void)
+		{
+			static const TaskCompareFunction ret = DefaultTaskCompare;
+			return ret;
+		}
 	};
 };

@@ -50,7 +50,7 @@ namespace SSUtils
 			}
 			catch (...)
 			{
-				return EmptyString;
+				return EmptyString();
 			}
 		}
 
@@ -90,7 +90,7 @@ namespace std
 {
 	std::string to_string(const bool value)
 	{
-		return value ? SSUtils::String::True : SSUtils::String::False;
+		return value ? SSUtils::String::True() : SSUtils::String::False();
 	}
 
 	bool stoboolean(const std::string & str)
@@ -102,7 +102,7 @@ namespace std
 		}
 		else
 		{
-			return str == SSUtils::String::True;
+			return str == SSUtils::String::True();
 		}
 		return false;
 	}

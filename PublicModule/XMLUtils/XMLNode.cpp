@@ -7,7 +7,7 @@ namespace SSUtils
 	namespace XML
 	{
 		const int Node::npos = -1;
-		const std::string Node::DefaultAttrValue = String::EmptyString;
+		const std::string Node::DefaultAttrValue = String::EmptyString();
 
 		std::shared_ptr<Node> Node::generate(const std::string & tag)
 		{

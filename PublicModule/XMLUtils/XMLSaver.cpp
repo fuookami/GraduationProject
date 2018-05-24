@@ -46,7 +46,7 @@ namespace SSUtils
 		{
 			return pt != nullptr ? toString(pt->get(), charType)
 				: roots != nullptr ? toString(roots->get(), charType) 
-				: String::EmptyString;
+				: String::EmptyString();
 		}
 
 		std::string Saver::toString(const std::vector<std::shared_ptr<Node>>& roots, const CharType charType)

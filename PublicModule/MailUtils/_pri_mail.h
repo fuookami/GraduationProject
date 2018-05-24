@@ -13,8 +13,8 @@ namespace SSUtils
 {
 	namespace Mail
 	{
-		jwsmtp::mailer generateMessageMailer(const std::string & senderMail, const std::string & senderPassword, const std::string & senderServer, const std::string & title, const std::string & content, const CharType charType = String::LocalCharType);
-		jwsmtp::mailer generateHTMLMailer(const std::string & senderMail, const std::string &senderPassword, const std::string &senderServer, const std::string &title, const std::string &content, const CharType charType = String::LocalCharType);
+		jwsmtp::mailer generateMessageMailer(const std::string & senderMail, const std::string & senderPassword, const std::string & senderServer, const std::string & title, const std::string & content, const CharType charType = String::LocalCharType());
+		jwsmtp::mailer generateHTMLMailer(const std::string & senderMail, const std::string &senderPassword, const std::string &senderServer, const std::string &title, const std::string &content, const CharType charType = String::LocalCharType());
 
 		std::pair<bool, std::string> sendMail(const std::string &senderMail, const std::string &senderPassword, jwsmtp::mailer &mailer);
 

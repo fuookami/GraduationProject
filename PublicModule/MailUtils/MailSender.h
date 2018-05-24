@@ -8,7 +8,7 @@ namespace SSUtils
 {
 	namespace Mail
 	{
-		struct API_DECLSPEC Sender
+		struct SSUtils_API_DECLSPEC Sender
 		{
 			std::string senderMail;
 			std::string senderPassword;
@@ -23,7 +23,7 @@ namespace SSUtils
 			Sender &operator=(Sender &&rhs) = default;
 			~Sender(void) = default;
 
-			std::pair<bool, std::string> operator()(const MessageType type, const std::string & title, const std::string & content, const CharType charType = String::LocalCharType);
+			std::pair<bool, std::string> operator()(const MessageType type, const std::string & title, const std::string & content, const CharType charType = String::LocalCharType());
 		};
 	};
 };

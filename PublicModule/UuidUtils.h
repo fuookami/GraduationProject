@@ -9,7 +9,7 @@ namespace SSUtils
 
 	namespace UUID
 	{
-		API_DECLSPEC std::array<byte, UUIDLength> generateUUIDV1(void);
-		API_DECLSPEC std::array<byte, UUIDLength> generateUUIDV4(void);
+		SSUtils_API_DECLSPEC std::array<byte, UUIDLength> generateUUIDV1(void);
+		SSUtils_API_DECLSPEC std::array<byte, UUIDLength> generateUUIDV4(void);
 	};
 };

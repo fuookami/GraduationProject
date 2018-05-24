@@ -9,7 +9,7 @@ namespace SSUtils
 {
 	namespace System
 	{
-		extern API_DECLSPEC const std::array<byte, CPUIdLength> CPUId;
-		extern API_DECLSPEC const uint32 CPUCoreNumber;
+		SSUtils_API_DECLSPEC const std::array<byte, CPUIdLength> &CPUId(void);
+		SSUtils_API_DECLSPEC uint32 CPUCoreNumber(void);
 	};
 };

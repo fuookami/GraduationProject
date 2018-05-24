@@ -8,7 +8,7 @@ namespace SSUtils
 {
 	namespace Thread
 	{
-		API_DECLSPEC void sleep(const uint64 milliseconds);
-		API_DECLSPEC std::thread::id getThisThreadId(void);
+		SSUtils_API_DECLSPEC void sleep(const uint64 milliseconds);
+		SSUtils_API_DECLSPEC std::thread::id getThisThreadId(void);
 	};
 };

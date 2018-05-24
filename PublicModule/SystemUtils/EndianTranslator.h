@@ -25,22 +25,22 @@ namespace SSUtils
 
 			static T toLocalEndian(const Endian srcEndian, const T src)
 			{
-				return LocalEndian == srcEndian ? src : translateEndian(src);
+				return LocalEndian() == srcEndian ? src : translateEndian(src);
 			}
 
 			static T fromLocalEndian(const Endian targetEndian, const T src)
 			{
-				return LocalEndian == targetEndian ? src : translateEndian(src);
+				return LocalEndian() == targetEndian ? src : translateEndian(src);
 			}
 
 			static T toLocalEndian_ref(const Endian srcEndian, const T &src)
 			{
-				return LocalEndian == srcEndian ? src : translateEndian_ref(src);
+				return LocalEndian() == srcEndian ? src : translateEndian_ref(src);
 			}
 
 			static T fromLocalEndian_ref(const Endian targetEndian, const T &src)
 			{
-				return LocalEndian == targetEndian ? src : translateEndian_ref(src);
+				return LocalEndian() == targetEndian ? src : translateEndian_ref(src);
 			}
 
 		private:
@@ -94,24 +94,24 @@ namespace SSUtils
 			return translator.fromLocalEndian_ref(targetEndian, src);
 		}
 
-		API_DECLSPEC const uint16 toLocalEndian(const Endian srcEndian, const uint16 src);
-		API_DECLSPEC const uint16 fromLocalEndian(const Endian targetEndian, const uint16 src);
-		API_DECLSPEC const int16 toLocalEndian(const Endian srcEndian, const int16 src);
-		API_DECLSPEC const int16 fromLocalEndian(const Endian targetEndian, const int16 src);
+		SSUtils_API_DECLSPEC const uint16 toLocalEndian(const Endian srcEndian, const uint16 src);
+		SSUtils_API_DECLSPEC const uint16 fromLocalEndian(const Endian targetEndian, const uint16 src);
+		SSUtils_API_DECLSPEC const int16 toLocalEndian(const Endian srcEndian, const int16 src);
+		SSUtils_API_DECLSPEC const int16 fromLocalEndian(const Endian targetEndian, const int16 src);
 
-		API_DECLSPEC const uint32 toLocalEndian(const Endian srcEndian, const uint32 src);
-		API_DECLSPEC const uint32 fromLocalEndian(const Endian targetEndian, const uint32 src);
-		API_DECLSPEC const int32 toLocalEndian(const Endian srcEndian, const int32 src);
-		API_DECLSPEC const int32 fromLocalEndian(const Endian targetEndian, const int32 src);
+		SSUtils_API_DECLSPEC const uint32 toLocalEndian(const Endian srcEndian, const uint32 src);
+		SSUtils_API_DECLSPEC const uint32 fromLocalEndian(const Endian targetEndian, const uint32 src);
+		SSUtils_API_DECLSPEC const int32 toLocalEndian(const Endian srcEndian, const int32 src);
+		SSUtils_API_DECLSPEC const int32 fromLocalEndian(const Endian targetEndian, const int32 src);
 
-		API_DECLSPEC const uint64 toLocalEndian(const Endian srcEndian, const uint64 src);
-		API_DECLSPEC const uint64 fromLocalEndian(const Endian targetEndian, const uint64 src);
-		API_DECLSPEC const int64 toLocalEndian(const Endian srcEndian, const int64 src);
-		API_DECLSPEC const int64 fromLocalEndian(const Endian targetEndian, const int64 src);
+		SSUtils_API_DECLSPEC const uint64 toLocalEndian(const Endian srcEndian, const uint64 src);
+		SSUtils_API_DECLSPEC const uint64 fromLocalEndian(const Endian targetEndian, const uint64 src);
+		SSUtils_API_DECLSPEC const int64 toLocalEndian(const Endian srcEndian, const int64 src);
+		SSUtils_API_DECLSPEC const int64 fromLocalEndian(const Endian targetEndian, const int64 src);
 
-		API_DECLSPEC const float toLocalEndian(const Endian srcEndian, const float src);
-		API_DECLSPEC const float fromLocalEndian(const Endian targetEndian, const float src);
-		API_DECLSPEC const double toLocalEndian(const Endian srcEndian, const double src);
-		API_DECLSPEC const double fromLocalEndian(const Endian targetEndian, const double src);
+		SSUtils_API_DECLSPEC const float toLocalEndian(const Endian srcEndian, const float src);
+		SSUtils_API_DECLSPEC const float fromLocalEndian(const Endian targetEndian, const float src);
+		SSUtils_API_DECLSPEC const double toLocalEndian(const Endian srcEndian, const double src);
+		SSUtils_API_DECLSPEC const double fromLocalEndian(const Endian targetEndian, const double src);
 	};
 };

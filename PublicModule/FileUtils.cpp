@@ -12,9 +12,21 @@ namespace SSUtils
 {
 	namespace File
 	{
-		const std::string PathSeperator = System::LocalSystemType == OperationSystemType::Windows ? std::string("\\") : std::string("/");
-		const std::string ExtensionSeperator(".");
-		const std::string InitailPath(boost::filesystem::initial_path().string());
+		const std::string &PathSeperator(void)
+		{
+			static const std::string ret = System::LocalSystemType == OperationSystemType::Windows ? std::string("\\") : std::string("/");
+			return ret;
+		}
+		const std::string &ExtensionSeperator(void)
+		{
+			static const std::string ret = std::string(".");
+			return ret;
+		}
+		const std::string &InitailPath(void)
+		{
+			static const std::string ret = boost::filesystem::initial_path().string();
+			return ret;
+		}
 
 		const bool checkFileExist(const std::string & targetUrl)
 		{

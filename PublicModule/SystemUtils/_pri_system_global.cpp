@@ -5,16 +5,20 @@ namespace SSUtils
 {
 	namespace System
 	{
-		const Endian LocalEndian = []()
+		const Endian LocalEndian()
 		{
-			union
+			static const Endian ret = []()
 			{
-				int number;
-				char s;
-			} LocalEndianChecker;
+				union
+				{
+					int number;
+					char s;
+				} LocalEndianChecker;
 
-			LocalEndianChecker.number = 0x010000002;
-			return (LocalEndianChecker.s == 0x01) ? Endian::BigEndian : Endian::LittleEndian;
-		}();
+				LocalEndianChecker.number = 0x010000002;
+				return (LocalEndianChecker.s == 0x01) ? Endian::BigEndian : Endian::LittleEndian;
+			}();
+			return ret;
+		} 
 	};
 };

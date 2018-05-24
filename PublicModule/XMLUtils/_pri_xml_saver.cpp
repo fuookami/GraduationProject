@@ -23,7 +23,7 @@ namespace SSUtils
 			auto pt(saveToPTree(roots));
 			if (pt == EmptyPTree)
 			{
-				return String::EmptyString;
+				return String::EmptyString();
 			}
 			else
 			{
@@ -74,7 +74,7 @@ namespace SSUtils
 			}
 			else
 			{
-				ret.second.put(String::EmptyString, node->getContent());
+				ret.second.put(String::EmptyString(), node->getContent());
 			}
 
 			return std::make_pair(node->getTag(), ret.second);

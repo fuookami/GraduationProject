@@ -10,13 +10,13 @@ namespace SSUtils
 {
 	namespace String
 	{
-		API_DECLSPEC std::string getVersion(const int major, const int sub, const int modify);
+		SSUtils_API_DECLSPEC std::string getVersion(const int major, const int sub, const int modify);
 
-		API_DECLSPEC std::string base64Encode(const std::string &str, const char fillCharacter = '=');
-		API_DECLSPEC std::string base64Decode(const std::string &str);
+		SSUtils_API_DECLSPEC std::string base64Encode(const std::string &str, const char fillCharacter = '=');
+		SSUtils_API_DECLSPEC std::string base64Decode(const std::string &str);
 
-		API_DECLSPEC std::vector<std::string> split(const std::string &source, const std::string &tokens, const bool removeSpace = true);
-		API_DECLSPEC std::vector<std::wstring> split(const std::wstring &source, const std::wstring &tokens, const bool removeSpace = true);
+		SSUtils_API_DECLSPEC std::vector<std::string> split(const std::string &source, const std::string &tokens, const bool removeSpace = true);
+		SSUtils_API_DECLSPEC std::vector<std::wstring> split(const std::wstring &source, const std::wstring &tokens, const bool removeSpace = true);
 
 		template<typename iter, typename translator_t = StringTranslator>
 		typename std::enable_if_t<std::is_same_v<typename iter::value_type, std::string>, std::string> join(const iter bgIt, const iter edIt, const std::string &seperator = std::string(""),
@@ -33,7 +33,7 @@ namespace SSUtils
 			catch (std::exception &e)
 			{
 				std::cerr << e.what() << std::endl;
-				return EmptyString;
+				return EmptyString();
 			}
 		}
 
@@ -52,7 +52,7 @@ namespace SSUtils
 			catch (std::exception &e)
 			{
 				std::cerr << e.what() << std::endl;
-				return EmptyString;
+				return EmptyString();
 			}
 		}
 
@@ -67,6 +67,6 @@ namespace SSUtils
 
 namespace std
 {
-	API_DECLSPEC string to_string(const bool value);
-	API_DECLSPEC bool stoboolean(const std::string &str);
+	SSUtils_API_DECLSPEC string to_string(const bool value);
+	SSUtils_API_DECLSPEC bool stoboolean(const std::string &str);
 };

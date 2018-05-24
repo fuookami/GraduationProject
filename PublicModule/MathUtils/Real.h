@@ -310,19 +310,19 @@ namespace SSUtils
 				std::string operator()(const bool value) const
 				{
 					auto it = String2Boolean().right.find(value);
-					return it == String2Boolean().right.end() ? String::EmptyString : it->second;
+					return it == String2Boolean().right.end() ? String::EmptyString() : it->second;
 				}
 
 				std::string operator()(const TranscendentalValue value) const
 				{
 					auto it = String2TranscendentalValue().right.find(value);
-					return it == String2TranscendentalValue().right.end() ? String::EmptyString : it->second;
+					return it == String2TranscendentalValue().right.end() ? String::EmptyString() : it->second;
 				}
 
 				std::string operator()(const SpecialValue value) const
 				{
 					auto it = String2SpecialValue().right.find(value);
-					return it == String2SpecialValue().right.end() ? String::EmptyString : it->second;
+					return it == String2SpecialValue().right.end() ? String::EmptyString() : it->second;
 				}
 			};
 
@@ -609,8 +609,8 @@ namespace SSUtils
 					[]() -> result_type
 				{
 					result_type ret;
-					ret.insert(pair_type(String::True, true));
-					ret.insert(pair_type(String::False, false));
+					ret.insert(pair_type(String::True(), true));
+					ret.insert(pair_type(String::False(), false));
 
 					return ret;
 				}();
@@ -645,10 +645,10 @@ namespace SSUtils
 					[]() -> result_type
 				{
 					result_type ret;
-					ret.insert(pair_type(String::Empty, SpecialValue::Empty));
-					ret.insert(pair_type(String::NotANumber, SpecialValue::NaN));
-					ret.insert(pair_type(String::PositiveInfinity, SpecialValue::PositiveInfinity));
-					ret.insert(pair_type(String::NegativeInfinity, SpecialValue::NegativeInfinity));
+					ret.insert(pair_type(String::Empty(), SpecialValue::Empty));
+					ret.insert(pair_type(String::NotANumber(), SpecialValue::NaN));
+					ret.insert(pair_type(String::PositiveInfinity(), SpecialValue::PositiveInfinity));
+					ret.insert(pair_type(String::NegativeInfinity(), SpecialValue::NegativeInfinity));
 
 					return ret;
 				}();

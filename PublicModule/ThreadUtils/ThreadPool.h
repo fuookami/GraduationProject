@@ -13,10 +13,10 @@ namespace SSUtils
 {
 	namespace Thread
 	{
-		class API_DECLSPEC ThreadPool
+		class SSUtils_API_DECLSPEC ThreadPool
 		{
 		public:
-			ThreadPool(const uint32 size = System::CPUCoreNumber, const Function::TaskCompareFunction taskCompareFun = Function::DefaultTaskCompareFunction);
+			ThreadPool(const uint32 size = System::CPUCoreNumber(), const Function::TaskCompareFunction taskCompareFun = Function::DefaultTaskCompareFunction());
 			ThreadPool(const ThreadPool &ano) = delete;
 			ThreadPool(ThreadPool &&ano) = default;
 			ThreadPool &operator=(const ThreadPool &rhs) = delete;

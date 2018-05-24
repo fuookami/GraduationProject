@@ -8,7 +8,7 @@ namespace SSUtils
 {
 	namespace XML
 	{
-		class API_DECLSPEC Document
+		class SSUtils_API_DECLSPEC Document
 		{
 		public:
 			Document(void) = default;
@@ -19,13 +19,13 @@ namespace SSUtils
 			~Document(void) = default;
 
 		public:
-			static Document fromFile(const std::string &url, const CharType charType = String::LocalCharType);
-			static Document fromFile(std::string &&url, const CharType charType = String::LocalCharType);
-			static Document fromString(const std::string &data, const CharType charType = String::LocalCharType);
-			static Document fromString(std::string &&data, const CharType charType = String::LocalCharType);
+			static Document fromFile(const std::string &url, const CharType charType = String::LocalCharType());
+			static Document fromFile(std::string &&url, const CharType charType = String::LocalCharType());
+			static Document fromString(const std::string &data, const CharType charType = String::LocalCharType());
+			static Document fromString(std::string &&data, const CharType charType = String::LocalCharType());
 
-			const bool toFile(const std::string &url, const CharType charType = String::LocalCharType) const;
-			std::string toString(const CharType charType = String::LocalCharType) const;
+			const bool toFile(const std::string &url, const CharType charType = String::LocalCharType()) const;
+			std::string toString(const CharType charType = String::LocalCharType()) const;
 
 		public:
 			const std::vector<std::shared_ptr<Node>> &getRoots(void) const;

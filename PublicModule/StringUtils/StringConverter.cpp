@@ -9,12 +9,12 @@ namespace SSUtils
 	{
 		std::wstring toWString(const std::string & src, const CharType charType)
 		{
-			return boost::locale::conv::to_utf<wchar>(src, CharTypeCode.find(charType)->second);
+			return boost::locale::conv::to_utf<wchar>(src, CharTypeCode().find(charType)->second);
 		}
 
 		std::string toString(const std::wstring & src, const CharType charType)
 		{
-			return boost::locale::conv::from_utf<wchar>(src, CharTypeCode.find(charType)->second);
+			return boost::locale::conv::from_utf<wchar>(src, CharTypeCode().find(charType)->second);
 		}
 
 		Converter::Converter(const CharType _srcCharType, const CharType _destCharType)
@@ -24,23 +24,23 @@ namespace SSUtils
 
 		std::string Converter::operator()(const std::string & src) const
 		{
-			return boost::locale::conv::between(src, CharTypeCode.find(destCharType)->second, CharTypeCode.find(srcCharType)->second);
+			return boost::locale::conv::between(src, CharTypeCode().find(destCharType)->second, CharTypeCode().find(srcCharType)->second);
 		}
 
 		std::wstring Converter::operator()(const std::wstring & src) const
 		{
-			return toWString(boost::locale::conv::between(toString(src), CharTypeCode.find(destCharType)->second, CharTypeCode.find(srcCharType)->second));
+			return toWString(boost::locale::conv::between(toString(src), CharTypeCode().find(destCharType)->second, CharTypeCode().find(srcCharType)->second));
 		}
 
 		std::string fromLocal(const CharType targetCharType, const std::string & src)
 		{
-			Converter converter(LocalCharType, targetCharType);
+			Converter converter(LocalCharType(), targetCharType);
 			return converter(src);
 		}
 
 		std::wstring fromLocal(const CharType targetCharType, const std::wstring & src)
 		{
-			Converter converter(LocalCharType, targetCharType);
+			Converter converter(LocalCharType(), targetCharType);
 			return converter(src);
 		}
 

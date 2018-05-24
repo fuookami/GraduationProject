@@ -7,6 +7,6 @@ namespace SSUtils
 {
 	namespace Math
 	{
-		API_DECLSPEC std::vector<int> TopologicalSort(const std::vector<std::set<int>>& table);
+		SSUtils_API_DECLSPEC std::vector<int> TopologicalSort(const std::vector<std::set<int>>& table);
 	};
 };

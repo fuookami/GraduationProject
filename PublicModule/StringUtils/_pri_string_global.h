@@ -16,34 +16,38 @@ namespace SSUtils
 
 	namespace String
 	{
-		extern API_DECLSPEC const std::string EmptyString;
+#define String_Declaration(name) SSUtils_API_DECLSPEC const std::string &##name##(void);
 
-		extern API_DECLSPEC const std::string Empty;
-		extern API_DECLSPEC const std::string Null;
-		extern API_DECLSPEC const std::string None;
+		String_Declaration(EmptyString);
 
-		extern API_DECLSPEC const std::string Right;
-		extern API_DECLSPEC const std::string Error;
-		extern API_DECLSPEC const std::string Wrong;
+		String_Declaration(Empty);
+		String_Declaration(Null);
+		String_Declaration(None);
 
-		extern API_DECLSPEC const std::string Enabled;
-		extern API_DECLSPEC const std::string Disabled;
+		String_Declaration(Right);
+		String_Declaration(Error);
+		String_Declaration(Wrong);
 
-		extern API_DECLSPEC const std::string True;
-		extern API_DECLSPEC const std::string False;
+		String_Declaration(Enabled);
+		String_Declaration(Disabled);
 
-		extern API_DECLSPEC const std::string Infinity;
-		extern API_DECLSPEC const std::string NegativeInfinity;
-		extern API_DECLSPEC const std::string PositiveInfinity;
-		extern API_DECLSPEC const std::string NotANumber;
+		String_Declaration(True);
+		String_Declaration(False);
 
-		extern API_DECLSPEC const std::string SpaceCharacters;
+		String_Declaration(Infinity);
+		String_Declaration(NegativeInfinity);
+		String_Declaration(PositiveInfinity);
+		String_Declaration(NotANumber);
 
-		extern API_DECLSPEC const std::string HexStringPrefix;
+		String_Declaration(SpaceCharacters);
 
-		extern API_DECLSPEC const std::map<CharType, std::string> CharTypeCode;
+		String_Declaration(HexStringPrefix);
 
-		extern API_DECLSPEC const CharType LocalCharType;
-		extern API_DECLSPEC const std::string LocalCharTypeCode;
+		SSUtils_API_DECLSPEC const std::map<CharType, std::string> &CharTypeCode(void);
+		SSUtils_API_DECLSPEC const CharType LocalCharType(void);
+		
+		String_Declaration(LocalCharTypeCode);
+
+#undef String_Declaration
 	};
 };

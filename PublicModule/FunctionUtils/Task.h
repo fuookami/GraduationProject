@@ -11,7 +11,7 @@ namespace SSUtils
 {
 	namespace Function
 	{
-		struct API_DECLSPEC Task
+		struct SSUtils_API_DECLSPEC Task
 		{
 			std::function<void()> task;
 			uint32 priority;
@@ -31,7 +31,7 @@ namespace SSUtils
 
 		const bool DefaultTaskCompare(const std::shared_ptr<Task> lhs, const std::shared_ptr<Task> rhs);
 		using TaskCompareFunction = std::function<const bool(const std::shared_ptr<Task>, const std::shared_ptr<Task>)>;
-		extern const TaskCompareFunction DefaultTaskCompareFunction;
+		SSUtils_API_DECLSPEC const TaskCompareFunction &DefaultTaskCompareFunction(void);
 
 		template<typename F, typename ...Args>
 		Task Task::fromTask(const std::shared_ptr<std::packaged_task<typename std::result_of<F(Args...)>::type>> _task, const uint32 _priority, const uint32 _time)

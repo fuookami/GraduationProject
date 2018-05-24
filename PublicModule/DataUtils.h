@@ -24,24 +24,24 @@ namespace SSUtils
 			return ret;
 		}
 
-		API_DECLSPEC std::string toHexString(const Block &data, const std::string seperator = "");
-		API_DECLSPEC Block fromHexString(const std::string &str, const std::string seperator = "");
+		SSUtils_API_DECLSPEC std::string toHexString(const Block &data, const std::string seperator = "");
+		SSUtils_API_DECLSPEC Block fromHexString(const std::string &str, const std::string seperator = "");
 
-		API_DECLSPEC std::string toBase64String(const Block &data, const char fillCharacter = '=');
-		API_DECLSPEC Block fromBase64String(const std::string &str);
+		SSUtils_API_DECLSPEC std::string toBase64String(const Block &data, const char fillCharacter = '=');
+		SSUtils_API_DECLSPEC Block fromBase64String(const std::string &str);
 
-		API_DECLSPEC std::string toString(const Block &data);
-		API_DECLSPEC Block fromString(const std::string &str);
-		API_DECLSPEC std::wstring toWString(const Block &data);
-		API_DECLSPEC Block fromWString(const std::wstring &str);
+		SSUtils_API_DECLSPEC std::string toString(const Block &data);
+		SSUtils_API_DECLSPEC Block fromString(const std::string &str);
+		SSUtils_API_DECLSPEC std::wstring toWString(const Block &data);
+		SSUtils_API_DECLSPEC Block fromWString(const std::wstring &str);
 
-		API_DECLSPEC Block generateRandomBlock(const uint32 length = 8);
+		SSUtils_API_DECLSPEC Block generateRandomBlock(const uint32 length = 8);
 	};
 };
 
-API_DECLSPEC const bool operator==(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
-API_DECLSPEC const bool operator!=(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
-API_DECLSPEC const bool operator<(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
-API_DECLSPEC const bool operator<=(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
-API_DECLSPEC const bool operator>(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
-API_DECLSPEC const bool operator>=(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
+SSUtils_API_DECLSPEC const bool operator==(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
+SSUtils_API_DECLSPEC const bool operator!=(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
+SSUtils_API_DECLSPEC const bool operator<(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
+SSUtils_API_DECLSPEC const bool operator<=(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
+SSUtils_API_DECLSPEC const bool operator>(const SSUtils::Block &lhs, const SSUtils::Block &rhs);
+SSUtils_API_DECLSPEC const bool operator>=(const SSUtils::Block &lhs, const SSUtils::Block &rhs);

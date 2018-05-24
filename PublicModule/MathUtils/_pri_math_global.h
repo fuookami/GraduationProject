@@ -9,8 +9,10 @@ namespace SSUtils
 {
 	namespace Math
 	{
-		extern dec50 DefaultPrecision;
 		static const uint32 DefaultDigits = 50;
+		static const int32 DefaultPrecisionDigits = -14;
+		SSUtils_API_DECLSPEC const dec50 &_DefaultPrecision();
+		static const dec50 &DefaultPrecision = _DefaultPrecision();
 
 		template<typename T, typename U>
 		const bool is_equal(const T &lhs, const U &rhs)
