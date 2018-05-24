@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{c601a1c4-d24d-4b3d-98ca-6376c0c0d085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\XSDAnlyzer">
+      <UniqueIdentifier>{bcfc298f-d7d4-4625-a1f5-604d84803f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\XSDFronted">
+      <UniqueIdentifier>{8013678e-9ed9-4fb4-a7f8-1313121c8ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\XSDFronted\Attribute">
+      <UniqueIdentifier>{51469b9d-b116-45f1-9d79-77dd5eb830a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\XSDFronted\ComplexType">
+      <UniqueIdentifier>{cf808611-ddf6-4b9f-998f-3386d3241890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\XSDFronted\Public">
+      <UniqueIdentifier>{a51e1dc6-7912-4f6c-a202-35470b155690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\XSDFronted\Simpletype">
+      <UniqueIdentifier>{42ee8f4c-79fc-4a90-a3de-d6a951abe760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\XSDNormalizer">
+      <UniqueIdentifier>{bd17b209-383f-4fe3-8ce5-879f98d70c24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{aa32bf15-0ca4-4e18-88ce-85729d66532b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XSDAnlyzer">
+      <UniqueIdentifier>{984473b6-1ea9-4e39-8f43-b55a79fcf252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XSDFronted">
+      <UniqueIdentifier>{677a6501-b092-48ec-bb38-f2b77f40365f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XSDFronted\Attribute">
+      <UniqueIdentifier>{ab63cadc-467a-416a-b43f-1d3031122e38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XSDFronted\ComplexType">
+      <UniqueIdentifier>{a6c3de5c-60e7-4d29-b81d-7927d7881001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XSDFronted\Public">
+      <UniqueIdentifier>{c3da1e9b-9b72-48a1-b7ee-2d42f27239df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XSDFronted\SimpleType">
+      <UniqueIdentifier>{dc516b19-2389-47e1-8a4f-661b3fb73c1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XSDNormalizer">
+      <UniqueIdentifier>{bbbfec46-649e-4a13-9ebf-1c3e5592a9be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeNormalizer.h">
+      <Filter>头文件\XSDNormalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexTypeNormalizer.h">
+      <Filter>头文件\XSDNormalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeNormalizer.h">
+      <Filter>头文件\XSDNormalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDNormalizer.h">
+      <Filter>头文件\XSDNormalizer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeAnalyzer.h">
+      <Filter>头文件\XSDAnlyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexTypeAnalyzer.h">
+      <Filter>头文件\XSDAnlyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeAnalyzer.h">
+      <Filter>头文件\XSDAnlyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDAnalyzer.h">
+      <Filter>头文件\XSDAnlyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDGlobal.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnyAttribute.h">
+      <Filter>头文件\XSDFronted\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Attribute.h">
+      <Filter>头文件\XSDFronted\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeGroup.h">
+      <Filter>头文件\XSDFronted\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeInterface.h">
+      <Filter>头文件\XSDFronted\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeModel.h">
+      <Filter>头文件\XSDFronted\Attribute</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnyElement.h">
+      <Filter>头文件\XSDFronted\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Element.h">
+      <Filter>头文件\XSDFronted\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ElementGroup.h">
+      <Filter>头文件\XSDFronted\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ElementInterface.h">
+      <Filter>头文件\XSDFronted\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDElementUtils.h">
+      <Filter>头文件\XSDFronted\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDNamedElementInterface.h">
+      <Filter>头文件\XSDFronted\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDNamedTypedElementInterface.h">
+      <Filter>头文件\XSDFronted\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDNumberLimitedElementInterface.h">
+      <Filter>头文件\XSDFronted\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDParentedElementInterface.h">
+      <Filter>头文件\XSDFronted\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDReferenceElementInterface.h">
+      <Filter>头文件\XSDFronted\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDValueStatedElementInterface.h">
+      <Filter>头文件\XSDFronted\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeInterface.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeLengthLimitConfiguration.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeModel.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeValueEnumrationConfiguration.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeValueLimitConfiguration.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringType.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataType.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DateTimeType.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NumberType.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ContainerType.h">
+      <Filter>头文件\XSDFronted\Simpletype</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexTypeInterface.h">
+      <Filter>头文件\XSDFronted\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexTypeModel.h">
+      <Filter>头文件\XSDFronted\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleContent.h">
+      <Filter>头文件\XSDFronted\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexContent.h">
+      <Filter>头文件\XSDFronted\ComplexType</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDModel.h">
+      <Filter>头文件\XSDFronted</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDToken.h">
+      <Filter>头文件\XSDFronted</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDExtraAttributeInterface.h">
+      <Filter>头文件\XSDFronted\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributeNormalizer.cpp">
+      <Filter>源文件\XSDNormalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexTypeNormalizer.cpp">
+      <Filter>源文件\XSDNormalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeNormalizer.cpp">
+      <Filter>源文件\XSDNormalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDNormalizer.cpp">
+      <Filter>源文件\XSDNormalizer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributeAnalyzer.cpp">
+      <Filter>源文件\XSDAnlyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexTypeAnalyzer.cpp">
+      <Filter>源文件\XSDAnlyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeAnalyzer.cpp">
+      <Filter>源文件\XSDAnlyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDAnalyzer.cpp">
+      <Filter>源文件\XSDAnlyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDModel.cpp">
+      <Filter>源文件\XSDFronted</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDToken.cpp">
+      <Filter>源文件\XSDFronted</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AnyAttribute.cpp">
+      <Filter>源文件\XSDFronted\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Attribute.cpp">
+      <Filter>源文件\XSDFronted\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributeGroup.cpp">
+      <Filter>源文件\XSDFronted\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributeModel.cpp">
+      <Filter>源文件\XSDFronted\Attribute</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AnyElement.cpp">
+      <Filter>源文件\XSDFronted\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Element.cpp">
+      <Filter>源文件\XSDFronted\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ElementGroup.cpp">
+      <Filter>源文件\XSDFronted\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleContent.cpp">
+      <Filter>源文件\XSDFronted\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexContent.cpp">
+      <Filter>源文件\XSDFronted\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexTypeInterface.cpp">
+      <Filter>源文件\XSDFronted\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexTypeModel.cpp">
+      <Filter>源文件\XSDFronted\ComplexType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDNamedElementInterface.cpp">
+      <Filter>源文件\XSDFronted\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDNamedTypedElementInterface.cpp">
+      <Filter>源文件\XSDFronted\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDNumberLimitedElementInterface.cpp">
+      <Filter>源文件\XSDFronted\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDValueStatedElementInterface.cpp">
+      <Filter>源文件\XSDFronted\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ContainerType.cpp">
+      <Filter>源文件\XSDFronted\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DataType.cpp">
+      <Filter>源文件\XSDFronted\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DateTimeType.cpp">
+      <Filter>源文件\XSDFronted\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NumberType.cpp">
+      <Filter>源文件\XSDFronted\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDExtraAttributeInterface.cpp">
+      <Filter>源文件\XSDFronted\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeLengthLimitConfiguration.cpp">
+      <Filter>源文件\XSDFronted\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeInterface.cpp">
+      <Filter>源文件\XSDFronted\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeModel.cpp">
+      <Filter>源文件\XSDFronted\SimpleType</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringType.cpp">
+      <Filter>源文件\XSDFronted\SimpleType</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

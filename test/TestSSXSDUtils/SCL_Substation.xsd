@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:scl="http://www.iec.ch/61850/2003/SCL" xmlns="http://www.iec.ch/61850/2003/SCL" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iec.ch/61850/2003/SCL" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.1">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">Revised SCL schema - TC57 WG10 internal version. Version 3.1. (SCL language version "2007" revision "B"). Draft 2011/04/14.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="SCL_BaseTypes.xsd"/>
+	
+	<xs:attributeGroup name="agVirtual">
+		<xs:attribute name="virtual" type="xs:boolean" use="optional" default="false"/>
+	</xs:attributeGroup>
+
+	<xs:complexType name="tLNodeContainer" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tNaming">
+				<xs:sequence>
+					<xs:element name="LNode" type="tLNode" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tPowerSystemResource" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tLNodeContainer"/>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tEquipmentContainer" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:sequence>
+					<xs:element name="PowerTransformer" type="tPowerTransformer" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="GeneralEquipment" type="tGeneralEquipment" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tEquipment" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:attributeGroup ref="agVirtual"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tAbstractConductingEquipment" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tEquipment">
+				<xs:sequence>
+					<xs:element name="Terminal" type="tTerminal" minOccurs="0" maxOccurs="2" />
+					<xs:element name="SubEquipment" type="tSubEquipment" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tConductingEquipment">
+		<xs:complexContent>
+			<xs:extension base="tAbstractConductingEquipment">
+				<xs:attribute name="type" type="tCommonConductingEquipmentEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tSubEquipment">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:attribute name="phase" type="tPhaseEnum" use="optional" default="none"/>
+				<xs:attributeGroup ref="agVirtual"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tPowerTransformer">
+		<xs:complexContent>
+			<xs:extension base="tEquipment">
+				<xs:sequence>
+					<xs:element name="TransformerWinding" type="tTransformerWinding" maxOccurs="unbounded" />
+					<xs:element name="SubEquipment" type="tSubEquipment" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="type" type="tPowerTransformerEnum" use="required" fixed="PTR"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tTransformerWinding">
+		<xs:complexContent>
+			<xs:extension base="tAbstractConductingEquipment">
+				<xs:sequence>
+					<xs:element name="TapChanger" type="tTapChanger" minOccurs="0" />
+					<xs:element name="NeutralPoint" type="tTerminal" minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="type" type="tTransformerWindingEnum" use="required" fixed="PTW"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tTapChanger">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:sequence>
+					<xs:element name="SubEquipment" type="tSubEquipment" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="type" type="xs:Name" use="required" fixed="LTC"/>
+				<xs:attributeGroup ref="agVirtual"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tGeneralEquipment">
+		<xs:complexContent>
+			<xs:extension base="tEquipment">
+				<xs:attribute name="type" type="tGeneralEquipmentEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tSubstation">
+		<xs:complexContent>
+			<xs:extension base="tEquipmentContainer">
+				<xs:sequence>
+					<xs:element name="VoltageLevel" type="tVoltageLevel" maxOccurs="unbounded" />
+					<xs:element name="Function" type="tFunction" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tVoltageLevel">
+		<xs:complexContent>
+			<xs:extension base="tEquipmentContainer">
+				<xs:sequence>
+					<xs:element name="Voltage" type="tVoltage" minOccurs="0" />
+					<xs:element name="Bay" type="tBay" maxOccurs="unbounded" />
+					<xs:element name="Function" type="tFunction" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tBay">
+		<xs:complexContent>
+			<xs:extension base="tEquipmentContainer">
+				<xs:sequence>
+					<xs:element name="ConductingEquipment" type="tConductingEquipment" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="ConnectivityNode" type="tConnectivityNode" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="Function" type="tFunction" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tLNode">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute name="iedName" type="tIEDName" use="optional" default="None"/>
+				<xs:attribute name="ldInst" type="tLDInstOrEmpty" use="optional" default=""/>
+				<xs:attribute name="prefix" type="tPrefix" use="optional" default=""/>
+				<xs:attribute name="lnClass" type="tLNClassEnum" use="required"/>
+				<xs:attribute name="lnInst" type="tLNInstOrEmpty" use="optional" default=""/>
+				<xs:attribute name="lnType" type="tName" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tFunction">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:sequence>
+					<xs:element name="SubFunction" type="tSubFunction" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="GeneralEquipment" type="tGeneralEquipment" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="ConductingEquipment" type="tConductingEquipment" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="type" type="xs:normalizedString" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="tSubFunction">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:sequence>
+					<xs:element name="GeneralEquipment" type="tGeneralEquipment" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="ConductingEquipment" type="tConductingEquipment" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="type" type="xs:normalizedString" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tConnectivityNode">
+		<xs:complexContent>
+			<xs:extension base="tLNodeContainer">
+				<xs:attribute name="pathName" type="tRef" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="tTerminal">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute name="name" type="tAnyName" use="optional" default=""/>
+				<xs:attribute name="connectivityNode" type="tRef" use="required"/>
+				<xs:attribute name="substationName" type="tName" use="required"/>
+				<xs:attribute name="voltageLevelName" type="tName" use="required"/>
+				<xs:attribute name="bayName" type="tName" use="required"/>
+				<xs:attribute name="cNodeName" type="tName" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:element name="Substation" type="tSubstation" />
+</xs:schema>

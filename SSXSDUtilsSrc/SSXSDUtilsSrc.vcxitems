@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{c89a006c-6b66-487c-8942-e70aba48eb8a}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnyAttribute.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnyElement.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Attribute.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeAnalyzer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeGroup.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeModel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AttributeNormalizer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexContent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexTypeAnalyzer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexTypeInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexTypeModel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ComplexTypeNormalizer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ContainerType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DateTimeType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Element.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ElementGroup.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ElementInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NumberType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleContent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeAnalyzer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeLengthLimitConfiguration.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeModel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeNormalizer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeValueEnumrationConfiguration.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimpleTypeValueLimitConfiguration.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDAnalyzer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDElementUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDExtraAttributeInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDGlobal.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDModel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDNamedElementInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDNamedTypedElementInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDNormalizer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDNumberLimitedElementInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDParentedElementInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDReferenceElementInterface.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDToken.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XSDValueStatedElementInterface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AnyAttribute.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AnyElement.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Attribute.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributeAnalyzer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributeGroup.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributeModel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AttributeNormalizer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexContent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexTypeAnalyzer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexTypeInterface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexTypeModel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ComplexTypeNormalizer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ContainerType.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DataType.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DateTimeType.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Element.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ElementGroup.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NumberType.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleContent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeAnalyzer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeInterface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeLengthLimitConfiguration.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeModel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimpleTypeNormalizer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringType.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDAnalyzer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDExtraAttributeInterface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDModel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDNamedElementInterface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDNamedTypedElementInterface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDNormalizer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDNumberLimitedElementInterface.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDToken.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XSDValueStatedElementInterface.cpp" />
+  </ItemGroup>
+</Project>

@@ -8,6 +8,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PublicModuleGUI", "PublicModuleGUI\PublicModuleGUI.vcxitems", "{0F14E02B-6FE7-4510-B827-610EBE37F8F7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisualExperimentalDesignAids", "VisualExperimentalDesignAids\VisualExperimentalDesignAids.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{202C9402-3FB5-4EC7-8C89-4D2D151EFC1F} = {202C9402-3FB5-4EC7-8C89-4D2D151EFC1F}
+		{CE27B1BB-7492-47D0-825F-CCBA677366FA} = {CE27B1BB-7492-47D0-825F-CCBA677366FA}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E58FF7E3-F102-44EE-AE1C-9FBD2AC424F5}"
 EndProject
@@ -20,17 +24,29 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CompleyTypeAnalyzer", "test\XSDAnalyzer\CompleyTypeAnalyzer\CompleyTypeAnalyzer.vcxproj", "{4233E0A3-B03D-4E69-92DA-6AA2E17DADD7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SSXSDUtils", "SSXSDUtils\SSXSDUtils.vcxproj", "{202C9402-3FB5-4EC7-8C89-4D2D151EFC1F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CE27B1BB-7492-47D0-825F-CCBA677366FA} = {CE27B1BB-7492-47D0-825F-CCBA677366FA}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SSUtils", "SSUtils\SSUtils.vcxproj", "{CE27B1BB-7492-47D0-825F-CCBA677366FA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SSXSDUtilsSrc", "SSXSDUtilsSrc\SSXSDUtilsSrc.vcxitems", "{C89A006C-6B66-487C-8942-E70ABA48EB8A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestSSXSDUtils", "test\TestSSXSDUtils\TestSSXSDUtils.vcxproj", "{264D2892-A7D9-4363-B78E-F399325099B6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{202C9402-3FB5-4EC7-8C89-4D2D151EFC1F} = {202C9402-3FB5-4EC7-8C89-4D2D151EFC1F}
+		{CE27B1BB-7492-47D0-825F-CCBA677366FA} = {CE27B1BB-7492-47D0-825F-CCBA677366FA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		PublicModuleGUI\PublicModuleGUI.vcxitems*{0f14e02b-6fe7-4510-b827-610ebe37f8f7}*SharedItemsImports = 9
 		PublicModule\PublicModule.vcxitems*{12454e6c-f7b1-4798-9918-ad85728d90cf}*SharedItemsImports = 4
-		PublicModule\PublicModule.vcxitems*{4233e0a3-b03d-4e69-92da-6aa2e17dadd7}*SharedItemsImports = 4
+		SSXSDUtilsSrc\SSXSDUtilsSrc.vcxitems*{202c9402-3fb5-4ec7-8c89-4d2d151efc1f}*SharedItemsImports = 4
 		PublicModule\PublicModule.vcxitems*{a38f60fe-2ae0-4543-b0d4-d9e2173b74a0}*SharedItemsImports = 9
 		PublicModuleGUI\PublicModuleGUI.vcxitems*{b12702ad-abfb-343a-a199-8e24837244a3}*SharedItemsImports = 4
 		PublicModule\PublicModule.vcxitems*{b12702ad-abfb-343a-a199-8e24837244a3}*SharedItemsImports = 4
+		SSXSDUtilsSrc\SSXSDUtilsSrc.vcxitems*{c89a006c-6b66-487c-8942-e70aba48eb8a}*SharedItemsImports = 9
 		PublicModule\PublicModule.vcxitems*{ce27b1bb-7492-47d0-825f-ccba677366fa}*SharedItemsImports = 4
 		PublicModule\PublicModule.vcxitems*{e862b89c-7c7c-4f4f-b30a-6e6a8975da4f}*SharedItemsImports = 4
 	EndGlobalSection
@@ -95,6 +111,14 @@ Global
 		{CE27B1BB-7492-47D0-825F-CCBA677366FA}.Release|x64.Build.0 = Release|x64
 		{CE27B1BB-7492-47D0-825F-CCBA677366FA}.Release|x86.ActiveCfg = Release|Win32
 		{CE27B1BB-7492-47D0-825F-CCBA677366FA}.Release|x86.Build.0 = Release|Win32
+		{264D2892-A7D9-4363-B78E-F399325099B6}.Debug|x64.ActiveCfg = Debug|x64
+		{264D2892-A7D9-4363-B78E-F399325099B6}.Debug|x64.Build.0 = Debug|x64
+		{264D2892-A7D9-4363-B78E-F399325099B6}.Debug|x86.ActiveCfg = Debug|Win32
+		{264D2892-A7D9-4363-B78E-F399325099B6}.Debug|x86.Build.0 = Debug|Win32
+		{264D2892-A7D9-4363-B78E-F399325099B6}.Release|x64.ActiveCfg = Release|x64
+		{264D2892-A7D9-4363-B78E-F399325099B6}.Release|x64.Build.0 = Release|x64
+		{264D2892-A7D9-4363-B78E-F399325099B6}.Release|x86.ActiveCfg = Release|Win32
+		{264D2892-A7D9-4363-B78E-F399325099B6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +128,7 @@ Global
 		{E862B89C-7C7C-4F4F-B30A-6E6A8975DA4F} = {E58FF7E3-F102-44EE-AE1C-9FBD2AC424F5}
 		{12454E6C-F7B1-4798-9918-AD85728D90CF} = {E58FF7E3-F102-44EE-AE1C-9FBD2AC424F5}
 		{4233E0A3-B03D-4E69-92DA-6AA2E17DADD7} = {E58FF7E3-F102-44EE-AE1C-9FBD2AC424F5}
+		{264D2892-A7D9-4363-B78E-F399325099B6} = {E58FF7E3-F102-44EE-AE1C-9FBD2AC424F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {628346A6-E263-4FDB-A8A0-E60BF6C000A5}

@@ -1,0 +1,2099 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema version="3.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation xml:lang="cn">测试用</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="tAccessPointName">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[A-Za-z0-9][0-9A-Za-z_]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tAcsiName">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="[A-Za-z][0-9A-Za-z_]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tAnyName">
+		<xs:restriction base="xs:normalizedString"/>
+	</xs:simpleType>
+	<xs:simpleType name="tAssociationID">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[0-9A-Za-z]+"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tAssociationKindEnum">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="pre-established"/>
+			<xs:enumeration value="predefined"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tAuthenticationEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="certificate"/>
+			<xs:enumeration value="none"/>
+			<xs:enumeration value="password"/>
+			<xs:enumeration value="strong"/>
+			<xs:enumeration value="weak"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupAEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="A[A-Z]*"/>
+			<xs:enumeration value="ANCR"/>
+			<xs:enumeration value="ARCO"/>
+			<xs:enumeration value="ARIS"/>
+			<xs:enumeration value="ATCC"/>
+			<xs:enumeration value="AVCO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupCEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="C[A-Z]*"/>
+			<xs:enumeration value="CALH"/>
+			<xs:enumeration value="CCGR"/>
+			<xs:enumeration value="CILO"/>
+			<xs:enumeration value="CPOW"/>
+			<xs:enumeration value="CSWI"/>
+			<xs:enumeration value="CSYN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupFEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="F[A-Z]*"/>
+			<xs:enumeration value="FCNT"/>
+			<xs:enumeration value="FCSD"/>
+			<xs:enumeration value="FFIL"/>
+			<xs:enumeration value="FLIM"/>
+			<xs:enumeration value="FPID"/>
+			<xs:enumeration value="FRMP"/>
+			<xs:enumeration value="FSPT"/>
+			<xs:enumeration value="FXOT"/>
+			<xs:enumeration value="FXUT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupGEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="G[A-Z]*"/>
+			<xs:enumeration value="GAPC"/>
+			<xs:enumeration value="GGIO"/>
+			<xs:enumeration value="GLOG"/>
+			<xs:enumeration value="GSAL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupIEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="I[A-Z]*"/>
+			<xs:enumeration value="IARC"/>
+			<xs:enumeration value="IHMI"/>
+			<xs:enumeration value="ISAF"/>
+			<xs:enumeration value="ITCI"/>
+			<xs:enumeration value="ITMI"/>
+			<xs:enumeration value="ITPC"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupKEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="K[A-Z]*"/>
+			<xs:enumeration value="KFAN"/>
+			<xs:enumeration value="KFIL"/>
+			<xs:enumeration value="KPMP"/>
+			<xs:enumeration value="KTNK"/>
+			<xs:enumeration value="KVLV"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupMEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="M[A-Z]*"/>
+			<xs:enumeration value="MDIF"/>
+			<xs:enumeration value="MENV"/>
+			<xs:enumeration value="MFLK"/>
+			<xs:enumeration value="MHAI"/>
+			<xs:enumeration value="MHAN"/>
+			<xs:enumeration value="MHYD"/>
+			<xs:enumeration value="MMDC"/>
+			<xs:enumeration value="MMET"/>
+			<xs:enumeration value="MMTN"/>
+			<xs:enumeration value="MMTR"/>
+			<xs:enumeration value="MMXN"/>
+			<xs:enumeration value="MMXU"/>
+			<xs:enumeration value="MSQI"/>
+			<xs:enumeration value="MSTA"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupPEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="P[A-Z]*"/>
+			<xs:enumeration value="PDIF"/>
+			<xs:enumeration value="PDIR"/>
+			<xs:enumeration value="PDIS"/>
+			<xs:enumeration value="PDOP"/>
+			<xs:enumeration value="PDUP"/>
+			<xs:enumeration value="PFRC"/>
+			<xs:enumeration value="PHAR"/>
+			<xs:enumeration value="PHIZ"/>
+			<xs:enumeration value="PIOC"/>
+			<xs:enumeration value="PMRI"/>
+			<xs:enumeration value="PMSS"/>
+			<xs:enumeration value="POPF"/>
+			<xs:enumeration value="PPAM"/>
+			<xs:enumeration value="PRTR"/>
+			<xs:enumeration value="PSCH"/>
+			<xs:enumeration value="PSDE"/>
+			<xs:enumeration value="PTEF"/>
+			<xs:enumeration value="PTHF"/>
+			<xs:enumeration value="PTOC"/>
+			<xs:enumeration value="PTOF"/>
+			<xs:enumeration value="PTOV"/>
+			<xs:enumeration value="PTRC"/>
+			<xs:enumeration value="PTTR"/>
+			<xs:enumeration value="PTUC"/>
+			<xs:enumeration value="PTUF"/>
+			<xs:enumeration value="PTUV"/>
+			<xs:enumeration value="PUPF"/>
+			<xs:enumeration value="PVOC"/>
+			<xs:enumeration value="PVPH"/>
+			<xs:enumeration value="PZSU"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupQEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="Q[A-Z]*"/>
+			<xs:enumeration value="QFVR"/>
+			<xs:enumeration value="QITR"/>
+			<xs:enumeration value="QIUB"/>
+			<xs:enumeration value="QVTR"/>
+			<xs:enumeration value="QVUB"/>
+			<xs:enumeration value="QVVR"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupREnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="R[A-Z]*"/>
+			<xs:enumeration value="RADR"/>
+			<xs:enumeration value="RBDR"/>
+			<xs:enumeration value="RBRF"/>
+			<xs:enumeration value="RDIR"/>
+			<xs:enumeration value="RDRE"/>
+			<xs:enumeration value="RDRS"/>
+			<xs:enumeration value="RFLO"/>
+			<xs:enumeration value="RMXU"/>
+			<xs:enumeration value="RPSB"/>
+			<xs:enumeration value="RREC"/>
+			<xs:enumeration value="RSYN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupSEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="S[A-Z]*"/>
+			<xs:enumeration value="SARC"/>
+			<xs:enumeration value="SCBR"/>
+			<xs:enumeration value="SIMG"/>
+			<xs:enumeration value="SIML"/>
+			<xs:enumeration value="SLTC"/>
+			<xs:enumeration value="SOPM"/>
+			<xs:enumeration value="SPDC"/>
+			<xs:enumeration value="SPTR"/>
+			<xs:enumeration value="SSWI"/>
+			<xs:enumeration value="STMP"/>
+			<xs:enumeration value="SVBR"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupTEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="T[A-Z]*"/>
+			<xs:enumeration value="TANG"/>
+			<xs:enumeration value="TAXD"/>
+			<xs:enumeration value="TCTR"/>
+			<xs:enumeration value="TDST"/>
+			<xs:enumeration value="TFLW"/>
+			<xs:enumeration value="TFRQ"/>
+			<xs:enumeration value="TGSN"/>
+			<xs:enumeration value="THUM"/>
+			<xs:enumeration value="TLVL"/>
+			<xs:enumeration value="TMGF"/>
+			<xs:enumeration value="TMVM"/>
+			<xs:enumeration value="TPOS"/>
+			<xs:enumeration value="TPRS"/>
+			<xs:enumeration value="TRTN"/>
+			<xs:enumeration value="TSND"/>
+			<xs:enumeration value="TTMP"/>
+			<xs:enumeration value="TTNS"/>
+			<xs:enumeration value="TVBR"/>
+			<xs:enumeration value="TVTR"/>
+			<xs:enumeration value="TWPH"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupXEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="X[A-Z]*"/>
+			<xs:enumeration value="XCBR"/>
+			<xs:enumeration value="XSWI"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupYEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="Y[A-Z]*"/>
+			<xs:enumeration value="YEFN"/>
+			<xs:enumeration value="YLTC"/>
+			<xs:enumeration value="YPSH"/>
+			<xs:enumeration value="YPTR"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNGroupZEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="Z[A-Z]*"/>
+			<xs:enumeration value="ZAXN"/>
+			<xs:enumeration value="ZBAT"/>
+			<xs:enumeration value="ZBSH"/>
+			<xs:enumeration value="ZCAB"/>
+			<xs:enumeration value="ZCAP"/>
+			<xs:enumeration value="ZCON"/>
+			<xs:enumeration value="ZGEN"/>
+			<xs:enumeration value="ZGIL"/>
+			<xs:enumeration value="ZLIN"/>
+			<xs:enumeration value="ZMOT"/>
+			<xs:enumeration value="ZREA"/>
+			<xs:enumeration value="ZRES"/>
+			<xs:enumeration value="ZRRC"/>
+			<xs:enumeration value="ZSAR"/>
+			<xs:enumeration value="ZSCR"/>
+			<xs:enumeration value="ZSMC"/>
+			<xs:enumeration value="ZTCF"/>
+			<xs:enumeration value="ZTCR"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tEmpty">
+		<xs:restriction base="xs:normalizedString">
+			<xs:maxLength value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tExtensionCDCEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="[A-Za-z]+"/>
+			<xs:minLength value="1"/>
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tExtensionEquipmentEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="E[A-Z]*"/>
+			<xs:minLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tExtensionGeneralEquipmentEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="E[A-Z]*"/>
+			<xs:minLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tExtensionLNClassEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="[A-Z]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tExtensionPTypeEnum">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[A-Z][0-9A-Za-z\-]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tExtensionPhysConnTypeEnum">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[A-Z][0-9A-Za-z\-]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tFCEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="BL"/>
+			<xs:enumeration value="CF"/>
+			<xs:enumeration value="CO"/>
+			<xs:enumeration value="DC"/>
+			<xs:enumeration value="EX"/>
+			<xs:enumeration value="MX"/>
+			<xs:enumeration value="OR"/>
+			<xs:enumeration value="SE"/>
+			<xs:enumeration value="SG"/>
+			<xs:enumeration value="SP"/>
+			<xs:enumeration value="SR"/>
+			<xs:enumeration value="ST"/>
+			<xs:enumeration value="SV"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tFullAttributeName">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[a-zA-Z][a-zA-Z0-9]*(\([0-9]+\))?(\.[a-zA-Z][a-zA-Z0-9]*(\([0-9]+\))?)*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tFullDOName">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[A-Z][0-9A-Za-z]{0,11}(\.[a-z][0-9A-Za-z]*(\([0-9]+\))?)?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tGSEControlTypeEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="GOOSE"/>
+			<xs:enumeration value="GSSE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tLDInst">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[A-Za-z0-9][0-9A-Za-z_]*"/>
+			<xs:maxLength value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tLDName">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[A-Za-z][0-9A-Za-z_]*"/>
+			<xs:maxLength value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tLLN0Enum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="LLN0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tLNInst">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[1-9][0-9]{0,11}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tLPHDEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="LPHD"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tNamespaceName">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[ -~]+:20\d\d[A-Z]?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPAddr">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPhaseEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="AB"/>
+			<xs:enumeration value="B"/>
+			<xs:enumeration value="BC"/>
+			<xs:enumeration value="C"/>
+			<xs:enumeration value="CA"/>
+			<xs:enumeration value="N"/>
+			<xs:enumeration value="all"/>
+			<xs:enumeration value="none"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPowerTransformerEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="PTR"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedAttributeNameEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="Cancel"/>
+			<xs:enumeration value="Check"/>
+			<xs:enumeration value="Oper"/>
+			<xs:enumeration value="SBO"/>
+			<xs:enumeration value="SBOw"/>
+			<xs:enumeration value="SIUnit"/>
+			<xs:enumeration value="T"/>
+			<xs:enumeration value="Test"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedBasicTypeEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="BOOLEAN"/>
+			<xs:enumeration value="Check"/>
+			<xs:enumeration value="Currency"/>
+			<xs:enumeration value="Dbpos"/>
+			<xs:enumeration value="EntryID"/>
+			<xs:enumeration value="EntryTime"/>
+			<xs:enumeration value="Enum"/>
+			<xs:enumeration value="FLOAT32"/>
+			<xs:enumeration value="FLOAT64"/>
+			<xs:enumeration value="INT128"/>
+			<xs:enumeration value="INT16"/>
+			<xs:enumeration value="INT16U"/>
+			<xs:enumeration value="INT24"/>
+			<xs:enumeration value="INT24U"/>
+			<xs:enumeration value="INT32"/>
+			<xs:enumeration value="INT32U"/>
+			<xs:enumeration value="INT64"/>
+			<xs:enumeration value="INT8"/>
+			<xs:enumeration value="INT8U"/>
+			<xs:enumeration value="ObjRef"/>
+			<xs:enumeration value="Octet64"/>
+			<xs:enumeration value="OptFlds"/>
+			<xs:enumeration value="PhyComAddr"/>
+			<xs:enumeration value="Quality"/>
+			<xs:enumeration value="Struct"/>
+			<xs:enumeration value="SvOptFlds"/>
+			<xs:enumeration value="Tcmd"/>
+			<xs:enumeration value="Timestamp"/>
+			<xs:enumeration value="TrgOps"/>
+			<xs:enumeration value="Unicode255"/>
+			<xs:enumeration value="VisString129"/>
+			<xs:enumeration value="VisString255"/>
+			<xs:enumeration value="VisString32"/>
+			<xs:enumeration value="VisString64"/>
+			<xs:enumeration value="VisString65"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedCDCEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="ACD"/>
+			<xs:enumeration value="ACT"/>
+			<xs:enumeration value="APC"/>
+			<xs:enumeration value="ASG"/>
+			<xs:enumeration value="BAC"/>
+			<xs:enumeration value="BCR"/>
+			<xs:enumeration value="BSC"/>
+			<xs:enumeration value="BTS"/>
+			<xs:enumeration value="CMV"/>
+			<xs:enumeration value="CSD"/>
+			<xs:enumeration value="CSG"/>
+			<xs:enumeration value="CST"/>
+			<xs:enumeration value="CTS"/>
+			<xs:enumeration value="CUG"/>
+			<xs:enumeration value="CURVE"/>
+			<xs:enumeration value="DEL"/>
+			<xs:enumeration value="DPC"/>
+			<xs:enumeration value="DPL"/>
+			<xs:enumeration value="DPS"/>
+			<xs:enumeration value="ENC"/>
+			<xs:enumeration value="ENG"/>
+			<xs:enumeration value="ENS"/>
+			<xs:enumeration value="GTS"/>
+			<xs:enumeration value="HDEL"/>
+			<xs:enumeration value="HMV"/>
+			<xs:enumeration value="HST"/>
+			<xs:enumeration value="HWYE"/>
+			<xs:enumeration value="INC"/>
+			<xs:enumeration value="ING"/>
+			<xs:enumeration value="INS"/>
+			<xs:enumeration value="ISC"/>
+			<xs:enumeration value="LPL"/>
+			<xs:enumeration value="LTS"/>
+			<xs:enumeration value="MTS"/>
+			<xs:enumeration value="MV"/>
+			<xs:enumeration value="NTS"/>
+			<xs:enumeration value="ORG"/>
+			<xs:enumeration value="OTS"/>
+			<xs:enumeration value="SAV"/>
+			<xs:enumeration value="SEC"/>
+			<xs:enumeration value="SEQ"/>
+			<xs:enumeration value="SPC"/>
+			<xs:enumeration value="SPG"/>
+			<xs:enumeration value="SPS"/>
+			<xs:enumeration value="STS"/>
+			<xs:enumeration value="TSG"/>
+			<xs:enumeration value="UTS"/>
+			<xs:enumeration value="VSG"/>
+			<xs:enumeration value="VSS"/>
+			<xs:enumeration value="WYE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedCommonConductingEquipmentEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="BAT"/>
+			<xs:enumeration value="BSH"/>
+			<xs:enumeration value="CAB"/>
+			<xs:enumeration value="CAP"/>
+			<xs:enumeration value="CBR"/>
+			<xs:enumeration value="CON"/>
+			<xs:enumeration value="CTR"/>
+			<xs:enumeration value="DIS"/>
+			<xs:enumeration value="EFN"/>
+			<xs:enumeration value="FAN"/>
+			<xs:enumeration value="GEN"/>
+			<xs:enumeration value="GIL"/>
+			<xs:enumeration value="IFL"/>
+			<xs:enumeration value="LIN"/>
+			<xs:enumeration value="MOT"/>
+			<xs:enumeration value="PMP"/>
+			<xs:enumeration value="PSH"/>
+			<xs:enumeration value="REA"/>
+			<xs:enumeration value="RES"/>
+			<xs:enumeration value="RRC"/>
+			<xs:enumeration value="SAR"/>
+			<xs:enumeration value="SCR"/>
+			<xs:enumeration value="SMC"/>
+			<xs:enumeration value="TCF"/>
+			<xs:enumeration value="TCR"/>
+			<xs:enumeration value="VTR"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedGeneralEquipmentEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="AXN"/>
+			<xs:enumeration value="BAT"/>
+			<xs:enumeration value="FAN"/>
+			<xs:enumeration value="FIL"/>
+			<xs:enumeration value="MOT"/>
+			<xs:enumeration value="PMP"/>
+			<xs:enumeration value="TNK"/>
+			<xs:enumeration value="VLV"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedPTypeEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="APPID"/>
+			<xs:enumeration value="C37-118-IP-Port"/>
+			<xs:enumeration value="DNSName"/>
+			<xs:enumeration value="IP"/>
+			<xs:enumeration value="IP-GATEWAY"/>
+			<xs:enumeration value="IP-SUBNET"/>
+			<xs:enumeration value="IPv6ClassOfTraffic"/>
+			<xs:enumeration value="IPv6FlowLabel"/>
+			<xs:enumeration value="MAC-Address"/>
+			<xs:enumeration value="MMS-Port"/>
+			<xs:enumeration value="OSI-AE-Invoke"/>
+			<xs:enumeration value="OSI-AE-Qualifier"/>
+			<xs:enumeration value="OSI-AP-Invoke"/>
+			<xs:enumeration value="OSI-AP-Title"/>
+			<xs:enumeration value="OSI-NSAP"/>
+			<xs:enumeration value="OSI-PSEL"/>
+			<xs:enumeration value="OSI-SSEL"/>
+			<xs:enumeration value="OSI-TSEL"/>
+			<xs:enumeration value="SNTP-Port"/>
+			<xs:enumeration value="VLAN-ID"/>
+			<xs:enumeration value="VLAN-PRIORITY"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedPTypePhysConnEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="Cable"/>
+			<xs:enumeration value="Plug"/>
+			<xs:enumeration value="Port"/>
+			<xs:enumeration value="Type"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedPhysConnTypeEnum">
+		<xs:restriction base="xs:normalizedString">
+			<xs:enumeration value="Connection"/>
+			<xs:enumeration value="RedConn"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedTypeOfSecurityEnum">
+		<xs:restriction base="xs:normalizedString">
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="Signature"/>
+			<xs:enumeration value="SignatureAndEncryption"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPrefix">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[A-Za-z][0-9A-Za-z_]*"/>
+			<xs:maxLength value="11"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tRef">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value=".+/.+/.+/.+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tRestrName1stL">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="[a-z][0-9A-Za-z]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tRestrName1stU">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="[A-Z][0-9A-Za-z]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tRightEnum">
+		<xs:restriction base="xs:normalizedString">
+			<xs:enumeration value="dataflow"/>
+			<xs:enumeration value="fix"/>
+			<xs:enumeration value="full"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tSIUnitEnum">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="1/s"/>
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="As"/>
+			<xs:enumeration value="At"/>
+			<xs:enumeration value="C"/>
+			<xs:enumeration value="F"/>
+			<xs:enumeration value="Gy"/>
+			<xs:enumeration value="H"/>
+			<xs:enumeration value="Hz"/>
+			<xs:enumeration value="Hz/s"/>
+			<xs:enumeration value="J"/>
+			<xs:enumeration value="J/K"/>
+			<xs:enumeration value="K"/>
+			<xs:enumeration value="Lm"/>
+			<xs:enumeration value="M"/>
+			<xs:enumeration value="N"/>
+			<xs:enumeration value="Pa"/>
+			<xs:enumeration value="S"/>
+			<xs:enumeration value="Sv"/>
+			<xs:enumeration value="T"/>
+			<xs:enumeration value="V"/>
+			<xs:enumeration value="V/Hz"/>
+			<xs:enumeration value="VA"/>
+			<xs:enumeration value="VAh"/>
+			<xs:enumeration value="VAr"/>
+			<xs:enumeration value="VArh"/>
+			<xs:enumeration value="Vs"/>
+			<xs:enumeration value="W"/>
+			<xs:enumeration value="W/m K"/>
+			<xs:enumeration value="Watts"/>
+			<xs:enumeration value="Wb"/>
+			<xs:enumeration value="Wh"/>
+			<xs:enumeration value="cd"/>
+			<xs:enumeration value="char"/>
+			<xs:enumeration value="char/s"/>
+			<xs:enumeration value="cos(phi)"/>
+			<xs:enumeration value="dB"/>
+			<xs:enumeration value="deg"/>
+			<xs:enumeration value="kg"/>
+			<xs:enumeration value="kg/m"/>
+			<xs:enumeration value="kgm"/>
+			<xs:enumeration value="lx"/>
+			<xs:enumeration value="m"/>
+			<xs:enumeration value="m/m"/>
+			<xs:enumeration value="m/s"/>
+			<xs:enumeration value="mol"/>
+			<xs:enumeration value="none"/>
+			<xs:enumeration value="ohm"/>
+			<xs:enumeration value="phi"/>
+			<xs:enumeration value="ppm"/>
+			<xs:enumeration value="q"/>
+			<xs:enumeration value="rad"/>
+			<xs:enumeration value="rad/s"/>
+			<xs:enumeration value="s"/>
+			<xs:enumeration value="sr"/>
+			<xs:enumeration value="°C"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tSclRevision">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="[A-Z]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tServiceSettingsEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="Conf"/>
+			<xs:enumeration value="Dyn"/>
+			<xs:enumeration value="Fix"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tServiceType">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="GOOSE"/>
+			<xs:enumeration value="Poll"/>
+			<xs:enumeration value="Report"/>
+			<xs:enumeration value="SMV"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tSmpMod">
+		<xs:restriction base="xs:normalizedString">
+			<xs:enumeration value="SecPerSmp"/>
+			<xs:enumeration value="SmpPerPeriod"/>
+			<xs:enumeration value="SmpPerSec"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tSystemLNGroupEnum">
+		<xs:restriction base="xs:Name">
+			<xs:pattern value="L[A-Z]*"/>
+			<xs:enumeration value="LCCH"/>
+			<xs:enumeration value="LGOS"/>
+			<xs:enumeration value="LLN0"/>
+			<xs:enumeration value="LPHD"/>
+			<xs:enumeration value="LSVS"/>
+			<xs:enumeration value="LTIM"/>
+			<xs:enumeration value="LTMS"/>
+			<xs:enumeration value="LTRK"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tTransformerWindingEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="PTW"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tUnitMultiplierEnum">
+		<xs:restriction base="xs:normalizedString">
+			<xs:enumeration value=""/>
+			<xs:enumeration value="E"/>
+			<xs:enumeration value="G"/>
+			<xs:enumeration value="M"/>
+			<xs:enumeration value="P"/>
+			<xs:enumeration value="T"/>
+			<xs:enumeration value="Y"/>
+			<xs:enumeration value="Z"/>
+			<xs:enumeration value="a"/>
+			<xs:enumeration value="c"/>
+			<xs:enumeration value="d"/>
+			<xs:enumeration value="da"/>
+			<xs:enumeration value="f"/>
+			<xs:enumeration value="h"/>
+			<xs:enumeration value="k"/>
+			<xs:enumeration value="m"/>
+			<xs:enumeration value="mu"/>
+			<xs:enumeration value="n"/>
+			<xs:enumeration value="p"/>
+			<xs:enumeration value="y"/>
+			<xs:enumeration value="z"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tValKindEnum">
+		<xs:restriction base="xs:Name">
+			<xs:enumeration value="Conf"/>
+			<xs:enumeration value="RO"/>
+			<xs:enumeration value="Set"/>
+			<xs:enumeration value="Spec"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tVisibleBasicLatin">
+		<xs:restriction base="xs:normalizedString">
+			<xs:pattern value="[ -~]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tCBName">
+		<xs:restriction base="tAcsiName">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDataSetName">
+		<xs:restriction base="tAcsiName">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tIEDName">
+		<xs:restriction base="tAcsiName">
+			<xs:maxLength value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tLogName">
+		<xs:restriction base="tAcsiName">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tName">
+		<xs:restriction base="tAnyName">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDomainLNEnum">
+		<xs:union memberTypes="tDomainLNGroupAEnum tDomainLNGroupCEnum tDomainLNGroupFEnum tDomainLNGroupGEnum tDomainLNGroupIEnum tDomainLNGroupKEnum tDomainLNGroupMEnum tDomainLNGroupPEnum tDomainLNGroupQEnum tDomainLNGroupREnum tDomainLNGroupSEnum tDomainLNGroupTEnum tDomainLNGroupXEnum tDomainLNGroupYEnum tDomainLNGroupZEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tLDInstOrEmpty">
+		<xs:union memberTypes="tEmpty tLDInst"/>
+	</xs:simpleType>
+	<xs:simpleType name="tLNInstOrEmpty">
+		<xs:union memberTypes="tEmpty tLNInst"/>
+	</xs:simpleType>
+	<xs:simpleType name="tBasicTypeEnum">
+		<xs:restriction base="tPredefinedBasicTypeEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tCDCEnum">
+		<xs:restriction base="tPredefinedCDCEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tCommonConductingEquipmentEnum">
+		<xs:union memberTypes="tExtensionEquipmentEnum tPredefinedCommonConductingEquipmentEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tGeneralEquipmentEnum">
+		<xs:union memberTypes="tExtensionGeneralEquipmentEnum tPredefinedGeneralEquipmentEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tPTypeEnum">
+		<xs:union memberTypes="tExtensionPTypeEnum tPredefinedPTypeEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tPTypePhysConnEnum">
+		<xs:union memberTypes="tExtensionPTypeEnum tPredefinedPTypePhysConnEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tPhysConnTypeEnum">
+		<xs:union memberTypes="tExtensionPhysConnTypeEnum tPredefinedPhysConnTypeEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tExtensionAttributeNameEnum">
+		<xs:restriction base="tRestrName1stL">
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tSDOCount">
+		<xs:union memberTypes="tRestrName1stL xs:unsignedInt"/>
+	</xs:simpleType>
+	<xs:simpleType name="tSubDataName">
+		<xs:restriction base="tRestrName1stL">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tDataName">
+		<xs:restriction base="tRestrName1stU">
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tMessageID">
+		<xs:restriction base="tVisibleBasicLatin">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="128"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tSclVersion">
+		<xs:restriction base="tName">
+			<xs:pattern value="2[0-2][0-9]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tPredefinedLNClassEnum">
+		<xs:union memberTypes="tDomainLNEnum tSystemLNGroupEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tAttributeNameEnum">
+		<xs:union memberTypes="tExtensionAttributeNameEnum tPredefinedAttributeNameEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tLNClassEnum">
+		<xs:union memberTypes="tExtensionLNClassEnum tPredefinedLNClassEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="tDACount">
+		<xs:union memberTypes="tAttributeNameEnum xs:unsignedInt"/>
+	</xs:simpleType>
+	<xs:attributeGroup name="agAuthentication">
+		<xs:attribute default="false" name="certificate" type="xs:boolean"/>
+		<xs:attribute default="true" name="none" type="xs:boolean"/>
+		<xs:attribute default="false" name="password" type="xs:boolean"/>
+		<xs:attribute default="false" name="strong" type="xs:boolean"/>
+		<xs:attribute default="false" name="weak" type="xs:boolean"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="agDATrgOp">
+		<xs:attribute default="false" name="dchg" type="xs:boolean"/>
+		<xs:attribute default="false" name="dupd" type="xs:boolean"/>
+		<xs:attribute default="false" name="qchg" type="xs:boolean"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="agDesc">
+		<xs:attribute default="" name="desc" type="xs:normalizedString"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="agOptFields">
+		<xs:attribute default="true" name="bufOvfl" type="xs:boolean"/>
+		<xs:attribute default="false" name="configRef" type="xs:boolean"/>
+		<xs:attribute default="false" name="dataRef" type="xs:boolean"/>
+		<xs:attribute default="false" name="dataSet" type="xs:boolean"/>
+		<xs:attribute default="false" name="entryID" type="xs:boolean"/>
+		<xs:attribute default="false" name="reasonCode" type="xs:boolean"/>
+		<xs:attribute default="false" name="seqNum" type="xs:boolean"/>
+		<xs:attribute default="false" name="timeStamp" type="xs:boolean"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="agSmvOpts">
+		<xs:attribute default="false" name="dataSet" type="xs:boolean"/>
+		<xs:attribute default="false" name="refreshTime" type="xs:boolean"/>
+		<xs:attribute default="false" name="sampleRate" type="xs:boolean"/>
+		<xs:attribute fixed="true" name="sampleSynchronized" type="xs:boolean"/>
+		<xs:attribute default="false" name="security" type="xs:boolean"/>
+		<xs:attribute default="false" name="timestamp" type="xs:boolean"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="agVirtual">
+		<xs:attribute default="false" name="virtual" type="xs:boolean"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="agLDRef">
+		<xs:attribute name="iedName" type="tIEDName" use="required"/>
+		<xs:attribute name="ldInst" type="tLDInst" use="required"/>
+		<xs:attributeGroup ref="agDesc"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="agLNRef">
+		<xs:attribute name="lnClass" type="tLNClassEnum" use="required"/>
+		<xs:attribute name="lnInst" type="tLNInstOrEmpty" use="required"/>
+		<xs:attribute default="" name="prefix" type="tPrefix"/>
+		<xs:attributeGroup ref="agLDRef"/>
+	</xs:attributeGroup>
+	<xs:complexType name="tAssociation">
+		<xs:attribute name="associationID" type="tAssociationID"/>
+		<xs:attribute name="kind" type="tAssociationKindEnum" use="required"/>
+		<xs:attributeGroup ref="agLNRef"/>
+	</xs:complexType>
+	<xs:complexType name="tBitRateInMbPerSec">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute fixed="M" name="multiplier" type="tUnitMultiplierEnum"/>
+				<xs:attribute fixed="b/s" name="unit" type="xs:normalizedString"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tCert">
+		<xs:attribute name="commonName" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:normalizedString">
+					<xs:pattern value="none"/>
+					<xs:minLength value="4"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="idHierarchy" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:normalizedString">
+					<xs:minLength value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="tClientLN">
+		<xs:attribute name="apRef" type="tAccessPointName"/>
+		<xs:attributeGroup ref="agLNRef"/>
+	</xs:complexType>
+	<xs:complexType name="tClientServices">
+		<xs:attribute default="false" name="bufReport" type="xs:boolean"/>
+		<xs:attribute default="false" name="goose" type="xs:boolean"/>
+		<xs:attribute default="false" name="gsse" type="xs:boolean"/>
+		<xs:attribute default="false" name="readLog" type="xs:boolean"/>
+		<xs:attribute default="false" name="sv" type="xs:boolean"/>
+		<xs:attribute default="false" name="unbufReport" type="xs:boolean"/>
+	</xs:complexType>
+	<xs:complexType name="tConfLNs">
+		<xs:attribute default="false" name="fixLnInst" type="xs:boolean"/>
+		<xs:attribute default="false" name="fixPrefix" type="xs:boolean"/>
+	</xs:complexType>
+	<xs:complexType name="tDurationInMilliSec">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute fixed="m" name="multiplier" type="tUnitMultiplierEnum"/>
+				<xs:attribute fixed="s" name="unit" type="tSIUnitEnum"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tEnumVal">
+		<xs:simpleContent>
+			<xs:extension base="xs:normalizedString">
+				<xs:attribute name="ord" type="xs:int" use="required"/>
+				<xs:attributeGroup ref="agDesc"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tExtRef">
+		<xs:attribute name="daName" type="tFullAttributeName"/>
+		<xs:attribute name="doName" type="tFullDOName"/>
+		<xs:attribute name="iedName" type="tIEDName"/>
+		<xs:attribute name="intAddr" type="xs:normalizedString"/>
+		<xs:attribute name="ldInst" type="tLDInst"/>
+		<xs:attribute name="lnClass" type="tLNClassEnum"/>
+		<xs:attribute name="lnInst" type="tLNInst"/>
+		<xs:attribute name="prefix" type="tPrefix"/>
+		<xs:attribute name="serviceType" type="tServiceType"/>
+		<xs:attribute name="srcCBName" type="tCBName"/>
+		<xs:attribute name="srcLDInst" type="tLDInst"/>
+		<xs:attribute name="srcLNClass" type="tLNClassEnum"/>
+		<xs:attribute name="srcLNInst" type="tLNInst"/>
+		<xs:attribute name="srcPrefix" type="tPrefix"/>
+		<xs:attributeGroup ref="agDesc"/>
+	</xs:complexType>
+	<xs:complexType name="tFCDA">
+		<xs:attribute name="daName" type="tFullAttributeName"/>
+		<xs:attribute name="doName" type="tFullDOName"/>
+		<xs:attribute name="fc" type="tFCEnum" use="required"/>
+		<xs:attribute name="ix" type="xs:unsignedInt"/>
+		<xs:attribute name="ldInst" type="tLDInst"/>
+		<xs:attribute name="lnClass" type="tLNClassEnum"/>
+		<xs:attribute name="lnInst" type="tLNInst"/>
+		<xs:attribute default="" name="prefix" type="tPrefix"/>
+	</xs:complexType>
+	<xs:complexType name="tKDC">
+		<xs:attribute name="apName" type="tAccessPointName" use="required"/>
+		<xs:attribute name="iedName" type="tIEDName" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="tP">
+		<xs:simpleContent>
+			<xs:extension base="tPAddr">
+				<xs:attribute name="type" type="tPTypeEnum" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_PhysConn">
+		<xs:simpleContent>
+			<xs:extension base="tPAddr">
+				<xs:attribute name="type" type="tPTypePhysConnEnum" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tProtNs">
+		<xs:simpleContent>
+			<xs:extension base="tNamespaceName">
+				<xs:attribute default="8-MMS" name="type">
+					<xs:simpleType>
+						<xs:restriction base="xs:normalizedString">
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tServiceSettings">
+		<xs:attribute default="Fix" name="cbName" type="tServiceSettingsEnum"/>
+		<xs:attribute default="Fix" name="datSet" type="tServiceSettingsEnum"/>
+	</xs:complexType>
+	<xs:complexType name="tServiceWithMax">
+		<xs:attribute name="max" type="xs:unsignedInt" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="tServiceWithOptionalMax">
+		<xs:attribute name="max" type="xs:unsignedInt"/>
+	</xs:complexType>
+	<xs:complexType name="tServiceYesNo"/>
+	<xs:complexType name="tTrgOps">
+		<xs:attribute default="false" name="dchg" type="xs:boolean"/>
+		<xs:attribute default="false" name="dupd" type="xs:boolean"/>
+		<xs:attribute default="true" name="gi" type="xs:boolean"/>
+		<xs:attribute default="false" name="period" type="xs:boolean"/>
+		<xs:attribute default="false" name="qchg" type="xs:boolean"/>
+	</xs:complexType>
+	<xs:complexType name="tVal">
+		<xs:simpleContent>
+			<xs:extension base="xs:normalizedString">
+				<xs:attribute name="sGroup" type="xs:unsignedInt"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tValueWithUnit">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute default="" name="multiplier" type="tUnitMultiplierEnum"/>
+				<xs:attribute name="unit" type="tSIUnitEnum" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_APPID">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="APPID" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_C37-118-IP-Port">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="C37-118-IP-Port" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_DNSName">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="DNSName" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tP_IPbase">
+		<xs:simpleContent>
+			<xs:restriction base="tP"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IPv6ClassOfTraffic">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="IPv6ClassOfTraffic" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IPv6FlowLabel">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="IPv6FlowLabel" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_MAC-Address">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="MAC-Address" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-AE-Invoke">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="OSI-AE-Invoke" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-AE-Qualifier">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="OSI-AE-Qualifier" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-AP-Invoke">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="OSI-AP-Invoke" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-AP-Title">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="OSI-AP-Title" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-NSAP">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="OSI-NSAP" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-PSEL">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="OSI-PSEL" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-SSEL">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="OSI-SSEL" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_OSI-TSEL">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="OSI-TSEL" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tP_Port">
+		<xs:simpleContent>
+			<xs:restriction base="tP"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_VLAN-ID">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="VLAN-ID" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_VLAN-PRIORITY">
+		<xs:simpleContent>
+			<xs:restriction base="tP">
+				<xs:attribute fixed="VLAN-PRIORITY" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tGSESettings">
+		<xs:complexContent>
+			<xs:extension base="tServiceSettings">
+				<xs:attribute default="Fix" name="appID" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="dataLabel" type="tServiceSettingsEnum"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLogSettings">
+		<xs:complexContent>
+			<xs:extension base="tServiceSettings">
+				<xs:attribute default="Fix" name="intgPd" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="logEna" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="trgOps" type="tServiceSettingsEnum"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tReportSettings">
+		<xs:complexContent>
+			<xs:extension base="tServiceSettings">
+				<xs:attribute default="Fix" name="bufTime" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="intgPd" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="optFields" type="tServiceSettingsEnum"/>
+				<xs:attribute default="false" name="resvTms" type="xs:boolean"/>
+				<xs:attribute default="Fix" name="rptID" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="trgOps" type="tServiceSettingsEnum"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServiceConfReportControl">
+		<xs:complexContent>
+			<xs:extension base="tServiceWithMax">
+				<xs:attribute default="false" name="bufConf" type="xs:boolean"/>
+				<xs:attribute name="bufMode">
+					<xs:simpleType>
+						<xs:restriction base="xs:Name">
+							<xs:enumeration value="both"/>
+							<xs:enumeration value="buffered"/>
+							<xs:enumeration value="unbuffered"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServiceWithMaxAndMaxAttributes">
+		<xs:complexContent>
+			<xs:extension base="tServiceWithMax">
+				<xs:attribute name="maxAttributes" type="xs:unsignedInt"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServiceWithMaxAndModify">
+		<xs:complexContent>
+			<xs:extension base="tServiceWithMax">
+				<xs:attribute default="true" name="modify" type="xs:boolean"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDurationInSec">
+		<xs:simpleContent>
+			<xs:restriction base="tValueWithUnit">
+				<xs:attribute default="" name="multiplier" type="tUnitMultiplierEnum"/>
+				<xs:attribute fixed="s" name="unit" type="tSIUnitEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tVoltage">
+		<xs:simpleContent>
+			<xs:restriction base="tValueWithUnit">
+				<xs:attribute default="" name="multiplier" type="tUnitMultiplierEnum"/>
+				<xs:attribute fixed="V" name="unit" type="tSIUnitEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" mixed="true" name="tAnyContentFromOtherNamespace">
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+			<xs:any namespace="##other" processContents="lax"/>
+		</xs:sequence>
+		<xs:anyAttribute namespace="##other" processContents="lax"/>
+	</xs:complexType>
+	<xs:complexType name="tSMVSettings">
+		<xs:complexContent>
+			<xs:extension base="tServiceSettings">
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="SmpRate">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedInt">
+								<xs:minExclusive value="empty"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="SamplesPerSec">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedInt">
+								<xs:minExclusive value="empty"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="SecPerSamples">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedInt">
+								<xs:minExclusive value="empty"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:choice>
+				<xs:attribute default="Fix" name="optFields" type="tServiceSettingsEnum"/>
+				<xs:attribute default="false" name="samplesPerSec" type="xs:boolean"/>
+				<xs:attribute default="Fix" name="smpRate" type="tServiceSettingsEnum"/>
+				<xs:attribute default="Fix" name="svID" type="tServiceSettingsEnum"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IP">
+		<xs:simpleContent>
+			<xs:restriction base="tP_IPbase">
+				<xs:attribute fixed="IP" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IP-GATEWAY">
+		<xs:simpleContent>
+			<xs:restriction base="tP_IPbase">
+				<xs:attribute fixed="IP-GATEWAY" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_IP-SUBNET">
+		<xs:simpleContent>
+			<xs:restriction base="tP_IPbase">
+				<xs:attribute fixed="IP-SUBNET" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_MMS-Port">
+		<xs:simpleContent>
+			<xs:restriction base="tP_Port">
+				<xs:attribute fixed="MMS-Port" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tP_SNTP-Port">
+		<xs:simpleContent>
+			<xs:restriction base="tP_Port">
+				<xs:attribute fixed="SNTP-Port" name="type" type="tPTypeEnum" use="required"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="tAddress">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" name="P" type="tP"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tServiceForConfDataSet">
+		<xs:complexContent>
+			<xs:extension base="tServiceWithMaxAndMaxAttributes">
+				<xs:attribute default="true" name="modify" type="xs:boolean"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType mixed="true" name="tAccessControl">
+		<xs:complexContent>
+			<xs:extension base="tAnyContentFromOtherNamespace"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType mixed="true" name="tHitem">
+		<xs:complexContent>
+			<xs:extension base="tAnyContentFromOtherNamespace">
+				<xs:attribute name="revision" type="xs:normalizedString" use="required"/>
+				<xs:attribute name="version" type="xs:normalizedString" use="required"/>
+				<xs:attribute name="what" type="xs:normalizedString"/>
+				<xs:attribute name="when" type="xs:normalizedString" use="required"/>
+				<xs:attribute name="who" type="xs:normalizedString"/>
+				<xs:attribute name="why" type="xs:normalizedString"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType mixed="true" name="tPrivate">
+		<xs:complexContent>
+			<xs:extension base="tAnyContentFromOtherNamespace">
+				<xs:attribute name="source" type="xs:anyURI"/>
+				<xs:attribute name="type" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:normalizedString">
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType mixed="true" name="tText">
+		<xs:complexContent>
+			<xs:extension base="tAnyContentFromOtherNamespace">
+				<xs:attribute name="source" type="xs:anyURI"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServices">
+		<xs:all>
+			<xs:element minOccurs="0" name="DynAssociation" type="tServiceWithOptionalMax"/>
+			<xs:element minOccurs="0" name="SettingGroups">
+				<xs:complexType>
+					<xs:all>
+						<xs:element minOccurs="0" name="SGEdit" type="tServiceYesNo"/>
+						<xs:element minOccurs="0" name="ConfSG" type="tServiceYesNo"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="GetDirectory" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="GetDataObjectDefinition" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="DataObjectDirectory" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="GetDataSetValue" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="SetDataSetValue" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="DataSetDirectory" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="ConfDataSet" type="tServiceForConfDataSet"/>
+			<xs:element minOccurs="0" name="DynDataSet" type="tServiceWithMaxAndMaxAttributes"/>
+			<xs:element minOccurs="0" name="ReadWrite" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="TimerActivatedControl" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="ConfReportControl" type="tServiceConfReportControl"/>
+			<xs:element minOccurs="0" name="GetCBValues" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="ConfLogControl" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="ReportSettings" type="tReportSettings"/>
+			<xs:element minOccurs="0" name="LogSettings" type="tLogSettings"/>
+			<xs:element minOccurs="0" name="GSESettings" type="tGSESettings"/>
+			<xs:element minOccurs="0" name="SMVSettings" type="tSMVSettings"/>
+			<xs:element minOccurs="0" name="GSEDir" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="GOOSE" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="GSSE" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="SMVsc" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="FileHandling" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="ConfLNs" type="tConfLNs"/>
+			<xs:element minOccurs="0" name="ClientServices" type="tClientServices"/>
+			<xs:element minOccurs="0" name="ConfLdName" type="tServiceYesNo"/>
+			<xs:element minOccurs="0" name="SupSubscription" type="tServiceWithMax"/>
+			<xs:element minOccurs="0" name="ConfSigRef" type="tServiceWithMax"/>
+		</xs:all>
+		<xs:attribute default="32" name="nameLength">
+			<xs:simpleType>
+				<xs:restriction base="xs:unsignedInt">
+					<xs:minExclusive value="empty"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tBaseElement">
+		<xs:sequence>
+			<xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+			<xs:element minOccurs="0" name="Text" type="tText"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Private" type="tPrivate"/>
+		</xs:sequence>
+		<xs:anyAttribute namespace="##other" processContents="lax"/>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tIDNaming">
+		<xs:complexContent>
+			<xs:extension base="tBaseElement">
+				<xs:attribute name="id" type="tName" use="required"/>
+				<xs:attributeGroup ref="agDesc"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tNaming">
+		<xs:complexContent>
+			<xs:extension base="tBaseElement">
+				<xs:attribute name="name" type="tName" use="required"/>
+				<xs:attributeGroup ref="agDesc"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tUnNaming">
+		<xs:complexContent>
+			<xs:extension base="tBaseElement">
+				<xs:attributeGroup ref="agDesc"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tHeader">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Text" type="tText"/>
+			<xs:element minOccurs="0" name="History">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Hitem" type="tHitem"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:normalizedString" use="required"/>
+		<xs:attribute default="IEDName" name="nameStructure">
+			<xs:simpleType>
+				<xs:restriction base="xs:Name">
+					<xs:enumeration value="IEDName"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute default="" name="revision" type="xs:normalizedString"/>
+		<xs:attribute name="toolID" type="xs:normalizedString"/>
+		<xs:attribute name="version" type="xs:normalizedString"/>
+	</xs:complexType>
+	<xs:complexType name="tEnumType">
+		<xs:complexContent>
+			<xs:extension base="tIDNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" name="EnumVal" type="tEnumVal"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tCertificate">
+		<xs:complexContent>
+			<xs:extension base="tNaming">
+				<xs:sequence>
+					<xs:element name="Subject" type="tCert"/>
+					<xs:element name="IssuerName" type="tCert"/>
+				</xs:sequence>
+				<xs:attribute name="serialNumber" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:normalizedString">
+							<xs:pattern value="[0-9]+"/>
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="xferNumber" type="xs:unsignedInt"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tAbstractDataAttribute">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Val" type="tVal"/>
+				</xs:sequence>
+				<xs:attribute name="bType" type="tBasicTypeEnum" use="required"/>
+				<xs:attribute default="0" name="count" type="tDACount"/>
+				<xs:attribute name="name" type="tAttributeNameEnum" use="required"/>
+				<xs:attribute name="sAddr" type="xs:normalizedString"/>
+				<xs:attribute name="type" type="tAnyName"/>
+				<xs:attribute default="Set" name="valKind" type="tValKindEnum"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tControl">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute name="datSet" type="tDataSetName"/>
+				<xs:attribute name="name" type="tCBName" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tControlBlock">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Address" type="tAddress"/>
+				</xs:sequence>
+				<xs:attribute name="cbName" type="tCBName" use="required"/>
+				<xs:attribute name="ldInst" type="tLDInst" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDAI">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Val" type="tVal"/>
+				</xs:sequence>
+				<xs:attribute name="ix" type="xs:unsignedInt"/>
+				<xs:attribute name="name" type="tAttributeNameEnum" use="required"/>
+				<xs:attribute name="sAddr" type="xs:normalizedString"/>
+				<xs:attribute name="valKind" type="tValKindEnum"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDO">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute name="accessControl" type="xs:normalizedString"/>
+				<xs:attribute name="name" type="tDataName" use="required"/>
+				<xs:attribute default="false" name="transient" type="xs:boolean"/>
+				<xs:attribute name="type" type="tName" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDataSet">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="FCDA" type="tFCDA"/>
+				</xs:choice>
+				<xs:attribute name="name" type="tDataSetName" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tInputs">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" name="ExtRef" type="tExtRef"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLNode">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute default="None" name="iedName" type="tIEDName"/>
+				<xs:attribute default="" name="ldInst" type="tLDInstOrEmpty"/>
+				<xs:attribute name="lnClass" type="tLNClassEnum" use="required"/>
+				<xs:attribute default="" name="lnInst" type="tLNInstOrEmpty"/>
+				<xs:attribute name="lnType" type="tName"/>
+				<xs:attribute default="" name="prefix" type="tPrefix"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLog">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute name="name" type="tLogName"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tPhysConn">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="P" type="tP_PhysConn"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="tPhysConnTypeEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tRptEnabled">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ClientLN" type="tClientLN"/>
+				</xs:sequence>
+				<xs:attribute default="1" name="max" type="xs:unsignedInt"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSDO">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute default="0" name="count" type="tSDOCount"/>
+				<xs:attribute name="name" type="tSubDataName" use="required"/>
+				<xs:attribute name="type" type="tName" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tServerAt">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute name="apName" type="tAccessPointName" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSettingControl">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute default="1" name="actSG">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedInt">
+							<xs:minExclusive value="empty"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="numOfSGs" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedInt">
+							<xs:minExclusive value="empty"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="resvTms" type="xs:unsignedShort"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tTerminal">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:attribute name="bayName" type="tName" use="required"/>
+				<xs:attribute name="cNodeName" type="tName" use="required"/>
+				<xs:attribute name="connectivityNode" type="tRef" use="required"/>
+				<xs:attribute default="" name="name" type="tAnyName"/>
+				<xs:attribute name="substationName" type="tName" use="required"/>
+				<xs:attribute name="voltageLevelName" type="tName" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tBDA">
+		<xs:complexContent>
+			<xs:extension base="tAbstractDataAttribute"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDA">
+		<xs:complexContent>
+			<xs:extension base="tAbstractDataAttribute">
+				<xs:attribute name="fc" type="tFCEnum" use="required"/>
+				<xs:attributeGroup ref="agDATrgOp"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tControlWithIEDName">
+		<xs:complexContent>
+			<xs:extension base="tControl">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="IEDName">
+						<xs:complexType>
+							<xs:simpleContent>
+								<xs:extension base="tIEDName">
+									<xs:attribute name="apRef" type="tAccessPointName"/>
+									<xs:attribute name="ldInst" type="tLDInst"/>
+									<xs:attribute name="lnClass" type="tLNClassEnum"/>
+									<xs:attribute name="lnInst" type="tLNInst"/>
+									<xs:attribute name="prefix" type="tPrefix"/>
+								</xs:extension>
+							</xs:simpleContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="confRev" type="xs:unsignedInt"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tControlWithTriggerOpt">
+		<xs:complexContent>
+			<xs:extension base="tControl">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="TrgOps" type="tTrgOps"/>
+				</xs:sequence>
+				<xs:attribute default="0" name="intgPd" type="xs:unsignedInt"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tGSE">
+		<xs:complexContent>
+			<xs:extension base="tControlBlock">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="MinTime" type="tDurationInMilliSec"/>
+					<xs:element minOccurs="0" name="MaxTime" type="tDurationInMilliSec"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSMV">
+		<xs:complexContent>
+			<xs:extension base="tControlBlock"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tAccessPoint">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Services" type="tServices"/>
+					<xs:element maxOccurs="7" minOccurs="0" name="GOOSESecurity" type="tCertificate"/>
+					<xs:element maxOccurs="7" minOccurs="0" name="SMVSecurity" type="tCertificate"/>
+				</xs:sequence>
+				<xs:attribute default="false" name="clock" type="xs:boolean"/>
+				<xs:attribute default="false" name="kdc" type="xs:boolean"/>
+				<xs:attribute name="name" type="tAccessPointName" use="required"/>
+				<xs:attribute default="false" name="router" type="xs:boolean"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tGSEControl">
+		<xs:complexContent>
+			<xs:extension base="tControlWithIEDName">
+				<xs:sequence>
+					<xs:element fixed="R-GOOSE" minOccurs="0" name="Protocol">
+						<xs:complexType>
+							<xs:simpleContent>
+								<xs:extension base="xs:normalizedString">
+									<xs:attribute fixed="true" name="mustUnderstand" type="xs:boolean" use="required"/>
+								</xs:extension>
+							</xs:simpleContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="appID" type="tMessageID" use="required"/>
+				<xs:attribute default="false" name="fixedOffs" type="xs:boolean"/>
+				<xs:attribute default="None" name="securityEnable" type="tPredefinedTypeOfSecurityEnum"/>
+				<xs:attribute default="GOOSE" name="type" type="tGSEControlTypeEnum"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSampledValueControl">
+		<xs:complexContent>
+			<xs:extension base="tControlWithIEDName">
+				<xs:sequence>
+					<xs:element name="SmvOpts">
+						<xs:complexType>
+							<xs:attributeGroup ref="agSmvOpts"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element fixed="R-SV" minOccurs="0" name="Protocol">
+						<xs:complexType>
+							<xs:simpleContent>
+								<xs:extension base="xs:normalizedString">
+									<xs:attribute fixed="true" name="mustUnderstand" type="xs:boolean" use="required"/>
+								</xs:extension>
+							</xs:simpleContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute default="true" name="multicast" type="xs:boolean"/>
+				<xs:attribute default="1" name="nofASDU" type="xs:unsignedInt"/>
+				<xs:attribute default="None" name="securityEnable" type="tPredefinedTypeOfSecurityEnum"/>
+				<xs:attribute default="SmpPerPeriod" name="smpMod" type="tSmpMod"/>
+				<xs:attribute name="smpRate" type="xs:unsignedInt" use="required"/>
+				<xs:attribute name="smvID" type="tMessageID" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLogControl">
+		<xs:complexContent>
+			<xs:extension base="tControlWithTriggerOpt">
+				<xs:attribute default="0" name="bufTime" type="xs:unsignedInt"/>
+				<xs:attribute name="ldInst" type="tLDInst"/>
+				<xs:attribute default="LLN0" name="lnClass" type="tLNClassEnum"/>
+				<xs:attribute name="lnInst" type="tLNInst"/>
+				<xs:attribute default="true" name="logEna" type="xs:boolean"/>
+				<xs:attribute name="logName" type="tLogName" use="required"/>
+				<xs:attribute default="" name="prefix" type="tPrefix"/>
+				<xs:attribute default="true" name="reasonCode" type="xs:boolean"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tLNodeType">
+		<xs:complexContent>
+			<xs:extension base="tIDNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" name="DO" type="tDO"/>
+				</xs:sequence>
+				<xs:attribute default="" name="iedType" type="tAnyName"/>
+				<xs:attribute name="lnClass" type="tLNClassEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tLNodeContainer">
+		<xs:complexContent>
+			<xs:extension base="tNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="LNode" type="tLNode"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tReportControl">
+		<xs:complexContent>
+			<xs:extension base="tControlWithTriggerOpt">
+				<xs:sequence>
+					<xs:element name="OptFields">
+						<xs:complexType>
+							<xs:attributeGroup ref="agOptFields"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="RptEnabled" type="tRptEnabled"/>
+				</xs:sequence>
+				<xs:attribute default="0" name="bufTime" type="xs:unsignedInt"/>
+				<xs:attribute default="false" name="buffered" type="xs:boolean"/>
+				<xs:attribute name="confRev" type="xs:unsignedInt" use="required"/>
+				<xs:attribute default="true" name="indexed" type="xs:boolean"/>
+				<xs:attribute name="rptID" type="tMessageID"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDAType">
+		<xs:complexContent>
+			<xs:extension base="tIDNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" name="BDA" type="tBDA"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ProtNs" type="tProtNs"/>
+				</xs:sequence>
+				<xs:attribute default="" name="iedType" type="tAnyName"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tDOType">
+		<xs:complexContent>
+			<xs:extension base="tIDNaming">
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element name="SDO" type="tSDO"/>
+					<xs:element name="DA" type="tDA"/>
+				</xs:choice>
+				<xs:attribute name="cdc" type="tCDCEnum" use="required"/>
+				<xs:attribute default="" name="iedType" type="tAnyName"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tConnectedAP">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Address" type="tAddress"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="GSE" type="tGSE"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SMV" type="tSMV"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="PhysConn" type="tPhysConn"/>
+				</xs:sequence>
+				<xs:attribute name="apName" type="tAccessPointName" use="required"/>
+				<xs:attribute name="iedName" type="tIEDName" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tConnectivityNode">
+		<xs:complexContent>
+			<xs:extension base="tLNodeContainer">
+				<xs:attribute name="pathName" type="tRef" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tPowerSystemResource">
+		<xs:complexContent>
+			<xs:extension base="tLNodeContainer"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tIED">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Services" type="tServices"/>
+					<xs:element maxOccurs="unbounded" name="AccessPoint" type="tAccessPoint"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="KDC" type="tKDC"/>
+				</xs:sequence>
+				<xs:attribute name="configVersion" type="xs:normalizedString"/>
+				<xs:attribute default="full" name="engRight" type="tRightEnum"/>
+				<xs:attribute name="manufacturer" type="xs:normalizedString"/>
+				<xs:attribute name="name" type="tIEDName" use="required"/>
+				<xs:attribute name="originalSclRevision" type="tSclRevision"/>
+				<xs:attribute name="originalSclVersion" type="tSclVersion"/>
+				<xs:attribute name="owner" type="xs:normalizedString"/>
+				<xs:attribute name="type" type="xs:normalizedString"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tEquipment">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:attributeGroup ref="agVirtual"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSubEquipment">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:attribute default="none" name="phase" type="tPhaseEnum"/>
+				<xs:attributeGroup ref="agVirtual"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="IED" type="tIED"/>
+	<xs:complexType name="tDataTypeTemplates">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" name="LNodeType" type="tLNodeType"/>
+			<xs:element maxOccurs="unbounded" name="DOType" type="tDOType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="DAType" type="tDAType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="EnumType" type="tEnumType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tSubNetwork">
+		<xs:complexContent>
+			<xs:extension base="tNaming">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="BitRate" type="tBitRateInMbPerSec"/>
+					<xs:element maxOccurs="unbounded" name="ConnectedAP" type="tConnectedAP"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="xs:normalizedString"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tGeneralEquipment">
+		<xs:complexContent>
+			<xs:extension base="tEquipment">
+				<xs:attribute name="type" type="tGeneralEquipmentEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="DataTypeTemplates" type="tDataTypeTemplates"/>
+	<xs:complexType abstract="true" name="tAbstractConductingEquipment">
+		<xs:complexContent>
+			<xs:extension base="tEquipment">
+				<xs:sequence>
+					<xs:element maxOccurs="2" minOccurs="0" name="Terminal" type="tTerminal"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SubEquipment" type="tSubEquipment"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tTapChanger">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SubEquipment" type="tSubEquipment"/>
+				</xs:sequence>
+				<xs:attribute fixed="LTC" name="type" type="xs:Name" use="required"/>
+				<xs:attributeGroup ref="agVirtual"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tCommunication">
+		<xs:complexContent>
+			<xs:extension base="tUnNaming">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" name="SubNetwork" type="tSubNetwork"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tConductingEquipment">
+		<xs:complexContent>
+			<xs:extension base="tAbstractConductingEquipment">
+				<xs:attribute name="type" type="tCommonConductingEquipmentEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Communication" type="tCommunication"/>
+	<xs:complexType name="tTransformerWinding">
+		<xs:complexContent>
+			<xs:extension base="tAbstractConductingEquipment">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="TapChanger" type="tTapChanger"/>
+					<xs:element minOccurs="0" name="NeutralPoint" type="tTerminal"/>
+				</xs:sequence>
+				<xs:attribute fixed="PTW" name="type" type="tTransformerWindingEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSubFunction">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="GeneralEquipment" type="tGeneralEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConductingEquipment" type="tConductingEquipment"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="xs:normalizedString"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tPowerTransformer">
+		<xs:complexContent>
+			<xs:extension base="tEquipment">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" name="TransformerWinding" type="tTransformerWinding"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SubEquipment" type="tSubEquipment"/>
+				</xs:sequence>
+				<xs:attribute fixed="PTR" name="type" type="tPowerTransformerEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tFunction">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="SubFunction" type="tSubFunction"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="GeneralEquipment" type="tGeneralEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConductingEquipment" type="tConductingEquipment"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="xs:normalizedString"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType abstract="true" name="tEquipmentContainer">
+		<xs:complexContent>
+			<xs:extension base="tPowerSystemResource">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="PowerTransformer" type="tPowerTransformer"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="GeneralEquipment" type="tGeneralEquipment"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tBay">
+		<xs:complexContent>
+			<xs:extension base="tEquipmentContainer">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConductingEquipment" type="tConductingEquipment"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ConnectivityNode" type="tConnectivityNode"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Function" type="tFunction"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tVoltageLevel">
+		<xs:complexContent>
+			<xs:extension base="tEquipmentContainer">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Voltage" type="tVoltage"/>
+					<xs:element maxOccurs="unbounded" name="Bay" type="tBay"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Function" type="tFunction"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="tSubstation">
+		<xs:complexContent>
+			<xs:extension base="tEquipmentContainer">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" name="VoltageLevel" type="tVoltageLevel"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Function" type="tFunction"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Substation" type="tSubstation"/>
+	<xs:element name="SCL">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tBaseElement">
+					<xs:sequence>
+						<xs:element name="Header" type="tHeader"/>
+						<xs:element ref="Substation"/>
+						<xs:element ref="Communication"/>
+						<xs:element ref="IED"/>
+						<xs:element ref="DataTypeTemplates"/>
+					</xs:sequence>
+					<xs:attribute fixed="B" name="revision" type="tSclRevision" use="required"/>
+					<xs:attribute fixed="2007" name="version" type="tSclVersion" use="required"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

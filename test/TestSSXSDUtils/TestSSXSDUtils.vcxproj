@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{4233E0A3-B03D-4E69-92DA-6AA2E17DADD7}</ProjectGuid>
-    <RootNamespace>CompleyTypeAnalyzer</RootNamespace>
+    <ProjectGuid>{264D2892-A7D9-4363-B78E-F399325099B6}</ProjectGuid>
+    <RootNamespace>TestSSXSDUtils</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -54,7 +54,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared" />
+  <ImportGroup Label="Shared">
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -68,46 +69,27 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\SDK_API\C_C++\Boost\boost\include;$(IncludePath)</IncludePath>
-    <ReferencePath>$(ReferencePath)</ReferencePath>
-    <SourcePath>$(SourcePath)</SourcePath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)\PublicModule;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\Boost\boost\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\Boost\boost\include;$(SolutionDir)SSXSDUtilsSrc;$(SolutionDir)PublicModule;$(IncludePath)</IncludePath>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
-      <MinimalRebuild>false</MinimalRebuild>
-      <BrowseInformation>true</BrowseInformation>
-    </ClCompile>
-    <Link>
-      <AdditionalLibraryDirectories>D:\SDK_API\C_C++\Boost\boost\lib\msvc2017_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-    <Bscmake>
-      <PreserveSbr>true</PreserveSbr>
-    </Bscmake>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(OutDir);D:\SDK_API\C_C++\jwsmtp\lib\msvc2017_x64;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\lib;D:\SDK_API\C_C++\Boost\boost\lib\msvc2017_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OutDir);D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\lib;D:\SDK_API\C_C++\jwsmtp\lib\msvc2017_x64;D:\SDK_API\C_C++\Boost\boost\lib\msvc2017_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -138,89 +120,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AnyAttribute.h" />
-    <ClInclude Include="AnyElement.h" />
-    <ClInclude Include="Attribute.h" />
-    <ClInclude Include="AttributeGroup.h" />
-    <ClInclude Include="AttributeAnalyzer.h" />
-    <ClInclude Include="AttributeInterface.h" />
-    <ClInclude Include="AttributeModel.h" />
-    <ClInclude Include="AttributeNormalizer.h" />
-    <ClInclude Include="ComplexContent.h" />
-    <ClInclude Include="ComplexTypeAnalyzer.h" />
-    <ClInclude Include="ComplexTypeInterface.h" />
-    <ClInclude Include="ComplexTypeModel.h" />
-    <ClInclude Include="ComplexTypeNormalizer.h" />
-    <ClInclude Include="ContainerType.h" />
-    <ClInclude Include="DataType.h" />
-    <ClInclude Include="DateTimeType.h" />
-    <ClInclude Include="Element.h" />
-    <ClInclude Include="ElementGroup.h" />
-    <ClInclude Include="ElementInterface.h" />
-    <ClInclude Include="XSDExtraAttributeInterface.h" />
-    <ClInclude Include="NumberType.h" />
-    <ClInclude Include="SimpleContent.h" />
-    <ClInclude Include="SimpleTypeAnalyzer.h" />
-    <ClInclude Include="SimpleTypeInterface.h" />
-    <ClInclude Include="SimpleTypeLengthLimitConfiguration.h" />
-    <ClInclude Include="SimpleTypeModel.h" />
-    <ClInclude Include="SimpleTypeNormalizer.h" />
-    <ClInclude Include="SimpleTypeValueEnumrationConfiguration.h" />
-    <ClInclude Include="SimpleTypeValueLimitConfiguration.h" />
-    <ClInclude Include="StringType.h" />
     <ClInclude Include="test.h" />
-    <ClInclude Include="XSDAnalyzer.h" />
-    <ClInclude Include="XSDElementUtils.h" />
-    <ClInclude Include="XSDModel.h" />
-    <ClInclude Include="XSDNamedTypedElementInterface.h" />
-    <ClInclude Include="XSDNormalizer.h" />
-    <ClInclude Include="XSDParentedElementInterface.h" />
-    <ClInclude Include="XSDValueStatedElementInterface.h" />
-    <ClInclude Include="XSDNamedElementInterface.h" />
-    <ClInclude Include="XSDNumberLimitedElementInterface.h" />
-    <ClInclude Include="XSDReferenceElementInterface.h" />
-    <ClInclude Include="XSDToken.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AnyAttribute.cpp" />
-    <ClCompile Include="AnyElement.cpp" />
-    <ClCompile Include="AttributeGroup.cpp" />
-    <ClCompile Include="Attribute.cpp" />
-    <ClCompile Include="AttributeAnalyzer.cpp" />
-    <ClCompile Include="AttributeModel.cpp" />
-    <ClCompile Include="AttributeNormalizer.cpp" />
-    <ClCompile Include="ComplexContent.cpp" />
-    <ClCompile Include="ComplexTypeModel.cpp" />
-    <ClCompile Include="ComplexTypeAnalyzer.cpp" />
-    <ClCompile Include="ComplexTypeInterface.cpp" />
-    <ClCompile Include="ComplexTypeNormalizer.cpp" />
-    <ClCompile Include="ContainerType.cpp" />
-    <ClCompile Include="DataType.cpp" />
-    <ClCompile Include="DateTimeType.cpp" />
-    <ClCompile Include="Element.cpp" />
-    <ClCompile Include="ElementGroup.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NumberType.cpp" />
-    <ClCompile Include="SimpleContent.cpp" />
-    <ClCompile Include="SimpleTypeAnalyzer.cpp" />
-    <ClCompile Include="SimpleTypeInterface.cpp" />
-    <ClCompile Include="SimpleTypeLengthLimitConfiguration.cpp" />
-    <ClCompile Include="SimpleTypeModel.cpp" />
-    <ClCompile Include="SimpleTypeNormalizer.cpp" />
-    <ClCompile Include="StringType.cpp" />
     <ClCompile Include="test.cpp" />
-    <ClCompile Include="XSDAnalyzer.cpp" />
-    <ClCompile Include="XSDExtraAttributeInterface.cpp" />
-    <ClCompile Include="XSDModel.cpp" />
-    <ClCompile Include="XSDNamedElementInterface.cpp" />
-    <ClCompile Include="XSDNamedTypedElementInterface.cpp" />
-    <ClCompile Include="XSDNormalizer.cpp" />
-    <ClCompile Include="XSDNumberLimitedElementInterface.cpp" />
-    <ClCompile Include="XSDToken.cpp" />
-    <ClCompile Include="XSDValueStatedElementInterface.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
