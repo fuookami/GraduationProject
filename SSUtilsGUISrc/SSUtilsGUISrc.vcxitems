@@ -14,15 +14,15 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)IWebEngineDialogWidget.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)QDraggableFlatteningDialog.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)QDraggableFlatteningWidget.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)QMessageBoxUtils.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)QWebEngineWidget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\IWebEngineDialogWidget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QDraggableFlatteningDialog.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QDraggableFlatteningWidget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QMessageBoxUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QWebEngineWidget.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)IWebEngineDialogWidget.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)QMessageBoxUtils.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)QWebEngineWidget.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\IWebEngineDialogWidget.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QMessageBoxUtils.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QWebEngineWidget.cpp" />
   </ItemGroup>
 </Project>
