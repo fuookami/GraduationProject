@@ -26,7 +26,12 @@ namespace CARSDK
 		virtual const std::string &category(void) const = 0;
 		virtual const std::string &displayName(void) const = 0;
 		virtual const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> &neededAttributes(void) const = 0;
+		virtual const std::map<std::string, std::string> &factorNeededAttributes(void) const = 0;
 		virtual const bool valid(const std::map<std::string, std::string> &attributes) const = 0;
 		virtual ExperimentalDesignTable generateExperimentalDesignTable(const std::shared_ptr<XSDFrontend::XSDModel> &xsdModel, const std::map<std::string, std::string> &attributes) const = 0;
+		inline const std::string &lastError(void) const { return m_lastError; };
+
+	protected:
+		std::string m_lastError;
 	};
 };

@@ -1,28 +1,34 @@
 #include "stdafx.h"
 #include "ExperimentalAnalyzerModule.h"
 #include "ExperimentalDesignMethodModule.h"
-#include "SSUtils\FileUtils.h"
 
 #include <boost/function.hpp>
 
 namespace CARSDK
 {
+	const std::map<std::string, std::string> ExperimentalDesignMethodModule::DefaultFactorAttributes = 
+	{
+		std::make_pair(UnitAttr(), std::string("单位")),
+		std::make_pair(DigitAttr(), std::string("小数点后位数"))
+	};
+
 	std::shared_ptr<ExperimentalDesignMethodModule> ExperimentalDesignMethodModule::instance(void)
 	{
 		static std::shared_ptr<ExperimentalDesignMethodModule> ret(new ExperimentalDesignMethodModule());
+		ret->refreshUtils();
 		return ret;
 	}
 
 	std::shared_ptr<ExperimentalDesignMethodModule> ExperimentalDesignMethodModule::instance(const std::string & path)
 	{
 		static std::shared_ptr<ExperimentalDesignMethodModule> ret(instance());
-		ret->loadUtils(path);
+		ret->refreshUtils(path);
 		return ret;
 	}
 
-	const bool ExperimentalDesignMethodModule::hasLoaded(const std::string & url) const
+	ExperimentalDesignMethodModule::ExperimentalDesignMethodModule(void)
+		: m_utilsHandlers(UtilsHandler::instance())
 	{
-		return m_urls.find(url) != m_urls.cend();
 	}
 
 	boost::shared_ptr<IExperimentalDesignMethodUtilsInterface> ExperimentalDesignMethodModule::util(const std::string & name) const
@@ -31,29 +37,21 @@ namespace CARSDK
 		return it == m_utils.cend() ? nullptr : it->second;
 	}
 
-	void ExperimentalDesignMethodModule::loadUtils(const std::string & path)
+	void ExperimentalDesignMethodModule::refreshUtils(void)
 	{
-		auto urls(SSUtils::File::getAllFilesUrlsOfPath(path));
-		for (const auto &url : urls)
+		for (const auto &pair : m_utilsHandlers->libs())
 		{
-			if (SSUtils::File::getFileExtensionOfUrl(url) == SSUtils::File::SharedLibraryExtension()
-				&& !hasLoaded(url))
+			if (m_utils.find(pair.first) == m_utils.cend())
 			{
-				loadUtil(url);
+				boost::function<boost::shared_ptr<IExperimentalDesignMethodUtilsInterface>()> factoryMethod(pair.second->get_alias<boost::shared_ptr<IExperimentalDesignMethodUtilsInterface>()>(EDMUtilsFactoryMethodName));
+				m_utils.insert(std::make_pair(pair.first, factoryMethod()));
 			}
 		}
 	}
 
-	void ExperimentalDesignMethodModule::loadUtil(const std::string & url)
+	void ExperimentalDesignMethodModule::refreshUtils(const std::string & path)
 	{
-		std::shared_ptr<boost::dll::shared_library> lib(new boost::dll::shared_library(url));
-		if (lib->has(EDMUtilsFactoryMethodName))
-		{
-			boost::function<boost::shared_ptr<IExperimentalDesignMethodUtilsInterface>()> factoryMethod(lib->get_alias<boost::shared_ptr<IExperimentalDesignMethodUtilsInterface>()>(EDMUtilsFactoryMethodName));
-			auto util = factoryMethod();
-			m_urls.insert(url);
-			m_libs.insert(lib);
-			m_utils.insert(std::make_pair(util->name(), util));
-		}
+		m_utilsHandlers->loadUtils(path);
+		refreshUtils();
 	}
 };

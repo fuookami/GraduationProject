@@ -27,6 +27,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalDesignTable.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalAnalyzerInterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\project\GraduationProject\GraduationProject\CARSDK\CARSDK\UtilsHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CARSDK\CARSDKGlobal.h">
@@ -57,6 +63,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalDesignMethodInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CARSDK\UtilsHandler.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

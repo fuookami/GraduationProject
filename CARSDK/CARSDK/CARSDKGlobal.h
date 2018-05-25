@@ -16,22 +16,12 @@
 
 namespace CARSDK
 {
-	class ExperimentalDesignTable;
-
-	class DataModelingModule;
-	class DataHandlingModule;
-
-	class IExperimentalDesignMethodInterface;
-	class IExperimentalDesignMethodUtilsInterface;
-	class ExperimentalDesignMethodModule;
+#define String_Declaration(name) CARSDK_API_DECLSPEC const std::string &##name##(void);\
 
 	extern const std::string EDMUtilsFactoryMethodName;
-
-	class IExperimentalAnalyzerInterface;
-	class IExperimentalAnalyzerUtilsInterface;
-	class ExperimentalAnalyzerModule;
-
 	extern const std::string EAUtilsFactoryMethodName;
+	String_Declaration(UnitAttr);
+	String_Declaration(DigitAttr);
 
 	enum class ExperimentalFactorType
 	{
@@ -54,4 +44,20 @@ namespace CARSDK
 		Number,
 		String
 	};
+
+	class UtilsHandler;
+	class ExperimentalDesignTable;
+
+	class DataModelingModule;
+	class DataHandlingModule;
+
+	class IExperimentalDesignMethodInterface;
+	class IExperimentalDesignMethodUtilsInterface;
+	class ExperimentalDesignMethodModule;
+
+	class IExperimentalAnalyzerInterface;
+	class IExperimentalAnalyzerUtilsInterface;
+	class ExperimentalAnalyzerModule;
+
+#undef String_Declaration
 };

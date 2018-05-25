@@ -17,9 +17,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\CARSDKGlobal.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\DataHandlingModule.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\DataModelingModule.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalAnalyzerInterface.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalAnalyzerModule.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalDesignMethodModule.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalDesignTable.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\UtilsHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CARSDK\CARSDKGlobal.h" />
@@ -32,5 +34,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalDesignMethodModule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalDesignMethodUtilsInterface.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalDesignTable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CARSDK\UtilsHandler.h" />
   </ItemGroup>
 </Project>

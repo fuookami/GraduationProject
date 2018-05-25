@@ -6,6 +6,8 @@
 
 namespace AEDM
 {
+	const std::string AEDMUtils::Name("AEDM");
+
 	boost::shared_ptr<AEDMUtils> AEDMUtils::create(void)
 	{
 		return boost::shared_ptr<AEDMUtils>(new AEDMUtils());
@@ -13,8 +15,7 @@ namespace AEDM
 
 	const std::string &AEDMUtils::name(void) const
 	{
-		static const std::string ret("AEDM");
-		return ret;
+		return Name;
 	}
 
 	const std::string &AEDMUtils::displayName(void) const
@@ -28,6 +29,26 @@ namespace AEDM
 		static const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalDesignMethodInterface>> ret = 
 		{
 			make_method(TwoFactorsAEDM::create())
+		};
+
+		return ret;
+	}
+
+	boost::shared_ptr<AEDMAnalyzerUtils> AEDMAnalyzerUtils::create(void)
+	{
+		return boost::shared_ptr<AEDMAnalyzerUtils>(new AEDMAnalyzerUtils());
+	}
+
+	const std::string & AEDMAnalyzerUtils::name(void) const
+	{
+		return AEDMUtils::Name;
+	}
+
+	const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalAnalyzerInterface>>& AEDMAnalyzerUtils::analyzerGroups(void) const
+	{
+		static const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalAnalyzerInterface>> ret =
+		{
+			make_analyzers(TwoFactorsAEDMAnalyzers::create())
 		};
 
 		return ret;
