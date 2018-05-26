@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <memory>
+#include <boost/bimap.hpp>
 
 #ifdef _EXPORTING_CARSDK
 #define CARSDK_API_DECLSPEC __declspec(dllexport)
@@ -26,9 +27,12 @@ namespace CARSDK
 	enum class ExperimentalFactorType
 	{
 		ExperimentalFactor,
-		EvaluateFactors,
-		NotEvaluateFactors
+		EvaluateFactor,
+		NotEvaluateFactor
 	};
+	String_Declaration(ExperimentalFactorTypeAttr);
+	static const boost::bimap<ExperimentalFactorType, std::string> &ExperimentalFactorType2String(void);
+	static const boost::bimap<ExperimentalFactorType, std::string> &ExperimentalFactorType2Display(void);
 
 	enum class AnalysisResultType
 	{

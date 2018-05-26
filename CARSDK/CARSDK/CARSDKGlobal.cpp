@@ -16,5 +16,40 @@ namespace CARSDK
 	String_Definition(UnitAttr, "unit");
 	String_Definition(DigitAttr, "digit");
 
+	String_Definition(ExperimentalFactorTypeAttr, "experimental_factor_type");
+	const boost::bimap<ExperimentalFactorType, std::string> &ExperimentalFactorType2String(void)
+	{
+		static const boost::bimap<ExperimentalFactorType, std::string> ret = 
+			[]()
+		{
+			typedef boost::bimap<ExperimentalFactorType, std::string> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(ExperimentalFactorType::ExperimentalFactor, std::string("ExperimentalFactor")));
+			ret.insert(pair_type(ExperimentalFactorType::EvaluateFactor, std::string("EvaluateFactor")));
+			ret.insert(pair_type(ExperimentalFactorType::NotEvaluateFactor, std::string("NotEvaluateFactor")));
+			return ret;
+		}();
+		return ret;
+	}
+
+	const boost::bimap<ExperimentalFactorType, std::string>& ExperimentalFactorType2Display(void)
+	{
+		static const boost::bimap<ExperimentalFactorType, std::string> ret =
+			[]()
+		{
+			typedef boost::bimap<ExperimentalFactorType, std::string> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(ExperimentalFactorType::ExperimentalFactor, std::string("实验因素")));
+			ret.insert(pair_type(ExperimentalFactorType::EvaluateFactor, std::string("指标因素")));
+			ret.insert(pair_type(ExperimentalFactorType::NotEvaluateFactor, std::string("非指标因素")));
+			return ret;
+		}();
+		return ret;
+	}
+
 #undef String_Definition
 };
