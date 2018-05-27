@@ -30,9 +30,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\ExperimentalAnalyzerInterface.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="D:\project\GraduationProject\GraduationProject\CARSDK\CARSDK\UtilsHandler.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CARSDK\UtilsHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CARSDK\CARSDKGlobal.h">

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema version="3.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="b电池有效寿命">
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+	<xs:simpleType name="b电极材料">
+		<xs:restriction base="xs:integer"/>
+	</xs:simpleType>
+	<xs:simpleType name="b温度">
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+	<xs:complexType digits="2" experimental_factor_type="EvaluateFactor" name="电池有效寿命" unit="h">
+		<xs:simpleContent>
+			<xs:extension base="b电池有效寿命">
+				<xs:attribute fixed="2" name="digits" type="xs:string"/>
+				<xs:attribute fixed="h" name="unit" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType experimental_factor_type="ExperimentalFactor" name="电极材料">
+		<xs:simpleContent>
+			<xs:extension base="b电极材料"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType digits="2" experimental_factor_type="ExperimentalFactor" name="温度" unit="°F">
+		<xs:simpleContent>
+			<xs:extension base="b温度">
+				<xs:attribute fixed="2" name="digits" type="xs:string"/>
+				<xs:attribute fixed="°F" name="unit" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

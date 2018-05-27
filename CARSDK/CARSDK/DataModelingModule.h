@@ -2,6 +2,7 @@
 
 #include "CARSDKGlobal.h"
 #include "SSUtils/XSD/XSDModel.h"
+#include <boost/any.hpp>
 
 namespace CARSDK
 {
@@ -16,7 +17,7 @@ namespace CARSDK
 			std::string type;
 			std::string experimentalFactorType;
 			std::map<std::string, std::string> infos;
-			std::map<std::string, std::string> validators;
+			std::map<std::string, boost::any> validators;
 			std::map<std::string, std::string> attributes;
 		};
 

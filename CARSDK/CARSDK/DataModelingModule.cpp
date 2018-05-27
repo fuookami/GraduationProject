@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "DataModelingModule.h"
 
+#include "SSUtils/StringUtils.h"
+
 namespace CARSDK
 {
 	const std::string DataModelingModule::DescriptionInfo("description");
@@ -34,21 +36,24 @@ namespace CARSDK
 			XSDFrontend::SimpleType::ISimpleTypeInterface *baseType(nullptr);
 			if (simpleTypeModel->isBaseType(info.type))
 			{
-				if (XSDFrontend::SimpleType::NumberType::String2Type.left.find(info.type) != XSDFrontend::SimpleType::NumberType::String2Type.left.end())
+				std::vector<std::string> baseTypeParts = SSUtils::String::split(info.type, XSDFrontend::Token::NamespaceSeparator());
+				const std::string &baseTypeName(baseTypeParts.back());
+
+				if (XSDFrontend::SimpleType::NumberType::String2Type.left.find(baseTypeName) != XSDFrontend::SimpleType::NumberType::String2Type.left.end())
 				{
-					auto numberType = loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType>(new XSDFrontend::SimpleType::NumberType(BaesTypePrefix + info.name, XSDFrontend::SimpleType::NumberType::String2Type.left.find(info.type)->second)), info);
+					auto numberType = loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType>(new XSDFrontend::SimpleType::NumberType(BaesTypePrefix + info.name, XSDFrontend::SimpleType::NumberType::String2Type.left.find(baseTypeName)->second)), info);
 					simpleTypeModel->getNumberTypes().insert(std::make_pair(numberType->getName(), numberType));
 					baseType = dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(numberType.get());
 				}
-				else if (XSDFrontend::SimpleType::StringType::String2Type.left.find(info.type) != XSDFrontend::SimpleType::StringType::String2Type.left.end())
+				else if (XSDFrontend::SimpleType::StringType::String2Type.left.find(baseTypeParts.back()) != XSDFrontend::SimpleType::StringType::String2Type.left.end())
 				{
-					auto stringType = loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::StringType>(new XSDFrontend::SimpleType::StringType(BaesTypePrefix + info.name, XSDFrontend::SimpleType::StringType::String2Type.left.find(info.type)->second)), info);
+					auto stringType = loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::StringType>(new XSDFrontend::SimpleType::StringType(BaesTypePrefix + info.name, XSDFrontend::SimpleType::StringType::String2Type.left.find(baseTypeName)->second)), info);
 					simpleTypeModel->getStringTypes().insert(std::make_pair(stringType->getName(), stringType));
 					baseType = dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(stringType.get());
 				}
-				else if (XSDFrontend::SimpleType::DatetimeType::String2Type.left.find(info.type) != XSDFrontend::SimpleType::DatetimeType::String2Type.left.end())
+				else if (XSDFrontend::SimpleType::DatetimeType::String2Type.left.find(baseTypeName) != XSDFrontend::SimpleType::DatetimeType::String2Type.left.end())
 				{
-					auto datetimeType = loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::DatetimeType>(new XSDFrontend::SimpleType::DatetimeType(BaesTypePrefix + info.name, XSDFrontend::SimpleType::DatetimeType::String2Type.left.find(info.type)->second)), info);
+					auto datetimeType = loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::DatetimeType>(new XSDFrontend::SimpleType::DatetimeType(BaesTypePrefix + info.name, XSDFrontend::SimpleType::DatetimeType::String2Type.left.find(baseTypeName)->second)), info);
 					simpleTypeModel->getDatetimeTypes().insert(std::make_pair(datetimeType->getName(), datetimeType));
 					baseType = dynamic_cast<XSDFrontend::SimpleType::ISimpleTypeInterface *>(datetimeType.get());
 				}
@@ -100,6 +105,8 @@ namespace CARSDK
 
 			factor->setSimpleTypeName(baseType->getName());
 			factor->setBaseType(XSDFrontend::ComplexType::IComplexTypeInterface::eDerivedType::tExtension, baseType->getName());
+			factor->getExAttrs().clear();
+			attrGroup->getAttributes().clear();
 
 			auto it(ExperimentalFactorType2String().right.find(info.experimentalFactorType));
 			if (it == ExperimentalFactorType2String().right.end())
@@ -116,8 +123,6 @@ namespace CARSDK
 				}
 			}
 
-			factor->getExAttrs().clear();
-			attrGroup->getAttributes().clear();
 			for (const auto &pair : info.attributes)
 			{
 				factor->setExAttr(pair);
