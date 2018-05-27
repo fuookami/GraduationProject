@@ -31,8 +31,8 @@ namespace CARSDK
 		NotEvaluateFactor
 	};
 	String_Declaration(ExperimentalFactorTypeAttr);
-	static const boost::bimap<ExperimentalFactorType, std::string> &ExperimentalFactorType2String(void);
-	static const boost::bimap<ExperimentalFactorType, std::string> &ExperimentalFactorType2Display(void);
+	CARSDK_API_DECLSPEC const boost::bimap<ExperimentalFactorType, std::string> &ExperimentalFactorType2String(void);
+	CARSDK_API_DECLSPEC const boost::bimap<ExperimentalFactorType, std::string> &ExperimentalFactorType2Display(void);
 
 	enum class AnalysisResultType
 	{

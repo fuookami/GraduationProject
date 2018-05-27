@@ -9,6 +9,7 @@ namespace CARSDK
 	{
 	public:
 		static std::shared_ptr<DataModelingModule> instance(void);
+		static const std::string DescriptionInfo;
 		struct Info
 		{
 			std::string name;
@@ -28,7 +29,17 @@ namespace CARSDK
 		DataModelingModule &operator=(DataModelingModule &&rhs) = delete;
 		~DataModelingModule(void) = default;
 
-		std::shared_ptr<XSDFrontend::XSDModel> normalize(const std::vector<Info> &infos, const std::shared_ptr<XSDFrontend::XSDModel> originModel) const;
+		std::shared_ptr<XSDFrontend::XSDModel> normalize(const std::vector<Info> &infos, std::shared_ptr<XSDFrontend::XSDModel> originModel = nullptr) const;
 		std::vector<Info> analyze(const std::shared_ptr<XSDFrontend::XSDModel> model) const;
+
+		inline const std::string &lastError(void) const { return m_lastError; }
+
+	private:
+		static std::shared_ptr<XSDFrontend::SimpleType::NumberType> loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType> type, const Info &info);
+		static std::shared_ptr<XSDFrontend::SimpleType::StringType> loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::StringType> type, const Info &info);
+		static std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> type, const Info &info);
+
+	private:
+		std::string m_lastError;
 	};
 };
