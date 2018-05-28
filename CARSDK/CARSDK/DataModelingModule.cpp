@@ -200,6 +200,11 @@ namespace CARSDK
 		return ret;
 	}
 
+	std::shared_ptr<SSUtils::XML> DataModelingModule::generateData(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::string &factorName)
+	{
+		return nullptr;
+	}
+
 	std::shared_ptr<XSDFrontend::SimpleType::NumberType> DataModelingModule::loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType> type, const Info & info)
 	{
 		auto it(info.validators.find(XSDFrontend::Token::MaxExclusiveTag()));

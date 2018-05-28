@@ -36,6 +36,8 @@ namespace CARSDK
 
 		inline const std::string &lastError(void) const { return m_lastError; }
 
+		static std::shared_ptr<SSUtils::XML> generateData(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::string &factorName);
+
 	private:
 		static std::shared_ptr<XSDFrontend::SimpleType::NumberType> loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType> type, const Info &info);
 		static std::shared_ptr<XSDFrontend::SimpleType::StringType> loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::StringType> type, const Info &info);
@@ -44,6 +46,8 @@ namespace CARSDK
 		static Info saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::NumberType> type);
 		static Info saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::StringType> type);
 		static Info saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> type);
+
+		static 
 
 	private:
 		std::string m_lastError;
