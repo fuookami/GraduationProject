@@ -54,6 +54,7 @@ void testModeling(void)
 		info.name.assign("电极材料");
 		info.type.assign("xs:integer");
 		info.experimentalFactorType.assign(CARSDK::ExperimentalFactorType2String().left.find(CARSDK::ExperimentalFactorType::ExperimentalFactor)->second);
+		info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(std::vector<SSUtils::Math::Real>({1, 2, 3}))));
 		infos.push_back(std::move(info));
 	}
 
@@ -62,6 +63,33 @@ void testModeling(void)
 		info.name.assign("温度");
 		info.type.assign("xs:decimal");
 		info.experimentalFactorType.assign(CARSDK::ExperimentalFactorType2String().left.find(CARSDK::ExperimentalFactorType::ExperimentalFactor)->second);
+		info.attributes.insert(std::make_pair(std::string("unit"), std::string("°F")));
+		info.attributes.insert(std::make_pair(std::string("digits"), std::string("2")));
+		infos.push_back(std::move(info));
+	}
+
+	auto instance(CARSDK::DataModelingModule::instance());
+
+	auto model(instance->normalize(infos));
+	XSDNormalizer::XSDNormalizer normalizer1(model);
+	if (normalizer1.normalize())
+	{
+		normalizer1.getDocument().toFile(SSUtils::File::InitailPath() + "\\testModeling1.xsd", SSUtils::CharType::UTF8);
+		std::cout << "normalize model1 well." << std::endl;
+	}
+	else
+	{
+		std::cout << "normalize model1 fail." << std::endl;
+	}
+
+	infos.clear();
+
+	{
+		CARSDK::DataModelingModule::Info info;
+		info.name.assign("温度");
+		info.type.assign("xs:decimal");
+		info.experimentalFactorType.assign(CARSDK::ExperimentalFactorType2String().left.find(CARSDK::ExperimentalFactorType::ExperimentalFactor)->second);
+		info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(std::vector<SSUtils::Math::Real>({ 15.f, 70.f, 125.f }))));
 		info.attributes.insert(std::make_pair(std::string("unit"), std::string("°F")));
 		info.attributes.insert(std::make_pair(std::string("digits"), std::string("2")));
 		infos.push_back(std::move(info));
@@ -77,16 +105,15 @@ void testModeling(void)
 		infos.push_back(std::move(info));
 	}
 
-	auto instance(CARSDK::DataModelingModule::instance());
-	auto model(instance->normalize(infos));
-	XSDNormalizer::XSDNormalizer normalizer(model);
-	if (normalizer.normalize())
+	model = instance->normalize(infos, model);
+	XSDNormalizer::XSDNormalizer normalizer2(model);
+	if (normalizer2.normalize())
 	{
-		normalizer.getDocument().toFile(SSUtils::File::InitailPath() + "\\testModeling.xsd", SSUtils::CharType::UTF8);
-		std::cout << "normalize model well." << std::endl;
+		normalizer2.getDocument().toFile(SSUtils::File::InitailPath() + "\\testModeling2.xsd", SSUtils::CharType::UTF8);
+		std::cout << "normalize model2 well." << std::endl;
 	}
 	else
 	{
-		std::cout << "normalize model fail." << std::endl;
+		std::cout << "normalize model2 fail." << std::endl;
 	}
 }
