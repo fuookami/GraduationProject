@@ -116,4 +116,7 @@ void testModeling(void)
 	{
 		std::cout << "normalize model2 fail." << std::endl;
 	}
+
+	auto _infos = instance->analyze(model);
+	std::cout << "analyze model well." << std::endl;
 }

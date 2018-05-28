@@ -6,6 +6,7 @@
 namespace CARSDK
 {
 	const std::string DataModelingModule::DescriptionInfo("description");
+	const std::string DataModelingModule::BaesTypePrefix("b");
 
 	std::shared_ptr<DataModelingModule> DataModelingModule::instance(void)
 	{
@@ -26,8 +27,6 @@ namespace CARSDK
 
 		for (const auto &info : infos)
 		{
-			static const std::string BaesTypePrefix("b");
-
 			if (simpleTypeModel->isSimpleType(info.name) || complexTypeModel->isComplexContent(info.name))
 			{
 				return nullptr;
@@ -135,7 +134,70 @@ namespace CARSDK
 
 	std::vector<DataModelingModule::Info> DataModelingModule::analyze(const std::shared_ptr<XSDFrontend::XSDModel> model) const
 	{
-		return std::vector<Info>();
+		std::vector<Info> ret;
+
+		const auto simpleTypeModel(model->getSimpleTypeModel());
+		const auto attributeModel(model->getAttributeModel());
+		const auto complexTypeModel(model->getComplexTypeModel());
+
+		for (const auto &pair : complexTypeModel->getSimpleContents())
+		{
+			if (pair.second->hasExAttr(ExperimentalFactorTypeAttr()))
+			{
+				const auto factor(pair.second);
+				const auto *simpleType(simpleTypeModel->getSimpleType(factor->getBaseTypeName()));
+				const auto attributeGroup(attributeModel->getAttributeGroup(factor->getAttributeGroupName()));
+				const bool isDefaultTypeName();
+
+				Info info;
+
+				if (simpleType->getName() != (BaesTypePrefix + factor->getName()))
+				{
+					info.type.assign(simpleType->getName());
+				}
+				else if (simpleType->getSimpleType() == XSDFrontend::SimpleType::eSimpleType::tNumberType)
+				{
+					const auto numberType(simpleTypeModel->getNumberType(simpleType->getName()));
+					info = saveSimpleType(numberType);
+					info.type.assign(XSDFrontend::SimpleType::NumberType::String2Type.right.find(numberType->getBaseType())->second);
+				}
+				else if (simpleType->getSimpleType() == XSDFrontend::SimpleType::eSimpleType::tStringType)
+				{
+					const auto stringType(simpleTypeModel->getStringType(simpleType->getName()));
+					info = saveSimpleType(stringType);
+					info.type.assign(XSDFrontend::SimpleType::StringType::String2Type.right.find(stringType->getBaseType())->second);
+				}
+				else if (simpleType->getSimpleType() == XSDFrontend::SimpleType::eSimpleType::tDatetimeType)
+				{
+					const auto datetimeType(simpleTypeModel->getDatetimeType(simpleType->getName()));
+					info = saveSimpleType(datetimeType);
+					info.type.assign(XSDFrontend::SimpleType::DatetimeType::String2Type.right.find(datetimeType->getBaseType())->second);
+				}
+				else
+				{
+					return std::vector<Info>();
+				}
+
+				info.name = factor->getName();
+				info.experimentalFactorType = factor->getExAttr(ExperimentalFactorTypeAttr());
+				if (!factor->getDescription().empty())
+				{
+					info.infos.insert(std::make_pair(DescriptionInfo, factor->getDescription()));
+				}
+
+				for (const auto &exAttr : factor->getExAttrs())
+				{
+					if (exAttr.first != ExperimentalFactorTypeAttr())
+					{
+						info.attributes.insert(exAttr);
+					}
+				}
+
+				ret.push_back(std::move(info));
+			}
+		}
+
+		return ret;
 	}
 
 	std::shared_ptr<XSDFrontend::SimpleType::NumberType> DataModelingModule::loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType> type, const Info & info)
@@ -198,6 +260,24 @@ namespace CARSDK
 			type->setPattern(boost::any_cast<std::string>(it->second));
 		}
 
+		it = info.validators.find(XSDFrontend::Token::LengthValidatorTag());
+		if (it != info.validators.cend() && it->second.type() == typeid(int))
+		{
+			type->setLengthValidator(boost::any_cast<int>(it->second));
+		}
+
+		it = info.validators.find(XSDFrontend::Token::MinLengthValidatorTag());
+		if (it != info.validators.cend() && it->second.type() == typeid(int))
+		{
+			type->setMinLengthValidator(boost::any_cast<int>(it->second));
+		}
+
+		it = info.validators.find(XSDFrontend::Token::MaxLengthValidatorTag());
+		if (it != info.validators.cend() && it->second.type() == typeid(int))
+		{
+			type->setMaxLengthValidator(boost::any_cast<int>(it->second));
+		}
+
 		it = info.validators.find(XSDFrontend::Token::EnumValidatorTag());
 		if (it != info.validators.cend() && it->second.type() == typeid(std::vector<std::string>))
 		{
@@ -238,16 +318,113 @@ namespace CARSDK
 		}
 
 		it = info.validators.find(XSDFrontend::Token::EnumValidatorTag());
-		if (it != info.validators.cend() && it->second.type() == typeid(std::vector<std::string>))
+		if (it != info.validators.cend() && it->second.type() == typeid(std::vector<SSUtils::Datetime::DatetimeDuration>))
 		{
-			const std::vector<std::string> &enums(boost::any_cast<std::vector<std::string>>(it->second));
+			const std::vector<SSUtils::Datetime::DatetimeDuration> &enums(boost::any_cast<std::vector<SSUtils::Datetime::DatetimeDuration>>(it->second));
 			type->setIsEnum(true);
 			for (const auto &value : enums)
 			{
-				type->addEnumValue(SSUtils::Datetime::DatetimeDuration::fromString(value));
+				type->addEnumValue(value);
 			};
 		}
 
 		return type;
+	}
+
+	DataModelingModule::Info DataModelingModule::saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::NumberType> type)
+	{
+		Info info;
+
+		if (type->getFractionDigits() != XSDFrontend::SimpleType::NumberType::NoDigitValidator)
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::FractionDigitsTag(), boost::any(type->getFractionDigits())));
+		}
+		if (type->getTotalDigits() != XSDFrontend::SimpleType::NumberType::NoDigitValidator)
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::TotalDigitsTag(), boost::any(type->getTotalDigits())));
+		}
+
+		if (type->hasMaxExclusive())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MaxExclusiveTag(), boost::any(type->getMaxExclusive())));
+		}
+		if (type->hasMaxInclusive())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MaxInclusiveTag(), boost::any(type->getMaxInclusive())));
+		}
+		if (type->hasMinExclusive())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MinExclusiveTag(), boost::any(type->getMinExclusive())));
+		}
+		if (type->hasMinInclusive())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MinInclusiveTag(), boost::any(type->getMinInclusive())));
+		}
+
+		if (type->getIsEnum())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(type->getEnumValues())));
+		}
+
+		return info;
+	}
+
+	DataModelingModule::Info DataModelingModule::saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::StringType> type)
+	{
+		Info info;
+
+		if (!type->getPattern().empty())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::PatternTag(), boost::any(type->getPattern())));
+		}
+		
+		if (type->getLengthValidator() != XSDFrontend::SimpleType::StringType::NoLengthValidator)
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::LengthValidatorTag(), boost::any(type->getLengthValidator())));
+		}
+		if (type->getMinLengthValidator() != XSDFrontend::SimpleType::StringType::NoLengthValidator)
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MinLengthValidatorTag(), boost::any(type->getLengthValidator())));
+		}
+		if (type->getMaxLengthValidator() != XSDFrontend::SimpleType::StringType::NoLengthValidator)
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MaxLengthValidatorTag(), boost::any(type->getMaxLengthValidator())));
+		}
+
+		if (type->getIsEnum())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(type->getEnumValues())));
+		}
+
+		return info;
+	}
+
+	DataModelingModule::Info DataModelingModule::saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> type)
+	{
+		Info info;
+
+		if (!type->getIsEnum())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(type->getEnumValues())));
+		}
+
+		if (!type->hasMaxExclusive())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MaxExclusiveTag(), boost::any(type->getMaxExclusive())));
+		}
+		if (!type->hasMaxInclusive())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MaxInclusiveTag(), boost::any(type->getMaxInclusive())));
+		}
+		if (!type->hasMinExclusive())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MinExclusiveTag(), boost::any(type->getMinExclusive())));
+		}
+		if (!type->hasMinInclusive())
+		{
+			info.validators.insert(std::make_pair(XSDFrontend::Token::MinInclusiveTag(), boost::any(type->getMinInclusive())));
+		}
+
+		return info;
 	}
 };

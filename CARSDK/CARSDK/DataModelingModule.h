@@ -10,6 +10,7 @@ namespace CARSDK
 	{
 	public:
 		static std::shared_ptr<DataModelingModule> instance(void);
+		static const std::string BaesTypePrefix;
 		static const std::string DescriptionInfo;
 		struct Info
 		{
@@ -39,6 +40,10 @@ namespace CARSDK
 		static std::shared_ptr<XSDFrontend::SimpleType::NumberType> loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType> type, const Info &info);
 		static std::shared_ptr<XSDFrontend::SimpleType::StringType> loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::StringType> type, const Info &info);
 		static std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> type, const Info &info);
+
+		static Info saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::NumberType> type);
+		static Info saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::StringType> type);
+		static Info saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> type);
 
 	private:
 		std::string m_lastError;
