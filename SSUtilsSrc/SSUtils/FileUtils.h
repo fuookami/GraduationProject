@@ -29,6 +29,10 @@ namespace SSUtils
 		SSUtils_API_DECLSPEC std::vector<std::string> getAllFilesUrlsOfPath(const std::string &targetPath);
 		SSUtils_API_DECLSPEC std::vector<std::string> getAllDirectoryPathsOfPath(const std::string &targetPath);
 
+		SSUtils_API_DECLSPEC std::string getParentPathOfPath(const std::string &targetPath);
+		SSUtils_API_DECLSPEC std::string getRelativeUrlOfPath(const std::string &basePath, const std::string &targetUrl);
+		SSUtils_API_DECLSPEC std::string getRelativePathOfPath(const std::string &basePath, const std::string &targetPath);
+
 		template<typename T, uint32 DataLength = sizeof(T)>
 		struct FileLoader
 		{
