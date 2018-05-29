@@ -4,14 +4,14 @@
 namespace CARSDK
 {
 	const std::string ExperimentalDesignTable::Tag("experimental_design_table");
-	const std::string ExperimentalDesignTbale::BatchTag("batch");
+	const std::string ExperimentalDesignTable::BatchTag("batch");
 
-	ExperimentalDesignTable::ExperimentalDesignTable(const std::shared_ptr<SSUtils::XML::Node> node)
-		: ExperimentalDesignTable(fromXML(node))
+	ExperimentalDesignTable::ExperimentalDesignTable(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors)
+		: ExperimentalDesignTable(fromXML(node, factors))
 	{
 	}
 
-	const bool ExperimentalDesignTable::valid(const std::shared_ptr<XSDFrontend::XSDModel> model)
+	const bool ExperimentalDesignTable::valid(const std::shared_ptr<XSDFrontend::XSDModel> model) const
 	{
 		if (!checkTableStruct())
 		{
@@ -39,7 +39,7 @@ namespace CARSDK
 			{
 				Cell cell;
 				cell.content.assign(factorNode->getContent());
-				cell.attrs = factorNode->getAttributes();
+				cell.attrs = factorNode->getAttrs();
 
 				batch.push_back(std::move(cell));
 			}
@@ -78,9 +78,9 @@ namespace CARSDK
 		return node;
 	}
 
-	static const bool ExperimentalDesignTable::checkXMLStruct(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors)
+	const bool ExperimentalDesignTable::checkXMLStruct(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors)
 	{
-		static const checkFactors([](const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors) -> const bool
+		static const auto checkFactors([](const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors) -> const bool
 		{
 			for (const auto batchNode : node->getChildren())
 			{
@@ -99,7 +99,7 @@ namespace CARSDK
 			return true;
 		});
 
-		if (!node->getTag() != Tag)
+		if (node->getTag() != Tag)
 		{
 			return false;
 		}
@@ -116,7 +116,7 @@ namespace CARSDK
 		{
 			std::set<std::string> originFactors;
 			const auto firstBatchNode(node->getChildren().front());
-			for (const auto factorNode : firstBatchNode->getCHildren())
+			for (const auto factorNode : firstBatchNode->getChildren())
 			{
 				originFactors.insert(factorNode->getTag());
 			}

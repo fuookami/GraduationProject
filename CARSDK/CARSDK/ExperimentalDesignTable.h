@@ -20,7 +20,7 @@ namespace CARSDK
 
 	public:
 		ExperimentalDesignTable(void) = default;
-		ExperimentalDesignTable(const std::shared_ptr<SSUtils::XML::Node> node);
+		ExperimentalDesignTable(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors);
 		ExperimentalDesignTable(const ExperimentalDesignTable &ano) = default;
 		ExperimentalDesignTable(ExperimentalDesignTable &&ano) = default;
 		ExperimentalDesignTable &operator=(const ExperimentalDesignTable &rhs) = default;

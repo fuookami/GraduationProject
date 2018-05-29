@@ -200,7 +200,7 @@ namespace CARSDK
 		return ret;
 	}
 
-	std::shared_ptr<SSUtils::XML> DataModelingModule::generateData(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::string &factorName)
+	std::shared_ptr<SSUtils::XML::Node> DataModelingModule::generateData(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::string &factorName)
 	{
 		return nullptr;
 	}

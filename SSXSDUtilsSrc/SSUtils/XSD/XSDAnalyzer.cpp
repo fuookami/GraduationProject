@@ -33,27 +33,37 @@ namespace XSDAnalyzer
 		SSUtils::XML::Document doc(SSUtils::XML::Document::fromFile(fileUrl, charType));
 		const auto &xml(doc.getRoots());
 		
-		if (!(xml.size() == 1) || !(xml.front()->getTag() == XSDFrontend::Token::SchemaTag()))
+		if (!(xml.size() == 1) || !(xml.front()->getTag() != XSDFrontend::Token::SchemaTag()))
 		{
 			std::cerr << "文件'" << fileUrl << "'不是xsd文件" << std::endl;
 			return false;
 		}
 
-		try
+		for (const auto &child : xml.front()->getChildren())
 		{
-			for (const auto &child : xml.front()->getChildren())
+			if (child != nullptr && child->getTag() == XSDFrontend::Token::IncludeTag())
 			{
-				if (child != nullptr && child->getTag() == XSDFrontend::Token::IncludeTag())
+				if (!scanIncludeTag(fileName, filePath, child, charType))
 				{
-					if (!scanIncludeTag(fileName, filePath, child, charType))
-					{
-						return false;
-					}
+					return false;
 				}
 			}
+		}
 
-			const auto topologicalOrder(SSUtils::Math::TopologicalSort(generateTopologicalTable(xml.front())));
-			const auto &childrens(xml.front()->getChildren());
+		if (!scan(xml.front()))
+		{
+			return false;
+		}
+		m_scanedFiles.insert(fileUrl);
+		return true;
+	}
+
+	const bool XSDAnalyzer::scan(const std::shared_ptr<SSUtils::XML::Node> node)
+	{
+		try
+		{
+			const auto topologicalOrder(SSUtils::Math::TopologicalSort(generateTopologicalTable(node)));
+			const auto &childrens(node->getChildren());
 			for (const auto order : topologicalOrder)
 			{
 				auto childNode(childrens[order]);
@@ -86,7 +96,6 @@ namespace XSDAnalyzer
 				}
 			}
 
-			m_scanedFiles.insert(fileUrl);
 			return true;
 		}
 		catch (std::exception &e)

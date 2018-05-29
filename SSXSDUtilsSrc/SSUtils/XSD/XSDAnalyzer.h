@@ -20,6 +20,7 @@ namespace XSDAnalyzer
 		~XSDAnalyzer(void) = default;
 
 		const bool scan(const std::string &fileUrl, const SSUtils::CharType charType);
+		const bool scan(const std::shared_ptr<SSUtils::XML::Node> node);
 
 		inline const std::shared_ptr<XSDFrontend::XSDModel> getModel(void) const { return m_xsdModel; }
 

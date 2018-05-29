@@ -72,6 +72,6 @@
         "xmemory": "cpp",
         "xstddef": "cpp"
     },
-    "editor.fontSize": 13,
+    "editor.fontSize": 14,
     "editor.fontFamily": "'Source Code Pro'"
 }

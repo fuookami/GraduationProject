@@ -21,7 +21,10 @@ namespace CARSDK
 
 		std::shared_ptr<SSUtils::XML::Node> normalize(const ExperimentalDesignTable &table) const;
 		ExperimentalDesignTable analyze(const std::shared_ptr<SSUtils::XML::Node> data) const;
-		const bool check(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data) const;
+		const bool check(const std::shared_ptr<SSUtils::XML::Node> data) const;
 		const bool check(const std::shared_ptr<XSDFrontend::XSDModel> mode, const ExperimentalDesignTable &table) const;
+
+	private:
+		static std::pair<std::shared_ptr<XSDFrontend::XSDModel>, ExperimentalDesignTable> _analyze(const std::shared_ptr<SSUtils::XML::Node> data);
 	};
 };
