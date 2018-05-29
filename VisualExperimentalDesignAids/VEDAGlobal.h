@@ -7,9 +7,13 @@ namespace VEDA
 	extern const std::string ProjectFileExtension;
 	extern const std::string ProcessFileExtension;
 	extern const std::string OperationFileExtension;
-	extern const std::string ReportFileExtensionl;
-	extern const std::string DataModalDefinitionFileExtension;
+
+	extern const std::string ModelFileExtension;
 	extern const std::string DataFileExtension;
+
+	extern const std::string ReportFileExtensionl;
+	extern const std::string ReportConfigurationFileExtension;
+	extern const std::string ReportDataFileExtension;
 
 	extern const std::string GithubUrl;
 	extern const std::string CodingUrl;

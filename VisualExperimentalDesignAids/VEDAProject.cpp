@@ -28,14 +28,6 @@ namespace VEDA
 		init();
 	}
 
-	void VEDAProject::init(void)
-	{
-		auto keyPair(SSUtils::Encryption::RSA::generateKey(KeyLength));
-		m_verifier.publicKey = keyPair.first;
-		m_signer.privateKey = keyPair.second;
-		m_verificationToken = SSUtils::Data::generateRandomBlock(KeyLength);
-	}
-
 	SSUtils::XML::Document VEDAProject::toXML(void)
 	{
 		auto root(SSUtils::XML::Node::generate(Tags::Project));

@@ -5,9 +5,13 @@ namespace VEDA
 	const std::string ProjectFileExtension("vedaproj");
 	const std::string ProcessFileExtension("vedaproc");
 	const std::string OperationFileExtension("vedaops");
-	const std::string ReportFileExtensionl("vedarpt");
-	const std::string DataModalDefinitionFileExtension("veda.xsd");
-	const std::string DataFileExtension("veda.xml");
+	
+	const std::string ModelFileExtension("vedamodel");
+	const std::string DataFileExtension("vedadata");
+
+	const std::string ReportFileExtension("vedarpt");
+	const std::string ReportConfigurationFileExtension("vedarptconf");
+	const std::string ReportDataFileExtension("vedarptdata");
 
 	const std::string GithubUrl("https://github.com/fuookami/GraduationProject");
 	const std::string CodingUrl("https://coding.net/u/fuookami/p/GraduationProject/git?public=true");

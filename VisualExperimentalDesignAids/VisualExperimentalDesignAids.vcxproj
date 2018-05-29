@@ -121,6 +121,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="VEDAFile.cpp" />
     <ClCompile Include="VEDAGuiEntrance.cpp" />
     <ClCompile Include="VEDAInitProjectDialog.cpp" />
     <ClCompile Include="VEDAMenuBarExport.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="VEDAVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="VEDAFile.h" />
     <ClInclude Include="VEDAGUIEnterence.h" />
     <QtMoc Include="VEDAInitProjectDialog.h" />
     <ClInclude Include="VEDAMenuBar.h" />
