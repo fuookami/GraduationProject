@@ -4,10 +4,10 @@
 
 namespace VEDA
 {
-	const boost::bimap<std::string, VedaFile::Type> VedaFile::Extension2Type =
+	const boost::bimap<std::string, VEDAFile::Type> VEDAFile::Extension2Type =
 		[]()
 	{
-		typedef boost::bimap<std::string, VedaFile::Type> result_type;
+		typedef boost::bimap<std::string, VEDAFile::Type> result_type;
 		typedef result_type::value_type pair_type;
 
 		result_type ret;
@@ -22,15 +22,15 @@ namespace VEDA
 		return ret;
 	}();
 
-	const SSUtils::uint32 VedaFile::KeyLength = 128;
-	const std::string VedaFile::IndexTag("Index");
-	const std::string VedaFile::OriginNameAttr("OriginName");
-	const std::string VedaFile::PublicKeyTag("PublicKey");
-	const std::string VedaFile::PrivateKeyTag("PrivateKey");
-	const std::string VedaFile::SignationTokenTag("SignationToken");
-	const std::string VedaFile::VerificationTokenTag("VerificationToken");
+	const SSUtils::uint32 VEDAFile::KeyLength = 128;
+	const std::string VEDAFile::IndexTag("Index");
+	const std::string VEDAFile::OriginNameAttr("OriginName");
+	const std::string VEDAFile::PublicKeyTag("PublicKey");
+	const std::string VEDAFile::PrivateKeyTag("PrivateKey");
+	const std::string VEDAFile::SignationTokenTag("SignationToken");
+	const std::string VEDAFile::VerificationTokenTag("VerificationToken");
 
-	VedaFile::VedaFile(const std::string & url, const Type type)
+	VEDAFile::VEDAFile(const std::string & url, const Type type)
 		: m_name(SSUtils::File::getFileNameOfUrl(url)), m_path(SSUtils::File::getPathOfUrl(url)), m_type(type)
 	{
 		auto keyPair(SSUtils::Encryption::RSA::generateKey(KeyLength));
@@ -39,12 +39,12 @@ namespace VEDA
 		m_verificationToken = SSUtils::Data::generateRandomBlock(KeyLength);
 	}
 
-	const bool VedaFile::isChildFile(const VedaFile & file) const
+	const bool VEDAFile::isChildFile(const VEDAFile & file) const
 	{
 		return m_verifier(SSUtils::Data::toString(m_verificationToken) + file.m_originName, SSUtils::Data::toString(file.m_signationToken));
 	}
 
-	const bool VedaFile::init(const std::shared_ptr<SSUtils::XML::Node> node)
+	const bool VEDAFile::init(const std::shared_ptr<SSUtils::XML::Node> node)
 	{
 		if (node->getTag() != IndexTag
 			|| node->countChild(PublicKeyTag) != 1
@@ -74,7 +74,7 @@ namespace VEDA
 		return true;
 	}
 
-	const bool VedaFile::init(const VedaFile & parentFile, const std::string & name)
+	const bool VEDAFile::init(const VEDAFile & parentFile, const std::string & name)
 	{
 		m_originName.assign(name);
 
@@ -84,7 +84,7 @@ namespace VEDA
 		return true;
 	}
 
-	std::shared_ptr<SSUtils::XML::Node> VedaFile::normalize(void) const
+	std::shared_ptr<SSUtils::XML::Node> VEDAFile::normalize(void) const
 	{
 		auto node(SSUtils::XML::Node::generate(IndexTag));
 

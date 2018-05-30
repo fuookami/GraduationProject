@@ -19,7 +19,8 @@ namespace XSDNormalizer
 
 		const bool normalize(void);
 
-		inline const SSUtils::XML::Document &getDocument(void) const { return m_xmlDoc; }
+		inline const std::shared_ptr<SSUtils::XML::Node> getRoot(void) const { return m_root; }
+		SSUtils::XML::Document getDocument(void) const;
 
 	private:
 		std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> normalizeSimpleType(void);
@@ -94,7 +95,7 @@ namespace XSDNormalizer
 
 	private:
 		std::shared_ptr<XSDFrontend::XSDModel> m_xsdModel;
-		SSUtils::XML::Document m_xmlDoc;
+		std::shared_ptr<SSUtils::XML::Node> m_root;
 
 		SimpleTypeNormalizer m_simpleTypeNormalizer;
 		AttributeNormalizer m_attributeNormalizer;

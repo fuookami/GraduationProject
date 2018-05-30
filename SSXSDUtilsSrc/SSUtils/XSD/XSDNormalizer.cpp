@@ -15,7 +15,7 @@ namespace XSDNormalizer
 	{
 		try
 		{
-			auto root = m_xsdModel->generateXSDRoot();
+			m_root = m_xsdModel->generateXSDRoot();
 
 			std::vector<decltype(SSUtils::Thread::sharedRun(std::bind(&XSDNormalizer::normalizeSimpleType, this)))> futures =
 			{
@@ -33,17 +33,24 @@ namespace XSDNormalizer
 					return false;
 				}
 
-				std::move(result.second.begin(), result.second.end(), std::back_inserter(root->getChildren()));
+				std::move(result.second.begin(), result.second.end(), std::back_inserter(m_root->getChildren()));
 			}
 
-			m_xmlDoc.push_back(root);
 			return true;
 		}
 		catch (std::exception &e)
 		{
+			m_root.reset();
 			std::cerr << e.what() << std::endl;
 			return false;
 		}
+	}
+
+	SSUtils::XML::Document XSDNormalizer::getDocument(void) const
+	{
+		SSUtils::XML::Document doc;
+		doc.push_back(m_root);
+		return doc;
 	}
 
 	std::pair<bool, std::vector<std::shared_ptr<SSUtils::XML::Node>>> XSDNormalizer::normalizeSimpleType(void)

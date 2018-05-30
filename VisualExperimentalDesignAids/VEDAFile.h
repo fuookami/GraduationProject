@@ -6,7 +6,7 @@
 
 namespace VEDA
 {
-	class VedaFile abstract
+	class VEDAFile abstract
 	{
 	public:
 		enum class Type
@@ -31,14 +31,14 @@ namespace VEDA
 		static const std::string VerificationTokenTag;
 
 	protected:
-		VedaFile(const std::string &url, const Type type);
+		VEDAFile(const std::string &url, const Type type);
 
 	public:
-		VedaFile(const VedaFile &ano) = default;
-		VedaFile(VedaFile &&ano) = default;
-		VedaFile &operator=(const VedaFile &rhs) = default;
-		VedaFile &operator=(VedaFile &&rhs) = default;
-		~VedaFile(void) = default;
+		VEDAFile(const VEDAFile &ano) = delete;
+		VEDAFile(VEDAFile &&ano) = delete;
+		VEDAFile &operator=(const VEDAFile &rhs) = delete;
+		VEDAFile &operator=(VEDAFile &&rhs) = delete;
+		virtual ~VEDAFile(void) = default;
 
 		inline void setName(const std::string &name) { m_name.assign(name); }
 		inline void setName(std::string &&name) { m_name.assign(std::move(name)); }
@@ -57,13 +57,13 @@ namespace VEDA
 		inline const SSUtils::Block &getSignationToken(void) const { return m_signationToken; }
 		inline const SSUtils::Block &getVerificationToken(void) const { return m_verificationToken; }
 
-		const bool isChildFile(const VedaFile &file) const;
+		const bool isChildFile(const VEDAFile &file) const;
 
 		virtual SSUtils::XML::Document toXML(void) const = 0;
 
 	protected:
 		const bool init(const std::shared_ptr<SSUtils::XML::Node> node);
-		const bool init(const VedaFile &parentFile, const std::string & name);
+		const bool init(const VEDAFile &parentFile, const std::string & name);
 		std::shared_ptr<SSUtils::XML::Node> normalize(void) const;
 
 	private:
@@ -78,4 +78,13 @@ namespace VEDA
 		SSUtils::Block m_signationToken;
 		SSUtils::Block m_verificationToken;
 	};
+
+	class VEDADataFile;
+	class VEDAModelFile;
+	class VEDAOperationFile;
+	class VEDAProcessFile;
+	class VEDAProjectFile;
+	class VEDAReportFile;
+	class VEDAReportConfigurationFile;
+	class VEDAReportDataFile;
 };

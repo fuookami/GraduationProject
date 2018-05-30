@@ -64,12 +64,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)SSUtilsSrc\;$(SolutionDir)SSXSDUtilsSrc\;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\Boost\boost\include;$(QtDir)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)CARSDK\;$(SolutionDir)SSUtilsSrc\;$(SolutionDir)SSXSDUtilsSrc\;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\Boost\boost\include;$(QtDir)\include;$(IncludePath)</IncludePath>
     <ReferencePath>$(VC_ReferencesPath_x64)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)SSXSDUtils\;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\Boost\boost\include;D:\SDK_API\C_C++\jwsmtp\include;$(QtDir)\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\Boost\boost\include;D:\SDK_API\C_C++\jwsmtp\include;$(SolutionDir)CARSDK\;$(SolutionDir)SSXSDUtils\;$(QtDir)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -121,6 +121,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="VEDADataFile.cpp" />
     <ClCompile Include="VEDAFile.cpp" />
     <ClCompile Include="VEDAGuiEntrance.cpp" />
     <ClCompile Include="VEDAInitProjectDialog.cpp" />
@@ -130,11 +131,11 @@
     <ClCompile Include="VEDAMenuBarHelp.cpp" />
     <ClCompile Include="VEDAGlobal.cpp" />
     <ClCompile Include="VEDAMainWindow.cpp" />
-    <ClCompile Include="VEDAProject.cpp" />
     <ClCompile Include="VEDAProjectHandler.cpp" />
     <ClCompile Include="VEDAVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="VEDADataFile.h" />
     <ClInclude Include="VEDAFile.h" />
     <ClInclude Include="VEDAGUIEnterence.h" />
     <QtMoc Include="VEDAInitProjectDialog.h" />
@@ -145,9 +146,7 @@
     <QtMoc Include="VEDAAboutDialog.h" />
     <ClInclude Include="VEDAGlobal.h" />
     <QtMoc Include="VEDAProjectHandler.h" />
-    <ClInclude Include="VEDAOperation.h" />
-    <ClInclude Include="VEDAProcess.h" />
-    <ClInclude Include="VEDAProject.h" />
+    <ClInclude Include="VEDAOperationFile.h" />
     <ClInclude Include="VEDAVersion.h" />
     <QtMoc Include="VEDAMainWindow.h" />
   </ItemGroup>
