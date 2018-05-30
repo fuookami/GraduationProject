@@ -84,7 +84,7 @@ namespace VEDA
 		return true;
 	}
 
-	std::shared_ptr<SSUtils::XML::Node> VEDAFile::normalize(void) const
+	std::shared_ptr<SSUtils::XML::Node> VEDAFile::normalizeIndexParameter(void) const
 	{
 		auto node(SSUtils::XML::Node::generate(IndexTag));
 

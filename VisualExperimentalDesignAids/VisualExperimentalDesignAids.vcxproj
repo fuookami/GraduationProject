@@ -131,6 +131,7 @@
     <ClCompile Include="VEDAMenuBarHelp.cpp" />
     <ClCompile Include="VEDAGlobal.cpp" />
     <ClCompile Include="VEDAMainWindow.cpp" />
+    <ClCompile Include="VEDAOperationFile.cpp" />
     <ClCompile Include="VEDAProjectHandler.cpp" />
     <ClCompile Include="VEDAVersion.cpp" />
   </ItemGroup>

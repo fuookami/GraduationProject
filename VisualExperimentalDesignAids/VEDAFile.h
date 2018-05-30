@@ -64,7 +64,7 @@ namespace VEDA
 	protected:
 		const bool init(const std::shared_ptr<SSUtils::XML::Node> node);
 		const bool init(const VEDAFile &parentFile, const std::string & name);
-		std::shared_ptr<SSUtils::XML::Node> normalize(void) const;
+		std::shared_ptr<SSUtils::XML::Node> normalizeIndexParameter(void) const;
 
 	private:
 		std::string m_name;

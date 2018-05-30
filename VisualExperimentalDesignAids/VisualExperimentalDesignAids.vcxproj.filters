@@ -87,6 +87,9 @@
     <ClCompile Include="VEDADataFile.cpp">
       <Filter>Source Files\ProjectHandler</Filter>
     </ClCompile>
+    <ClCompile Include="VEDAOperationFile.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGlobal.h">

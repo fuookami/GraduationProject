@@ -23,6 +23,9 @@ namespace VEDA
 		VEDADataFile &operator=(VEDADataFile &&rhs) = delete;
 		~VEDADataFile(void) = default;
 
+		inline void setParent(const std::shared_ptr<VEDAOperationFile> parent) { m_parent = parent; }
+		inline const std::weak_ptr<VEDAOperationFile> getParent(void) const { return m_parent; }
+
 		inline std::shared_ptr<XSDFrontend::XSDModel> getModel(void) { return m_model; }
 		inline const std::shared_ptr<XSDFrontend::XSDModel> getModel(void) const { return m_model; }
 		inline void setModel(const std::shared_ptr<XSDFrontend::XSDModel> model) { m_model = model; }
@@ -34,6 +37,8 @@ namespace VEDA
 		SSUtils::XML::Document toXML(void) const;
 
 	private:
+		std::weak_ptr<VEDAOperationFile> m_parent;
+
 		std::shared_ptr<XSDFrontend::XSDModel> m_model;
 		std::shared_ptr<SSUtils::XML::Node> m_data;
 	};

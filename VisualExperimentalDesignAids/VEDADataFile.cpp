@@ -52,7 +52,7 @@ namespace VEDA
 	SSUtils::XML::Document VEDADataFile::toXML(void) const
 	{
 		auto node(SSUtils::XML::Node::generate(Tag));
-		node->addChild(normalize());
+		node->addChild(normalizeIndexParameter());
 
 		XSDNormalizer::XSDNormalizer normalizer(m_model);
 		if (!normalizer.normalize())
