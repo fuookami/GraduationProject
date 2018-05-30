@@ -14,6 +14,7 @@ namespace VEDA
 			Project,
 			Process,
 			Operation,
+			PublicModel,
 			Model,
 			Data,
 			Report,

@@ -90,6 +90,18 @@
     <ClCompile Include="VEDAOperationFile.cpp">
       <Filter>Source Files\ProjectHandler</Filter>
     </ClCompile>
+    <ClCompile Include="VEDAModelFile.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAPublicModel.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAModelFileBase.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDADataFileBase.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGlobal.h">
@@ -120,6 +132,18 @@
       <Filter>Header Files\ProjectHandler</Filter>
     </ClInclude>
     <ClInclude Include="VEDAOperationFile.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAModelFile.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAPublicModelFile.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAModelFileBase.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDADataFileBase.h">
       <Filter>Header Files\ProjectHandler</Filter>
     </ClInclude>
   </ItemGroup>
