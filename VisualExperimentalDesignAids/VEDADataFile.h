@@ -1,17 +1,17 @@
 #pragma once
 
-#include "VEDAFile.h"
+#include "VEDADataFileBase.h"
 #include "SSUtils/XSD/XSDModel.h"
 
 namespace VEDA
 {
-	class VEDADataFile : public VEDAFile
+	class VEDADataFile : public VEDADataFileBase, public IVEDAFileParentInterface<VEDAOperationFile>
 	{
 	public:
 		static const std::string Tag;
 
 	public:
-		static std::shared_ptr<VEDADataFile> generate(const std::string &url, const VEDAFile &parentFile);
+		static std::shared_ptr<VEDADataFile> generate(const std::string &url, const VEDAFile &parentFile, const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data);
 		static std::shared_ptr<VEDADataFile> generate(const std::string &url, const std::shared_ptr<SSUtils::XML::Node> node);
 
 	private:
@@ -23,23 +23,9 @@ namespace VEDA
 		VEDADataFile &operator=(VEDADataFile &&rhs) = delete;
 		~VEDADataFile(void) = default;
 
-		inline void setParent(const std::shared_ptr<VEDAOperationFile> parent) { m_parent = parent; }
-		inline const std::weak_ptr<VEDAOperationFile> getParent(void) const { return m_parent; }
+		SSUtils::XML::Document toXML(void) const override;
 
-		inline std::shared_ptr<XSDFrontend::XSDModel> getModel(void) { return m_model; }
-		inline const std::shared_ptr<XSDFrontend::XSDModel> getModel(void) const { return m_model; }
-		inline void setModel(const std::shared_ptr<XSDFrontend::XSDModel> model) { m_model = model; }
-
-		inline std::shared_ptr<XSDFrontend::XSDModel> getModel(void) { return m_model; }
-		inline const std::shared_ptr<SSUtils::XML::Node> getData(void) const { return m_data; }
-		inline void setData(const std::shared_ptr<SSUtils::XML::Node> data) { m_data = data; }
-
-		SSUtils::XML::Document toXML(void) const;
-
-	private:
-		std::weak_ptr<VEDAOperationFile> m_parent;
-
-		std::shared_ptr<XSDFrontend::XSDModel> m_model;
-		std::shared_ptr<SSUtils::XML::Node> m_data;
+	protected:
+		const std::string &DataNodeTag(void) const override;
 	};
 };

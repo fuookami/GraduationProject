@@ -8,10 +8,15 @@ namespace VEDA
 {
 	const std::string VEDADataFile::Tag("veda_data");
 
-	std::shared_ptr<VEDADataFile> VEDADataFile::generate(const std::string & url, const VEDAFile &parentFile)
+	std::shared_ptr<VEDADataFile> VEDADataFile::generate(const std::string & url, const VEDAFile &parentFile, const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data)
 	{
 		std::shared_ptr<VEDADataFile> ret(new VEDADataFile(url));
-		ret->init(*parentFile, SSUtils::File::getFileMainNameOfUrl(url));
+		if (!ret->init(parentFile, SSUtils::File::getFileMainNameOfUrl(url)))
+		{
+			return nullptr;
+		}
+		ret->m_model = model;
+		ret->m_data = data;
 		return ret;
 	}
 
@@ -26,26 +31,16 @@ namespace VEDA
 		}
 
 		std::shared_ptr<VEDADataFile> ret(new VEDADataFile(url));
-		if (!ret->init(node->getChildren()[node->findChild(IndexTag)]))
+		if (!ret->init(node->getChildren()[node->findChild(IndexTag)], node->getChildren()[node->findChild(XSDFrontend::Token::SchemaTag())], node->getChildren()[node->findChild(CARSDK::ExperimentalDesignTable::Tag)]))
 		{
 			return nullptr;
 		}
-
-		XSDAnalyzer::XSDAnalyzer analyzer;
-		if (!analyzer.scan(node->getChildren()[node->findChild(XSDFrontend::Token::SchemaTag())]))
-		{
-			return nullptr;
-		}
-		ret->m_model = analyzer.getModel();
-		
-		ret->m_data = node->getChildren()[node->findChild(CARSDK::ExperimentalDesignTable::Tag)];
-		ret->m_data->removeParent();
 
 		return ret;
 	}
 
 	VEDADataFile::VEDADataFile(const std::string & url)
-		: VEDAFile(url, Type::Data)
+		: VEDADataFileBase(url, Type::Data)
 	{
 	}
 
@@ -66,5 +61,10 @@ namespace VEDA
 		SSUtils::XML::Document doc;
 		doc.push_back(node);
 		return doc;
+	}
+
+	const std::string & VEDADataFile::DataNodeTag(void) const
+	{
+		return Tag;
 	}
 };
