@@ -79,6 +79,76 @@ namespace VEDA
 		SSUtils::Block m_verificationToken;
 	};
 
+	template<typename T, typename U = std::enable_if_t<std::is_base_of_v<VEDAFile, T>>>
+	class IVEDAFileParentInterface
+	{
+	protected:
+		IVEDAFileParentInterface(void) = default;
+	public:
+		IVEDAFileParentInterface(const IVEDAFileParentInterface &ano) = delete;
+		IVEDAFileParentInterface(IVEDAFileParentInterface &&ano) = delete;
+		IVEDAFileParentInterface &operator=(const IVEDAFileParentInterface &rhs) = delete;
+		IVEDAFileParentInterface &operator=(IVEDAFileParentInterface &&rhs) = delete;
+		virtual ~IVEDAFileParentInterface(void) = default;
+
+		inline void setParent(const std::shared_ptr<T> parent) { m_parent = parent; }
+		inline const std::weak_ptr<T> getParent(void) const { return m_parent; }
+
+	protected:
+		std::weak_ptr<T> m_parent;
+	};
+
+	template<typename T, typename U = std::enable_if_t<std::is_base_of_v<VEDAFile, T>>>
+	class IVEDAFileIndexInterface
+	{
+	protected:
+		IVEDAFileIndexInterface(void) = default;
+	public:
+		IVEDAFileIndexInterface(const IVEDAIndexFileInterface &ano) = delete;
+		IVEDAFileIndexInterface(IVEDAFileIndexInterface &&ano) = delete;
+		IVEDAFileIndexInterface &operator=(const IVEDAFileIndexInterface &rhs) = delete;
+		IVEDAFileIndexInterface &operator=(IVEDAFileIndexInterface &&rhs) = delete;
+		virtual ~IVEDAFileIndexInterface(void) = default;
+
+		inline std::set<std::string> &getDataFileUrls(void) { return m_dataFiles; }
+		inline const std::set<std::string> &getDataFileUrls(void) const { return m_dataFiles; }
+
+		inline std::map<std::string, std::shared_ptr<T>> &getLoadedDataFiles(void) { return m_loadedDataFiles; }
+		inline const std::map<std::string, std::shared_ptr<T>> &getLoadedDataFiles(void) const { return m_loadedDataFiles; }
+
+	protected:
+		virtual const std::string &IndexFileTag(void) const = 0;
+		const bool initIndex(const std::vector<std::shared_ptr<SSUtils::XML::Node>> nodes)
+		{
+			for (const auto node : nodes)
+			{
+				if (node->getTag() == IndexFileTag())
+				{
+					m_dataFiles.insert(node->getContent());
+				}
+			}
+
+			return true;
+		}
+
+		std::vector<std::shared_ptr<SSUtils::XML::Node>> normalizeIndexFiles(void) const
+		{
+			std::vector<std::shared_ptr<SSUtils::XML::Node>> ret;
+			for (const auto &url : m_dataFiles)
+			{
+				auto dataFileNode(SSUtils::XML::Node::generate(IndexFileTag()));
+				dataFileNode->setContent(url);
+				ret.push_back(dataFileNode);
+			}
+
+			return ret;
+		}
+		
+	protected:
+		std::set<std::string> m_dataFiles;
+		std::map<std::string, std::shared_ptr<T>> m_loadedDataFiles;
+	};
+
 	class VEDADataFile;
 	class VEDAModelFile;
 	class VEDAOperationFile;

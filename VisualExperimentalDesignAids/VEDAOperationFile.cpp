@@ -12,7 +12,10 @@ namespace VEDA
 	std::shared_ptr<VEDAOperationFile> VEDAOperationFile::generate(const std::string & url, const VEDAFile & parentFile, const std::string & designMethodName, const std::string & designMethodCategory, const std::map<std::string, std::string>& attrs)
 	{
 		std::shared_ptr<VEDAOperationFile> ret(new VEDAOperationFile(url));
-		ret->init(parentFile, SSUtils::File::getFileNameOfUrl(url));
+		if (!ret->init(parentFile, SSUtils::File::getFileMainNameOfUrl(url)))
+		{
+			return nullptr;
+		}
 
 		ret->m_designMethodName.assign(designMethodName);
 		ret->m_designMethodCategory.assign(designMethodCategory);
@@ -41,19 +44,15 @@ namespace VEDA
 		}
 
 		std::shared_ptr<VEDAOperationFile> ret(new VEDAOperationFile(url));
-		ret->init(indexNode);
+		if (!ret->init(indexNode))
+		{
+			return nullptr;
+		}
 
 		ret->m_designMethodName.assign(methodNode->getChildren()[methodNode->findChild(MethodNameTag)]->getContent());
 		ret->m_designMethodCategory.assign(methodNode->getChildren()[methodNode->findChild(MethodCategoryTag)]->getContent());
 		ret->m_attrs = methodNode->getChildren()[methodNode->findChild(MethodAttributeTag)]->getAttrs();
-
-		for (const auto child : node->getChildren())
-		{
-			if (child->getTag() == VEDADataFile::Tag)
-			{
-				ret->m_dataFiles.insert(child->getContent());
-			}
-		}
+		ret->initIndex(node->getChildren());
 
 		return ret;
 	}
@@ -69,16 +68,17 @@ namespace VEDA
 		node->addChild(normalizeIndexParameter());
 		node->addChild(normalizeExperimentalDesignMethodParameter());
 		
-		for (const auto &url : m_dataFiles)
-		{
-			auto dataFileNode(SSUtils::XML::Node::generate(VEDADataFile::Tag));
-			dataFileNode->setContent(url);
-			node->addChild(dataFileNode);
-		}
+		auto indexFileNodes(normalizeIndexFiles());
+		std::move(indexFileNodes.begin(), indexFileNodes.end(), std::back_inserter(node->getChildren()));
 
 		SSUtils::XML::Document doc;
 		doc.push_back(node);
 		return doc;
+	}
+
+	const std::string & VEDAOperationFile::IndexFileTag(void) const
+	{
+		return VEDADataFile::Tag;
 	}
 
 	std::shared_ptr<SSUtils::XML::Node> VEDAOperationFile::normalizeExperimentalDesignMethodParameter(void) const

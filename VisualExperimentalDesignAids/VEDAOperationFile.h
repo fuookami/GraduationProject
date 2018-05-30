@@ -5,7 +5,7 @@
 
 namespace VEDA
 {
-	class VEDAOperationFile : public VEDAFile
+	class VEDAOperationFile : public VEDAFile, public IVEDAFileParentInterface<VEDAProcessFile>, public IVEDAFileIndexInterface<VEDADataFile>
 	{
 	public:
 		static const std::string Tag;
@@ -27,32 +27,21 @@ namespace VEDA
 		VEDAOperationFile &operator=(VEDAOperationFile &&rhs) = delete;
 		~VEDAOperationFile(void) = default;
 
-		inline void setParent(const std::shared_ptr<VEDAProcessFile> parent) { m_parent = parent; }
-		inline const std::weak_ptr<VEDAProcessFile> getParent(void) const { return m_parent; }
-
 		inline const std::string &getDesignMethodName(void) const { return m_designMethodName; }
 		inline const std::string &getDesignMethodCategory(void) const { return m_designMethodCategory; }
 		inline const std::map<std::string, std::string> &getAttributes(void) const { return m_attrs; }
 
-		inline std::set<std::string> &getDataFileUrls(void) { return m_dataFiles; }
-		inline const std::set<std::string> &getDataFileUrls(void) const { return m_dataFiles; }
+		SSUtils::XML::Document toXML(void) const override;
 
-		inline std::map<std::string, std::shared_ptr<VEDADataFile>> &loadedDataFiles(void) { return m_loadedDataFiles; }
-		inline const std::map<std::string, std::shared_ptr<VEDADataFile>> &loadedDataFiles(void) const { return m_loadedDataFiles; }
-
-		SSUtils::XML::Document toXML(void) const;
+	protected:
+		const std::string &IndexFileTag(void) const override;
 
 	private:
 		std::shared_ptr<SSUtils::XML::Node> normalizeExperimentalDesignMethodParameter(void) const;
 
 	private:
-		std::weak_ptr<VEDAProcessFile> m_parent;
-
 		std::string m_designMethodName;
 		std::string m_designMethodCategory;
 		std::map<std::string, std::string> m_attrs;
-
-		std::set<std::string> m_dataFiles;
-		std::map<std::string, std::shared_ptr<VEDADataFile>> m_loadedDataFiles;
 	};
 };
