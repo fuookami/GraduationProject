@@ -52,7 +52,11 @@ namespace VEDA
 		ret->m_designMethodName.assign(methodNode->getChildren()[methodNode->findChild(MethodNameTag)]->getContent());
 		ret->m_designMethodCategory.assign(methodNode->getChildren()[methodNode->findChild(MethodCategoryTag)]->getContent());
 		ret->m_attrs = methodNode->getChildren()[methodNode->findChild(MethodAttributeTag)]->getAttrs();
-		ret->initIndex(node->getChildren());
+		
+		if (!ret->initIndex(node->getChildren()))
+		{
+			return nullptr;
+		}
 
 		return ret;
 	}
