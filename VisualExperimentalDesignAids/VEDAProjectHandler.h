@@ -3,12 +3,10 @@
 #include <QtCore/QObject>
 #include <memory>
 #include <utility>
-#include "SSUtils\XSD\XSDModel.h"
+#include "VEDAProcessFile.h"
 
 namespace VEDA
 {
-	class VEDAProject;
-
 	class VEDAProjectHandler : public QObject
 	{
 		Q_OBJECT;
@@ -35,11 +33,12 @@ namespace VEDA
 		static const std::pair<bool, std::string> initProject(const std::string &name, const std::string &path, const bool newDir);
 		void openProject(const std::string &projectFileUrl, const bool save = true);
 		void closeCurrProject(const bool save = true);
+		void saveCurrProject(void);
 
 		inline const bool isProjectOpen(void) { return m_currProject != nullptr; }
-		inline std::shared_ptr<VEDAProject> currProject(void)const { return m_currProject; }
+		inline std::shared_ptr<VEDAProjectFile> currProject(void)const { return m_currProject; }
 
 	private:
-		std::shared_ptr<VEDAProject> m_currProject;
+		std::shared_ptr<VEDAProjectFile> m_currProject;
 	};
 };

@@ -14,9 +14,10 @@ namespace VEDA
 		ret.insert(pair_type(ProjectFileExtension, Type::Project));
 		ret.insert(pair_type(ProcessFileExtension, Type::Process));
 		ret.insert(pair_type(OperationFileExtension, Type::Operation));
+		ret.insert(pair_type(PublicModelFileExtension, Type::PublicModel));
 		ret.insert(pair_type(ModelFileExtension, Type::Model));
 		ret.insert(pair_type(DataFileExtension, Type::Data));
-		ret.insert(pair_type(ReportFileExtensionl, Type::Data));
+		ret.insert(pair_type(ReportFileExtension, Type::Report));
 		ret.insert(pair_type(ReportConfigurationFileExtension, Type::ReportConfiguration));
 		ret.insert(pair_type(ReportDataFileExtension, Type::ReportData));
 		return ret;

@@ -1,5 +1,6 @@
 #include "VEDAProcessFile.h"
 #include "SSUtils/FileUtils.h"
+#include <algorithm>
 
 namespace VEDA
 {

@@ -6,6 +6,7 @@ namespace VEDA
 	const std::string ProcessFileExtension("vedaproc");
 	const std::string OperationFileExtension("vedaops");
 	
+	const std::string PublicModelFileExtension("vedapubmodel");
 	const std::string ModelFileExtension("vedamodel");
 	const std::string DataFileExtension("vedadata");
 

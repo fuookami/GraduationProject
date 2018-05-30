@@ -80,5 +80,7 @@ namespace XSDFrontend
 		String_Declaration(SubstitutionGroupAttr);
 
 		SSXSDUtils_API_DECLSPEC const bool isInXSDNameSpace(const std::string &token);
+
+#undef String_Declaration
 	};
 };

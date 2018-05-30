@@ -28,29 +28,32 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Header Files\MenuBar">
-      <UniqueIdentifier>{33f1a28f-202f-4f32-83de-b23da4d2ac07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\MenuBar">
-      <UniqueIdentifier>{8d22a5f0-334c-41b4-a8ac-c035cf9e034f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Dialog">
-      <UniqueIdentifier>{12f903f7-0a4b-428c-85e1-67b8e7aa7964}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Dialog">
-      <UniqueIdentifier>{787c17a4-47db-4b01-99b5-c11c5eca00c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ProjectHandler">
       <UniqueIdentifier>{64b170a2-5d66-46cd-8479-4edaf6ba2d04}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\ProjectHandler">
       <UniqueIdentifier>{88a46f46-eb39-40d1-8534-c3f064b68105}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{442c4fc7-c002-40c2-8567-805ce405d451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{86df612b-c331-49d9-bbf1-ee521eed0a34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\Dialog">
+      <UniqueIdentifier>{787c17a4-47db-4b01-99b5-c11c5eca00c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\MenuBar">
+      <UniqueIdentifier>{33f1a28f-202f-4f32-83de-b23da4d2ac07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\Dialog">
+      <UniqueIdentifier>{12f903f7-0a4b-428c-85e1-67b8e7aa7964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\MenuBar">
+      <UniqueIdentifier>{8d22a5f0-334c-41b4-a8ac-c035cf9e034f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VEDAMainWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VEDAGlobal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,25 +64,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VEDAMenuBarFile.cpp">
-      <Filter>Source Files\MenuBar</Filter>
+      <Filter>Source Files\GUI\MenuBar</Filter>
     </ClCompile>
     <ClCompile Include="VEDAMenuBarHelp.cpp">
-      <Filter>Source Files\MenuBar</Filter>
+      <Filter>Source Files\GUI\MenuBar</Filter>
     </ClCompile>
     <ClCompile Include="VEDAMenuBarExport.cpp">
-      <Filter>Source Files\MenuBar</Filter>
+      <Filter>Source Files\GUI\MenuBar</Filter>
     </ClCompile>
     <ClCompile Include="VEDAAboutDialog.cpp">
-      <Filter>Source Files\Dialog</Filter>
+      <Filter>Source Files\GUI\Dialog</Filter>
     </ClCompile>
     <ClCompile Include="VEDAInitProjectDialog.cpp">
-      <Filter>Source Files\Dialog</Filter>
+      <Filter>Source Files\GUI\Dialog</Filter>
     </ClCompile>
     <ClCompile Include="VEDAProjectHandler.cpp">
       <Filter>Source Files\ProjectHandler</Filter>
-    </ClCompile>
-    <ClCompile Include="VEDAGuiEntrance.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VEDAFile.cpp">
       <Filter>Source Files\ProjectHandler</Filter>
@@ -102,6 +102,27 @@
     <ClCompile Include="VEDADataFileBase.cpp">
       <Filter>Source Files\ProjectHandler</Filter>
     </ClCompile>
+    <ClCompile Include="VEDAProcessFile.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAProjectFile.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAReportFile.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAReportConfigurationFile.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAReportDataFile.cpp">
+      <Filter>Source Files\ProjectHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAGuiEntrance.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAMainWindow.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGlobal.h">
@@ -111,19 +132,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VEDAMenuBar.h">
-      <Filter>Header Files\MenuBar</Filter>
+      <Filter>Header Files\GUI\MenuBar</Filter>
     </ClInclude>
     <ClInclude Include="VEDAMenuBarExport.h">
-      <Filter>Header Files\MenuBar</Filter>
+      <Filter>Header Files\GUI\MenuBar</Filter>
     </ClInclude>
     <ClInclude Include="VEDAMenuBarFile.h">
-      <Filter>Header Files\MenuBar</Filter>
+      <Filter>Header Files\GUI\MenuBar</Filter>
     </ClInclude>
     <ClInclude Include="VEDAMenuBarHelp.h">
-      <Filter>Header Files\MenuBar</Filter>
-    </ClInclude>
-    <ClInclude Include="VEDAGUIEnterence.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GUI\MenuBar</Filter>
     </ClInclude>
     <ClInclude Include="VEDAFile.h">
       <Filter>Header Files\ProjectHandler</Filter>
@@ -146,19 +164,46 @@
     <ClInclude Include="VEDADataFileBase.h">
       <Filter>Header Files\ProjectHandler</Filter>
     </ClInclude>
+    <ClInclude Include="VEDAProcessFile.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAProjectFile.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAReportFile.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAReportConfigurationFile.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAReportDataFile.h">
+      <Filter>Header Files\ProjectHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAMainView.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAGUIEnterence.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAMainWidget.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDATreeView.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="VEDAMainWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="VEDAProjectHandler.h">
       <Filter>Header Files\ProjectHandler</Filter>
     </QtMoc>
     <QtMoc Include="VEDAAboutDialog.h">
-      <Filter>Header Files\Dialog</Filter>
+      <Filter>Header Files\GUI\Dialog</Filter>
     </QtMoc>
     <QtMoc Include="VEDAInitProjectDialog.h">
-      <Filter>Header Files\Dialog</Filter>
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="VEDAMainWindow.h">
+      <Filter>Header Files\GUI</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

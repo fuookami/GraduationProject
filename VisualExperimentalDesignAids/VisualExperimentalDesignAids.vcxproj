@@ -135,8 +135,13 @@
     <ClCompile Include="VEDAModelFile.cpp" />
     <ClCompile Include="VEDAModelFileBase.cpp" />
     <ClCompile Include="VEDAOperationFile.cpp" />
+    <ClCompile Include="VEDAProcessFile.cpp" />
+    <ClCompile Include="VEDAProjectFile.cpp" />
     <ClCompile Include="VEDAProjectHandler.cpp" />
     <ClCompile Include="VEDAPublicModel.cpp" />
+    <ClCompile Include="VEDAReportConfigurationFile.cpp" />
+    <ClCompile Include="VEDAReportDataFile.cpp" />
+    <ClCompile Include="VEDAReportFile.cpp" />
     <ClCompile Include="VEDAVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +150,8 @@
     <ClInclude Include="VEDAFile.h" />
     <ClInclude Include="VEDAGUIEnterence.h" />
     <QtMoc Include="VEDAInitProjectDialog.h" />
+    <ClInclude Include="VEDAMainView.h" />
+    <ClInclude Include="VEDAMainWidget.h" />
     <ClInclude Include="VEDAMenuBar.h" />
     <ClInclude Include="VEDAMenuBarExport.h" />
     <ClInclude Include="VEDAMenuBarFile.h" />
@@ -155,7 +162,13 @@
     <ClInclude Include="VEDAModelFile.h" />
     <ClInclude Include="VEDAModelFileBase.h" />
     <ClInclude Include="VEDAOperationFile.h" />
+    <ClInclude Include="VEDAProcessFile.h" />
+    <ClInclude Include="VEDAProjectFile.h" />
     <ClInclude Include="VEDAPublicModelFile.h" />
+    <ClInclude Include="VEDAReportConfigurationFile.h" />
+    <ClInclude Include="VEDAReportDataFile.h" />
+    <ClInclude Include="VEDAReportFile.h" />
+    <ClInclude Include="VEDATreeView.h" />
     <ClInclude Include="VEDAVersion.h" />
     <QtMoc Include="VEDAMainWindow.h" />
   </ItemGroup>

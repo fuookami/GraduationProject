@@ -1,8 +1,11 @@
 #include "VEDAProcessFile.h"
 #include "VEDAProjectFile.h"
+#include <algorithm>
 
 namespace VEDA
 {
+	const std::string VEDAProjectFile::Tag("veda_project");
+
 	std::shared_ptr<VEDAProjectFile> VEDAProjectFile::generate(const std::string & url)
 	{
 		std::shared_ptr<VEDAProjectFile> ret(new VEDAProjectFile(url));

@@ -3,6 +3,7 @@
 #include "SSUtils\EncryptionUtils\RSA.h"
 #include "SSUtils\XMLUtils.h"
 #include <boost/bimap.hpp>
+#include <set>
 
 namespace VEDA
 {
@@ -80,7 +81,7 @@ namespace VEDA
 		SSUtils::Block m_verificationToken;
 	};
 
-	template<typename T, typename U = std::enable_if_t<std::is_base_of_v<VEDAFile, T>>>
+	template<typename T>
 	class IVEDAFileParentInterface
 	{
 	protected:
@@ -99,13 +100,13 @@ namespace VEDA
 		std::weak_ptr<T> m_parent;
 	};
 
-	template<typename T, typename U = std::enable_if_t<std::is_base_of_v<VEDAFile, T>>>
+	template<typename T>
 	class IVEDAFileIndexInterface
 	{
 	protected:
 		IVEDAFileIndexInterface(void) = default;
 	public:
-		IVEDAFileIndexInterface(const IVEDAIndexFileInterface &ano) = delete;
+		IVEDAFileIndexInterface(const IVEDAFileIndexInterface &ano) = delete;
 		IVEDAFileIndexInterface(IVEDAFileIndexInterface &&ano) = delete;
 		IVEDAFileIndexInterface &operator=(const IVEDAFileIndexInterface &rhs) = delete;
 		IVEDAFileIndexInterface &operator=(IVEDAFileIndexInterface &&rhs) = delete;
