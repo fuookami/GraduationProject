@@ -24,6 +24,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QWebEngineWidget.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QLoadingDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\IWebEngineDialogWidget.cpp">
@@ -33,6 +36,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QWebEngineWidget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\GUI\QLoadingDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

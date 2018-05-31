@@ -14,6 +14,10 @@ namespace SSUtils
 		{
 		public:
 			explicit QWebEngineWidget(QWidget *parent = nullptr);
+			QWebEngineWidget(const QWebEngineWidget &ano) = delete;
+			QWebEngineWidget(QWebEngineWidget &&ano) = delete;
+			QWebEngineWidget &operator=(const QWebEngineWidget &rhs) = delete;
+			QWebEngineWidget &operator=(QWebEngineWidget &&rhs) = delete;
 			~QWebEngineWidget(void) = default;
 
 			inline QWebEngineView *view() { return m_view; }
