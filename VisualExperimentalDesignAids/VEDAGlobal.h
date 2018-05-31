@@ -16,6 +16,8 @@ namespace VEDA
 	extern const std::string ReportConfigurationFileExtension;
 	extern const std::string ReportDataFileExtension;
 
+	extern const std::string PluginPath;
+
 	extern const std::string GithubUrl;
 	extern const std::string CodingUrl;
 

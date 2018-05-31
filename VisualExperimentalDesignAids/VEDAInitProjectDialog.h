@@ -25,6 +25,8 @@ namespace VEDA
 	public:
 		VEDAInitProjectDialog(const VEDAInitProjectDialog &ano) = delete;
 		VEDAInitProjectDialog(VEDAInitProjectDialog &&ano) = delete;
+		VEDAInitProjectDialog &operator=(const VEDAInitProjectDialog &rhs) = delete;
+		VEDAInitProjectDialog &operator=(VEDAInitProjectDialog &&rhs) = delete;
 		~VEDAInitProjectDialog(void) = default;
 
 	protected:
@@ -46,6 +48,8 @@ namespace VEDA
 	public:
 		VEDAInitProjectDialogInterface(const VEDAInitProjectDialogInterface &ano) = delete;
 		VEDAInitProjectDialogInterface(VEDAInitProjectDialogInterface &&ano) = delete;
+		VEDAInitProjectDialogInterface &operator=(const VEDAInitProjectDialogInterface &rhs) = delete;
+		VEDAInitProjectDialogInterface &operator=(VEDAInitProjectDialogInterface &&rhs) = delete;
 		~VEDAInitProjectDialogInterface(void) = default;
 
 	signals:

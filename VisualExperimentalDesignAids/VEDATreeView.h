@@ -10,7 +10,7 @@ namespace VEDA
 		Q_OBJECT;
 
 	public:
-		explicit VEDATreeView(void);
+		explicit VEDATreeView(QWidget *parent = nullptr);
 		VEDATreeView(const VEDATreeView &ano) = delete;
 		VEDATreeView(VEDATreeView &&ano) = delete;
 		VEDATreeView &operator=(const VEDATreeView &rhs) = delete;

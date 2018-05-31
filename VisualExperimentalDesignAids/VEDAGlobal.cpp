@@ -1,4 +1,5 @@
 #include "VEDAGlobal.h"
+#include "SSUtils/FileUtils.h"
 
 namespace VEDA
 {
@@ -13,6 +14,8 @@ namespace VEDA
 	const std::string ReportFileExtension("vedarpt");
 	const std::string ReportConfigurationFileExtension("vedarptconf");
 	const std::string ReportDataFileExtension("vedarptdata");
+
+	const std::string PluginPath = SSUtils::File::InitailPath() + std::string("plugins") + SSUtils::File::PathSeperator();
 
 	const std::string GithubUrl("https://github.com/fuookami/GraduationProject");
 	const std::string CodingUrl("https://coding.net/u/fuookami/p/GraduationProject/git?public=true");

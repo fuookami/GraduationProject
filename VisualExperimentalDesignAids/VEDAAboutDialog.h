@@ -23,6 +23,8 @@ namespace VEDA
 	public:
 		VEDAAboutDialog(const VEDAAboutDialog &ano) = delete;
 		VEDAAboutDialog(VEDAAboutDialog &&ano) = delete;
+		VEDAAboutDialog &operator=(const VEDAAboutDialog &ano) = delete;
+		VEDAAboutDialog &operator=(VEDAAboutDialog &&ano) = delete;
 		~VEDAAboutDialog(void) = default;
 
 	protected:
@@ -44,6 +46,8 @@ namespace VEDA
 	public:
 		VEDAAboutDialogInterface(const VEDAAboutDialogInterface &ano) = delete;
 		VEDAAboutDialogInterface(VEDAAboutDialogInterface &&ano) = delete;
+		VEDAAboutDialogInterface &operator=(const VEDAAboutDialogInterface &ano) = delete;
+		VEDAAboutDialogInterface &operator=(VEDAAboutDialogInterface &&ano) = delete;
 		~VEDAAboutDialogInterface(void) = default;
 
 	public:

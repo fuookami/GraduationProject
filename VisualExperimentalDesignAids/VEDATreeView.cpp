@@ -2,8 +2,8 @@
 
 namespace VEDA
 {
-	VEDATreeView::VEDATreeView(void)
-		: QTreeWidget(nullptr)
+	VEDATreeView::VEDATreeView(QWidget *parent)
+		: QTreeWidget(parent)
 	{
 	}
 };

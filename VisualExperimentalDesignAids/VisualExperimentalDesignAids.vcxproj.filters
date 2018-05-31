@@ -46,9 +46,6 @@
     <Filter Include="Source Files\GUI\MenuBar">
       <UniqueIdentifier>{8d22a5f0-334c-41b4-a8ac-c035cf9e034f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GUI\Views">
-      <UniqueIdentifier>{97d3a4e4-7c48-4b8b-bcc8-51f69209efcc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ProjectFile">
       <UniqueIdentifier>{64b170a2-5d66-46cd-8479-4edaf6ba2d04}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,18 @@
     </Filter>
     <Filter Include="Header Files\Controler">
       <UniqueIdentifier>{f5140b18-e8bf-4c18-81a6-3d4549d62db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\View">
+      <UniqueIdentifier>{97d3a4e4-7c48-4b8b-bcc8-51f69209efcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\View">
+      <UniqueIdentifier>{0b6845ac-24ad-4c22-87dd-37c1fa1427a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\Public">
+      <UniqueIdentifier>{4f7a646a-af09-4445-8d4a-818671d3ea4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\Public">
+      <UniqueIdentifier>{7c51498f-513e-4f25-9b5e-76d5c141994b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +132,6 @@
     <ClCompile Include="VEDAReportDataFile.cpp">
       <Filter>Source Files\ProjectFile</Filter>
     </ClCompile>
-    <ClCompile Include="VEDAGuiEntrance.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="VEDAMainWindow.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -140,6 +146,27 @@
     </ClCompile>
     <ClCompile Include="VEDAProjectHandler.cpp">
       <Filter>Source Files\Controler</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAGUIGlobal.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAHomeView.cpp">
+      <Filter>Source Files\GUI\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\IWebEngineDialogWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QLoadingWidget.cpp">
+      <Filter>Source Files\GUI\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QMessageBoxUtils.cpp">
+      <Filter>Source Files\GUI\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QLoadingDialog.cpp">
+      <Filter>Source Files\GUI\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QWebEngineWidget.cpp">
+      <Filter>Source Files\GUI\Public</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,8 +224,68 @@
     <ClInclude Include="VEDAReportDataFile.h">
       <Filter>Header Files\ProjectFile</Filter>
     </ClInclude>
-    <ClInclude Include="VEDAGUIEnterence.h">
+    <ClInclude Include="VEDAReportConfigurationView.h">
+      <Filter>Header Files\GUI\View</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDARepoertDataView.h">
+      <Filter>Header Files\GUI\View</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAPublicModelView.h">
+      <Filter>Header Files\GUI\View</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAModelView.h">
+      <Filter>Header Files\GUI\View</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDADataView.h">
+      <Filter>Header Files\GUI\View</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAAnalysisView.h">
+      <Filter>Header Files\GUI\View</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAInitProcessDialog.h">
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAInitOperationDialog.h">
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAInitPublicModelDialog.h">
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAInitModelDialog.h">
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAInitDataDialog.h">
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAInitReportDialog.h">
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAInitReportConfigurationDialog.h">
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAInitReportDataDialog.h">
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDAGUIGlobal.h">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\IWebEngineDialogWidget.h">
+      <Filter>Header Files\GUI\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QDraggableFlatteningDialog.h">
+      <Filter>Header Files\GUI\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QDraggableFlatteningWidget.h">
+      <Filter>Header Files\GUI\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QLoadingDialog.h">
+      <Filter>Header Files\GUI\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QLoadingWidget.h">
+      <Filter>Header Files\GUI\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QMessageBoxUtils.h">
+      <Filter>Header Files\GUI\Public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +309,12 @@
     </QtMoc>
     <QtMoc Include="VEDAProjectHandler.h">
       <Filter>Header Files\Controler</Filter>
+    </QtMoc>
+    <QtMoc Include="VEDAHomeView.h">
+      <Filter>Header Files\GUI\View</Filter>
+    </QtMoc>
+    <QtMoc Include="..\SSGUIUtilsSrc\SSUtils\GUI\QWebEngineWidget.h">
+      <Filter>Header Files\GUI\Public</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

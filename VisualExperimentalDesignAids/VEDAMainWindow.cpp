@@ -6,11 +6,14 @@
 #include "VEDAProjectHandler.h"
 #include "ui_VEDAMainWindow.h"
 #include "SSUtils/GUI/QLoadingWidget.h"
-#include <QtWidgets/QMessageBox>
+#include "CARSDK/ExperimentalDesignMethodModule.h"
 #include <QtWidgets/QDesktopWidget>
 
 namespace VEDA
 {
+	const int VEDAMainWindow::MinimumWidth = VEDAMainWidget::TreeViewWidth + VEDAMainWidget::Space + VEDAMainWidget::MainViewMinimumWidth + 20;
+	const int VEDAMainWindow::MinimumHeight = VEDAMainWindow::MinimumWidth * 9 / 16;
+
 	std::shared_ptr<VEDAMainWindow> VEDAMainWindow::getInstance(void)
 	{
 		static std::shared_ptr<VEDAMainWindow> instance(new VEDAMainWindow());
@@ -27,6 +30,9 @@ namespace VEDA
 
 		initLoadingWidget();
 		initConnections();
+		initOthers();
+
+		m_mainWidget->init();
 	}
 
 	void VEDAMainWindow::initLoadingWidget(void)
@@ -58,10 +64,29 @@ namespace VEDA
 		connect(m_ui->AboutBoostBtn, &QAction::triggered, MenuBar::onAboutBoostBtnClicked);
 		connect(m_ui->AboutMaterializeBtn, &QAction::triggered, MenuBar::onAboutMaterializeBtnClicked);
 		connect(m_ui->AboutBtn, &QAction::triggered, MenuBar::onAboutBtnClicked);
+
+		// Main Widget
+		connect(m_mainWidget, &VEDAMainWidget::loadingBegin, VEDAMainWindow::onLoadingBegin);
+		connect(m_mainWidget, &VEDAMainWidget::loadingEnd, VEDAMainWindow::onLoadingEnd);
+	}
+
+	void VEDAMainWindow::initOthers(void)
+	{
+		CARSDK::ExperimentalDesignMethodModule::instance(PluginPath);
 	}
 
 	void VEDAMainWindow::resizeEvent(QResizeEvent * event)
 	{
 		SSUtils::GUI::QLoadingWidget::getInstance()->resize(this->size());
+	}
+
+	void VEDAMainWindow::onLoadingBegin(void)
+	{
+		SSUtils::GUI::QLoadingWidget::getInstance()->show();
+	}
+
+	void VEDAMainWindow::onLoadingEnd(void)
+	{
+		SSUtils::GUI::QLoadingWidget::getInstance()->hide();
 	}
 };

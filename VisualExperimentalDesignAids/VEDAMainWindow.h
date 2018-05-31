@@ -17,8 +17,8 @@ namespace VEDA
 	{
 		Q_OBJECT;
 
-		static const int MinimumWidth = 992 + 1; // desktop device width > 992px
-		static const int MinimumHeight = MinimumWidth * 9 / 16;
+		static const int MinimumWidth; // desktop device width > 992px
+		static const int MinimumHeight;
 
 	public:
 		static std::shared_ptr<VEDAMainWindow> getInstance(void);
@@ -36,9 +36,14 @@ namespace VEDA
 	private:
 		void initLoadingWidget(void);
 		void initConnections(void);
+		void initOthers(void);
 
 	protected:
 		void resizeEvent(QResizeEvent *event);
+
+	private:
+		static void onLoadingBegin(void);
+		static void onLoadingEnd(void);
 
 	private:
 		std::shared_ptr<Ui::VEDAMainWindow> m_ui;

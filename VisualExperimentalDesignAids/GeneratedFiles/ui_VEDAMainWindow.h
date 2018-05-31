@@ -141,13 +141,13 @@ public:
         SaveAllBtn->setText(QApplication::translate("VEDAMainWindow", "\344\277\235\345\255\230\345\205\250\351\203\250", Q_NULLPTR));
         ExitBtn->setText(QApplication::translate("VEDAMainWindow", "\351\200\200\345\207\272", Q_NULLPTR));
         AboutBtn->setText(QApplication::translate("VEDAMainWindow", "\345\205\263\344\272\216\345\217\257\350\247\206\345\214\226\345\256\236\351\252\214\350\256\276\350\256\241\350\276\205\345\212\251\345\267\245\345\205\267", Q_NULLPTR));
-        InitProcessBtn->setText(QApplication::translate("VEDAMainWindow", "\346\226\260\345\273\272\345\256\236\351\252\214\346\211\271\346\254\241", Q_NULLPTR));
+        InitProcessBtn->setText(QApplication::translate("VEDAMainWindow", "\346\226\260\345\273\272\345\256\236\351\252\214\346\265\201\347\250\213", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        InitProcessBtn->setToolTip(QApplication::translate("VEDAMainWindow", "\346\226\260\345\273\272\345\256\236\351\252\214\346\211\271\346\254\241", Q_NULLPTR));
+        InitProcessBtn->setToolTip(QApplication::translate("VEDAMainWindow", "\346\226\260\345\273\272\345\256\236\351\252\214\346\265\201\347\250\213", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        ImportProcessBtn->setText(QApplication::translate("VEDAMainWindow", "\347\216\260\346\234\211\345\256\236\351\252\214\346\211\271\346\254\241", Q_NULLPTR));
+        ImportProcessBtn->setText(QApplication::translate("VEDAMainWindow", "\347\216\260\346\234\211\345\256\236\351\252\214\346\265\201\347\250\213", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        ImportProcessBtn->setToolTip(QApplication::translate("VEDAMainWindow", "\347\216\260\346\234\211\345\256\236\351\252\214\346\211\271\346\254\241", Q_NULLPTR));
+        ImportProcessBtn->setToolTip(QApplication::translate("VEDAMainWindow", "\347\216\260\346\234\211\345\256\236\351\252\214\346\265\201\347\250\213", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         ExportReportBtn->setText(QApplication::translate("VEDAMainWindow", "\347\224\237\346\210\220\345\256\236\351\252\214\346\212\245\345\221\212", Q_NULLPTR));
         AboutQtBtn->setText(QApplication::translate("VEDAMainWindow", "\345\205\263\344\272\216Qt", Q_NULLPTR));

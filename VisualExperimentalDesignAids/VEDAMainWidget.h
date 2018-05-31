@@ -10,6 +10,11 @@ namespace VEDA
 		Q_OBJECT;
 
 	public:
+		static const int TreeViewWidth;
+		static const int Space;
+		static const int MainViewMinimumWidth;
+
+	public:
 		explicit VEDAMainWidget(void);
 		VEDAMainWidget(const VEDAMainWidget &ano) = delete;
 		VEDAMainWidget(VEDAMainWidget &&ano) = delete;
@@ -22,8 +27,18 @@ namespace VEDA
 		inline VEDAMainView *getMainView(void) { return m_mainView; }
 		inline const VEDAMainView *getMainView(void) const { return m_mainView; }
 
-	protected:
-		void resizeEvent(QResizeEvent *e);
+		void init(void);
+
+	private:
+		void initConnections(void);
+
+	signals:
+		void loadingBegin(void);
+		void loadingEnd(void);
+
+	private:
+		void onLoadingBegin(void);
+		void onLoadingEnd(void);
 
 	private:
 		VEDATreeView *m_treeView;

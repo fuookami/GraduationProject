@@ -29,7 +29,7 @@
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;..\PublicModule;..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;..\SSUtilsGUISrc\SSUtils\GUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;..\PublicModule;..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;..\SSUtilsGUISrc\SSUtils\GUI;..\SSGUIUtilsSrc\SSUtils\GUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
       <RuntimeLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatWChar_tAsBuiltInType>
@@ -46,7 +46,7 @@
       <OutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">output</DynamicSource>
       <ExecutionDescription Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;..\PublicModule;..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;..\SSUtilsGUISrc\SSUtils\GUI;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;..\PublicModule;..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;..\SSUtilsGUISrc\SSUtils\GUI;..\SSGUIUtilsSrc\SSUtils\GUI;%(AdditionalIncludeDirectories)</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB;%(PreprocessorDefinitions)</Define>
       <QTDIR Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)</QTDIR>
     </QtMoc>
@@ -64,8 +64,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)CARSDK\;$(SolutionDir)SSUtilsSrc\;$(SolutionDir)SSXSDUtilsSrc\;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\Boost\boost\include;$(QtDir)\include;$(IncludePath)</IncludePath>
-    <ReferencePath>$(VC_ReferencesPath_x64)</ReferencePath>
+    <IncludePath>$(SolutionDir)SSGUIUtilsSrc;$(SolutionDir)CARSDK\;$(SolutionDir)SSUtilsSrc\;$(SolutionDir)SSXSDUtilsSrc\;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\Boost\boost\include;$(QtDir)\include;$(IncludePath)</IncludePath>
+    <ReferencePath>$(SolutionDir)SSGUIUtilsSrc;$(VC_ReferencesPath_x64)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -91,7 +91,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;..\PublicModule;..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;..\SSUtilsGUISrc\SSUtils\GUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;..\PublicModule;..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;..\SSUtilsGUISrc\SSUtils\GUI;..\SSGUIUtilsSrc\SSUtils\GUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -107,7 +107,7 @@
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;..\PublicModule;..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;..\SSUtilsGUISrc\SSUtils\GUI;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;..\PublicModule;..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;..\SSUtilsGUISrc\SSUtils\GUI;..\SSGUIUtilsSrc\SSUtils\GUI;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -120,11 +120,17 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\IWebEngineDialogWidget.cpp" />
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QLoadingDialog.cpp" />
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QLoadingWidget.cpp" />
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QMessageBoxUtils.cpp" />
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QWebEngineWidget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="VEDADataFile.cpp" />
     <ClCompile Include="VEDADataFileBase.cpp" />
     <ClCompile Include="VEDAFile.cpp" />
-    <ClCompile Include="VEDAGuiEntrance.cpp" />
+    <ClCompile Include="VEDAGUIGlobal.cpp" />
+    <ClCompile Include="VEDAHomeView.cpp" />
     <ClCompile Include="VEDAInitProjectDialog.cpp" />
     <ClCompile Include="VEDAMainView.cpp" />
     <ClCompile Include="VEDAMainWidget.cpp" />
@@ -148,10 +154,42 @@
     <ClCompile Include="VEDAVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\IWebEngineDialogWidget.h" />
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QDraggableFlatteningDialog.h" />
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QDraggableFlatteningWidget.h" />
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QLoadingDialog.h" />
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QLoadingWidget.h" />
+    <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QMessageBoxUtils.h" />
+    <QtMoc Include="..\SSGUIUtilsSrc\SSUtils\GUI\QWebEngineWidget.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI;.\..\SSGUIUtilsSrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI;.\..\SSGUIUtilsSrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+    </QtMoc>
+    <ClInclude Include="VEDAAnalysisView.h" />
+    <ClInclude Include="VEDADataView.h" />
+    <QtMoc Include="VEDAHomeView.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+    </QtMoc>
+    <ClInclude Include="VEDAInitDataDialog.h" />
+    <ClInclude Include="VEDAInitModelDialog.h" />
+    <ClInclude Include="VEDAInitOperationDialog.h" />
+    <ClInclude Include="VEDAInitProcessDialog.h" />
+    <ClInclude Include="VEDAInitPublicModelDialog.h" />
+    <ClInclude Include="VEDAInitReportConfigurationDialog.h" />
+    <ClInclude Include="VEDAInitReportDataDialog.h" />
+    <ClInclude Include="VEDAInitReportDialog.h" />
+    <ClInclude Include="VEDAModelView.h" />
+    <ClInclude Include="VEDAPublicModelView.h" />
+    <ClInclude Include="VEDARepoertDataView.h" />
+    <ClInclude Include="VEDAReportConfigurationView.h" />
     <ClInclude Include="VEDADataFile.h" />
     <ClInclude Include="VEDADataFileBase.h" />
     <ClInclude Include="VEDAFile.h" />
-    <ClInclude Include="VEDAGUIEnterence.h" />
+    <ClInclude Include="VEDAGUIGlobal.h" />
     <QtMoc Include="VEDAInitProjectDialog.h" />
     <QtMoc Include="VEDAMainView.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI</IncludePath>
