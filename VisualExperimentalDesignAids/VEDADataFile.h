@@ -1,7 +1,6 @@
 #pragma once
 
 #include "VEDADataFileBase.h"
-#include "SSUtils/XSD/XSDModel.h"
 
 namespace VEDA
 {
