@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "SSUtils/GUI/QWebEngineWidget.h"
 #include <memory>
 
 namespace Ui
@@ -12,6 +11,7 @@ namespace Ui
 namespace VEDA
 {
 	class VEDAProjectHandler;
+	class VEDAMainWidget;
 
 	class VEDAMainWindow : public QMainWindow
 	{
@@ -29,21 +29,16 @@ namespace VEDA
 	public:
 		VEDAMainWindow(const VEDAMainWindow &ano) = delete;
 		VEDAMainWindow(VEDAMainWindow &&ano) = delete;
+		VEDAMainWindow &operator=(const VEDAMainWindow &rhs) = delete;
+		VEDAMainWindow &operator=(VEDAMainWindow &&rhs) = delete;
 		~VEDAMainWindow(void) = default;
 
-	public:
-		inline QWebEngineView *web(void) { return m_web->view(); }
-
 	private:
-		void onLoadFinished(bool);
-
-	private:
-		void registerContents(void);
 		void initConnections(void);
 
 	private:
-		SSUtils::GUI::QWebEngineWidget * m_web;
 		std::shared_ptr<Ui::VEDAMainWindow> m_ui;
 		std::shared_ptr<VEDAProjectHandler> m_projectHandler;
+		VEDAMainWidget *m_mainWidget;
 	};
 };

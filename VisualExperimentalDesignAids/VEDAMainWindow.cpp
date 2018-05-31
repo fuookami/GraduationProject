@@ -2,6 +2,7 @@
 #include "VEDAGlobal.h"
 #include "VEDAGUIEnterence.h"
 #include "VEDAMenuBar.h"
+#include "VEDAMainWidget.h"
 #include "VEDAProjectHandler.h"
 #include "ui_VEDAMainWindow.h"
 #include <QtWidgets/QMessageBox>
@@ -16,35 +17,14 @@ namespace VEDA
 	}
 
 	VEDAMainWindow::VEDAMainWindow(void)
-		: QMainWindow(nullptr), m_ui(new Ui::VEDAMainWindow), m_web(new SSUtils::GUI::QWebEngineWidget(nullptr))
+		: QMainWindow(nullptr), m_ui(new Ui::VEDAMainWindow()), m_projectHandler(VEDAProjectHandler::getInstance()), m_mainWidget(new VEDAMainWidget())
 	{
 		m_ui->setupUi(this);
-		this->setCentralWidget(m_web);
+		this->setCentralWidget(m_mainWidget);
 
 		setMinimumSize(QSize(MinimumWidth, MinimumHeight));
 
-		registerContents();
-		m_web->load(QString::fromLocal8Bit(GUIEntrance::MainViewUrl.c_str()));
-
-		connect(m_web->view(), &QWebEngineView::loadFinished, this, &VEDAMainWindow::onLoadFinished);
-	}
-
-	void VEDAMainWindow::onLoadFinished(bool ok)
-	{
-		if (!ok)
-		{
-			QMessageBox::information(this, QString::fromLocal8Bit("错误"),
-				QString::fromLocal8Bit("无法打开GUI入口：%1，请确认是否错误。").arg(QString::fromLocal8Bit(GUIEntrance::MainViewUrl.c_str())));
-			this->close();
-		}
-		else
-		{
-			initConnections();
-		}
-	}
-
-	void VEDAMainWindow::registerContents(void)
-	{
+		initConnections();
 	}
 
 	void VEDAMainWindow::initConnections(void)
