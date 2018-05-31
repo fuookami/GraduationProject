@@ -1,10 +1,11 @@
 #include "VEDAMainWindow.h"
 #include "VEDAGlobal.h"
-#include "VEDAGUIEnterence.h"
+#include "VEDAGUIGlobal.h"
 #include "VEDAMenuBar.h"
 #include "VEDAMainWidget.h"
 #include "VEDAProjectHandler.h"
 #include "ui_VEDAMainWindow.h"
+#include "SSUtils/GUI/QLoadingWidget.h"
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QDesktopWidget>
 
@@ -24,7 +25,16 @@ namespace VEDA
 
 		setMinimumSize(QSize(MinimumWidth, MinimumHeight));
 
+		initLoadingWidget();
 		initConnections();
+	}
+
+	void VEDAMainWindow::initLoadingWidget(void)
+	{
+		auto loadingWidget = SSUtils::GUI::QLoadingWidget::getInstance();
+		loadingWidget->setParent(this);
+		loadingWidget->setUrl(QString::fromLocal8Bit(GUIResource::LoadingUrl.c_str()));
+		loadingWidget->show();
 	}
 
 	void VEDAMainWindow::initConnections(void)
@@ -48,5 +58,10 @@ namespace VEDA
 		connect(m_ui->AboutBoostBtn, &QAction::triggered, MenuBar::onAboutBoostBtnClicked);
 		connect(m_ui->AboutMaterializeBtn, &QAction::triggered, MenuBar::onAboutMaterializeBtnClicked);
 		connect(m_ui->AboutBtn, &QAction::triggered, MenuBar::onAboutBtnClicked);
+	}
+
+	void VEDAMainWindow::resizeEvent(QResizeEvent * event)
+	{
+		SSUtils::GUI::QLoadingWidget::getInstance()->resize(this->size());
 	}
 };

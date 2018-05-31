@@ -34,7 +34,11 @@ namespace VEDA
 		~VEDAMainWindow(void) = default;
 
 	private:
+		void initLoadingWidget(void);
 		void initConnections(void);
+
+	protected:
+		void resizeEvent(QResizeEvent *event);
 
 	private:
 		std::shared_ptr<Ui::VEDAMainWindow> m_ui;

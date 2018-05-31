@@ -24,7 +24,7 @@ namespace SSUtils
 		}
 		const std::string &InitailPath(void)
 		{
-			static const std::string ret = boost::filesystem::initial_path().string();
+			static const std::string ret = boost::filesystem::initial_path().string() + PathSeperator();
 			return ret;
 		}
 

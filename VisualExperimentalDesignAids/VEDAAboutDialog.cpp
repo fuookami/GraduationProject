@@ -1,7 +1,7 @@
 #include "VEDAAboutDialog.h"
 #include "VEDAVersion.h"
 #include "VEDAGlobal.h"
-#include "VEDAGUIEnterence.h"
+#include "VEDAGUIGlobal.h"
 #include <QtGui/QDesktopServices>
 
 namespace VEDA

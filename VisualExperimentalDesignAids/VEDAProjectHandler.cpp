@@ -2,6 +2,7 @@
 #include "VEDAGlobal.h"
 #include "SSUtils\FileUtils.h"
 #include "SSUtils\XMLUtils.h"
+#include "SSUtils\ThreadUtils.h"
 
 namespace VEDA
 {
@@ -28,6 +29,7 @@ namespace VEDA
 
 	const std::pair<bool, std::string> VEDAProjectHandler::initProject(const std::string & name, const std::string & path, const bool newDir)
 	{
+		SSUtils::Thread::sleep(4000);
 		return std::make_pair(false, std::string());
 	}
 
