@@ -10,7 +10,7 @@ namespace VEDA
 		static const std::string Tag;
 
 	public:
-		static std::shared_ptr<VEDAModelFile> generate(const std::string &url, const VEDAFile &parentFile, const std::shared_ptr<XSDFrontend::XSDModel> model);
+		static std::shared_ptr<VEDAModelFile> generate(const std::string &url, const VEDAFile &parentFile, const std::shared_ptr<XSDFrontend::XSDModel> model = nullptr);
 		static std::shared_ptr<VEDAModelFile> generate(const std::string &url, const std::shared_ptr<SSUtils::XML::Node> node);
 
 	private:
