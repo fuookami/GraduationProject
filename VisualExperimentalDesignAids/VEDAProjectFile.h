@@ -3,6 +3,7 @@
 #include "VEDAFile.h"
 #include "VEDAPublicModelFile.h"
 #include "VEDAProcessFile.h"
+#include "VEDAReportFile.h"
 
 namespace VEDA
 {
@@ -29,7 +30,14 @@ namespace VEDA
 		inline void setPublicModelFileUrl(std::string &&url) { m_publicModelFileUrl.assign(std::move(url)); }
 
 		inline const std::shared_ptr<VEDAPublicModelFile> getPublicModelFile(void) const { return m_publicModelFile; }
-		inline void setPublicModelFile(const std::shared_ptr<VEDAPublicModelFile> &file) { m_publicModelFile = file; }
+		inline void setPublicModelFile(const std::shared_ptr<VEDAPublicModelFile> file) { m_publicModelFile = file; }
+
+		inline const std::string &getReportFileUrl(void) const { return m_reportFileUrl; }
+		inline void setReportFileUrl(const std::string &url) { m_reportFileUrl.assign(url); }
+		inline void setReportFileUrl(std::string &&url) { m_reportFileUrl.assign(std::move(url)); }
+
+		inline const std::shared_ptr<VEDAReportFile> getReportFile(void) const { return m_reportFile; }
+		inline void setReportFile(const std::shared_ptr<VEDAReportFile> file) { m_reportFile = file; }
 
 		SSUtils::XML::Document toXML(void) const override;
 
@@ -39,5 +47,8 @@ namespace VEDA
 	private:
 		std::string m_publicModelFileUrl;
 		std::shared_ptr<VEDAPublicModelFile> m_publicModelFile;
+
+		std::string m_reportFileUrl;
+		std::shared_ptr<VEDAReportFile> m_reportFile;
 	};
 };

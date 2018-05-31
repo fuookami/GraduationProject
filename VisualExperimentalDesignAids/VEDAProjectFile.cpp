@@ -16,7 +16,8 @@ namespace VEDA
 	{
 		if (node->getTag() != Tag
 			|| node->countChild(IndexTag) != 1
-			|| node->countChild(VEDAPublicModelFile::Tag) > 1)
+			|| node->countChild(VEDAPublicModelFile::Tag) > 1
+			|| node->countChild(VEDAReportFile::Tag) > 1)
 		{
 			return false;
 		}
@@ -33,6 +34,13 @@ namespace VEDA
 		{
 			auto publicModelFileNode(node->getChildren()[publicModelFileIndex]);
 			ret->m_publicModelFileUrl.assign(publicModelFileNode->getContent());
+		}
+
+		int reportFileIndex(node->findChild(VEDAReportFile::Tag));
+		if (reportFileIndex != SSUtils::XML::Node::npos)
+		{
+			auto reportFileNode(node->getChildren()[reportFileIndex]);
+			ret->m_reportFileUrl.assign(reportFileNode->getContent());
 		}
 
 		if (!ret->initIndex(node->getChildren()))
@@ -58,6 +66,13 @@ namespace VEDA
 			auto publicModelFileNode(SSUtils::XML::Node::generate(VEDAModelFile::Tag));
 			publicModelFileNode->setContent(m_publicModelFileUrl);
 			node->addChild(publicModelFileNode);
+		}
+
+		if (!m_reportFileUrl.empty())
+		{
+			auto reportFileNode(SSUtils::XML::Node::generate(VEDAReportFile::Tag));
+			reportFileNode->setContent(m_reportFileUrl);
+			node->addChild(reportFileNode);
 		}
 
 		auto indexFileNodes(normalizeIndexFiles());

@@ -1,37 +1,38 @@
-#include "VEDAReportDataFile.h"
+#include "VEDAReportFile.h"
 #include "SSUtils/FileUtils.h"
-#include "SSUtils/XSD/XSDAnalyzer.h"
-#include "SSUtils/XSD/XSDNormalizer.h"
-#include "CARSDK/ExperimentalDesignTable.h"
+#include <algorithm>
 
 namespace VEDA
 {
-	const std::string VEDAReportDataFile::Tag("veda_report_data");
+	const std::string VEDAReportFile::Tag("veda_report");
 
-	std::shared_ptr<VEDAReportDataFile> VEDAReportDataFile::generate(const std::string & url, const VEDAFile &parentFile, const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data)
+	std::shared_ptr<VEDAReportFile> VEDAReportFile::generate(const std::string & url, const VEDAFile & parentFile)
 	{
-		std::shared_ptr<VEDAReportDataFile> ret(new VEDAReportDataFile(url));
-		if (!ret->init(parentFile, SSUtils::File::getFileMainNameOfUrl(url)))
+		std::shared_ptr<VEDAReportFile> ret(new VEDAReportFile(url));
+		if (!ret->init(parentFile, SSUtils::File::getFileNameOfUrl(url)))
 		{
 			return nullptr;
 		}
-		ret->m_model = model;
-		ret->m_data = data;
+
 		return ret;
 	}
 
-	std::shared_ptr<VEDAReportDataFile> VEDAReportDataFile::generate(const std::string & url, const std::shared_ptr<SSUtils::XML::Node> node)
+	std::shared_ptr<VEDAReportFile> VEDAReportFile::generate(const std::string & url, const std::shared_ptr<SSUtils::XML::Node> node)
 	{
 		if (node->getTag() != Tag
-			|| node->countChild(IndexTag) != 1
-			|| node->countChild(XSDFrontend::Token::SchemaTag()) != 1
-			|| node->countChild(CARSDK::ExperimentalDesignTable::Tag) != 1)
+			|| node->countChild(IndexTag) != 1)
+		{
+			return false;
+		}
+
+		std::shared_ptr<VEDAReportFile> ret(new VEDAReportFile(url));
+		auto indexNode(node->getChildren()[node->findChild(IndexTag)]);
+		if (!ret->init(indexNode))
 		{
 			return nullptr;
 		}
 
-		std::shared_ptr<VEDAReportDataFile> ret(new VEDAReportDataFile(url));
-		if (!ret->init(node->getChildren()[node->findChild(IndexTag)], node->getChildren()[node->findChild(XSDFrontend::Token::SchemaTag())], node->getChildren()[node->findChild(CARSDK::ExperimentalDesignTable::Tag)]))
+		if (!ret->initIndex(node->getChildren()))
 		{
 			return nullptr;
 		}
@@ -39,32 +40,26 @@ namespace VEDA
 		return ret;
 	}
 
-	VEDAReportDataFile::VEDAReportDataFile(const std::string & url)
-		: VEDADataFileBase(url, Type::Data)
+	VEDAReportFile::VEDAReportFile(const std::string & url)
+		: VEDAFile(url, Type::Report)
 	{
 	}
-
-	SSUtils::XML::Document VEDAReportDataFile::toXML(void) const
+	
+	SSUtils::XML::Document VEDAReportFile::toXML(void) const
 	{
 		auto node(SSUtils::XML::Node::generate(Tag));
 		node->addChild(normalizeIndexParameter());
 
-		XSDNormalizer::XSDNormalizer normalizer(m_model);
-		if (!normalizer.normalize())
-		{
-			return SSUtils::XML::Document();
-		}
-		node->addChild(normalizer.getRoot());
-
-		node->addChild(m_data);
+		auto indexFileNodes(normalizeIndexFiles());
+		std::move(indexFileNodes.begin(), indexFileNodes.end(), std::back_inserter(node->getChildren()));
 
 		SSUtils::XML::Document doc;
 		doc.push_back(node);
 		return doc;
 	}
 
-	const std::string & VEDAReportDataFile::DataNodeTag(void) const
+	const std::string & VEDAReportFile::IndexFileTag(void) const
 	{
-		return Tag;
+		return VEDAReportConfigurationFile::Tag;
 	}
 };
