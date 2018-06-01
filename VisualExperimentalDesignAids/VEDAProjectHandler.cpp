@@ -117,23 +117,58 @@ namespace VEDA
 	void VEDAProjectHandler::openProject(const std::string & projectFileUrl, const bool save)
 	{
 		closeCurrProject(save);
-		SSUtils::XML::Document doc(SSUtils::XML::Document::fromFile(projectFileUrl, SSUtils::CharType::UTF8));
+		SSUtils::XML::Document projectDoc(SSUtils::XML::Document::fromFile(projectFileUrl, SSUtils::CharType::UTF8));
 		
 		QString fileName(QString::fromLocal8Bit(SSUtils::File::getFileNameOfUrl(projectFileUrl).c_str()));
-		if (doc.getRoots().size() != 1)
+		if (projectDoc.getRoots().size() != 1)
 		{
 			emitOpenProjectFinished(false, QString::fromLocal8Bit("%1 不是一个有效的实验项目文件").arg(fileName));
 			return;
 		}
 		
-		m_currProject = VEDAProjectFile::generate(projectFileUrl, doc.getRoots().front());
+		m_currProject = VEDAProjectFile::generate(projectFileUrl, projectDoc.getRoots().front());
 		if (m_currProject == nullptr)
 		{
 			emitOpenProjectFinished(false, QString::fromLocal8Bit("%1 不是一个有效的实验项目文件").arg(fileName));
 			return;
 		}
 
+		std::vector<std::string> invalidProcessUrl;
+		for (const auto &url : m_currProject->getDataFileUrls())
+		{
+			std::string processFileUrl(SSUtils::File::getSystemNativePath(m_currProject->getPath() + url));
+			auto process(openProcess(m_currProject, processFileUrl));
+			if (process == nullptr)
+			{
+				invalidProcessUrl.push_back(url);
+				continue;
+			}
+
+			m_currProject->addDataFile(processFileUrl, process);
+		}
+		for (const auto &url : invalidProcessUrl)
+		{
+			m_currProject->getDataFileUrls().erase(url);
+		}
+		m_currProject->save();
+
 		emitOpenProjectFinished(true, QString::fromLocal8Bit(projectFileUrl.c_str()));
+	}
+
+	std::shared_ptr<VEDAProcessFile> VEDAProjectHandler::openProcess(const std::shared_ptr<VEDAProjectFile> projectFile, const std::string & processFileUrl, const bool ignoreIsChild)
+	{
+		SSUtils::XML::Document processDoc(SSUtils::XML::Document::fromFile(processFileUrl, SSUtils::CharType::UTF8));
+		if (processDoc.getRoots().size() != 1)
+		{
+			return nullptr;
+		}
+
+		auto process = VEDAProcessFile::generate(processFileUrl, processDoc.getRoots().front());
+		if (!ignoreIsChild && projectFile->isChildFile(*process))
+		{
+			return nullptr;
+		}
+		return process;
 	}
 
 	void VEDAProjectHandler::closeCurrProject(const bool save)

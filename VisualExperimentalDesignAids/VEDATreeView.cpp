@@ -19,11 +19,15 @@ namespace VEDA
 	void VEDATreeView::onOpenProjectFinished(bool ok, QString url)
 	{
 		auto currProject(m_projectHandler->currProject());
-		auto projectItem(new VEDATreeViewItem(currProject->getUrl(), currProject->getType(), currProject.get()));
-
+		auto projectItem(VEDATreeViewItem::generateProjectItem(currProject));
 		this->addTopLevelItem(projectItem);
 
-		// to do
+		for (const auto &pair : currProject->getLoadedDataFiles())
+		{
+			auto currProcess(pair.second);
+			auto processItem(VEDATreeViewItem::generateProcessItem(projectItem, currProcess));
+			projectItem->addChild(processItem);
+		}
 	}
 
 	void VEDATreeView::onCloseProjectFinished(bool ok, QString url)
@@ -264,6 +268,13 @@ namespace VEDA
 		return ret;
 	}
 
+	void VEDATreeViewItemHandler::onInitProcessSucceeded(std::shared_ptr<VEDAProcessFile> processFile)
+	{
+		auto processItem(VEDATreeViewItem::generateProcessItem(m_currRightClickItem, processFile));
+		m_currRightClickItem->addChild(processItem);
+		m_currRightClickItem->setExpanded(true);
+	}
+
 	void VEDATreeViewItemHandler::onOpenTriggered(void)
 	{
 		// to do
@@ -272,6 +283,7 @@ namespace VEDA
 	void VEDATreeViewItemHandler::onInitProcessTriggered(void)
 	{
 		auto dialog(VEDAInitProcessDialog::getInstance(dynamic_cast<VEDAProjectFile *>(m_currRightClickItem->file())));
+		connect(dialog->interface().get(), &VEDAInitProcessDialogInterface::initProcessSucceeded, this, &VEDATreeViewItemHandler::onInitProcessSucceeded);
 		dialog->show();
 	}
 

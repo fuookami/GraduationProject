@@ -24,7 +24,7 @@ namespace VEDA
 	protected:
 		const bool init(const std::shared_ptr<SSUtils::XML::Node> indexNode, const std::shared_ptr<SSUtils::XML::Node> modelNode);
 		const bool init(const VEDAFile &parentFile, const std::string & name);
-		std::shared_ptr<SSUtils::XML::Node> normalizeModelParameter(void) const;
+		std::shared_ptr<SSUtils::XML::Node> normalizeModelParameter(std::shared_ptr<XSDFrontend::XSDModel> model = nullptr) const;
 
 	protected:
 		std::shared_ptr<XSDFrontend::XSDModel> m_model;

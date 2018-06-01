@@ -53,6 +53,8 @@ namespace VEDA
 		static const std::tuple<bool, std::string, std::shared_ptr<VEDAModelFile>> initModel(VEDAProcessFile *processFile, const std::string &name, const std::string &path);
 
 		void openProject(const std::string &projectFileUrl, const bool save = true);
+		static std::shared_ptr<VEDAProcessFile> openProcess(const std::shared_ptr<VEDAProjectFile> projectFile, const std::string &processFileUrl, const bool ignoreIsChild = false);
+
 		void closeCurrProject(const bool save = true);
 		void saveCurrProject(void);
 

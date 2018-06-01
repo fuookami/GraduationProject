@@ -8,6 +8,10 @@ namespace VEDA
 	class VEDATreeViewItem : public QTreeWidgetItem
 	{
 	public:
+		static VEDATreeViewItem *generateProjectItem(std::shared_ptr<VEDAProjectFile> projectFile);
+		static VEDATreeViewItem *generateProcessItem(VEDATreeViewItem *projectItem, std::shared_ptr<VEDAProcessFile> processFile);
+
+	public:
 		explicit VEDATreeViewItem(const std::string &url, const VEDAFile::Type type, VEDAFile *file = nullptr);
 		explicit VEDATreeViewItem(QTreeWidgetItem *parent, const std::string &url, const VEDAFile::Type type, VEDAFile *file = nullptr);
 		VEDATreeViewItem(const VEDATreeViewItem &ano) = delete;

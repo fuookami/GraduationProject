@@ -67,6 +67,9 @@ namespace VEDA
 		static std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>> initActionMap(void);
 
 	private:
+		void onInitProcessSucceeded(std::shared_ptr<VEDAProcessFile>);
+
+	private:
 		void onOpenTriggered(void);
 
 		void onInitProcessTriggered(void);

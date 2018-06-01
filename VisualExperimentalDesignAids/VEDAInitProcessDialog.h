@@ -29,6 +29,8 @@ namespace VEDA
 		VEDAInitProcessDialog &operator=(VEDAInitProcessDialog &&rhs) = delete;
 		~VEDAInitProcessDialog(void) = default;
 
+		inline const std::shared_ptr<VEDAInitProcessDialogInterface> interface(void) const { return m_interface; }
+
 	protected:
 		void registerContents(void) override;
 		void initGUI(void) override;

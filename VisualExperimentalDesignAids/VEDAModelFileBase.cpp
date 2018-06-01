@@ -31,14 +31,21 @@ namespace VEDA
 		return VEDAFile::init(parentFile, name);
 	}
 
-	std::shared_ptr<SSUtils::XML::Node> VEDAModelFileBase::normalizeModelParameter(void) const
+	std::shared_ptr<SSUtils::XML::Node> VEDAModelFileBase::normalizeModelParameter(std::shared_ptr<XSDFrontend::XSDModel> model) const
 	{
-		XSDNormalizer::XSDNormalizer normalizer(m_model);
-		if (!normalizer.normalize())
+		if (model == nullptr && m_model == nullptr)
 		{
-			return nullptr;
+			return XSDFrontend::XSDModel::generateNewXSDModel()->generateXSDRoot();
 		}
+		else
+		{
+			XSDNormalizer::XSDNormalizer normalizer(model != nullptr ? model : m_model);
+			if (!normalizer.normalize())
+			{
+				return nullptr;
+			}
 
-		return normalizer.getRoot();
+			return normalizer.getRoot();
+		}
 	}
 };

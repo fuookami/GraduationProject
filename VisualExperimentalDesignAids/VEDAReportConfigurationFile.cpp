@@ -1,5 +1,6 @@
 #include "VEDAReportConfigurationFile.h"
 #include "SSUtils/FileUtils.h"
+#include "SSUtils/XSD/XSDAnalyzer.h"
 
 namespace VEDA
 {
@@ -49,7 +50,20 @@ namespace VEDA
 	{
 		auto node(SSUtils::XML::Node::generate(Tag));
 		node->addChild(normalizeIndexParameter());
-		node->addChild(normalizeModelParameter());
+		if (m_model == nullptr)
+		{
+			SSUtils::XML::Document doc(SSUtils::XML::Document::fromFile(getUrl(), SSUtils::CharType::UTF8));
+			if (doc.getRoots().size() == 1 && doc.getRoots().front()->countChild(XSDFrontend::Token::SchemaTag()) == 1)
+			{
+				XSDAnalyzer::XSDAnalyzer analyzer;
+				analyzer.scan(doc.getRoots().front()->getChildren()[doc.getRoots().front()->findChild(XSDFrontend::Token::SchemaTag())]);
+				node->addChild(normalizeModelParameter(analyzer.getModel()));
+			}
+		}
+		else
+		{
+			node->addChild(normalizeModelParameter());
+		}
 
 		auto indexFileNodes(normalizeIndexFiles());
 		std::move(indexFileNodes.begin(), indexFileNodes.end(), std::back_inserter(node->getChildren()));
