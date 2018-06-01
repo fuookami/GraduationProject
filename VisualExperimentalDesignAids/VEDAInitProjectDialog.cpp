@@ -50,15 +50,19 @@ namespace VEDA
 		std::string url(newProjectUrl.toLocal8Bit());
 
 		auto projectHandler(VEDAProjectHandler::getInstance());
-		if (projectHandler->isProjectOpen())
+		if (!projectHandler->isProjectOpen())
 		{
 			static const QString Title(QString::fromLocal8Bit("打开新建实验项目"));
 			static const QString Information(QString::fromLocal8Bit("是否要打开新建的实验项目？"));
 			if (SSUtils::GUI::QMessageBoxUtils::yesOrNot(Title, Information))
 			{
-				projectHandler->openProject(url);
+				std::thread([projectHandler, url]()
+				{
+					projectHandler->emitLoadingBegin();
+					projectHandler->openProject(url);
+					projectHandler->emitLoadingEnd();
+				}).detach();
 			}
-
 		}
 		else
 		{
@@ -69,11 +73,21 @@ namespace VEDA
 			int selected(SSUtils::GUI::QMessageBoxUtils::tricomfirm(Title, Information, Button1Text, Button2Text));
 			if (selected == 1)
 			{
-				projectHandler->openProject(url);
+				std::thread([projectHandler, url]()
+				{
+					projectHandler->emitLoadingBegin();
+					projectHandler->openProject(url);
+					projectHandler->emitLoadingEnd();
+				}).detach();
 			}
 			else if (selected == 2)
 			{
-				projectHandler->openProject(url, false);
+				std::thread([projectHandler, url]()
+				{
+					projectHandler->emitLoadingBegin();
+					projectHandler->openProject(url, false);
+					projectHandler->emitLoadingEnd();
+				}).detach();
 			}
 		}
 	}

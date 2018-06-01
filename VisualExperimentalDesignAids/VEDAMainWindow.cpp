@@ -65,6 +65,10 @@ namespace VEDA
 		connect(m_ui->AboutMaterializeBtn, &QAction::triggered, MenuBar::onAboutMaterializeBtnClicked);
 		connect(m_ui->AboutBtn, &QAction::triggered, MenuBar::onAboutBtnClicked);
 
+		// Project Handler:
+		connect(m_projectHandler.get(), &VEDAProjectHandler::loadingBegin, VEDAMainWindow::onLoadingBegin);
+		connect(m_projectHandler.get(), &VEDAProjectHandler::loadingEnd, VEDAMainWindow::onLoadingEnd);
+
 		// Main Widget
 		connect(m_mainWidget, &VEDAMainWidget::loadingBegin, VEDAMainWindow::onLoadingBegin);
 		connect(m_mainWidget, &VEDAMainWidget::loadingEnd, VEDAMainWindow::onLoadingEnd);

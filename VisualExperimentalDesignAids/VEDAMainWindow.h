@@ -41,7 +41,7 @@ namespace VEDA
 	protected:
 		void resizeEvent(QResizeEvent *event);
 
-	private:
+	public:
 		static void onLoadingBegin(void);
 		static void onLoadingEnd(void);
 

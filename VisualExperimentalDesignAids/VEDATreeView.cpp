@@ -5,6 +5,7 @@ namespace VEDA
 	VEDATreeView::VEDATreeView(QWidget *parent)
 		: QTreeWidget(parent), m_itemHandler(VEDATreeViewItemHandler::getInstance())
 	{
+		this->setHeaderHidden(true);
 	}
 
 	const std::map<VEDAFile::Type, std::vector<std::shared_ptr<QAction>>>& VEDATreeViewItemHandler::Type2Action(void)

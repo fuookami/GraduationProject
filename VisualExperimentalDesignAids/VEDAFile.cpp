@@ -114,7 +114,7 @@ namespace VEDA
 		auto verificationTokenNode(SSUtils::XML::Node::generate(VerificationTokenTag));
 
 		publicKeyNode->setContent(SSUtils::String::base64Encode(m_verifier.publicKey));
-		privateKeyNode->setContent(SSUtils::String::base64Decode(m_signer.privateKey));
+		privateKeyNode->setContent(SSUtils::String::base64Encode(m_signer.privateKey));
 		signationTokenNode->setContent(SSUtils::Data::toBase64String(m_signationToken));
 		signationTokenNode->setAttr(OriginNameAttr, m_originName);
 		verificationTokenNode->setContent(SSUtils::Data::toBase64String(m_verificationToken));
