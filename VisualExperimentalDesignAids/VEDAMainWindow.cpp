@@ -6,6 +6,7 @@
 #include "VEDAProjectHandler.h"
 #include "ui_VEDAMainWindow.h"
 #include "SSUtils/GUI/QLoadingWidget.h"
+#include "SSUtils/GUI/QMessageBoxUtils.h"
 #include "CARSDK/ExperimentalDesignMethodModule.h"
 #include <QtWidgets/QDesktopWidget>
 
@@ -68,6 +69,7 @@ namespace VEDA
 		// Project Handler:
 		connect(m_projectHandler.get(), &VEDAProjectHandler::loadingBegin, VEDAMainWindow::onLoadingBegin);
 		connect(m_projectHandler.get(), &VEDAProjectHandler::loadingEnd, VEDAMainWindow::onLoadingEnd);
+		connect(m_projectHandler.get(), &VEDAProjectHandler::openProjectFinished, VEDAMainWindow::onOpenProjectFinished);
 
 		// Main Widget
 		connect(m_mainWidget, &VEDAMainWidget::loadingBegin, VEDAMainWindow::onLoadingBegin);
@@ -92,5 +94,13 @@ namespace VEDA
 	void VEDAMainWindow::onLoadingEnd(void)
 	{
 		SSUtils::GUI::QLoadingWidget::getInstance()->hide();
+	}
+
+	void VEDAMainWindow::onOpenProjectFinished(bool ok, QString info)
+	{
+		if (!ok)
+		{
+			SSUtils::GUI::QMessageBoxUtils::information(QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("打开实验项目失败：%1").arg(info));
+		}
 	}
 };

@@ -3,9 +3,23 @@
 namespace VEDA
 {
 	VEDATreeView::VEDATreeView(QWidget *parent)
-		: QTreeWidget(parent), m_itemHandler(VEDATreeViewItemHandler::getInstance())
+		: QTreeWidget(parent), m_projectHandler(VEDAProjectHandler::getInstance()), m_itemHandler(VEDATreeViewItemHandler::getInstance())
 	{
 		this->setHeaderHidden(true);
+
+		connect(m_projectHandler.get(), &VEDAProjectHandler::openProjectFinished, this, &VEDATreeView::onOpenProjectFinished);
+		connect(m_projectHandler.get(), &VEDAProjectHandler::closeProjectFinished, this, &VEDATreeView::onCloseProjectFinished);
+	}
+
+	void VEDATreeView::onOpenProjectFinished(bool ok, QString url)
+	{
+		// to do
+	}
+
+	void VEDATreeView::onCloseProjectFinished(bool ok, QString url)
+	{
+		this->clear();
+		m_itemHandler->setCurrentItem(nullptr);
 	}
 
 	const std::map<VEDAFile::Type, std::vector<std::shared_ptr<QAction>>>& VEDATreeViewItemHandler::Type2Action(void)
@@ -30,9 +44,12 @@ namespace VEDA
 	{
 		m_currItem = currItem;
 		
-		QString typeDisplay(QString::fromLocal8Bit(VEDAFile::Type2Display.left.find(m_currItem->type())->second.c_str()));
-		m_remove->setText(QString::fromLocal8Bit("п╤ть%1").arg(typeDisplay));
-		m_delete->setText(QString::fromLocal8Bit("и╬ЁЩ%1").arg(typeDisplay));
+		if (m_currItem != nullptr)
+		{
+			QString typeDisplay(QString::fromLocal8Bit(VEDAFile::Type2Display.left.find(m_currItem->type())->second.c_str()));
+			m_remove->setText(QString::fromLocal8Bit("п╤ть%1").arg(typeDisplay));
+			m_delete->setText(QString::fromLocal8Bit("и╬ЁЩ%1").arg(typeDisplay));
+		}
 	}
 
 	std::shared_ptr<QMenu> VEDATreeViewItemHandler::getCurrentItemRightClickMenu(VEDATreeViewItem * currItem)

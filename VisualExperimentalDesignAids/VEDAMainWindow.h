@@ -44,6 +44,7 @@ namespace VEDA
 	public:
 		static void onLoadingBegin(void);
 		static void onLoadingEnd(void);
+		static void onOpenProjectFinished(bool, QString);
 
 	private:
 		std::shared_ptr<Ui::VEDAMainWindow> m_ui;

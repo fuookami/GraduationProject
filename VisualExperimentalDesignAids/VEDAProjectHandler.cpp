@@ -84,8 +84,7 @@ namespace VEDA
 	void VEDAProjectHandler::openProject(const std::string & projectFileUrl, const bool save)
 	{
 		closeCurrProject(save);
-		SSUtils::XML::Document doc;
-		doc.fromFile(projectFileUrl, SSUtils::CharType::UTF8);
+		SSUtils::XML::Document doc(SSUtils::XML::Document::fromFile(projectFileUrl, SSUtils::CharType::UTF8));
 		
 		QString fileName(QString::fromLocal8Bit(SSUtils::File::getFileNameOfUrl(projectFileUrl).c_str()));
 		if (doc.getRoots().size() != 1)

@@ -1,6 +1,9 @@
+#include "VEDAGlobal.h"
 #include "VEDAMenuBarFile.h"
 #include "VEDAInitProjectDialog.h"
+#include "VEDAProjectHandler.h"
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFileDialog>
 #include <QtCore/QDebug>
 
 namespace VEDA
@@ -15,7 +18,19 @@ namespace VEDA
 
 		void onOpenProjectBtnClicked(void)
 		{
-			qDebug() << "to do: on open protject btn clicked.";
+			auto projectHandler(VEDAProjectHandler::getInstance());
+			QString _url = QFileDialog::getOpenFileName(nullptr, QString::fromLocal8Bit("选择要打开的项目文件"), QString(""), QString("*.%1").arg(QString(ProjectFileExtension.c_str())));
+			if (!_url.isEmpty())
+			{
+				std::string url(_url.toLocal8Bit());
+
+				std::thread([projectHandler, url]()
+				{
+					projectHandler->emitLoadingBegin();
+					projectHandler->openProject(url);
+					projectHandler->emitLoadingEnd();
+				}).detach();
+			}
 		}
 
 		void onInitProcessBtnClicked(void)

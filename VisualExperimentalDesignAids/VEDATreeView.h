@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VEDATreeViewItem.h"
+#include "VEDAProjectHandler.h"
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QMenu>
@@ -24,6 +25,11 @@ namespace VEDA
 		~VEDATreeView(void) = default;
 
 	private:
+		void onOpenProjectFinished(bool, QString);
+		void onCloseProjectFinished(bool, QString);
+
+	private:
+		std::shared_ptr<VEDAProjectHandler> m_projectHandler;
 		std::shared_ptr<VEDATreeViewItemHandler> m_itemHandler;
 	};
 
