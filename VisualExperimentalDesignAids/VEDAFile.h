@@ -23,6 +23,7 @@ namespace VEDA
 			ReportData
 		};
 		static const boost::bimap<std::string, Type> Extension2Type;
+		static const boost::bimap<Type, std::string> Type2Display;
 
 		static const SSUtils::uint32 KeyLength;
 		static const std::string IndexTag;

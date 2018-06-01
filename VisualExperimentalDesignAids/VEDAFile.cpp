@@ -23,6 +23,25 @@ namespace VEDA
 		return ret;
 	}();
 
+	const boost::bimap<VEDAFile::Type, std::string> VEDAFile::Type2Display = 
+		[]()
+	{
+		typedef boost::bimap<VEDAFile::Type, std::string> result_type;
+		typedef result_type::value_type pair_type;
+
+		result_type ret;
+		ret.insert(pair_type(Type::Project, std::string("实验项目")));
+		ret.insert(pair_type(Type::Process, std::string("实验流程")));
+		ret.insert(pair_type(Type::Operation, std::string("实验操作")));
+		ret.insert(pair_type(Type::PublicModel, std::string("公共模型")));
+		ret.insert(pair_type(Type::Model, std::string("实验因素模型")));
+		ret.insert(pair_type(Type::Data, std::string("实验数据")));
+		ret.insert(pair_type(Type::Report, std::string("实验报告")));
+		ret.insert(pair_type(Type::ReportConfiguration, std::string("实验报告设计")));
+		ret.insert(pair_type(Type::ReportData, std::string("实验报告数据")));
+		return ret;
+	}();
+
 	const SSUtils::uint32 VEDAFile::KeyLength = 128;
 	const std::string VEDAFile::IndexTag("Index");
 	const std::string VEDAFile::OriginNameAttr("OriginName");

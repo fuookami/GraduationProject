@@ -153,9 +153,6 @@
     <ClCompile Include="VEDAHomeView.cpp">
       <Filter>Source Files\GUI\View</Filter>
     </ClCompile>
-    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\IWebEngineDialogWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QLoadingWidget.cpp">
       <Filter>Source Files\GUI\Public</Filter>
     </ClCompile>
@@ -166,6 +163,12 @@
       <Filter>Source Files\GUI\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QWebEngineWidget.cpp">
+      <Filter>Source Files\GUI\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDATreeViewItem.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\IWebEngineDialogWidget.cpp">
       <Filter>Source Files\GUI\Public</Filter>
     </ClCompile>
   </ItemGroup>
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="..\SSGUIUtilsSrc\SSUtils\GUI\QMessageBoxUtils.h">
       <Filter>Header Files\GUI\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="VEDATreeViewItem.h">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
