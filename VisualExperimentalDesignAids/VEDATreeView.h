@@ -28,6 +28,9 @@ namespace VEDA
 		void onOpenProjectFinished(bool, QString);
 		void onCloseProjectFinished(bool, QString);
 
+		void onCurrentItemChanged(QTreeWidgetItem *_current, QTreeWidgetItem *_previous);
+		void onItemPressed(QTreeWidgetItem *_item, int column);
+
 	private:
 		std::shared_ptr<VEDAProjectHandler> m_projectHandler;
 		std::shared_ptr<VEDATreeViewItemHandler> m_itemHandler;
@@ -52,15 +55,52 @@ namespace VEDA
 		VEDATreeViewItemHandler &operator=(VEDATreeViewItemHandler &&rhs) = delete;
 		~VEDATreeViewItemHandler(void) = default;
 
-		void setCurrentItem(VEDATreeViewItem *currItem);
-		std::shared_ptr<QMenu> getCurrentItemRightClickMenu(VEDATreeViewItem *currItem = nullptr);
+		inline VEDATreeViewItem *getCurrentClickItem(void) const { return m_currClickItem; }
+		void setCurrentClickItem(VEDATreeViewItem *currItem) { m_currClickItem = currItem; }
+
+		inline VEDATreeViewItem *getCurrentRightClickItem(void) const { return m_currRightClickItem; }
+		void setCurrentRightClickItem(VEDATreeViewItem *currItem) { m_currRightClickItem = currItem; }
+		static std::shared_ptr<QMenu> getItemMenu(VEDATreeViewItem *item);
 
 	private:
 		void initActions(void);
 		static std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>> initActionMap(void);
 
 	private:
-		VEDATreeViewItem *m_currItem;
+		void onOpenTriggered(void);
+
+		void onInitProcessTriggered(void);
+		void onImportProcessTriggered(void);
+		void onInitPublicModelTriggered(void);
+		void onImportPublicModelTreiggered(void);
+		void onInitReportTriggered(void);
+		void onImportReportTriggered(void);
+		void onCloseProjectTriggered(void);
+
+		void onInitOperationTriggered(void);
+		void onImportOperationTriggered(void);
+		void onInitModelTriggered(void);
+		void onImportModelTreiggered(void);
+
+		void onInitDataTriggered(void);
+		void onImportDataTriggered(void);
+		
+		void onAnalyseTriggered(void);
+
+		void onInitReportConfigurationTriggered(void);
+		void onImportReportConfigurationTriggered(void);
+
+		void onInitReportDataTriggered(void);
+		void onImportReportDataTriggered(void);
+
+		void onExportReportTriggered(void);
+
+		void onRemoveTriggered(void);
+		void onDeleteTriggered(void);
+
+	private:
+		VEDATreeViewItem *m_currClickItem;
+		VEDATreeViewItem *m_currRightClickItem;
 
 		std::shared_ptr<QAction> m_open;
 

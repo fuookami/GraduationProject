@@ -4,7 +4,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QJsonValue>
 #include <memory>
-#include <thread>
 
 namespace VEDA
 {

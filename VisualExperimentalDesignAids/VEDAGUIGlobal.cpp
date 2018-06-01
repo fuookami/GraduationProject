@@ -14,6 +14,8 @@ namespace VEDA
 		const std::string DialogRootPath = WebRootPath + std::string("dialogs/");
 
 		const std::string InitProjectDialogUrl = DialogRootPath + std::string("InitPorjectDialog.html");
+		const std::string InitProcessDialogUrl = DialogRootPath + std::string("InitProcessDialog.html");
+		const std::string InitOperationDialogUrl = DialogRootPath + std::string("InitOperationDialog.html");
 		const std::string AboutDialogUrl = DialogRootPath + std::string("AboutDialog.html");
 	};
 

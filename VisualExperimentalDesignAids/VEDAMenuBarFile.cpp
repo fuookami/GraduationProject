@@ -5,6 +5,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
 #include <QtCore/QDebug>
+#include <thread>
 
 namespace VEDA
 {

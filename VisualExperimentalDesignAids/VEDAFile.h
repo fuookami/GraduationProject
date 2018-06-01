@@ -27,6 +27,7 @@ namespace VEDA
 
 		static const SSUtils::uint32 KeyLength;
 		static const std::string IndexTag;
+		static const std::string UUIDTag;
 		static const std::string OriginNameAttr;
 		static const std::string PublicKeyTag;
 		static const std::string PrivateKeyTag;
@@ -50,6 +51,8 @@ namespace VEDA
 		inline void setPath(const std::string &path) { m_path.assign(path); }
 		inline void setPath(std::string &&path) { m_path.assign(path); }
 		inline const std::string &getPath(void) const { return m_path; }
+
+		inline const std::string getUrl(void) const { return m_path + m_name; }
 
 		inline const Type getType(void) const { return m_type; }
 
