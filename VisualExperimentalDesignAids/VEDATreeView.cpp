@@ -22,9 +22,9 @@ namespace VEDA
 		m_itemHandler->setCurrentItem(nullptr);
 	}
 
-	const std::map<VEDAFile::Type, std::vector<std::shared_ptr<QAction>>>& VEDATreeViewItemHandler::Type2Action(void)
+	const std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>>& VEDATreeViewItemHandler::Type2Action(void)
 	{
-		static const std::map<VEDAFile::Type, std::vector<std::shared_ptr<QAction>>> ret = initActionMap();
+		static const std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>> ret = initActionMap();
 		return ret;
 	}
 
@@ -63,10 +63,14 @@ namespace VEDA
 		auto actionsIt(Type2Action().find(m_currItem->type()));
 		if (actionsIt != Type2Action().cend())
 		{
-			const auto &actions(actionsIt->second);
-			for (const auto action : actions)
+			const auto &groups(actionsIt->second);
+			for (const auto &group : groups)
 			{
-				menu->addAction(action.get());
+				for (const auto action : group)
+				{
+					menu->addAction(action.get());
+				}
+				menu->addSeparator();
 			}
 		}
 
@@ -75,60 +79,143 @@ namespace VEDA
 
 	void VEDATreeViewItemHandler::initActions(void)
 	{
-		m_initProcess.reset(new QAction());
-		m_initProcess->setText(QString::fromLocal8Bit("新建实验流程"));
+		m_open.reset(new QAction());
+		m_open->setText(QString::fromLocal8Bit("打开"));
 
-		m_initPublicModel.reset(new QAction());
-		m_initPublicModel->setText(QString::fromLocal8Bit("新建公共模型"));
+		{
+			m_initProcess.reset(new QAction());
+			m_initProcess->setText(QString::fromLocal8Bit("新建实验流程"));
 
-		m_closeProject.reset(new QAction());
-		m_closeProject->setText(QString::fromLocal8Bit("关闭实验项目"));
+			m_importProcess.reset(new QAction());
+			m_importProcess->setText(QString::fromLocal8Bit("添加现有实验流程"));
+
+			m_initPublicModel.reset(new QAction());
+			m_initPublicModel->setText(QString::fromLocal8Bit("新建公共模型"));
+
+			m_importPublicModel.reset(new QAction());
+			m_importPublicModel->setText(QString::fromLocal8Bit("添加现有公共模型"));
+
+			m_initReport.reset(new QAction());
+			m_initReport->setText(QString::fromLocal8Bit("新建实验报告"));
+
+			m_importReport.reset(new QAction());
+			m_importReport->setText(QString::fromLocal8Bit("添加现有实验报告"));
+
+			m_closeProject.reset(new QAction());
+			m_closeProject->setText(QString::fromLocal8Bit("关闭实验项目"));
+		}
+
+		{
+			m_initOperation.reset(new QAction());
+			m_initOperation->setText(QString::fromLocal8Bit("新建实验操作"));
+
+			m_importOperation.reset(new QAction());
+			m_importOperation->setText(QString::fromLocal8Bit("添加现有实验操作"));
+
+			m_initModel.reset(new QAction());
+			m_initModel->setText(QString::fromLocal8Bit("新建实验因素数据模型"));
+
+			m_importModel.reset(new QAction());
+			m_importModel->setText(QString::fromLocal8Bit("添加现有实验因素数据模型"));
+		}
+
+		{
+			m_initData.reset(new QAction());
+			m_initData->setText(QString::fromLocal8Bit("新建实验数据"));
+
+			m_importData.reset(new QAction());
+			m_importData->setText(QString::fromLocal8Bit("添加现有实验数据"));
+		}
+
+		{
+			m_analyse.reset(new QAction());
+			m_analyse->setText(QString::fromLocal8Bit("分析实验数据"));
+		}
+		
+		{
+			m_initReportConfiguration.reset(new QAction());
+			m_initReportConfiguration->setText(QString::fromLocal8Bit("新建实验报告设计"));
+
+			m_importReportConfiguration.reset(new QAction());
+			m_importReportConfiguration->setText(QString::fromLocal8Bit("添加现有实验报告设计"));
+		}
+
+		{
+			m_initReportData.reset(new QAction());
+			m_initReportData->setText(QString::fromLocal8Bit("新建实验报告数据"));
+
+			m_importReportData.reset(new QAction());
+			m_importReportData->setText(QString::fromLocal8Bit("添加现有实验报告数据"));
+		}
+
+		m_exportReport.reset(new QAction());
+		m_exportReport->setText(QString::fromLocal8Bit("导出实验报告"));
 
 		m_remove.reset(new QAction());
 		m_delete.reset(new QAction());
 	}
 
-	std::map<VEDAFile::Type, std::vector<std::shared_ptr<QAction>>> VEDATreeViewItemHandler::initActionMap(void)
+	std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>> VEDATreeViewItemHandler::initActionMap(void)
 	{
 		auto instance(VEDATreeViewItemHandler::getInstance());
 
-		std::map<VEDAFile::Type, std::vector<std::shared_ptr<QAction>>> ret =
+		std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>> ret =
 		{
-			std::make_pair(VEDAFile::Type::Project, std::vector<std::shared_ptr<QAction>>(
+			std::make_pair(VEDAFile::Type::Project, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
-					instance->m_initProcess, instance->m_initPublicModel, instance->m_closeProject
+					std::vector<std::shared_ptr<QAction>>({ instance->m_initProcess, instance->m_initPublicModel }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_importProcess, instance->m_importPublicModel }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_initReport }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_importReport }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_closeProject })
 				})),
-			std::make_pair(VEDAFile::Type::PublicModel, std::vector<std::shared_ptr<QAction>>(
+			std::make_pair(VEDAFile::Type::PublicModel, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
-					instance->m_remove, instance->m_delete
+					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_remove, instance->m_delete })
 				})),
-			std::make_pair(VEDAFile::Type::Process, std::vector<std::shared_ptr<QAction>>(
+			std::make_pair(VEDAFile::Type::Process, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
-					instance->m_remove
+					std::vector<std::shared_ptr<QAction>>({ instance->m_initOperation, instance->m_initModel }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_importOperation, instance->m_importModel }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_remove })
 				})),
-			std::make_pair(VEDAFile::Type::Model, std::vector<std::shared_ptr<QAction>>(
+			std::make_pair(VEDAFile::Type::Model, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
-					instance->m_remove, instance->m_delete
+					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_remove, instance->m_delete })
 				})),
-			std::make_pair(VEDAFile::Type::Operation, std::vector<std::shared_ptr<QAction>>(
+			std::make_pair(VEDAFile::Type::Operation, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
-					instance->m_remove
+					std::vector<std::shared_ptr<QAction>>({ instance->m_initData }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_importData }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_remove })
 				})),
-			std::make_pair(VEDAFile::Type::Data, std::vector<std::shared_ptr<QAction>>(
+			std::make_pair(VEDAFile::Type::Data, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
-					instance->m_remove, instance->m_delete
+					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_analyse }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_remove, instance->m_delete })
 				})),
-			std::make_pair(VEDAFile::Type::Report, std::vector<std::shared_ptr<QAction>>(
+			std::make_pair(VEDAFile::Type::Report, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
-					instance->m_remove
+					std::vector<std::shared_ptr<QAction>>({ instance->m_initReportConfiguration }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_importReportConfiguration }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_remove })
 				})),
-			std::make_pair(VEDAFile::Type::ReportConfiguration, std::vector<std::shared_ptr<QAction>>(
+			std::make_pair(VEDAFile::Type::ReportConfiguration, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
-					instance->m_remove
+					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_initReportData }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_importReportData }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_remove })
 				})),
-			std::make_pair(VEDAFile::Type::ReportData, std::vector<std::shared_ptr<QAction>>(
+			std::make_pair(VEDAFile::Type::ReportData, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
-					instance->m_remove, instance->m_delete
+
+					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_exportReport }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_remove, instance->m_delete })
 				}))
 		};
 

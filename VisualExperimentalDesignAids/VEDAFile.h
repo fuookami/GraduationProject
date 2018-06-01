@@ -64,6 +64,8 @@ namespace VEDA
 
 		virtual SSUtils::XML::Document toXML(void) const = 0;
 
+		void resetParent(const VEDAFile &file);
+
 	protected:
 		const bool init(const std::shared_ptr<SSUtils::XML::Node> node);
 		const bool init(const VEDAFile &parentFile, const std::string & name);

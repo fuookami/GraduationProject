@@ -64,6 +64,11 @@ namespace VEDA
 		return m_verifier(SSUtils::Data::toString(m_verificationToken) + file.m_originName, SSUtils::Data::toString(file.m_signationToken));
 	}
 
+	void VEDAFile::resetParent(const VEDAFile & file)
+	{
+		init(file, m_originName);
+	}
+
 	const bool VEDAFile::init(const std::shared_ptr<SSUtils::XML::Node> node)
 	{
 		if (node->getTag() != IndexTag
