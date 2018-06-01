@@ -3,6 +3,7 @@
 #include <QtCore/QObject>
 #include <memory>
 #include <utility>
+#include <tuple>
 #include "VEDAProjectFile.h"
 
 namespace VEDA
@@ -48,6 +49,9 @@ namespace VEDA
 
 	public:
 		static const std::pair<bool, std::string> initProject(const std::string &name, const std::string &path, const bool newDir);
+		static const std::tuple<bool, std::string, std::shared_ptr<VEDAProcessFile>> initProcess(VEDAProjectFile *projectFile, const std::string &name, const std::string &path, const bool newDir);
+		static const std::tuple<bool, std::string, std::shared_ptr<VEDAModelFile>> initModel(VEDAProcessFile *processFile, const std::string &name, const std::string &path);
+
 		void openProject(const std::string &projectFileUrl, const bool save = true);
 		void closeCurrProject(const bool save = true);
 		void saveCurrProject(void);

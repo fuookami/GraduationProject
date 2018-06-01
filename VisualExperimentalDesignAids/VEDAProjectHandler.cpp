@@ -71,14 +71,47 @@ namespace VEDA
 
 		std::string projectFileUrl(basePath + SSUtils::File::PathSeperator() + name + SSUtils::File::ExtensionSeperator() + ProjectFileExtension);
 		auto project(VEDAProjectFile::generate(projectFileUrl));
-		auto doc(project->toXML());
-
-		if (!doc.toFile(projectFileUrl, SSUtils::CharType::UTF8))
+		if (!project->save())
 		{
 			return std::make_pair(false, std::string("创建项目文件失败：") + projectFileUrl);
 		}
 
 		return std::make_pair(true, projectFileUrl);
+	}
+
+	const std::tuple<bool, std::string, std::shared_ptr<VEDAProcessFile>> VEDAProjectHandler::initProcess(VEDAProjectFile * projectFile, const std::string & name, const std::string & path, const bool newDir)
+	{
+		std::string basePath(newDir ? (path + SSUtils::File::PathSeperator() + name) : path);
+		if (!SSUtils::File::insurePathExist(basePath))
+		{
+			return std::make_tuple(false, std::string("创建目录失败：") + basePath, std::shared_ptr<VEDAProcessFile>());
+		}
+
+		std::string processFileUrl(basePath + SSUtils::File::PathSeperator() + name + SSUtils::File::ExtensionSeperator() + ProcessFileExtension);
+		auto process(VEDAProcessFile::generate(processFileUrl, *projectFile));
+		if (!process->save())
+		{
+			return std::make_tuple(false, std::string("创建流程文件失败：") + processFileUrl, std::shared_ptr<VEDAProcessFile>());
+		}
+
+		return std::make_tuple(true, processFileUrl, process);
+	}
+
+	const std::tuple<bool, std::string, std::shared_ptr<VEDAModelFile>> VEDAProjectHandler::initModel(VEDAProcessFile * processFile, const std::string & name, const std::string & path)
+	{
+		if (!SSUtils::File::insurePathExist(path))
+		{
+			return std::make_tuple(false, std::string("创建目录失败：") + path, std::shared_ptr<VEDAModelFile>());
+		}
+
+		std::string modelFileUrl(path + SSUtils::File::PathSeperator() + name + SSUtils::File::ExtensionSeperator() + ModelFileExtension);
+		auto model(VEDAModelFile::generate(modelFileUrl, *processFile, XSDFrontend::XSDModel::generateNewXSDModel()));
+		if (!model->save())
+		{
+			return std::make_tuple(false, std::string("创建模型文件失败：") + modelFileUrl, std::shared_ptr<VEDAModelFile>());
+		}
+
+		return std::make_tuple(true, modelFileUrl, model);
 	}
 
 	void VEDAProjectHandler::openProject(const std::string & projectFileUrl, const bool save)

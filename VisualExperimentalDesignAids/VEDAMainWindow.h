@@ -37,6 +37,7 @@ namespace VEDA
 		void initLoadingWidget(void);
 		void initConnections(void);
 		void initOthers(void);
+		void registerMetaType(void);
 
 	protected:
 		void resizeEvent(QResizeEvent *event);

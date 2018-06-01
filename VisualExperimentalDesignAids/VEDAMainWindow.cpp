@@ -32,6 +32,7 @@ namespace VEDA
 		initLoadingWidget();
 		initConnections();
 		initOthers();
+		registerMetaType();
 
 		m_mainWidget->init();
 	}
@@ -79,6 +80,12 @@ namespace VEDA
 	void VEDAMainWindow::initOthers(void)
 	{
 		CARSDK::ExperimentalDesignMethodModule::instance(PluginPath);
+	}
+
+	void VEDAMainWindow::registerMetaType(void)
+	{
+		qRegisterMetaType<std::shared_ptr<VEDAProcessFile>>("std::shared_ptr<VEDAProcessFile>");
+		qRegisterMetaType<std::shared_ptr<VEDAModelFile>>("std::shared_ptr<VEDAModelFile>");
 	}
 
 	void VEDAMainWindow::resizeEvent(QResizeEvent * event)

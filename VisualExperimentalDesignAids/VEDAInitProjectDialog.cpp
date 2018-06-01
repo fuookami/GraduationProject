@@ -2,7 +2,6 @@
 #include "VEDAProjectHandler.h"
 #include "VEDAGUIGlobal.h"
 #include "SSUtils\GUI\QMessageBoxUtils.h"
-#include "SSUtils\GUI\QLoadingDialog.h"
 #include <QtWidgets/QFileDialog>
 #include <thread>
 

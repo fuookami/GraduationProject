@@ -14,7 +14,8 @@ $(document).ready(function() {
             var name = $('#project_name');
             var save_path = $('#save_path');
 
-            if (name.val() !== "" && name.hasClass('valid') && save_path.val() !== "") {
+            if (name.val() !== "" && !name.hasClass('invalid')
+                && save_path.val() !== "" && !save_path.hasClass('invalid')) {
                 setLoading(true);
                 interface.onConfirmBtnClicked(name.val(), save_path.val(), $('#init_new_dir').prop('checked'));
             } else {
@@ -33,10 +34,6 @@ $(document).ready(function() {
         interface.initProjectFailed.connect(function(info) {
             setLoading(false);
 
-            $('#information').html(info);
-        });
-
-        interface.initProjectSucceeded.connect(function(info) {
             $('#information').html(info);
         });
     });

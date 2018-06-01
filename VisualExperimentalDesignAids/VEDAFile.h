@@ -2,6 +2,7 @@
 
 #include "SSUtils\EncryptionUtils\RSA.h"
 #include "SSUtils\XMLUtils.h"
+#include "SSUtils\FileUtils.h"
 #include <boost/bimap.hpp>
 #include <set>
 
@@ -26,6 +27,7 @@ namespace VEDA
 		static const boost::bimap<Type, std::string> Type2Display;
 
 		static const SSUtils::uint32 KeyLength;
+		static const SSUtils::uint32 TokenLength;
 		static const std::string IndexTag;
 		static const std::string UUIDTag;
 		static const std::string OriginNameAttr;
@@ -52,6 +54,7 @@ namespace VEDA
 		inline void setPath(std::string &&path) { m_path.assign(path); }
 		inline const std::string &getPath(void) const { return m_path; }
 
+		inline const std::string getMainName(void) const { return SSUtils::File::getFileMainNameOfUrl(m_name); }
 		inline const std::string getUrl(void) const { return m_path + m_name; }
 
 		inline const Type getType(void) const { return m_type; }
@@ -65,6 +68,7 @@ namespace VEDA
 
 		const bool isChildFile(const VEDAFile &file) const;
 
+		const bool save(void) const;
 		virtual SSUtils::XML::Document toXML(void) const = 0;
 
 		void resetParent(const VEDAFile &file);
@@ -117,6 +121,21 @@ namespace VEDA
 		IVEDAFileIndexInterface &operator=(const IVEDAFileIndexInterface &rhs) = delete;
 		IVEDAFileIndexInterface &operator=(IVEDAFileIndexInterface &&rhs) = delete;
 		virtual ~IVEDAFileIndexInterface(void) = default;
+
+		const bool hasDataFile(const std::string name) 
+		{
+			return std::find_if(m_dataFiles.cbegin(), m_dataFiles.cend(), 
+				[&name](const std::string &url)
+			{
+				return SSUtils::File::getFileMainNameOfUrl(url) == name;
+			}) != m_dataFiles.cend();
+		}
+
+		void addDataFile(const std::string &url, const std::shared_ptr<T> file)
+		{
+			m_dataFiles.insert(url);
+			m_loadedDataFiles.insert(std::make_pair(url, file));
+		}
 
 		inline std::set<std::string> &getDataFileUrls(void) { return m_dataFiles; }
 		inline const std::set<std::string> &getDataFileUrls(void) const { return m_dataFiles; }

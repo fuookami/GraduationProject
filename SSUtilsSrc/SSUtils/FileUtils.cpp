@@ -117,7 +117,7 @@ namespace SSUtils
 			}
 			else
 			{
-				return std::string(targetUrl.cbegin() + fileNameBgIndex + 1, targetUrl.cbegin() + fileExtensionBgIndex);
+				return std::string(targetUrl.cbegin() + (fileNameBgIndex + 1), targetUrl.cbegin() + fileExtensionBgIndex);
 			}
 		}
 
@@ -183,13 +183,19 @@ namespace SSUtils
 
 		std::string getRelativeUrlOfPath(const std::string & basePath, const std::string & targetUrl)
 		{
-			 return getRelativePathOfPath(basePath, getPathOfUrl(targetUrl)) + PathSeperator() + getFileNameOfUrl(targetUrl);
+			 return getRelativePathOfPath(basePath, getPathOfUrl(targetUrl)) + getFileNameOfUrl(targetUrl);
 		}
 
 		std::string getRelativePathOfPath(const std::string & basePath, const std::string & targetPath)
 		{
 			using namespace boost::filesystem;
+			static const std::string CurrPath(".");
 			static const std::string ParentPath("..");
+
+			if (basePath == targetPath)
+			{
+				return CurrPath + PathSeperator();
+			}
 
 			path fullBasePath(system_complete(path(basePath, native)));
 			path fullTargetPath(system_complete(path(targetPath, native)));
@@ -208,7 +214,7 @@ namespace SSUtils
 			{
 				ret += *targetCurrIt + PathSeperator();
 			}
-			return ret;
+			return CurrPath + PathSeperator() + ret;
 		}
 
 		Block loadFile(const std::string & targetUrl)

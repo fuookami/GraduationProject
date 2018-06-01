@@ -1,6 +1,8 @@
 #include "VEDAFile.h"
 #include "VEDAGlobal.h"
 #include "SSUtils/FileUtils.h"
+#include <QtCore/QDebug>
+#include <QString>
 
 namespace VEDA
 {
@@ -42,7 +44,8 @@ namespace VEDA
 		return ret;
 	}();
 
-	const SSUtils::uint32 VEDAFile::KeyLength = 128;
+	const SSUtils::uint32 VEDAFile::KeyLength = 1024;
+	const SSUtils::uint32 VEDAFile::TokenLength = 128;
 	const std::string VEDAFile::IndexTag("Index");
 	const std::string VEDAFile::OriginNameAttr("OriginName");
 	const std::string VEDAFile::PublicKeyTag("PublicKey");
@@ -54,14 +57,24 @@ namespace VEDA
 		: m_name(SSUtils::File::getFileNameOfUrl(url)), m_path(SSUtils::File::getPathOfUrl(url)), m_type(type)
 	{
 		auto keyPair(SSUtils::Encryption::RSA::generateKey(KeyLength));
-		m_verifier.publicKey.assign(keyPair.first);
-		m_signer.privateKey.assign(keyPair.second);
-		m_verificationToken = SSUtils::Data::generateRandomBlock(KeyLength);
+		m_verifier.publicKey.assign(keyPair.second);
+		m_signer.privateKey.assign(keyPair.first);
+		m_verificationToken = SSUtils::Data::generateRandomBlock(TokenLength);
 	}
 
 	const bool VEDAFile::isChildFile(const VEDAFile & file) const
 	{
 		return m_verifier(SSUtils::Data::toString(m_verificationToken) + file.m_originName, SSUtils::Data::toString(file.m_signationToken));
+	}
+
+	const bool VEDAFile::save(void) const
+	{
+		if (!SSUtils::File::insurePathExist(m_path))
+		{
+			return false;
+		}
+
+		return toXML().toFile(getUrl(), SSUtils::CharType::UTF8);
 	}
 
 	void VEDAFile::resetParent(const VEDAFile & file)
@@ -90,8 +103,8 @@ namespace VEDA
 			return false;
 		}
 
-		m_verifier.publicKey.assign(SSUtils::String::base64Decode(publicKeyNode->getContent()));
-		m_signer.privateKey.assign(SSUtils::String::base64Decode(privateKeyNode->getContent()));
+		m_verifier.publicKey.assign(SSUtils::Data::toHexString(SSUtils::Data::fromBase64String(publicKeyNode->getContent())));
+		m_signer.privateKey.assign(SSUtils::Data::toHexString(SSUtils::Data::fromBase64String(privateKeyNode->getContent())));
 		m_originName = signationTokenNode->getAttr(OriginNameAttr);
 		m_signationToken = SSUtils::Data::fromBase64String(signationTokenNode->getContent());
 		m_verificationToken = SSUtils::Data::fromBase64String(verificationTokenNode->getContent());
@@ -118,8 +131,8 @@ namespace VEDA
 		auto signationTokenNode(SSUtils::XML::Node::generate(SignationTokenTag));
 		auto verificationTokenNode(SSUtils::XML::Node::generate(VerificationTokenTag));
 
-		publicKeyNode->setContent(SSUtils::String::base64Encode(m_verifier.publicKey));
-		privateKeyNode->setContent(SSUtils::String::base64Encode(m_signer.privateKey));
+		publicKeyNode->setContent(SSUtils::Data::toBase64String(SSUtils::Data::fromHexString(m_verifier.publicKey)));
+		privateKeyNode->setContent(SSUtils::Data::toBase64String(SSUtils::Data::fromHexString(m_signer.privateKey)));
 		signationTokenNode->setContent(SSUtils::Data::toBase64String(m_signationToken));
 		signationTokenNode->setAttr(OriginNameAttr, m_originName);
 		verificationTokenNode->setContent(SSUtils::Data::toBase64String(m_verificationToken));

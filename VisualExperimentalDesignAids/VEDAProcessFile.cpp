@@ -9,7 +9,7 @@ namespace VEDA
 	std::shared_ptr<VEDAProcessFile> VEDAProcessFile::generate(const std::string & url, const VEDAFile & parentFile)
 	{
 		std::shared_ptr<VEDAProcessFile> ret(new VEDAProcessFile(url));
-		if (!ret->init(parentFile, SSUtils::File::getFileNameOfUrl(url)))
+		if (!ret->init(parentFile, SSUtils::File::getFileMainNameOfUrl(url)))
 		{
 			return nullptr;
 		}

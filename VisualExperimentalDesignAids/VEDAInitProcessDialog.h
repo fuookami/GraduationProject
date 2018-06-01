@@ -67,8 +67,8 @@ namespace VEDA
 
 	public:
 		Q_INVOKABLE void onSelectSavePathBtnClicked(void);
-		Q_INVOKABLE void onConfirmBtnClicked(QJsonValue nameValue, QJsonValue savePath, bool newDir);
-		Q_INVOKABLE void onConfirmBtnClicked(QJsonValue nameValue, QJsonValue savePath, bool newDir, QJsonValue modelName);
+		Q_INVOKABLE void onConfirmBtnClicked(QJsonValue nameValue, QJsonValue savePathValue, bool newDir);
+		Q_INVOKABLE void onConfirmBtnClickedWithModel(QJsonValue nameValue, QJsonValue savePathValue, bool newDir, QJsonValue modelNameValue);
 		Q_INVOKABLE void onCancelBtnClicked(void);
 
 	private:
