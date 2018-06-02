@@ -111,16 +111,8 @@ namespace SSUtils
 			{
 				CryptoPP::StringSource pubSrc(publicKey, true, new CryptoPP::HexDecoder());
 				CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Verifier pubVerifier(pubSrc);
-				CryptoPP::StringSource signatureSrc(signature, true, new CryptoPP::HexDecoder());
-				if (signatureSrc.MaxRetrievable() != pubVerifier.SignatureLength())
-				{
-					return false;
-				}
 
-				CryptoPP::SecByteBlock block(pubVerifier.SignatureLength());
-				signatureSrc.Get(block, block.size());
-
-				return true;
+				return pubVerifier.VerifyMessage((const byte *)msg.c_str(), msg.size(), (const byte *)signature.c_str(), signature.size());
 			}
 
 			encrypter::encrypter(const std::string & _seed)

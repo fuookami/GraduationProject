@@ -9,7 +9,11 @@ namespace VEDA
 	{
 	public:
 		static VEDATreeViewItem *generateProjectItem(std::shared_ptr<VEDAProjectFile> projectFile);
+		static VEDATreeViewItem *generatePublicModelItem(VEDATreeViewItem *projectItem, const std::string &url, VEDAFile *file = nullptr);
 		static VEDATreeViewItem *generateProcessItem(VEDATreeViewItem *projectItem, std::shared_ptr<VEDAProcessFile> processFile);
+		static VEDATreeViewItem *genearteModelItem(VEDATreeViewItem *processItem, const std::string &url, VEDAFile *file = nullptr);
+		static VEDATreeViewItem *generateOperationItem(VEDATreeViewItem *processItem, std::shared_ptr<VEDAOperationFile> operationFile);
+		static VEDATreeViewItem *generateDataItem(VEDATreeViewItem *operationItem, const std::string &url, VEDAFile *file = nullptr);
 
 	public:
 		explicit VEDATreeViewItem(const std::string &url, const VEDAFile::Type type, VEDAFile *file = nullptr);

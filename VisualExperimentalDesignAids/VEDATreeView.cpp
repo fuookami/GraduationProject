@@ -1,5 +1,6 @@
 #include "VEDATreeView.h"
 #include "VEDAInitProcessDialog.h"
+#include "VEDAInitOperationDialog.h"
 #include <QtGui/QGuiApplication>
 
 namespace VEDA
@@ -21,13 +22,6 @@ namespace VEDA
 		auto currProject(m_projectHandler->currProject());
 		auto projectItem(VEDATreeViewItem::generateProjectItem(currProject));
 		this->addTopLevelItem(projectItem);
-
-		for (const auto &pair : currProject->getLoadedDataFiles())
-		{
-			auto currProcess(pair.second);
-			auto processItem(VEDATreeViewItem::generateProcessItem(projectItem, currProcess));
-			projectItem->addChild(processItem);
-		}
 	}
 
 	void VEDATreeView::onCloseProjectFinished(bool ok, QString url)
@@ -114,91 +108,91 @@ namespace VEDA
 
 			m_importProcess.reset(new QAction());
 			m_importProcess->setText(QString::fromLocal8Bit("添加现有实验流程"));
-			connect(m_importProcess.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onImportProcessTriggered);
+			connect(m_importProcess.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onImportProcessTriggered);
 
 			m_initPublicModel.reset(new QAction());
 			m_initPublicModel->setText(QString::fromLocal8Bit("新建公共模型"));
-			connect(m_initPublicModel.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onInitPublicModelTriggered);
+			connect(m_initPublicModel.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onInitPublicModelTriggered);
 
 			m_importPublicModel.reset(new QAction());
 			m_importPublicModel->setText(QString::fromLocal8Bit("添加现有公共模型"));
-			connect(m_importPublicModel.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onImportPublicModelTreiggered);
+			connect(m_importPublicModel.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onImportPublicModelTreiggered);
 
 			m_initReport.reset(new QAction());
 			m_initReport->setText(QString::fromLocal8Bit("新建实验报告"));
-			connect(m_initReport.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onInitReportTriggered);
+			connect(m_initReport.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onInitReportTriggered);
 
 			m_importReport.reset(new QAction());
 			m_importReport->setText(QString::fromLocal8Bit("添加现有实验报告"));
-			connect(m_importReport.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onImportReportTriggered);
+			connect(m_importReport.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onImportReportTriggered);
 
 			m_closeProject.reset(new QAction());
 			m_closeProject->setText(QString::fromLocal8Bit("关闭实验项目"));
-			connect(m_closeProject.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onCloseProjectTriggered);
+			connect(m_closeProject.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onCloseProjectTriggered);
 		}
 
 		{
 			m_initOperation.reset(new QAction());
 			m_initOperation->setText(QString::fromLocal8Bit("新建实验操作"));
-			connect(m_initOperation.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onInitOperationTriggered);
+			connect(m_initOperation.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onInitOperationTriggered);
 
 			m_importOperation.reset(new QAction());
 			m_importOperation->setText(QString::fromLocal8Bit("添加现有实验操作"));
-			connect(m_importOperation.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onImportOperationTriggered);
+			connect(m_importOperation.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onImportOperationTriggered);
 
 			m_initModel.reset(new QAction());
 			m_initModel->setText(QString::fromLocal8Bit("新建实验因素数据模型"));
-			connect(m_initModel.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onInitModelTriggered);
+			connect(m_initModel.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onInitModelTriggered);
 
 			m_importModel.reset(new QAction());
 			m_importModel->setText(QString::fromLocal8Bit("添加现有实验因素数据模型"));
-			connect(m_importModel.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onImportModelTreiggered);
+			connect(m_importModel.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onImportModelTreiggered);
 		}
 
 		{
 			m_initData.reset(new QAction());
 			m_initData->setText(QString::fromLocal8Bit("新建实验数据"));
-			connect(m_initData.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onInitDataTriggered);
+			connect(m_initData.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onInitDataTriggered);
 
 			m_importData.reset(new QAction());
 			m_importData->setText(QString::fromLocal8Bit("添加现有实验数据"));
-			connect(m_importData.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onImportDataTriggered);
+			connect(m_importData.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onImportDataTriggered);
 		}
 
 		{
 			m_analyse.reset(new QAction());
 			m_analyse->setText(QString::fromLocal8Bit("分析实验数据"));
-			connect(m_analyse.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onAnalyseTriggered);
+			connect(m_analyse.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onAnalyseTriggered);
 		}
 		
 		{
 			m_initReportConfiguration.reset(new QAction());
 			m_initReportConfiguration->setText(QString::fromLocal8Bit("新建实验报告设计"));
-			connect(m_initReportConfiguration.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onInitReportConfigurationTriggered);
+			connect(m_initReportConfiguration.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onInitReportConfigurationTriggered);
 
 			m_importReportConfiguration.reset(new QAction());
 			m_importReportConfiguration->setText(QString::fromLocal8Bit("添加现有实验报告设计"));
-			connect(m_importReportConfiguration.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onImportReportConfigurationTriggered);
+			connect(m_importReportConfiguration.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onImportReportConfigurationTriggered);
 		}
 
 		{
 			m_initReportData.reset(new QAction());
 			m_initReportData->setText(QString::fromLocal8Bit("新建实验报告数据"));
-			connect(m_initReportData.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onInitReportDataTriggered);
+			connect(m_initReportData.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onInitReportDataTriggered);
 
 			m_importReportData.reset(new QAction());
 			m_importReportData->setText(QString::fromLocal8Bit("添加现有实验报告数据"));
-			connect(m_importReportData.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onImportReportDataTriggered);
+			connect(m_importReportData.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onImportReportDataTriggered);
 		}
 
 		m_exportReport.reset(new QAction());
 		m_exportReport->setText(QString::fromLocal8Bit("导出实验报告"));
-		connect(m_exportReport.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onExportReportTriggered);
+		connect(m_exportReport.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onExportReportTriggered);
 
 		m_remove.reset(new QAction());
-		connect(m_remove.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onRemoveTriggered);
+		connect(m_remove.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onRemoveTriggered);
 		m_delete.reset(new QAction());
-		connect(m_delete.get(), &QAction::trigger, this, &VEDATreeViewItemHandler::onDeleteTriggered);
+		connect(m_delete.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onDeleteTriggered);
 	}
 
 	std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>> VEDATreeViewItemHandler::initActionMap(void)
@@ -275,6 +269,13 @@ namespace VEDA
 		m_currRightClickItem->setExpanded(true);
 	}
 
+	void VEDATreeViewItemHandler::onInitOperationSucceeded(std::shared_ptr<VEDAOperationFile> operationFile)
+	{
+		auto operationItem(VEDATreeViewItem::generateOperationItem(m_currRightClickItem, operationFile));
+		m_currRightClickItem->addChild(operationItem);
+		m_currRightClickItem->setExpanded(true);
+	}
+
 	void VEDATreeViewItemHandler::onOpenTriggered(void)
 	{
 		// to do
@@ -319,7 +320,9 @@ namespace VEDA
 
 	void VEDATreeViewItemHandler::onInitOperationTriggered(void)
 	{
-		// to do
+		auto dialog(VEDAInitOperationDialog::getInstance(dynamic_cast<VEDAProcessFile *>(m_currRightClickItem->file())));
+		connect(dialog->interface().get(), &VEDAInitOperationDialogInterface::initOperationSucceeded, this, &VEDATreeViewItemHandler::onInitOperationSucceeded);
+		dialog->show();
 	}
 
 	void VEDATreeViewItemHandler::onImportOperationTriggered(void)

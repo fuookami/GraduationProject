@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SSUtils\GUI\IWebEngineDialogWidget.h"
-#include "CARSDK\ExperimentalAnalyzerModule.h"
+#include "CARSDK\ExperimentalDesignMethodModule.h"
 #include "VEDAProcessFile.h"
 #include "VEDAOperationFile.h"
 #include <QtCore/QObject>
@@ -10,20 +10,19 @@
 
 namespace VEDA
 {
-	/*
 	class VEDAInitOperationDialogInterface;
 
 	class VEDAInitOperationDialog final : public SSUtils::GUI::IWebEngineDialogWidget
 	{
-		static const int Width = 650;
-		static const int Height = 375;
+		static const int Width =780;
+		static const int Height = 500;
 		static const std::string DialogTitle;
 
 	public:
-		static VEDAInitOperationDialog *getInstance(const std::shared_ptr<VEDAProcessFile> processFile);
+		static VEDAInitOperationDialog *getInstance(VEDAProcessFile *processFile);
 
 	private:
-		VEDAInitOperationDialog(const std::shared_ptr<VEDAProcessFile> processFile);
+		VEDAInitOperationDialog(VEDAProcessFile *processFile);
 
 	public:
 		VEDAInitOperationDialog(const VEDAInitOperationDialog &ano) = delete;
@@ -32,12 +31,14 @@ namespace VEDA
 		VEDAInitOperationDialog &operator=(VEDAInitOperationDialog &&rhs) = delete;
 		~VEDAInitOperationDialog(void) = default;
 
+		inline const std::shared_ptr<VEDAInitOperationDialogInterface> interface(void) const { return m_interface; }
+
 	protected:
 		void registerContents(void) override;
 		void initGUI(void) override;
 
 	private:
-		std::shared_ptr<VEDAProcessFile> m_processFile;
+		VEDAProcessFile *m_processFile;
 		std::shared_ptr<VEDAInitOperationDialogInterface> m_interface;
 	};
 
@@ -47,7 +48,7 @@ namespace VEDA
 		friend class VEDAInitOperationDialog;
 
 	private:
-		explicit VEDAInitOperationDialogInterface(VEDAInitOperationDialog *dialog, const std::shared_ptr<VEDAProcessFile> processFile);
+		explicit VEDAInitOperationDialogInterface(VEDAInitOperationDialog *dialog, VEDAProcessFile *processFile);
 
 	public:
 		VEDAInitOperationDialogInterface(const VEDAInitOperationDialogInterface &ano) = delete;
@@ -57,11 +58,12 @@ namespace VEDA
 		~VEDAInitOperationDialogInterface(void) = default;
 
 	signals:
+		void savePathSelected(QString);
 		void methodResponce(QString);
 		void categoryResponce(QString);
 		void attributeResponce(QString);
 		void initOperationFailed(QString);
-		void inttOperationSucceeded(std::shared_ptr<VEDAOperationFile>);
+		void initOperationSucceeded(std::shared_ptr<VEDAOperationFile>);
 
 	public:
 		void emitInitOperationFailed(const QString &info);
@@ -79,7 +81,7 @@ namespace VEDA
 		Q_INVOKABLE void onCancelBtnClicked(void);
 
 	private:
+		VEDAProcessFile *m_processFile;
 		std::shared_ptr<CARSDK::ExperimentalDesignMethodModule> m_methodModule;
 	};
-	*/
 };

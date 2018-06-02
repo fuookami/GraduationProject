@@ -68,6 +68,7 @@ namespace VEDA
 
 	private:
 		void onInitProcessSucceeded(std::shared_ptr<VEDAProcessFile>);
+		void onInitOperationSucceeded(std::shared_ptr<VEDAOperationFile>);
 
 	private:
 		void onOpenTriggered(void);
