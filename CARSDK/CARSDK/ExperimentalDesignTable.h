@@ -34,6 +34,7 @@ namespace CARSDK
 		inline const std::vector<Batch> &batches(void) const { return m_batches; }
 
 		const bool valid(const std::shared_ptr<XSDFrontend::XSDModel> model = nullptr) const;
+		inline void clear(void) { m_typeNames.clear(); m_batches.clear(); }
 		inline const bool empty(void) const { return m_batches.empty(); }
 
 		static ExperimentalDesignTable fromXML(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors);

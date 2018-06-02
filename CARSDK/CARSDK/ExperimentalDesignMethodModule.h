@@ -26,7 +26,6 @@ namespace CARSDK
 		boost::shared_ptr<IExperimentalDesignMethodUtilsInterface> util(const std::string &name) const;
 		inline const std::map<std::string, boost::shared_ptr<IExperimentalDesignMethodUtilsInterface>> &utils(void) const { return m_utils; }
 
-	private:
 		void refreshUtils(void);
 		void refreshUtils(const std::string &path);
 

@@ -12,23 +12,29 @@
     <main>
         <h5 style="color: #005da4; margin-left: .25em; margin-bottom: .5em;">新建实验项目</h5>
         <div class="row" style="margin: .25em; ">
-            <div class="col s12 input-field">
-                <input id="project_name" type="text" class="validate" placeholder="请填写实验项目名称" pattern="^\S*$">
-                <label for="project_name" data-error="实验项目名称不能为空">名称：</label>
+            <div class="section row">
+                <div class="col s12 input-field">
+                    <input id="project_name" type="text" class="validate" placeholder="请填写实验项目名称" pattern="^\S*$">
+                    <label for="project_name" data-error="实验项目名称不能为空">名称：</label>
+                </div>
+
+                <div class="col s10 input-field">
+                    <input id="save_path" type="text" class="file-path" placeholder="请选择实验项目保存位置" readonly pattern="^\S*$">
+                    <label for="save_path" data-error="实验项目保存位置不能为空">位置：</label>
+                </div>
+                <a id="select_save_path_btn" class="col s2 waves-effect waves-light btn" style="margin-top: .75em;">浏览</a>
+
+                <p class="col s12">
+                    <input id="init_new_dir" type="checkbox" class="filled-in" checked="checked" />
+                    <label for="init_new_dir">为实验项目创建新目录</label>
+                </p>
             </div>
 
-            <div class="col s10 input-field">
-                <input id="save_path" type="text" class="file-path" placeholder="请选择实验项目保存位置" readonly pattern="^\S*$">
-                <label for="save_path" data-error="实验项目保存位置不能为空">位置：</label>
+            <div class="divider"></div>
+
+            <div class="section row">
+                <p id="information" class="col s12" style="margin-top: .5em; margin-bottom: 2em; font-size: 14px; color: #b15c56;"></p>
             </div>
-            <a id="select_save_path_btn" class="col s2 waves-effect waves-light btn" style="margin-top: .75em;">浏览</a>
-
-            <p class="col s12">
-                <input id="init_new_dir" type="checkbox" class="filled-in" checked="checked" />
-                <label for="init_new_dir">为实验项目创建新目录</label>
-            </p>
-
-            <p id="information" class="col s12" style="margin-top: .5em; font-size: 14px; color: #b15c56;"></p>
         </div>
 
         <div style="position: absolute; bottom: 1.5em; width: 100%;">

@@ -41,6 +41,7 @@ namespace CARSDK
 		Html5,
 		None
 	};
+	CARSDK_API_DECLSPEC const boost::bimap<AnalysisResultType, std::string> &AnalysisResultType2String(void);
 
 	enum class AttributeType
 	{
@@ -48,6 +49,7 @@ namespace CARSDK
 		Number,
 		String
 	};
+	CARSDK_API_DECLSPEC const boost::bimap<AttributeType, std::string> &AttributeType2String(void);
 
 	class UtilsHandler;
 	class ExperimentalDesignTable;

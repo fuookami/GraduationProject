@@ -6,8 +6,16 @@ html, body {
     height: 100%;
 }
 
+main {
+    position: relative;
+}
+
 main, main * {
     z-index: 0;
+}
+
+p {
+    margin: 0;
 }
 
 #loader {
@@ -28,4 +36,13 @@ main, main * {
     height: 100%;
     background-color: rgb(40, 40, 30);
     opacity: 0.25;
+}
+
+.row {
+    margin-bottom: 0;
+}
+
+.divider {
+    margin-top: .5em;
+    margin-bottom: .5em;
 }

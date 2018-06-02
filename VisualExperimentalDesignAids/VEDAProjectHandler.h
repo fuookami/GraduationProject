@@ -49,11 +49,15 @@ namespace VEDA
 
 	public:
 		static const std::pair<bool, std::string> initProject(const std::string &name, const std::string &path, const bool newDir);
+		static const std::pair<bool, std::string> initPublicModel(const std::string &name, const std::string &path, const bool newDir);
 		static const std::tuple<bool, std::string, std::shared_ptr<VEDAProcessFile>> initProcess(VEDAProjectFile *projectFile, const std::string &name, const std::string &path, const bool newDir);
 		static const std::tuple<bool, std::string, std::shared_ptr<VEDAModelFile>> initModel(VEDAProcessFile *processFile, const std::string &name, const std::string &path);
+		static const std::tuple<bool, std::string, std::shared_ptr<VEDAOperationFile>> initOperation(VEDAProcessFile *processFile, const std::string &name, const std::string &path, const bool newDir, const std::string &methodName, const std::string &methodCategory, const std::map<std::string, std::string> &methodAttributes);
+		static const std::tuple<bool, std::string, std::shared_ptr<VEDADataFile>> initData(VEDAOperationFile *operationFile, const std::string &name, const std::string &path, const bool newDir);
 
 		void openProject(const std::string &projectFileUrl, const bool save = true);
-		static std::shared_ptr<VEDAProcessFile> openProcess(const std::shared_ptr<VEDAProjectFile> projectFile, const std::string &processFileUrl, const bool ignoreIsChild = false);
+		static std::shared_ptr<VEDAProcessFile> openProcess(VEDAProjectFile *projectFile, const std::string &processFileUrl, const bool ignoreIsChild = false);
+		static std::shared_ptr<VEDAOperationFile> openOperation(VEDAProcessFile *processFile, const std::string &operationFileUrl, const bool ignoreIsChild = false);
 
 		void closeCurrProject(const bool save = true);
 		void saveCurrProject(void);

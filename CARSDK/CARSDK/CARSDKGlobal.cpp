@@ -51,5 +51,40 @@ namespace CARSDK
 		return ret;
 	}
 
+	const boost::bimap<AnalysisResultType, std::string> &AnalysisResultType2String(void)
+	{
+		static const boost::bimap<AnalysisResultType, std::string> ret = 
+			[]()
+		{
+			typedef boost::bimap<AnalysisResultType, std::string> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(AnalysisResultType::Raw, std::string("Raw")));
+			ret.insert(pair_type(AnalysisResultType::Table, std::string("Table")));
+			ret.insert(pair_type(AnalysisResultType::Html5, std::string("Html5")));
+			ret.insert(pair_type(AnalysisResultType::None, std::string("None")));
+			return ret;
+		}();
+		return ret;
+	}
+
+	const boost::bimap<AttributeType, std::string> &AttributeType2String(void)
+	{
+		static const boost::bimap<AttributeType, std::string> ret = 
+			[]()
+		{
+			typedef boost::bimap<AttributeType, std::string> result_type;
+			typedef result_type::value_type pair_type;
+
+			result_type ret;
+			ret.insert(pair_type(AttributeType::Boolean, std::string("Boolean")));
+			ret.insert(pair_type(AttributeType::Number, std::string("Number")));
+			ret.insert(pair_type(AttributeType::String, std::string("String")));
+			return ret;
+		}();
+		return ret;
+	}
+
 #undef String_Definition
 };

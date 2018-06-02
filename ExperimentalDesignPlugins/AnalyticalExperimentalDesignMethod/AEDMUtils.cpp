@@ -10,7 +10,8 @@ namespace AEDM
 
 	boost::shared_ptr<AEDMUtils> AEDMUtils::create(void)
 	{
-		return boost::shared_ptr<AEDMUtils>(new AEDMUtils());
+		static boost::shared_ptr<AEDMUtils> ret(new AEDMUtils());
+		return ret;
 	}
 
 	const std::string &AEDMUtils::name(void) const
@@ -36,7 +37,8 @@ namespace AEDM
 
 	boost::shared_ptr<AEDMAnalyzerUtils> AEDMAnalyzerUtils::create(void)
 	{
-		return boost::shared_ptr<AEDMAnalyzerUtils>(new AEDMAnalyzerUtils());
+		static boost::shared_ptr<AEDMAnalyzerUtils> ret(new AEDMAnalyzerUtils());
+		return ret;
 	}
 
 	const std::string & AEDMAnalyzerUtils::name(void) const

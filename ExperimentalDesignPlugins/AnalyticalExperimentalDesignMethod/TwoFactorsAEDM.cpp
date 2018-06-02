@@ -42,14 +42,20 @@ namespace AEDM
 		return ret;
 	}
 
-	const bool TwoFactorsAEDM::valid(const std::map<std::string, std::string>& attributes) const
+	const bool TwoFactorsAEDM::valid(const std::map<std::string, std::string>& attributes)
 	{
-		return false;
+		m_lastError.assign("123");
+		// to do
+		return true;
 	}
 
-	CARSDK::ExperimentalDesignTable TwoFactorsAEDM::generateExperimentalDesignTable(const std::shared_ptr<XSDFrontend::XSDModel>& xsdModel, const std::map<std::string, std::string>& attributes) const
+	CARSDK::ExperimentalDesignTable TwoFactorsAEDM::generateExperimentalDesignTable(const std::shared_ptr<XSDFrontend::XSDModel>& xsdModel, const std::map<std::string, std::string>& attributes)
 	{
-		return CARSDK::ExperimentalDesignTable();
+		static CARSDK::ExperimentalDesignTable ret;
+		
+		// to do
+
+		return ret;
 	}
 
 	boost::shared_ptr<TwoFactorsAEDMAnalyzers> TwoFactorsAEDMAnalyzers::create(void)

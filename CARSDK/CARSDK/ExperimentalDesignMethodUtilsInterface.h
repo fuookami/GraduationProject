@@ -19,6 +19,7 @@ namespace CARSDK
 
 		virtual const std::string &name(void) const = 0;
 		virtual const std::string &displayName(void) const = 0;
+		inline boost::shared_ptr<IExperimentalDesignMethodInterface> method(const std::string &category) const { auto it(methods().find(category)); return it == methods().cend() ? nullptr : it->second; }
 		virtual const std::map<std::string, boost::shared_ptr<IExperimentalDesignMethodInterface>> &methods(void) const = 0;
 
 	protected:

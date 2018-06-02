@@ -10,8 +10,8 @@ void testModeling(void);
 
 int main(void)
 {
-	// testSharedLibrary();
-	testModeling();
+	testSharedLibrary();
+	// testModeling();
 
 	system("pause");
 	return 0;
@@ -27,7 +27,7 @@ void testSharedLibrary(void)
 		std::cout << pair.first << ' ' << pair.second->displayName() << std::endl;
 		for (const auto &_pair : pair.second->methods())
 		{
-			std::cout << '\t' << _pair.first << ' ' << _pair.second->displayName() << std::endl;
+			std::cout << '\t' << _pair.first << ' ' << _pair.second->displayName() << ' ' << _pair.second->valid(std::map<std::string, std::string>()) << ' ' << _pair.second->lastError() << std::endl;
 		}
 	}
 	std::cout << std::endl;
@@ -43,6 +43,7 @@ void testSharedLibrary(void)
 			}
 		}
 	}
+
 }
 
 void testModeling(void)

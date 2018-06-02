@@ -65,6 +65,10 @@ namespace VEDA
 		void initOperationFailed(QString);
 		void initOperationSucceeded(std::shared_ptr<VEDAOperationFile>);
 
+	private:
+		void emitMethodResponce(const QString &json);
+		void emitCategoryResponce(const QString &json);
+		void emitAttributeResponce(const QString &json);
 	public:
 		void emitInitOperationFailed(const QString &info);
 		void emitInitOperationSucceeded(std::shared_ptr<VEDAOperationFile>);
@@ -75,9 +79,9 @@ namespace VEDA
 	public:
 		Q_INVOKABLE void onSelectSavePathBtnClicked(void);
 		Q_INVOKABLE void onMethodRequested(void);
-		Q_INVOKABLE void onCategoryRequested(QJsonValue method);
-		Q_INVOKABLE void onAttributeRequested(QJsonValue method, QJsonValue category);
-		Q_INVOKABLE void onConfirmBtnClicked(QJsonValue nameValue, QJsonValue savePathValue, bool newDir, QJsonValue method, QJsonValue category, QJsonValue attributes);
+		Q_INVOKABLE void onCategoryRequested(QJsonValue methodValue);
+		Q_INVOKABLE void onAttributeRequested(QJsonValue methodValue, QJsonValue categoryValue);
+		Q_INVOKABLE void onConfirmBtnClicked(QJsonValue nameValue, QJsonValue savePathValue, bool newDir, QJsonValue methodValue, QJsonValue categoryValue, QJsonValue attributeValues);
 		Q_INVOKABLE void onCancelBtnClicked(void);
 
 	private:
