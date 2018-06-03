@@ -1,6 +1,9 @@
 #include "VEDATreeView.h"
 #include "VEDAInitProcessDialog.h"
+#include "VEDAInitModelDialog.h"
 #include "VEDAInitOperationDialog.h"
+#include "VEDAInitDataDialog.h"
+#include "SSUtils\GUI\QMessageBoxUtils.h"
 #include <QtGui/QGuiApplication>
 
 namespace VEDA
@@ -269,10 +272,24 @@ namespace VEDA
 		m_currRightClickItem->setExpanded(true);
 	}
 
+	void VEDATreeViewItemHandler::onInitModelSucceeded(std::shared_ptr<VEDAModelFile> modelFile)
+	{
+		auto modelItem(VEDATreeViewItem::genearteModelItem(m_currRightClickItem, modelFile->getUrl(), modelFile.get()));
+		m_currRightClickItem->insertChild(0, modelItem);
+		m_currRightClickItem->setExpanded(true);
+	}
+
 	void VEDATreeViewItemHandler::onInitOperationSucceeded(std::shared_ptr<VEDAOperationFile> operationFile)
 	{
 		auto operationItem(VEDATreeViewItem::generateOperationItem(m_currRightClickItem, operationFile));
 		m_currRightClickItem->addChild(operationItem);
+		m_currRightClickItem->setExpanded(true);
+	}
+
+	void VEDATreeViewItemHandler::onInitDataSucceeded(std::shared_ptr<VEDADataFile> dataFile)
+	{
+		auto dataItem(VEDATreeViewItem::generateDataItem(m_currRightClickItem, dataFile->getUrl(), dataFile.get()));
+		m_currRightClickItem->addChild(dataItem);
 		m_currRightClickItem->setExpanded(true);
 	}
 
@@ -332,7 +349,16 @@ namespace VEDA
 
 	void VEDATreeViewItemHandler::onInitModelTriggered(void)
 	{
-		// to do
+		auto processFile(dynamic_cast<VEDAProcessFile *>(m_currRightClickItem->file()));
+		if (!processFile->getModelFileUrl().empty())
+		{
+			SSUtils::GUI::QMessageBoxUtils::information(QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("%1下已有实验因素数据模型").arg(QString::fromLocal8Bit(processFile->getName().c_str())));
+			return;
+		}
+
+		auto dialog(VEDAInitModelDialog::getInstance(processFile));
+		connect(dialog->interface().get(), &VEDAInitModelDialogInterface::initModelSucceeded, this, &VEDATreeViewItemHandler::onInitModelSucceeded);
+		dialog->show();
 	}
 
 	void VEDATreeViewItemHandler::onImportModelTreiggered(void)

@@ -138,6 +138,7 @@ xcopy /e /r /y $(ProjectDir)WebRoot $(SolutionDir)Release\WebRoot\</Command>
     <ClCompile Include="VEDAFile.cpp" />
     <ClCompile Include="VEDAGUIGlobal.cpp" />
     <ClCompile Include="VEDAHomeView.cpp" />
+    <ClCompile Include="VEDAInitModelDialog.cpp" />
     <ClCompile Include="VEDAInitOperationDialog.cpp" />
     <ClCompile Include="VEDAInitProcessDialog.cpp" />
     <ClCompile Include="VEDAInitProjectDialog.cpp" />

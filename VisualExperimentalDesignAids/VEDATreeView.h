@@ -68,7 +68,9 @@ namespace VEDA
 
 	private:
 		void onInitProcessSucceeded(std::shared_ptr<VEDAProcessFile>);
+		void onInitModelSucceeded(std::shared_ptr<VEDAModelFile>);
 		void onInitOperationSucceeded(std::shared_ptr<VEDAOperationFile>);
+		void onInitDataSucceeded(std::shared_ptr<VEDADataFile>);
 
 	private:
 		void onOpenTriggered(void);

@@ -1,6 +1,9 @@
 var interface = null;
 
 $(document).ready(function() {
+    $(document).bind("contextmenu",function(e){
+        return false;
+    });
     $('#loader').hide();
 
     $('#init_model').on('change', function(){

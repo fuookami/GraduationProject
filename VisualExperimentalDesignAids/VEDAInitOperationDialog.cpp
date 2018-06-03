@@ -8,7 +8,6 @@
 #include <QtCore/QJsonObject>
 #include <QtCore/QJsonArray>
 #include <thread>
-#include <QtCore/QDebug>
 
 namespace VEDA
 {

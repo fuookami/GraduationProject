@@ -5,6 +5,10 @@ var curr_attribute_names = [];
 var curr_attribute_displays = [];
 
 $(document).ready(function() {
+    $(document).bind("contextmenu",function(e){
+        return false;
+    });
+
     $('#method_category_box').hide();
     $('#attribute_box').hide();
 

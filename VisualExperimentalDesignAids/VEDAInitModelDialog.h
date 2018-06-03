@@ -41,7 +41,7 @@ namespace VEDA
 		std::shared_ptr<VEDAInitModelDialogInterface> m_interface;
 	};
 
-	class VEDAInitModelDialogInterface : public SSUtils::GUI::IWebEngineWidgetInterface<VEDAInitModelDialog>
+	class VEDAInitModelDialogInterface : public SSUtils::GUI::IWebEngineDialogInterface<VEDAInitModelDialog>
 	{
 		Q_OBJECT;
 		friend class VEDAInitModelDialog;
@@ -62,7 +62,7 @@ namespace VEDA
 		void initModelSucceeded(std::shared_ptr<VEDAModelFile>);
 
 	public:
-		void emitInitModelFailed(const QString *info);
+		void emitInitModelFailed(const QString &info);
 		void emitInitModelSucceeded(std::shared_ptr<VEDAModelFile>);
 
 	private:

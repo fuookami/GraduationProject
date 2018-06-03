@@ -177,6 +177,9 @@
     <ClCompile Include="VEDAInitOperationDialog.cpp">
       <Filter>Source Files\GUI\Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="VEDAInitModelDialog.cpp">
+      <Filter>Source Files\GUI\Dialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGlobal.h">

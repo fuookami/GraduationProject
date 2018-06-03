@@ -1,6 +1,10 @@
 var interface = null;
 
 $(document).ready(function(){
+    $(document).bind("contextmenu",function(e){
+        return false;
+    });
+
     new QWebChannel(qt.webChannelTransport, function (channel) {
         interface = channel.objects.VEDAAboutDialogInterface;
 
