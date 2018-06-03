@@ -138,7 +138,7 @@ namespace VEDA
 		return std::make_tuple(true, operationFileUrl, operation);
 	}
 
-	const std::tuple<bool, std::string, std::shared_ptr<VEDADataFile>> VEDAProjectHandler::initData(VEDAOperationFile * operationFile, const std::string & name, const std::string & path, const bool newDir)
+	const std::tuple<bool, std::string, std::shared_ptr<VEDADataFile>> VEDAProjectHandler::initData(VEDAOperationFile * operationFile, const std::string & name, const std::string & path, const std::shared_ptr<XSDFrontend::XSDModel> model, const CARSDK::ExperimentalDesignTable & table)
 	{
 		if (!SSUtils::File::insurePathExist(path))
 		{
@@ -146,10 +146,23 @@ namespace VEDA
 		}
 
 		std::string dataFileUrl(path + SSUtils::File::PathSeperator() + name + SSUtils::File::ExtensionSeperator() + DataFileExtension);
-		auto data(VEDADataFile::generate(dataFileUrl, *operationFile, XSDFrontend::XSDModel::generateNewXSDModel(), SSUtils::XML::Node::generate(CARSDK::ExperimentalDesignTable::Tag)));
+
+		auto modelCopy(XSDFrontend::XSDModel::copyXSDModel(model));
+		if (modelCopy == nullptr)
+		{
+			return std::make_tuple(false, std::string("创建数据文件失败：") + dataFileUrl, std::shared_ptr<VEDADataFile>());
+		}
+
+		auto dataNode(table.toXML());
+		if (dataNode == nullptr)
+		{
+			return std::make_tuple(false, std::string("创建数据文件失败：") + dataFileUrl, std::shared_ptr<VEDADataFile>());
+		}
+		
+		auto data(VEDADataFile::generate(dataFileUrl, *operationFile, modelCopy, dataNode));
 		if (!data->save())
 		{
-			return std::make_tuple(false, std::string("创建模型文件失败：") + dataFileUrl, std::shared_ptr<VEDADataFile>());
+			return std::make_tuple(false, std::string("创建数据文件失败：") + dataFileUrl, std::shared_ptr<VEDADataFile>());
 		}
 
 		return std::make_tuple(true, dataFileUrl, data);

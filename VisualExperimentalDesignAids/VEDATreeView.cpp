@@ -368,7 +368,9 @@ namespace VEDA
 
 	void VEDATreeViewItemHandler::onInitDataTriggered(void)
 	{
-		// to do
+		auto dialog(VEDAInitDataDialog::getInstance(dynamic_cast<VEDAOperationFile *>(m_currRightClickItem->file())));
+		connect(dialog->interface().get(), &VEDAInitDataDialogInterface::initDataSucceeded, this, &VEDATreeViewItemHandler::onInitDataSucceeded);
+		dialog->show();
 	}
 
 	void VEDATreeViewItemHandler::onImportDataTriggered(void)

@@ -1,11 +1,30 @@
 #include "stdafx.h"
 #include "XSDModel.h"
+#include "XSDNormalizer.h"
+#include "XSDAnalyzer.h"
 
 namespace XSDFrontend
 {
 	const std::shared_ptr<XSDModel> XSDModel::generateNewXSDModel(void)
 	{
 		return std::shared_ptr<XSDModel>(new XSDModel());
+	}
+
+	const std::shared_ptr<XSDModel> XSDModel::copyXSDModel(const std::shared_ptr<XSDModel> model)
+	{
+		XSDNormalizer::XSDNormalizer normalizer(model);
+		if (!normalizer.normalize())
+		{
+			return nullptr;
+		}
+		auto xml(normalizer.getRoot());
+
+		XSDAnalyzer::XSDAnalyzer analyzer;
+		if (!analyzer.scan(xml))
+		{
+			return nullptr;
+		}
+		return analyzer.getModel();
 	}
 
 	XSDModel::XSDModel(void)

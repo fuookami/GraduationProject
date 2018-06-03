@@ -10,6 +10,7 @@ namespace XSDFrontend
 	{
 	public:
 		static const std::shared_ptr<XSDModel> generateNewXSDModel(void);
+		static const std::shared_ptr<XSDModel> copyXSDModel(const std::shared_ptr<XSDModel> model);
 
 	private:
 		XSDModel(void);

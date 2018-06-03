@@ -16,9 +16,32 @@ namespace VEDA
 		static const int Width = 650;
 		static const int Height = 375;
 		static const std::string DialogTitle;
+
+	public:
+		static VEDAInitDataDialog *getInstance(VEDAOperationFile *operationFile);
+
+	private:
+		VEDAInitDataDialog(VEDAOperationFile *operationFile);
+
+	public:
+		VEDAInitDataDialog(const VEDAInitDataDialog &ano) = delete;
+		VEDAInitDataDialog(VEDAInitDataDialog &&ano) = delete;
+		VEDAInitDataDialog &operator=(const VEDAInitDataDialog &rhs) = delete;
+		VEDAInitDataDialog &operator=(VEDAInitDataDialog &&rhs) = delete;
+		~VEDAInitDataDialog(void) = default;
+
+		inline const std::shared_ptr<VEDAInitDataDialogInterface> interface(void) const { return m_interface; }
+
+	protected:
+		void registerContents(void) override;
+		void initGUI(void) override;
+
+	private:
+		VEDAOperationFile * m_operationFile;
+		std::shared_ptr<VEDAInitDataDialogInterface> m_interface;
 	};
 
-	class VEDAInitDataDialogInterface : public SSUtils::GUI::IWebEngineWidgetInterface<VEDAInitDataDialog>
+	class VEDAInitDataDialogInterface : public SSUtils::GUI::IWebEngineDialogInterface<VEDAInitDataDialog>
 	{
 		Q_OBJECT;
 		friend class VEDAInitDataDialog;
@@ -42,12 +65,15 @@ namespace VEDA
 		void emitInitDataFailed(const QString &info);
 		void emitInitDataSucceeded(std::shared_ptr<VEDADataFile>);
 		
+	private:
+		void onInitDataSucceeded(std::shared_ptr<VEDADataFile>);
+
 	public:
 		Q_INVOKABLE void onSelectSavePathBtnClicked(void);
 		Q_INVOKABLE void onConfirmBtnClicked(QJsonValue nameValue, QJsonValue savePathValue);
 		Q_INVOKABLE void onCancelBtnClicked(void);
 
 	private:
-		VEDAProcessFile * m_processFile;
+		VEDAOperationFile *m_operationFile;
 	};
 };

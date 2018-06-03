@@ -180,6 +180,9 @@
     <ClCompile Include="VEDAInitModelDialog.cpp">
       <Filter>Source Files\GUI\Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="VEDAInitDataDialog.cpp">
+      <Filter>Source Files\GUI\Dialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGlobal.h">
