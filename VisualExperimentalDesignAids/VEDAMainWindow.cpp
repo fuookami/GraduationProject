@@ -87,6 +87,7 @@ namespace VEDA
 		qRegisterMetaType<std::shared_ptr<VEDAProcessFile>>("std::shared_ptr<VEDAProcessFile>");
 		qRegisterMetaType<std::shared_ptr<VEDAModelFile>>("std::shared_ptr<VEDAModelFile>");
 		qRegisterMetaType<std::shared_ptr<VEDAOperationFile>>("std::shared_ptr<VEDAOperationFile>");
+		qRegisterMetaType<std::shared_ptr<VEDADataFile>>("std::shared_ptr<VEDADataFile>");
 	}
 
 	void VEDAMainWindow::resizeEvent(QResizeEvent * event)

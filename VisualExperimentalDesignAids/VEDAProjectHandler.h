@@ -57,15 +57,19 @@ namespace VEDA
 
 		void openProject(const std::string &projectFileUrl, const bool save = true);
 		static std::shared_ptr<VEDAProcessFile> openProcess(VEDAProjectFile *projectFile, const std::string &processFileUrl, const bool ignoreIsChild = false);
+		static std::shared_ptr<VEDAModelFile> openModel(VEDAProcessFile *processFile, const bool ignoreIsChild = false);
 		static std::shared_ptr<VEDAOperationFile> openOperation(VEDAProcessFile *processFile, const std::string &operationFileUrl, const bool ignoreIsChild = false);
+		static std::shared_ptr<VEDADataFile> openData(VEDAOperationFile *operationFile, const std::string &dataFileUrl, const bool ignoreIsChild = false);
 
 		void closeCurrProject(const bool save = true);
 		void saveCurrProject(void);
 
 		inline const bool isProjectOpen(void) { return m_currProject != nullptr; }
 		inline std::shared_ptr<VEDAProjectFile> currProject(void)const { return m_currProject; }
+		inline const std::string &lastError(void) const { return m_lastError; }
 
 	private:
 		std::shared_ptr<VEDAProjectFile> m_currProject;
+		std::string m_lastError;
 	};
 };

@@ -254,9 +254,6 @@
     <ClInclude Include="VEDAInitPublicModelDialog.h">
       <Filter>Header Files\GUI\Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="VEDAInitModelDialog.h">
-      <Filter>Header Files\GUI\Dialog</Filter>
-    </ClInclude>
     <ClInclude Include="VEDAInitDataDialog.h">
       <Filter>Header Files\GUI\Dialog</Filter>
     </ClInclude>
@@ -326,6 +323,9 @@
       <Filter>Header Files\GUI\Dialog</Filter>
     </QtMoc>
     <QtMoc Include="VEDAInitOperationDialog.h">
+      <Filter>Header Files\GUI\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="VEDAInitModelDialog.h">
       <Filter>Header Files\GUI\Dialog</Filter>
     </QtMoc>
   </ItemGroup>

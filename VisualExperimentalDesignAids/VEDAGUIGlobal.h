@@ -16,6 +16,7 @@ namespace VEDA
 
 		extern const std::string InitProjectDialogUrl;
 		extern const std::string InitProcessDialogUrl;
+		extern const std::string InitModelDialogUrl;
 		extern const std::string InitOperationDialogUrl;
 		extern const std::string AboutDialogUrl;
 	};

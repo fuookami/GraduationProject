@@ -209,12 +209,76 @@ namespace VEDA
 		{
 			return nullptr;
 		}
+
+		std::vector<std::string> invalidOperationUrl;
+		for (const auto &url : process->getDataFileUrls())
+		{
+			std::string operationFileUrl(SSUtils::File::getSystemNativePath(process->getPath() + url));
+			auto operation(openOperation(process.get(), operationFileUrl));
+			if (operation == nullptr)
+			{
+				invalidOperationUrl.push_back(url);
+				continue;
+			}
+
+			process->addDataFile(operationFileUrl, operation);
+		}
+		for (const auto &url : invalidOperationUrl)
+		{
+			process->getDataFileUrls().erase(url);
+		}
+		process->save();
+
 		return process;
+	}
+
+	std::shared_ptr<VEDAModelFile> VEDAProjectHandler::openModel(VEDAProcessFile * processFile, const bool ignoreIsChild)
+	{
+		SSUtils::XML::Document modelDoc(SSUtils::XML::Document::fromFile(processFile->getModelFileUrl(), SSUtils::CharType::UTF8));
+		if (modelDoc.getRoots().size() != 1)
+		{
+			return nullptr;
+		}
+
+		auto model = VEDAModelFile::generate(processFile->getModelFileUrl(), modelDoc.getRoots().front());
+		if (!ignoreIsChild && processFile->isChildFile(*model))
+		{
+			return nullptr;
+		}
+
+		return model;
 	}
 
 	std::shared_ptr<VEDAOperationFile> VEDAProjectHandler::openOperation(VEDAProcessFile * processFile, const std::string & operationFileUrl, const bool ignoreIsChild)
 	{
-		return std::shared_ptr<VEDAOperationFile>();
+		SSUtils::XML::Document operationDoc(SSUtils::XML::Document::fromFile(operationFileUrl, SSUtils::CharType::UTF8));
+		if (operationDoc.getRoots().size() != 1)
+		{
+			return nullptr;
+		}
+
+		auto operation = VEDAOperationFile::generate(operationFileUrl, operationDoc.getRoots().front());
+		if (!ignoreIsChild && processFile->isChildFile(*operation))
+		{
+			return nullptr;
+		}
+		return operation;
+	}
+
+	std::shared_ptr<VEDADataFile> VEDAProjectHandler::openData(VEDAOperationFile * operationFile, const std::string &dataFileUrl, const bool ignoreIsChild)
+	{
+		SSUtils::XML::Document dataDoc(SSUtils::XML::Document::fromFile(dataFileUrl, SSUtils::CharType::UTF8));
+		if (dataDoc.getRoots().size() != 1)
+		{
+			return nullptr;
+		}
+
+		auto data = VEDADataFile::generate(dataFileUrl, dataDoc.getRoots().front());
+		if (!ignoreIsChild && operationFile->isChildFile(*data))
+		{
+			return nullptr;
+		}
+		return data;
 	}
 
 	void VEDAProjectHandler::closeCurrProject(const bool save)

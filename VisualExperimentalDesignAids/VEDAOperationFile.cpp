@@ -30,17 +30,17 @@ namespace VEDA
 			|| node->countChild(IndexTag) != 1
 			|| node->countChild(MethodTag) != 1)
 		{
-			return false;
+			return nullptr;
 		}
 
 		auto indexNode(node->getChildren()[node->findChild(IndexTag)]);
 		auto methodNode(node->getChildren()[node->findChild(MethodTag)]);
 
-		if (indexNode->countChild(MethodNameTag) != 1
-			|| indexNode->countChild(MethodCategoryTag) != 1
-			|| indexNode->countChild(MethodAttributeTag) != 1)
+		if (methodNode->countChild(MethodNameTag) != 1
+			|| methodNode->countChild(MethodCategoryTag) != 1
+			|| methodNode->countChild(MethodAttributeTag) != 1)
 		{
-			return false;
+			return nullptr;
 		}
 
 		std::shared_ptr<VEDAOperationFile> ret(new VEDAOperationFile(url));
