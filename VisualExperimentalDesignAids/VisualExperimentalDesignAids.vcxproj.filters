@@ -330,7 +330,7 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Resources\VEDAMainWindow.ui">
+    <QtUic Include="Forms\VEDAMainWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

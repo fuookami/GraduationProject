@@ -39,7 +39,7 @@
       <OutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir);D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\lib;D:\SDK_API\C_C++\jwsmtp\lib\msvc2017_x64;D:\SDK_API\C_C++\Boost\boost\lib\msvc2017_x64;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</GenerateDebugInformation>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cryptopp.lib;jwsmtp.lib;libboost_system-vc141-mt-g-1_65_1.lib;libboost_locale-vc141-mt-g-1_65_1.lib;libboost_filesystem-vc141-mt-g-1_65_1.lib;libboost_date_time-vc141-mt-g-1_65_1.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5WebChannel.lib;Qt5WebEngine.lib;Qt5WebEngineCore.lib;Qt5WebEngineWidgets.lib;Qt5Widgets.lib;Qt5Concurrent.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5WebChannel.lib;Qt5WebEngine.lib;Qt5WebEngineCore.lib;Qt5WebEngineWidgets.lib;Qt5Widgets.lib;Qt5Concurrent.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <InputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(FullPath)</InputFile>
@@ -58,6 +58,13 @@
       <ExecutionDescription Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc'ing %(Identity)...</ExecutionDescription>
       <OutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
+    <PostBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">copy $(TargetDir)*.dll $(SolutionDir)Release\
+copy $(TargetDir)Plugins\*.dll $(SolutionDir)Release\plugins\
+copy $(TargetDir)*.exe $(SolutionDir)Release\
+xcopy /e /r /y $(ProjectDir)Resources $(SolutionDir)Release\Resources\
+xcopy /e /r /y $(ProjectDir)WebRoot $(SolutionDir)Release\WebRoot\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
     <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
@@ -69,7 +76,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\Boost\boost\include;D:\SDK_API\C_C++\jwsmtp\include;$(SolutionDir)CARSDK\;$(SolutionDir)SSXSDUtils\;$(QtDir)\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\Boost\boost\include;D:\SDK_API\C_C++\jwsmtp\include;$(SolutionDir)CARSDK\;$(SolutionDir)SSUtilsSrc\;$(SolutionDir)SSXSDUtilsSrc\;$(QtDir)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -248,7 +255,7 @@
     <QtMoc Include="VEDAMainWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Resources\VEDAMainWindow.ui" />
+    <QtUic Include="Forms\VEDAMainWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
