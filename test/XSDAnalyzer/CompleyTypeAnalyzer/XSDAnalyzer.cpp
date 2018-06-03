@@ -32,6 +32,8 @@ namespace XSDAnalyzer
 		SSUtils::XML::Document doc(SSUtils::XML::Document::fromFile(fileUrl, charType));
 		const auto &xml(doc.getRoots());
 		
+		std::cout << xml.size();
+		std::cout << xml.front()->getTag();
 		if (!(xml.size() == 1) || !(xml.front()->getTag() == XSDFrontend::Token::SchemaTag))
 		{
 			std::cerr << "文件'" << fileUrl << "'不是xsd文件" << std::endl;

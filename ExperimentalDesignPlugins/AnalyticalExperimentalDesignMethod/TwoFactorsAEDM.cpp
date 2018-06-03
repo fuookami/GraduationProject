@@ -8,7 +8,6 @@ namespace AEDM
 	const std::string TwoFactorsAEDM::InteractionEffectAttr("has_interaction_effect");
 
 	const std::string TwoFactorsAEDMAnalyzers::VarianceOriginFlag("variance_origin");
-	const std::string TwoFactorsAEDMAnalyzers::Factor1_2_SumFlag("factor1_2_sum");
 
 	boost::shared_ptr<TwoFactorsAEDM> TwoFactorsAEDM::create(void)
 	{
@@ -44,18 +43,22 @@ namespace AEDM
 
 	const bool TwoFactorsAEDM::valid(const std::map<std::string, std::string>& attributes)
 	{
-		m_lastError.assign("123");
 		// to do
 		return true;
 	}
 
 	CARSDK::ExperimentalDesignTable TwoFactorsAEDM::generateExperimentalDesignTable(const std::shared_ptr<XSDFrontend::XSDModel>& xsdModel, const std::map<std::string, std::string>& attributes)
 	{
-		static CARSDK::ExperimentalDesignTable ret;
+		if (!valid(attributes))
+		{
+			return CARSDK::ExperimentalDesignTable();
+		}
 		
-		// to do
+		auto modelingModule(CARSDK::DataModelingModule::instance());
+		auto infos(modelingModule->analyze(xsdModel));
+		std::cout << infos.size();
 
-		return ret;
+		return CARSDK::ExperimentalDesignTable();
 	}
 
 	boost::shared_ptr<TwoFactorsAEDMAnalyzers> TwoFactorsAEDMAnalyzers::create(void)
@@ -68,6 +71,13 @@ namespace AEDM
 		return TwoFactorsAEDM::Category;
 	}
 
+	TwoFactorsAEDMAnalyzers::AnalyzerGroup TwoFactorsAEDMAnalyzers::generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const
+	{
+		// to do
+		return AnalyzerGroup();
+	}
+
+	/*
 	const std::map<std::string, std::string>& TwoFactorsAEDMAnalyzers::flags(void) const
 	{
 		static const std::map<std::string, std::string> ret =
@@ -87,6 +97,7 @@ namespace AEDM
 		};
 		return ret;
 	}
+	*/
 
 	std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::variance_origin_anzlyer(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data, const std::map<std::string, std::string>& attributes, const std::string & flag)
 	{

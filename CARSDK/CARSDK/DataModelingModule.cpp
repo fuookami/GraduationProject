@@ -14,7 +14,7 @@ namespace CARSDK
 		return ret;
 	}
 
-	std::shared_ptr<XSDFrontend::XSDModel> DataModelingModule::normalize(const std::vector<Info>& infos, std::shared_ptr<XSDFrontend::XSDModel> originModel) const
+	std::shared_ptr<XSDFrontend::XSDModel> DataModelingModule::normalize(const std::vector<Info>& infos, std::shared_ptr<XSDFrontend::XSDModel> originModel)
 	{
 		if (originModel == nullptr)
 		{
@@ -81,6 +81,11 @@ namespace CARSDK
 				return nullptr;
 			}
 
+			if (info.experimentalFactorType.empty())
+			{
+				continue;
+			}
+
 			std::shared_ptr<XSDFrontend::Attribute::AttributeGroup> attrGroup;
 			std::shared_ptr<XSDFrontend::ComplexType::SimpleContent> factor;
 
@@ -132,7 +137,14 @@ namespace CARSDK
 		return originModel;
 	}
 
-	std::vector<DataModelingModule::Info> DataModelingModule::analyze(const std::shared_ptr<XSDFrontend::XSDModel> model) const
+	std::shared_ptr<XSDFrontend::XSDModel> DataModelingModule::normalizeWithPublicModel(const std::vector<Info>& infos, const std::shared_ptr<XSDFrontend::XSDModel> publicModel, std::shared_ptr<XSDFrontend::XSDModel> originModel)
+	{
+		// to do : normalize infos to origin model and copy needed simple types from public model to origin model
+		// if the type is in the origin model and public model, copy it from public model to origin model to refresh the one in origin model
+		return std::shared_ptr<XSDFrontend::XSDModel>();
+	}
+
+	std::vector<DataModelingModule::Info> DataModelingModule::analyze(const std::shared_ptr<XSDFrontend::XSDModel> model)
 	{
 		std::vector<Info> ret;
 

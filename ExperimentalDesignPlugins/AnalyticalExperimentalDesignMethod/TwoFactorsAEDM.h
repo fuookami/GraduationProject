@@ -36,7 +36,6 @@ namespace AEDM
 	{
 	public:
 		static const std::string VarianceOriginFlag;
-		static const std::string Factor1_2_SumFlag;
 
 	public:
 		static boost::shared_ptr<TwoFactorsAEDMAnalyzers> create(void);
@@ -51,8 +50,7 @@ namespace AEDM
 		~TwoFactorsAEDMAnalyzers(void) = default;
 
 		const std::string &category(void) const override;
-		const std::map<std::string, std::string> &flags(void) const override;
-		const std::map<std::string, Analyzer> &analyzers(void) const override;
+		AnalyzerGroup generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const override;
 
 	private:
 		static std::pair<CARSDK::AnalysisResultType, std::string> variance_origin_anzlyer(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data, const std::map<std::string, std::string> &attributes, const std::string &flag);

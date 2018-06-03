@@ -31,8 +31,9 @@ namespace CARSDK
 		DataModelingModule &operator=(DataModelingModule &&rhs) = delete;
 		~DataModelingModule(void) = default;
 
-		std::shared_ptr<XSDFrontend::XSDModel> normalize(const std::vector<Info> &infos, std::shared_ptr<XSDFrontend::XSDModel> originModel = nullptr) const;
-		std::vector<Info> analyze(const std::shared_ptr<XSDFrontend::XSDModel> model) const;
+		std::shared_ptr<XSDFrontend::XSDModel> normalize(const std::vector<Info> &infos, std::shared_ptr<XSDFrontend::XSDModel> originModel = nullptr);
+		std::shared_ptr<XSDFrontend::XSDModel> normalizeWithPublicModel(const std::vector<Info> &infos, const std::shared_ptr<XSDFrontend::XSDModel> publicModel, std::shared_ptr<XSDFrontend::XSDModel> originModel = nullptr);
+		std::vector<Info> analyze(const std::shared_ptr<XSDFrontend::XSDModel> model);
 
 		inline const std::string &lastError(void) const { return m_lastError; }
 
