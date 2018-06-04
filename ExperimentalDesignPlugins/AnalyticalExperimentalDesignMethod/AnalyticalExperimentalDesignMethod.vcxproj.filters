@@ -27,6 +27,9 @@
     <ClInclude Include="TwoFactorsAEDM.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ThreeFactorsAEDM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="TwoFactorsAEDM.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreeFactorsAEDM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
