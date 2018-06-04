@@ -37,6 +37,13 @@ namespace VEDA
 	{
 		connect(m_mainView, &VEDAMainView::loadingBegin, this, &VEDAMainWidget::onLoadingBegin);
 		connect(m_mainView, &VEDAMainView::loadingEnd, this, &VEDAMainWidget::onLoadingEnd);
+
+		auto treeViewHandler = m_treeView->getHandler().get();
+		connect(treeViewHandler, &VEDATreeViewItemHandler::modelOpened, m_mainView, &VEDAMainView::onModelOpened);
+		connect(treeViewHandler, &VEDATreeViewItemHandler::modelRemove, m_mainView, &VEDAMainView::onModelRemove);
+		connect(treeViewHandler, &VEDATreeViewItemHandler::dataOpened, m_mainView, &VEDAMainView::onDataOpened);
+		connect(treeViewHandler, &VEDATreeViewItemHandler::dataRemove, m_mainView, &VEDAMainView::onDataRemove);
+		connect(treeViewHandler, &VEDATreeViewItemHandler::dataAnalyzerOpened, m_mainView, &VEDAMainView::onDataAnalyzerOpened);
 	}
 
 	void VEDAMainWidget::onLoadingBegin(void)

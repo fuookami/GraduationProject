@@ -133,8 +133,10 @@ xcopy /e /r /y $(ProjectDir)WebRoot $(SolutionDir)Release\WebRoot\</Command>
     <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QMessageBoxUtils.cpp" />
     <ClCompile Include="..\SSGUIUtilsSrc\SSUtils\GUI\QWebEngineWidget.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="VEDAAnalysisView.cpp" />
     <ClCompile Include="VEDADataFile.cpp" />
     <ClCompile Include="VEDADataFileBase.cpp" />
+    <ClCompile Include="VEDADataView.cpp" />
     <ClCompile Include="VEDAFile.cpp" />
     <ClCompile Include="VEDAGUIGlobal.cpp" />
     <ClCompile Include="VEDAHomeView.cpp" />
@@ -153,6 +155,7 @@ xcopy /e /r /y $(ProjectDir)WebRoot $(SolutionDir)Release\WebRoot\</Command>
     <ClCompile Include="VEDAMainWindow.cpp" />
     <ClCompile Include="VEDAModelFile.cpp" />
     <ClCompile Include="VEDAModelFileBase.cpp" />
+    <ClCompile Include="VEDAModelView.cpp" />
     <ClCompile Include="VEDAOperationFile.cpp" />
     <ClCompile Include="VEDAProcessFile.cpp" />
     <ClCompile Include="VEDAProjectFile.cpp" />
@@ -178,8 +181,18 @@ xcopy /e /r /y $(ProjectDir)WebRoot $(SolutionDir)Release\WebRoot\</Command>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI;.\..\SSGUIUtilsSrc\SSUtils\GUI</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
     </QtMoc>
-    <ClInclude Include="VEDAAnalysisView.h" />
-    <ClInclude Include="VEDADataView.h" />
+    <QtMoc Include="VEDAAnalysisView.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI;.\..\SSGUIUtilsSrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI;.\..\SSGUIUtilsSrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+    </QtMoc>
+    <QtMoc Include="VEDADataView.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI;.\..\SSGUIUtilsSrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI;.\..\SSGUIUtilsSrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+    </QtMoc>
     <QtMoc Include="VEDAHomeView.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
@@ -214,7 +227,12 @@ xcopy /e /r /y $(ProjectDir)WebRoot $(SolutionDir)Release\WebRoot\</Command>
     <ClInclude Include="VEDAInitReportConfigurationDialog.h" />
     <ClInclude Include="VEDAInitReportDataDialog.h" />
     <ClInclude Include="VEDAInitReportDialog.h" />
-    <ClInclude Include="VEDAModelView.h" />
+    <QtMoc Include="VEDAModelView.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI;.\..\SSGUIUtilsSrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWebChannel;$(QTDIR)\include\QtWebEngine;$(QTDIR)\include\QtWebEngineCore;$(QTDIR)\include\QtWebEngineWidgets;$(QTDIR)\include\QtWidgets;.\..\PublicModule;.\..\PublicModuleGUI;$(QTDIR)\include\QtConcurrent;.\..\SSUtilsGUISrc\SSUtils\GUI;.\..\SSGUIUtilsSrc\SSUtils\GUI</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBCHANNEL_LIB;QT_WEBENGINE_LIB;QT_WEBENGINECORE_LIB;QT_WEBENGINEWIDGETS_LIB;QT_WIDGETS_LIB;QT_CONCURRENT_LIB</Define>
+    </QtMoc>
     <ClInclude Include="VEDAPublicModelView.h" />
     <ClInclude Include="VEDARepoertDataView.h" />
     <ClInclude Include="VEDAReportConfigurationView.h" />

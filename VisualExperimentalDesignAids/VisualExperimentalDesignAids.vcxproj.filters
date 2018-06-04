@@ -183,6 +183,15 @@
     <ClCompile Include="VEDAInitDataDialog.cpp">
       <Filter>Source Files\GUI\Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="VEDAModelView.cpp">
+      <Filter>Source Files\GUI\View</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDADataView.cpp">
+      <Filter>Source Files\GUI\View</Filter>
+    </ClCompile>
+    <ClCompile Include="VEDAAnalysisView.cpp">
+      <Filter>Source Files\GUI\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VEDAGlobal.h">
@@ -246,15 +255,6 @@
       <Filter>Header Files\GUI\View</Filter>
     </ClInclude>
     <ClInclude Include="VEDAPublicModelView.h">
-      <Filter>Header Files\GUI\View</Filter>
-    </ClInclude>
-    <ClInclude Include="VEDAModelView.h">
-      <Filter>Header Files\GUI\View</Filter>
-    </ClInclude>
-    <ClInclude Include="VEDADataView.h">
-      <Filter>Header Files\GUI\View</Filter>
-    </ClInclude>
-    <ClInclude Include="VEDAAnalysisView.h">
       <Filter>Header Files\GUI\View</Filter>
     </ClInclude>
     <ClInclude Include="VEDAInitPublicModelDialog.h">
@@ -333,6 +333,15 @@
     </QtMoc>
     <QtMoc Include="VEDAInitDataDialog.h">
       <Filter>Header Files\GUI\Dialog</Filter>
+    </QtMoc>
+    <QtMoc Include="VEDADataView.h">
+      <Filter>Header Files\GUI\View</Filter>
+    </QtMoc>
+    <QtMoc Include="VEDAModelView.h">
+      <Filter>Header Files\GUI\View</Filter>
+    </QtMoc>
+    <QtMoc Include="VEDAAnalysisView.h">
+      <Filter>Header Files\GUI\View</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

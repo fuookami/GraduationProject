@@ -30,7 +30,6 @@ namespace VEDA
 		void onOpenProjectFinished(bool, QString);
 		void onCloseProjectFinished(bool, QString);
 
-		void onCurrentItemChanged(QTreeWidgetItem *_current, QTreeWidgetItem *_previous);
 		void onItemPressed(QTreeWidgetItem *_item, int column);
 
 	private:

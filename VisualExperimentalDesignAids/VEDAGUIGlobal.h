@@ -11,6 +11,9 @@ namespace VEDA
 		extern const std::string ViewRootPath;
 
 		extern const std::string HomeViewUrl;
+		extern const std::string ModelViewUrl;
+		extern const std::string DataViewUrl;
+		extern const std::string AnalysisViewUrl;
 
 		extern const std::string DialogRootPath;
 

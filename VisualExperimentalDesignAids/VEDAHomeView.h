@@ -8,8 +8,6 @@ namespace VEDA
 
 	class VEDAHomeView : public SSUtils::GUI::QWebEngineWidget
 	{
-		Q_OBJECT;
-
 	public:
 		explicit VEDAHomeView(QWidget *parent = nullptr);
 		VEDAHomeView(const VEDAHomeView &ano) = delete;

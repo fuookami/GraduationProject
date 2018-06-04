@@ -10,6 +10,9 @@ namespace VEDA
 		const std::string ViewRootPath = WebRootPath + std::string("views/");
 
 		const std::string HomeViewUrl = ViewRootPath + std::string("HomeView.html");
+		const std::string ModelViewUrl = ViewRootPath + std::string("ModelView.html");
+		const std::string DataViewUrl = ViewRootPath + std::string("DataView.html");
+		const std::string AnalysisViewUrl = ViewRootPath + std::string("AnalysisView.html");
 
 		const std::string DialogRootPath = WebRootPath + std::string("dialogs/");
 

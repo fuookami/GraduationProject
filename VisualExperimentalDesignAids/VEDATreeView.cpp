@@ -17,7 +17,6 @@ namespace VEDA
 		connect(m_projectHandler.get(), &VEDAProjectHandler::openProjectFinished, this, &VEDATreeView::onOpenProjectFinished);
 		connect(m_projectHandler.get(), &VEDAProjectHandler::closeProjectFinished, this, &VEDATreeView::onCloseProjectFinished);
 
-		connect(this, &QTreeWidget::currentItemChanged, this, &VEDATreeView::onCurrentItemChanged);
 		connect(this, &QTreeWidget::itemPressed, this, &VEDATreeView::onItemPressed);
 	}
 
@@ -35,24 +34,21 @@ namespace VEDA
 		m_itemHandler->setCurrentRightClickItem(nullptr);
 	}
 
-	void VEDATreeView::onCurrentItemChanged(QTreeWidgetItem * _current, QTreeWidgetItem * _previous)
-	{
-		auto current(dynamic_cast<VEDATreeViewItem *>(_current)), previous(dynamic_cast<VEDATreeViewItem *>(_previous));
-		m_itemHandler->setCurrentClickItem(current);
-	}
-
 	void VEDATreeView::onItemPressed(QTreeWidgetItem * _item, int column)
 	{
-		if (!(QGuiApplication::mouseButtons() & Qt::RightButton))
+		if (QGuiApplication::mouseButtons() & Qt::LeftButton)
 		{
-			return;
+			auto current(dynamic_cast<VEDATreeViewItem *>(_item));
+			m_itemHandler->setCurrentClickItem(current);
 		}
+		else if (QGuiApplication::mouseButtons() & Qt::RightButton)
+		{
+			auto item(dynamic_cast<VEDATreeViewItem *>(_item));
+			m_itemHandler->setCurrentRightClickItem(item);
 
-		auto item(dynamic_cast<VEDATreeViewItem *>(_item));
-		m_itemHandler->setCurrentRightClickItem(item);
-
-		auto menu(VEDATreeViewItemHandler::getItemMenu(item));
-		menu->exec(QCursor::pos());
+			auto menu(VEDATreeViewItemHandler::getItemMenu(item));
+			menu->exec(QCursor::pos());
+		}
 	}
 
 	const std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>>& VEDATreeViewItemHandler::Type2Action(void)
@@ -362,12 +358,12 @@ namespace VEDA
 
 	void VEDATreeViewItemHandler::emitDataAnalyzerOpened(VEDADataFile * dataFile)
 	{
-
+		emit dataAnalyzerOpened(dataFile);
 	}
 
 	void VEDATreeViewItemHandler::onModelOpen(VEDATreeViewItem * item)
 	{
-		auto parent = dynamic_cast<VEDATreeViewItem *>(m_currClickItem->parent());
+		auto parent = dynamic_cast<VEDATreeViewItem *>(item->parent());
 		auto projectHandler(VEDAProjectHandler::getInstance());
 
 		std::thread([this, item, parent, projectHandler]()
@@ -422,7 +418,7 @@ namespace VEDA
 
 	void VEDATreeViewItemHandler::onDataOpen(VEDATreeViewItem * item)
 	{
-		auto parent = dynamic_cast<VEDATreeViewItem *>(m_currClickItem->parent());
+		auto parent = dynamic_cast<VEDATreeViewItem *>(item->parent());
 		auto projectHandler(VEDAProjectHandler::getInstance());
 
 		std::thread([this, item, parent, projectHandler]()
@@ -479,7 +475,7 @@ namespace VEDA
 
 	void VEDATreeViewItemHandler::onDataAnalyzerOpen(VEDATreeViewItem * item)
 	{
-		auto parent = dynamic_cast<VEDATreeViewItem *>(m_currClickItem->parent());
+		auto parent = dynamic_cast<VEDATreeViewItem *>(item->parent());
 		auto projectHandler(VEDAProjectHandler::getInstance());
 
 		std::thread([this, item, parent, projectHandler]()
