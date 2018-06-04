@@ -14,7 +14,7 @@ namespace CARSDK
 	const std::string EAUtilsFactoryMethodName("getEAUtilsInterface");
 
 	String_Definition(UnitAttr, "unit");
-	String_Definition(DigitAttr, "digit");
+	String_Definition(DigitAttr, "digits");
 
 	String_Definition(ExperimentalFactorTypeAttr, "experimental_factor_type");
 	const boost::bimap<ExperimentalFactorType, std::string> &ExperimentalFactorType2String(void)

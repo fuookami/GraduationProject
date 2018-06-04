@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CARSDKGlobal.h"
+#include "DataModelingModule.h"
 #include "SSUtils/XSD/XSDModel.h"
 #include "SSUtils/XMLUtils.h"
 

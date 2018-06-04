@@ -2,6 +2,7 @@
 
 #include "CARSDKGlobal.h"
 #include "DataHandlingModule.h"
+#include "ExperimentalDesignMethodInterface.h"
 
 namespace CARSDK
 {

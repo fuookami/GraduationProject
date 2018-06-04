@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CARSDKGlobal.h"
+#include "ExperimentalDesignTable.h"
 #include "SSUtils/XSD/XSDModel.h"
 #include <boost/any.hpp>
 
@@ -17,10 +18,27 @@ namespace CARSDK
 			std::string name;
 			std::string type;
 			std::string experimentalFactorType;
+			XSDFrontend::SimpleType::eSimpleType simpleType;
 			std::map<std::string, std::string> infos;
 			std::map<std::string, boost::any> validators;
 			std::map<std::string, std::string> attributes;
 		};
+		using NumberEnumContainer = std::vector<SSUtils::Math::Real>;
+		using StringEnumContainer = std::vector<std::string>;
+		using DatetimeEnumContainer = std::vector<SSUtils::Datetime::DatetimeDuration>;
+
+		using FactorType = DataModelingModule::Info;
+		struct FactorTypeGroup
+		{
+			std::vector<std::reference_wrapper<const FactorType>> experimentalFactors;
+			std::vector<std::reference_wrapper<const FactorType>> evaluateFactor;
+			std::vector<std::reference_wrapper<const FactorType>> notEvaluateFactor;
+		};
+
+	public:
+		static const int getEnumNumber(const DataModelingModule::FactorType &factor);
+		static std::vector<std::string> getEnumString(const DataModelingModule::FactorType &factor);
+		static DataModelingModule::FactorTypeGroup divideToGroup(const std::vector<DataModelingModule::FactorType> &infos);
 
 	private:
 		DataModelingModule(void) = default;
@@ -34,10 +52,9 @@ namespace CARSDK
 		std::shared_ptr<XSDFrontend::XSDModel> normalize(const std::vector<Info> &infos, std::shared_ptr<XSDFrontend::XSDModel> originModel = nullptr);
 		std::shared_ptr<XSDFrontend::XSDModel> normalizeWithPublicModel(const std::vector<Info> &infos, const std::shared_ptr<XSDFrontend::XSDModel> publicModel, std::shared_ptr<XSDFrontend::XSDModel> originModel = nullptr);
 		std::vector<Info> analyze(const std::shared_ptr<XSDFrontend::XSDModel> model);
+		std::vector<Info> analyzeForDesignMethod(const std::shared_ptr<XSDFrontend::XSDModel> model);
 
 		inline const std::string &lastError(void) const { return m_lastError; }
-
-		static std::shared_ptr<SSUtils::XML::Node> generateData(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::string &factorName);
 
 	private:
 		static std::shared_ptr<XSDFrontend::SimpleType::NumberType> loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType> type, const Info &info);

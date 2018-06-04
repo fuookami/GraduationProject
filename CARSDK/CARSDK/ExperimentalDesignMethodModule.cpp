@@ -6,12 +6,6 @@
 
 namespace CARSDK
 {
-	const std::map<std::string, std::string> ExperimentalDesignMethodModule::DefaultFactorAttributes = 
-	{
-		std::make_pair(UnitAttr(), std::string("单位")),
-		std::make_pair(DigitAttr(), std::string("小数点后位数"))
-	};
-
 	std::shared_ptr<ExperimentalDesignMethodModule> ExperimentalDesignMethodModule::instance(void)
 	{
 		static std::shared_ptr<ExperimentalDesignMethodModule> ret(new ExperimentalDesignMethodModule());

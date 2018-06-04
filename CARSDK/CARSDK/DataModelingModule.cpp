@@ -1,12 +1,124 @@
 #include "stdafx.h"
 #include "DataModelingModule.h"
-
 #include "SSUtils/StringUtils.h"
+#include "SSUtils/MathUtils.h"
+#include <boost/preprocessor.hpp>
 
 namespace CARSDK
 {
 	const std::string DataModelingModule::DescriptionInfo("description");
 	const std::string DataModelingModule::BaesTypePrefix("b");
+
+	const int DataModelingModule::getEnumNumber(const FactorType & factor)
+	{
+		auto it(factor.validators.find(XSDFrontend::Token::EnumValidatorTag()));
+		if (it == factor.validators.cend())
+		{
+			return 0;
+		}
+
+		if (factor.simpleType == XSDFrontend::SimpleType::eSimpleType::tNumberType
+			&& it->second.type() == typeid(DataModelingModule::NumberEnumContainer))
+		{
+			return boost::any_cast<DataModelingModule::NumberEnumContainer>(it->second).size();
+		}
+		else if (factor.simpleType == XSDFrontend::SimpleType::eSimpleType::tStringType
+			&& it->second.type() == typeid(DataModelingModule::StringEnumContainer))
+		{
+			return boost::any_cast<DataModelingModule::StringEnumContainer>(it->second).size();
+		}
+		else if (factor.simpleType == XSDFrontend::SimpleType::eSimpleType::tDatetimeType
+			&& it->second.type() == typeid(DataModelingModule::DatetimeEnumContainer))
+		{
+			return boost::any_cast<DataModelingModule::DatetimeEnumContainer>(it->second).size();
+		}
+
+		return 0;
+	}
+
+	std::vector<std::string> DataModelingModule::getEnumString(const FactorType & factor)
+	{
+		auto it(factor.validators.find(XSDFrontend::Token::EnumValidatorTag()));
+		if (it == factor.validators.cend())
+		{
+			return std::vector<std::string>();
+		}
+
+		std::vector<std::string> ret;
+		if (factor.simpleType == XSDFrontend::SimpleType::eSimpleType::tNumberType
+			&& it->second.type() == typeid(DataModelingModule::NumberEnumContainer))
+		{
+			const auto &values(boost::any_cast<DataModelingModule::NumberEnumContainer>(it->second));
+
+			auto digitIt(factor.attributes.find(DigitAttr()));
+			if (digitIt == factor.attributes.cend())
+			{
+				for (const auto &value : values)
+				{
+					ret.push_back(value.toString());
+				}
+			}
+			else
+			{
+				SSUtils::uint32 digits = SSUtils::Math::DefaultDigits;
+				if (digitIt != factor.attributes.cend() && SSUtils::String::isPositiveDecInteger(digitIt->second))
+				{
+					digits = std::stoul(digitIt->second);
+				}
+
+				for (const auto &value : values)
+				{
+					ret.push_back(value.toDecimal().second.str(digits, std::ios::fixed));
+				}
+			}
+		}
+		else if (factor.simpleType == XSDFrontend::SimpleType::eSimpleType::tStringType
+			&& it->second.type() == typeid(DataModelingModule::StringEnumContainer))
+		{
+			const auto &values(boost::any_cast<DataModelingModule::StringEnumContainer>(it->second));
+			std::copy(values.cbegin(), values.cend(), std::back_inserter(ret));
+		}
+		else if (factor.simpleType == XSDFrontend::SimpleType::eSimpleType::tDatetimeType
+			&& it->second.type() == typeid(DataModelingModule::DatetimeEnumContainer))
+		{
+			const auto &values(boost::any_cast<DataModelingModule::DatetimeEnumContainer>(it->second));
+			std::transform(values.cbegin(), values.cend(), std::back_inserter(ret), [](const DatetimeEnumContainer::value_type &value) 
+			{
+				return value.toString();
+			});
+		}
+
+		return ret;
+	} 
+
+	DataModelingModule::FactorTypeGroup DataModelingModule::divideToGroup(const std::vector<FactorType>& infos)
+	{
+		FactorTypeGroup group;
+
+		for (const auto &info : infos)
+		{
+			auto it(ExperimentalFactorType2String().right.find(info.experimentalFactorType));
+			if (it == ExperimentalFactorType2String().right.end())
+			{
+				continue;
+			}
+
+			if (it->second == ExperimentalFactorType::ExperimentalFactor)
+			{
+				group.experimentalFactors.push_back(info);
+			}
+			else if (it->second == ExperimentalFactorType::EvaluateFactor)
+			{
+				group.evaluateFactor.push_back(info);
+			}
+			else if (it->second == ExperimentalFactorType::NotEvaluateFactor)
+			{
+				group.notEvaluateFactor.push_back(info);
+			}
+		}
+
+		return group;
+	}
 
 	std::shared_ptr<DataModelingModule> DataModelingModule::instance(void)
 	{
@@ -152,6 +264,17 @@ namespace CARSDK
 		const auto attributeModel(model->getAttributeModel());
 		const auto complexTypeModel(model->getComplexTypeModel());
 
+		return ret;
+	}
+
+	std::vector<DataModelingModule::Info> DataModelingModule::analyzeForDesignMethod(const std::shared_ptr<XSDFrontend::XSDModel> model)
+	{
+		std::vector<Info> ret;
+
+		const auto simpleTypeModel(model->getSimpleTypeModel());
+		const auto attributeModel(model->getAttributeModel());
+		const auto complexTypeModel(model->getComplexTypeModel());
+
 		for (const auto &pair : complexTypeModel->getSimpleContents())
 		{
 			if (pair.second->hasExAttr(ExperimentalFactorTypeAttr()))
@@ -159,7 +282,6 @@ namespace CARSDK
 				const auto factor(pair.second);
 				const auto *simpleType(simpleTypeModel->getSimpleType(factor->getBaseTypeName()));
 				const auto attributeGroup(attributeModel->getAttributeGroup(factor->getAttributeGroupName()));
-				const bool isDefaultTypeName();
 
 				Info info;
 
@@ -192,6 +314,7 @@ namespace CARSDK
 
 				info.name = factor->getName();
 				info.experimentalFactorType = factor->getExAttr(ExperimentalFactorTypeAttr());
+				info.simpleType = simpleType->getSimpleType();
 				if (!factor->getDescription().empty())
 				{
 					info.infos.insert(std::make_pair(DescriptionInfo, factor->getDescription()));
@@ -210,11 +333,6 @@ namespace CARSDK
 		}
 
 		return ret;
-	}
-
-	std::shared_ptr<SSUtils::XML::Node> DataModelingModule::generateData(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::string &factorName)
-	{
-		return nullptr;
 	}
 
 	std::shared_ptr<XSDFrontend::SimpleType::NumberType> DataModelingModule::loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType> type, const Info & info)
@@ -244,9 +362,9 @@ namespace CARSDK
 		}
 
 		it = info.validators.find(XSDFrontend::Token::EnumValidatorTag());
-		if (it != info.validators.cend() && it->second.type() == typeid(std::vector<SSUtils::Math::Real>))
+		if (it != info.validators.cend() && it->second.type() == typeid(NumberEnumContainer))
 		{
-			const auto &enums(boost::any_cast<std::vector<SSUtils::Math::Real>>(it->second));
+			const auto &enums(boost::any_cast<NumberEnumContainer>(it->second));
 			type->setIsEnum(true);
 			for (const auto &value : enums)
 			{
@@ -296,9 +414,9 @@ namespace CARSDK
 		}
 
 		it = info.validators.find(XSDFrontend::Token::EnumValidatorTag());
-		if (it != info.validators.cend() && it->second.type() == typeid(std::vector<std::string>))
+		if (it != info.validators.cend() && it->second.type() == typeid(StringEnumContainer))
 		{
-			const std::vector<std::string> &enums(boost::any_cast<std::vector<std::string>>(it->second));
+			const auto &enums(boost::any_cast<StringEnumContainer>(it->second));
 			type->setIsEnum(true);
 			for (const auto &value : enums)
 			{
@@ -335,9 +453,9 @@ namespace CARSDK
 		}
 
 		it = info.validators.find(XSDFrontend::Token::EnumValidatorTag());
-		if (it != info.validators.cend() && it->second.type() == typeid(std::vector<SSUtils::Datetime::DatetimeDuration>))
+		if (it != info.validators.cend() && it->second.type() == typeid(DatetimeEnumContainer))
 		{
-			const std::vector<SSUtils::Datetime::DatetimeDuration> &enums(boost::any_cast<std::vector<SSUtils::Datetime::DatetimeDuration>>(it->second));
+			const auto &enums(boost::any_cast<DatetimeEnumContainer>(it->second));
 			type->setIsEnum(true);
 			for (const auto &value : enums)
 			{
@@ -380,7 +498,7 @@ namespace CARSDK
 
 		if (type->getIsEnum())
 		{
-			info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(type->getEnumValues())));
+			info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(NumberEnumContainer(type->getEnumValues().cbegin(), type->getEnumValues().cend()))));
 		}
 
 		return info;
@@ -410,7 +528,7 @@ namespace CARSDK
 
 		if (type->getIsEnum())
 		{
-			info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(type->getEnumValues())));
+			info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(StringEnumContainer(type->getEnumValues().cbegin(), type->getEnumValues().cend()))));
 		}
 
 		return info;
@@ -422,7 +540,7 @@ namespace CARSDK
 
 		if (!type->getIsEnum())
 		{
-			info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(type->getEnumValues())));
+			info.validators.insert(std::make_pair(XSDFrontend::Token::EnumValidatorTag(), boost::any(DatetimeEnumContainer(type->getEnumValues().cbegin(), type->getEnumValues().cend()))));
 		}
 
 		if (!type->hasMaxExclusive())

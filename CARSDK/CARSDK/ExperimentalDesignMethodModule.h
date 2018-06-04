@@ -11,7 +11,6 @@ namespace CARSDK
 	public:
 		static std::shared_ptr<ExperimentalDesignMethodModule> instance(void);
 		static std::shared_ptr<ExperimentalDesignMethodModule> instance(const std::string &path);
-		static const std::map<std::string, std::string> DefaultFactorAttributes;
 
 	private:
 		ExperimentalDesignMethodModule(void);
