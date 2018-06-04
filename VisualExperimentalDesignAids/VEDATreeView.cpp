@@ -5,6 +5,7 @@
 #include "VEDAInitDataDialog.h"
 #include "SSUtils\GUI\QMessageBoxUtils.h"
 #include <QtGui/QGuiApplication>
+#include <thread>
 
 namespace VEDA
 {
@@ -72,6 +73,33 @@ namespace VEDA
 		initActions();
 	}
 
+	void VEDATreeViewItemHandler::setCurrentClickItem(VEDATreeViewItem * currItem)
+	{
+		m_currClickItem = currItem;
+
+		switch (m_currClickItem->type())
+		{
+		case VEDAFile::Type::PublicModel:
+			break;
+		case VEDAFile::Type::Model:
+			onModelOpen(currItem);
+			break;
+		case VEDAFile::Type::Data:
+			onDataOpen(currItem);
+			break;
+		case VEDAFile::Type::ReportConfiguration:
+			break;
+		case VEDAFile::Type::ReportData:
+			break;
+		case VEDAFile::Type::Project:
+		case VEDAFile::Type::Process:
+		case VEDAFile::Type::Operation:
+		case VEDAFile::Type::Report:
+		default:
+			break;
+		}
+	}
+
 	std::shared_ptr<QMenu> VEDATreeViewItemHandler::getItemMenu(VEDATreeViewItem * item)
 	{
 		static auto instance(getInstance());
@@ -103,6 +131,10 @@ namespace VEDA
 		m_open.reset(new QAction());
 		m_open->setText(QString::fromLocal8Bit("打开"));
 		connect(m_open.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onOpenTriggered);
+
+		m_rename.reset(new QAction());
+		m_rename->setText(QString::fromLocal8Bit("重命名"));
+		connect(m_rename.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onRenameTrigggered);
 
 		{
 			m_initProcess.reset(new QAction());
@@ -198,6 +230,12 @@ namespace VEDA
 		connect(m_delete.get(), &QAction::triggered, this, &VEDATreeViewItemHandler::onDeleteTriggered);
 	}
 
+	void VEDATreeViewItemHandler::initConnections(void)
+	{
+		connect(this, &VEDATreeViewItemHandler::sig_modelRemove, this, &VEDATreeViewItemHandler::onModelRemove);
+		connect(this, &VEDATreeViewItemHandler::sig_dataRemove, this, &VEDATreeViewItemHandler::onDataRemove);
+	}
+
 	std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>> VEDATreeViewItemHandler::initActionMap(void)
 	{
 		auto instance(VEDATreeViewItemHandler::getInstance());
@@ -210,40 +248,47 @@ namespace VEDA
 					std::vector<std::shared_ptr<QAction>>({ instance->m_importProcess, instance->m_importPublicModel }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_initReport }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_importReport }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_rename }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_closeProject })
 				})),
 			std::make_pair(VEDAFile::Type::PublicModel, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
 					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_rename }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_remove, instance->m_delete })
 				})),
 			std::make_pair(VEDAFile::Type::Process, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
 					std::vector<std::shared_ptr<QAction>>({ instance->m_initOperation, instance->m_initModel }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_importOperation, instance->m_importModel }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_rename }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_remove })
 				})),
 			std::make_pair(VEDAFile::Type::Model, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
 					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_rename }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_remove, instance->m_delete })
 				})),
 			std::make_pair(VEDAFile::Type::Operation, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
 					std::vector<std::shared_ptr<QAction>>({ instance->m_initData }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_importData }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_rename }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_remove })
 				})),
 			std::make_pair(VEDAFile::Type::Data, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
 					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_analyse }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_rename }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_remove, instance->m_delete })
 				})),
 			std::make_pair(VEDAFile::Type::Report, std::vector<std::vector<std::shared_ptr<QAction>>>(
 				{
 					std::vector<std::shared_ptr<QAction>>({ instance->m_initReportConfiguration }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_importReportConfiguration }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_rename }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_remove })
 				})),
 			std::make_pair(VEDAFile::Type::ReportConfiguration, std::vector<std::vector<std::shared_ptr<QAction>>>(
@@ -251,6 +296,7 @@ namespace VEDA
 					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_initReportData }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_importReportData }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_rename }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_remove })
 				})),
 			std::make_pair(VEDAFile::Type::ReportData, std::vector<std::vector<std::shared_ptr<QAction>>>(
@@ -258,6 +304,7 @@ namespace VEDA
 
 					std::vector<std::shared_ptr<QAction>>({ instance->m_open }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_exportReport }),
+					std::vector<std::shared_ptr<QAction>>({ instance->m_rename }),
 					std::vector<std::shared_ptr<QAction>>({ instance->m_remove, instance->m_delete })
 				}))
 		};
@@ -293,7 +340,209 @@ namespace VEDA
 		m_currRightClickItem->setExpanded(true);
 	}
 
+	void VEDATreeViewItemHandler::emitModelOpened(VEDAModelFile * modelFile)
+	{
+		emit modelOpened(modelFile);
+	}
+
+	void VEDATreeViewItemHandler::emitModelRemove(VEDATreeViewItem * item)
+	{
+		emit sig_modelRemove(item);
+	}
+
+	void VEDATreeViewItemHandler::emitDataOpened(VEDADataFile * dataFile)
+	{
+		emit dataOpened(dataFile);
+	}
+
+	void VEDATreeViewItemHandler::emitDataRemove(VEDATreeViewItem * item)
+	{
+		emit sig_dataRemove(item);
+	}
+
+	void VEDATreeViewItemHandler::emitDataAnalyzerOpened(VEDADataFile * dataFile)
+	{
+
+	}
+
+	void VEDATreeViewItemHandler::onModelOpen(VEDATreeViewItem * item)
+	{
+		auto parent = dynamic_cast<VEDATreeViewItem *>(m_currClickItem->parent());
+		auto projectHandler(VEDAProjectHandler::getInstance());
+
+		std::thread([this, item, parent, projectHandler]()
+		{
+			projectHandler->emitLoadingBegin();
+
+			auto processFile(dynamic_cast<VEDAProcessFile *>(parent->file()));
+			if (item->file() == nullptr)
+			{
+				if (processFile->getModelFile() != nullptr)
+				{
+					item->setFile(processFile->getModelFile().get());
+				}
+				else
+				{
+					auto model = projectHandler->openModel(processFile);
+					if (model == nullptr)
+					{
+						this->emitModelRemove(item);
+					}
+					else
+					{
+						item->setFile(model.get());
+					}
+				}
+			}
+			if (item->file() != nullptr)
+			{
+				this->emitModelOpened(dynamic_cast<VEDAModelFile *>(item->file()));
+			}
+
+			projectHandler->emitLoadingEnd();
+		}).detach();
+	}
+
+	void VEDATreeViewItemHandler::onModelRemove(VEDATreeViewItem * item)
+	{
+		if (item->file() != nullptr)
+		{
+			auto temp = dynamic_cast<VEDAModelFile *>(item->file());
+			auto process = temp->getParent();
+			auto model = process->getModelFile();
+
+			process->setModelFileUrl("");
+			process->setModelFile(nullptr);
+			process->save();
+
+			emit modelRemove(model);
+		}
+		delete item;
+	}
+
+	void VEDATreeViewItemHandler::onDataOpen(VEDATreeViewItem * item)
+	{
+		auto parent = dynamic_cast<VEDATreeViewItem *>(m_currClickItem->parent());
+		auto projectHandler(VEDAProjectHandler::getInstance());
+
+		std::thread([this, item, parent, projectHandler]()
+		{
+			projectHandler->emitLoadingBegin();
+
+			auto operationFile(dynamic_cast<VEDAOperationFile *>(parent->file()));
+			std::string url(std::string(item->url().toLocal8Bit()));
+			auto relativeUrl(SSUtils::File::getRelativeUrlOfPath(operationFile->getPath(), url));
+			if (item->file() == nullptr)
+			{
+				if (operationFile->getLoadedDataFiles().find(relativeUrl) != operationFile->getLoadedDataFiles().cend())
+				{
+					item->setFile(operationFile->getLoadedDataFiles().find(relativeUrl)->second.get());
+				}
+				else
+				{
+					auto data = projectHandler->openData(operationFile, url);
+					if (data == nullptr)
+					{
+						this->emitDataRemove(item);
+					}
+					else
+					{
+						item->setFile(data.get());
+					}
+				}
+			}
+			if (item->file() != nullptr)
+			{
+				this->emitDataOpened(dynamic_cast<VEDADataFile *>(item->file()));
+			}
+
+			projectHandler->emitLoadingEnd();
+		}).detach();
+	}
+
+	void VEDATreeViewItemHandler::onDataRemove(VEDATreeViewItem * item)
+	{
+		if (item->file() != nullptr)
+		{
+			auto temp = dynamic_cast<VEDADataFile *>(item->file());
+			auto operation = temp->getParent();
+			auto relativeUrl(SSUtils::File::getRelativeUrlOfPath(operation->getPath(), temp->getUrl()));
+			auto data = operation->getLoadedDataFiles().find(relativeUrl)->second;
+
+			operation->getDataFileUrls().erase(relativeUrl);
+			operation->getLoadedDataFiles().erase(relativeUrl);
+			operation->save();
+			emit dataRemove(data);
+		}
+		delete item;
+	}
+
+	void VEDATreeViewItemHandler::onDataAnalyzerOpen(VEDATreeViewItem * item)
+	{
+		auto parent = dynamic_cast<VEDATreeViewItem *>(m_currClickItem->parent());
+		auto projectHandler(VEDAProjectHandler::getInstance());
+
+		std::thread([this, item, parent, projectHandler]()
+		{
+			projectHandler->emitLoadingBegin();
+
+			auto operationFile(dynamic_cast<VEDAOperationFile *>(parent->file()));
+			std::string url(std::string(item->url().toLocal8Bit()));
+			auto relativeUrl(SSUtils::File::getRelativeUrlOfPath(operationFile->getPath(), url));
+			if (item->file() == nullptr)
+			{
+				if (operationFile->getLoadedDataFiles().find(relativeUrl) != operationFile->getLoadedDataFiles().cend())
+				{
+					item->setFile(operationFile->getLoadedDataFiles().find(relativeUrl)->second.get());
+				}
+				else
+				{
+					auto data = projectHandler->openData(operationFile, url);
+					if (data == nullptr)
+					{
+						this->emitDataRemove(item);
+					}
+					else
+					{
+						item->setFile(data.get());
+					}
+				}
+			}
+			if (item->file() != nullptr)
+			{
+				this->emitDataAnalyzerOpened(dynamic_cast<VEDADataFile *>(item->file()));
+			}
+
+			projectHandler->emitLoadingEnd();
+		}).detach();
+	}
+
 	void VEDATreeViewItemHandler::onOpenTriggered(void)
+	{
+		switch (m_currRightClickItem->type())
+		{
+		case VEDAFile::Type::PublicModel:
+			break;
+		case VEDAFile::Type::Model:
+			onModelOpen(m_currRightClickItem);
+			break;
+		case VEDAFile::Type::Data:
+			onDataOpen(m_currRightClickItem);
+			break;
+		case VEDAFile::Type::ReportConfiguration:
+			break;
+		case VEDAFile::Type::ReportData:
+			break;
+		case VEDAFile::Type::Project:
+		case VEDAFile::Type::Process:
+		case VEDAFile::Type::Operation:
+		case VEDAFile::Type::Report:
+		default:
+			break;
+		}
+	}
+
+	void VEDATreeViewItemHandler::onRenameTrigggered(void)
 	{
 		// to do
 	}
@@ -380,7 +629,7 @@ namespace VEDA
 
 	void VEDATreeViewItemHandler::onAnalyseTriggered(void)
 	{
-		// to do
+		onDataAnalyzerOpen(m_currRightClickItem);
 	}
 
 	void VEDATreeViewItemHandler::onInitReportConfigurationTriggered(void)

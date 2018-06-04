@@ -65,6 +65,6 @@ namespace VEDA
 
 	const std::string & VEDADataFile::DataNodeTag(void) const
 	{
-		return Tag;
+		return CARSDK::ExperimentalDesignTable::Tag;
 	}
 };

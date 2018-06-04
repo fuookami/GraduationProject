@@ -24,6 +24,8 @@ namespace VEDA
 		VEDATreeView &operator=(VEDATreeView &&rhs) = delete;
 		~VEDATreeView(void) = default;
 
+		inline const std::shared_ptr<VEDATreeViewItemHandler> getHandler(void) const { return m_itemHandler; }
+
 	private:
 		void onOpenProjectFinished(bool, QString);
 		void onCloseProjectFinished(bool, QString);
@@ -56,7 +58,7 @@ namespace VEDA
 		~VEDATreeViewItemHandler(void) = default;
 
 		inline VEDATreeViewItem *getCurrentClickItem(void) const { return m_currClickItem; }
-		void setCurrentClickItem(VEDATreeViewItem *currItem) { m_currClickItem = currItem; }
+		void setCurrentClickItem(VEDATreeViewItem *currItem);
 
 		inline VEDATreeViewItem *getCurrentRightClickItem(void) const { return m_currRightClickItem; }
 		void setCurrentRightClickItem(VEDATreeViewItem *currItem) { m_currRightClickItem = currItem; }
@@ -64,7 +66,17 @@ namespace VEDA
 
 	private:
 		void initActions(void);
+		void initConnections(void);
 		static std::map<VEDAFile::Type, std::vector<std::vector<std::shared_ptr<QAction>>>> initActionMap(void);
+
+	signals:
+		void modelOpened(VEDAModelFile *modelFile);
+		void modelRemove(std::shared_ptr<VEDAModelFile> modelFile);
+		void sig_modelRemove(VEDATreeViewItem *item);
+		void dataOpened(VEDADataFile *dataFile);
+		void dataRemove(std::shared_ptr<VEDADataFile> dataFile);
+		void sig_dataRemove(VEDATreeViewItem *item);
+		void dataAnalyzerOpened(VEDADataFile *dataFile);
 
 	private:
 		void onInitProcessSucceeded(std::shared_ptr<VEDAProcessFile>);
@@ -72,8 +84,24 @@ namespace VEDA
 		void onInitOperationSucceeded(std::shared_ptr<VEDAOperationFile>);
 		void onInitDataSucceeded(std::shared_ptr<VEDADataFile>);
 
+	public:
+		void emitModelOpened(VEDAModelFile *modelFile);
+		void emitModelRemove(VEDATreeViewItem *item);
+		void emitDataOpened(VEDADataFile *dataFile);
+		void emitDataRemove(VEDATreeViewItem *item);
+		void emitDataAnalyzerOpened(VEDADataFile *dataFile);
+
+	private:
+		void onModelOpen(VEDATreeViewItem *item);
+		void onModelRemove(VEDATreeViewItem *item);
+		void onDataOpen(VEDATreeViewItem *item);
+		void onDataRemove(VEDATreeViewItem *item);
+		void onDataAnalyzerOpen(VEDATreeViewItem *item);
+
 	private:
 		void onOpenTriggered(void);
+
+		void onRenameTrigggered(void);
 
 		void onInitProcessTriggered(void);
 		void onImportProcessTriggered(void);
@@ -90,7 +118,7 @@ namespace VEDA
 
 		void onInitDataTriggered(void);
 		void onImportDataTriggered(void);
-		
+
 		void onAnalyseTriggered(void);
 
 		void onInitReportConfigurationTriggered(void);
@@ -105,10 +133,12 @@ namespace VEDA
 		void onDeleteTriggered(void);
 
 	private:
-		VEDATreeViewItem *m_currClickItem;
+		VEDATreeViewItem * m_currClickItem;
 		VEDATreeViewItem *m_currRightClickItem;
 
 		std::shared_ptr<QAction> m_open;
+
+		std::shared_ptr<QAction> m_rename;
 
 		std::shared_ptr<QAction> m_initProcess;
 		std::shared_ptr<QAction> m_importProcess;

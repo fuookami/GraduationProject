@@ -28,6 +28,7 @@ namespace VEDA
 		inline const QString &name(void) const { return m_name; }
 		inline const VEDAFile::Type type(void) const { return m_type; }
 		inline VEDAFile *file(void) const { return m_file; }
+		inline void setFile(VEDAFile *file) { m_file = file; }
 
 	private:
 		QString m_url;
