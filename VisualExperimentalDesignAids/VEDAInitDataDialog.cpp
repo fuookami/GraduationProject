@@ -74,10 +74,15 @@ namespace VEDA
 		std::thread([this, name, savePath]()
 		{
 			auto *operation(this->m_operationFile);
-			auto *process(operation->getParent().lock().get());
+			auto *process(operation->getParent());
 			if (process->getModelFileUrl().empty())
 			{
 				this->emitInitDataFailed(QString::fromLocal8Bit("该实验流程下没有实验因素数据模型，请先创建实验因素数据模型"));
+				return;
+			}
+			if (process->getModelFile() == nullptr && VEDAProjectHandler::openModel(process) == nullptr)
+			{
+				this->emitInitDataFailed(QString::fromLocal8Bit("打开该实验流程下的实验因素数据模型时出错"));
 				return;
 			}
 			auto model(process->getModelFile()->getModel());
@@ -111,6 +116,7 @@ namespace VEDA
 			}
 
 			auto dataFile(std::get<2>(dataRet));
+			dataFile->setParent(operation);
 
 			operation->addDataFile(SSUtils::File::getRelativeUrlOfPath(operation->getPath(), dataFile->getUrl()), dataFile);
 			operation->save();

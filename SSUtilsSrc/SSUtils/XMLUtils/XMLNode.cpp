@@ -191,21 +191,11 @@ namespace SSUtils
 
 		void Node::setParent(const std::weak_ptr<Node> parent)
 		{
-			auto ori_parent(m_parent.lock());
-			if (ori_parent != nullptr)
-			{
-				ori_parent->removeChild(m_self.lock());
-			}
 			m_parent = parent;
 		}
 
 		void Node::removeParent(void)
 		{
-			auto parent(m_parent.lock());
-			if (parent != nullptr)
-			{
-				parent->removeChild(m_self.lock());
-			}
 			m_parent.reset();
 		}
 
@@ -228,6 +218,28 @@ namespace SSUtils
 			else
 			{
 				m_children.insert(m_children.begin() + pos, child);
+			}
+			child->setParent(m_self);
+		}
+
+		void Node::addChildren(const std::vector<std::shared_ptr<Node>> children, const int32 pos)
+		{
+			if (pos <= npos || pos >= m_children.size())
+			{
+				for (const auto child : children)
+				{
+					m_children.push_back(child);
+					child->setParent(m_self);
+				}
+			}
+			else
+			{
+				auto insertIt(m_children.begin() + pos);
+				for (auto it(children.rbegin()), ed(children.rend()); it != ed; ++it)
+				{
+					insertIt = m_children.insert(insertIt, *it);
+					(*it)->setParent(m_self);
+				}
 			}
 		}
 

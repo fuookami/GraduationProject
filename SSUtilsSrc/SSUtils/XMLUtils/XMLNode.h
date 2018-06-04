@@ -69,6 +69,7 @@ namespace SSUtils
 
 		public:
 			void addChild(const std::shared_ptr<Node> child, const int32 pos = npos);
+			void addChildren(const std::vector<std::shared_ptr<Node>> children, const int32 pos = npos);
 
 			void removeChild(const std::shared_ptr<Node> child);
 			template<typename fun_t, typename U = std::enable_if_t<std::is_function_v<fun_t>>>

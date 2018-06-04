@@ -95,7 +95,7 @@ namespace VEDA
 	class IVEDAFileParentInterface
 	{
 	protected:
-		IVEDAFileParentInterface(void) = default;
+		IVEDAFileParentInterface(void) : m_parent(nullptr) {};
 	public:
 		IVEDAFileParentInterface(const IVEDAFileParentInterface &ano) = delete;
 		IVEDAFileParentInterface(IVEDAFileParentInterface &&ano) = delete;
@@ -103,11 +103,12 @@ namespace VEDA
 		IVEDAFileParentInterface &operator=(IVEDAFileParentInterface &&rhs) = delete;
 		virtual ~IVEDAFileParentInterface(void) = default;
 
-		inline void setParent(const std::shared_ptr<T> parent) { m_parent = parent; }
-		inline const std::weak_ptr<T> getParent(void) const { return m_parent; }
+		inline void setParent(T *parent) { m_parent = parent; }
+		inline T *getParent(void) { return m_parent; }
+		inline const T *getParent(void) const { return m_parent; }
 
 	protected:
-		std::weak_ptr<T> m_parent;
+		T *m_parent;
 	};
 
 	template<typename T>

@@ -198,6 +198,7 @@ namespace VEDA
 				continue;
 			}
 
+			process->setParent(m_currProject.get());
 			m_currProject->addDataFile(processFileUrl, process);
 		}
 		for (const auto &url : invalidProcessUrl)
@@ -234,6 +235,7 @@ namespace VEDA
 				continue;
 			}
 
+			operation->setParent(process.get());
 			process->addDataFile(operationFileUrl, operation);
 		}
 		for (const auto &url : invalidOperationUrl)
@@ -247,7 +249,8 @@ namespace VEDA
 
 	std::shared_ptr<VEDAModelFile> VEDAProjectHandler::openModel(VEDAProcessFile * processFile, const bool ignoreIsChild)
 	{
-		SSUtils::XML::Document modelDoc(SSUtils::XML::Document::fromFile(processFile->getModelFileUrl(), SSUtils::CharType::UTF8));
+		std::string modelFileUrl(SSUtils::File::getSystemNativePath(processFile->getPath() + processFile->getModelFileUrl()));
+		SSUtils::XML::Document modelDoc(SSUtils::XML::Document::fromFile(modelFileUrl, SSUtils::CharType::UTF8));
 		if (modelDoc.getRoots().size() != 1)
 		{
 			return nullptr;
@@ -258,7 +261,9 @@ namespace VEDA
 		{
 			return nullptr;
 		}
-
+		
+		model->setParent(processFile);
+		processFile->setModelFile(model);
 		return model;
 	}
 
@@ -291,6 +296,9 @@ namespace VEDA
 		{
 			return nullptr;
 		}
+
+		data->setParent(operationFile);
+		operationFile->addDataFile(dataFileUrl, data);
 		return data;
 	}
 

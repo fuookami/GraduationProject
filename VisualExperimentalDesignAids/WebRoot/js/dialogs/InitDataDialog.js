@@ -7,7 +7,7 @@ $(document).ready(function() {
     $('#loader').hide();
 
     new QWebChannel(qt.webChannelTransport, function (channel) {
-        interface = channel.objects.VEDAInitModelDialogInterface;
+        interface = channel.objects.VEDAInitDataDialogInterface;
 
         $('#select_save_path_btn').click(function() {
             interface.onSelectSavePathBtnClicked();

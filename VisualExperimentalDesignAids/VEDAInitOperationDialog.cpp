@@ -184,6 +184,7 @@ namespace VEDA
 			else
 			{
 				auto operationFile(std::get<2>(operationRet));
+				operationFile->setParent(this->m_processFile);
 
 				this->m_processFile->addDataFile(SSUtils::File::getRelativeUrlOfPath(this->m_processFile->getPath(), operationFile->getUrl()), operationFile);
 				this->m_processFile->save();

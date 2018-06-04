@@ -79,6 +79,7 @@ namespace VEDA
 			}
 
 			auto modelFile(std::get<2>(modelRet));
+			modelFile->setParent(this->m_processFile);
 
 			this->m_processFile->setModelFileUrl(SSUtils::File::getRelativeUrlOfPath(this->m_processFile->getPath(), modelFile->getUrl()));
 			this->m_processFile->setModelFile(modelFile);

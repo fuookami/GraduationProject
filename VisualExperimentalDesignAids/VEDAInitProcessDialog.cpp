@@ -134,6 +134,7 @@ namespace VEDA
 						processFile->setModelFileUrl(SSUtils::File::getRelativeUrlOfPath(processFile->getPath(), modelFile->getUrl()));
 						processFile->setModelFile(modelFile);
 						processFile->save();
+						processFile->setParent(this->m_projectFile);
 
 						this->m_projectFile->addDataFile(SSUtils::File::getRelativeUrlOfPath(this->m_projectFile->getPath(), processFile->getUrl()), processFile);
 						this->m_projectFile->save();
