@@ -5,6 +5,7 @@
 #include <utility>
 #include <tuple>
 #include "VEDAProjectFile.h"
+#include "CARSDK\ExperimentalDesignTable.h"
 
 namespace VEDA
 {

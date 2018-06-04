@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TwoFactorsAEDM.h"
+#include "SSUtils\MathUtils.h"
 
 namespace AEDM
 {
@@ -37,28 +38,115 @@ namespace AEDM
 
 	const std::map<std::string, std::string>& TwoFactorsAEDM::factorNeededAttributes(void) const
 	{
-		static const std::map<std::string, std::string> ret;
+		static const std::map<std::string, std::string> ret = DefaultFactorAttributes;
 		return ret;
 	}
 
 	const bool TwoFactorsAEDM::valid(const std::map<std::string, std::string>& attributes)
 	{
-		// to do
+		if (!SSUtils::String::isPositiveDecInteger(attributes.find(RepeatTimeAttr)->second))
+		{
+			m_lastError.assign("重复次数不是一个有效的十进制正整数");
+			return false;
+		}
+
+		return true;
+	}
+
+	const bool TwoFactorsAEDM::valid(const std::map<std::string, std::string>& attributes, const CARSDK::DataModelingModule::FactorTypeGroup & factorTypeGroup)
+	{
+		if (!valid(attributes))
+		{
+			return false;
+		}
+
+		if (factorTypeGroup.experimentalFactors.size() != 2)
+		{
+			m_lastError.assign("实验因素类型的数量不为2");
+			return false;
+		}
+
+		std::vector<std::string> NoEnumFactors;
+		for (const auto &factorWrapper : factorTypeGroup.experimentalFactors)
+		{
+			const auto &factor = factorWrapper.get();
+			if (CARSDK::DataModelingModule::getEnumNumber(factor) <= 0)
+			{
+				NoEnumFactors.push_back(factor.name);
+			}
+		}
+		if (!NoEnumFactors.empty())
+		{
+			std::ostringstream sout;
+			sout << "实验因素" << SSUtils::String::join(NoEnumFactors, std::string("，")) << "没有水平值";
+			m_lastError.assign(sout.str());
+			return false;
+		}
+
 		return true;
 	}
 
 	CARSDK::ExperimentalDesignTable TwoFactorsAEDM::generateExperimentalDesignTable(const std::shared_ptr<XSDFrontend::XSDModel>& xsdModel, const std::map<std::string, std::string>& attributes)
 	{
-		if (!valid(attributes))
+		auto modelingModule(CARSDK::DataModelingModule::instance());
+		auto infos(modelingModule->analyzeForDesignMethod(xsdModel));
+		auto group(CARSDK::DataModelingModule::divideToGroup(infos));
+
+		if (!valid(attributes, group))
 		{
 			return CARSDK::ExperimentalDesignTable();
 		}
 		
-		auto modelingModule(CARSDK::DataModelingModule::instance());
-		auto infos(modelingModule->analyze(xsdModel));
-		std::cout << infos.size();
+		CARSDK::ExperimentalDesignTable table;
+		auto factorInserter = [&table](const decltype(group.experimentalFactors) &factorWrappers) 
+		{
+			for (const auto factorWrapper : factorWrappers)
+			{
+				table.typeNames().push_back(factorWrapper.get().name);
+			}
+		};
+		factorInserter(group.experimentalFactors);
+		factorInserter(group.evaluateFactor);
+		factorInserter(group.notEvaluateFactor);
 
-		return CARSDK::ExperimentalDesignTable();
+		SSUtils::uint32 repeatTime = std::stoul(attributes.find(RepeatTimeAttr)->second);
+
+		std::vector<std::vector<std::string>> enumStrings;
+		std::vector<SSUtils::int32> numbers;
+		for (const auto &factor : group.experimentalFactors)
+		{
+			enumStrings.push_back(CARSDK::DataModelingModule::getEnumString(factor));
+			numbers.push_back(enumStrings.back().size());
+		}
+		
+		SSUtils::Math::CombinationGenerator combinationGenerator(numbers);
+		do 
+		{
+			CARSDK::ExperimentalDesignTable::Batch batch;
+			const auto &combination(combinationGenerator.currCombination);
+			for (SSUtils::uint32 i(0), j(combination.size()); i != j; ++i)
+			{
+				batch.push_back(generateCell(group.experimentalFactors[i], enumStrings[i][combination[i]]));
+			}
+			for (SSUtils::uint32 i(0), j(group.evaluateFactor.size()); i != j; ++i)
+			{
+				batch.push_back(generateCell(group.evaluateFactor[i]));
+			}
+			for (SSUtils::uint32 i(0), j(group.notEvaluateFactor.size()); i != j; ++i)
+			{
+				batch.push_back(generateCell(group.notEvaluateFactor[i]));
+			}
+
+			table.batches().insert(table.batches().end(), repeatTime, batch);
+		} while (combinationGenerator.next());
+
+		std::random_shuffle(table.batches().begin(), table.batches().end());
+		return table;
+	}
+
+	CARSDK::ExperimentalDesignTable::Cell TwoFactorsAEDM::generateCell(const CARSDK::DataModelingModule::FactorType & info, const std::string & value)
+	{
+		return IExperimentalDesignMethodInterface::generateCell(info, value);
 	}
 
 	boost::shared_ptr<TwoFactorsAEDMAnalyzers> TwoFactorsAEDMAnalyzers::create(void)

@@ -11,6 +11,14 @@ namespace CARSDK
 
 	ExperimentalDesignTable::Cell IExperimentalDesignMethodInterface::generateCell(const DataModelingModule::FactorType & info, const std::string & value)
 	{
-		return ExperimentalDesignTable::Cell();
+		ExperimentalDesignTable::Cell cell;
+		cell.content.assign(value);
+
+		auto it(info.attributes.find(UnitAttr()));
+		if (it != info.attributes.end())
+		{
+			cell.attrs.insert(*it);
+		}
+		return cell;
 	}
 };
