@@ -119,8 +119,8 @@ namespace XSDFrontend
 			static const std::string ScientificNotationPattern("^(-?(0|[1-9]\\d*)(.\\d*))?e(-?(0|[1-9]\\d*))$");
 			static const std::string PositiveZero("+0"), NegetiveZero("-0");
 
-			std::string str;
-			std::transform(_str.cbegin(), _str.cbegin(), std::back_inserter(str), tolower);
+			std::string str(_str);
+			std::transform(str.begin(), str.end(), str.begin(), tolower);
 			if (SSUtils::String::RegexChecker(ScientificNotationPattern)(str))
 			{
 				std::vector<std::string> parts(SSUtils::String::split(str, std::string("e")));

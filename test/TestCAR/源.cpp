@@ -2,16 +2,19 @@
 #include "CARSDK/ExperimentalAnalyzerModule.h"
 
 #include "SSUtils/FileUtils.h"
+#include "SSUtils/XSD/XSDAnalyzer.h"
 #include "SSUtils/XSD/XSDNormalizer.h"
 #include <iostream>
 
 void testSharedLibrary(void);
 void testModeling(void);
+void testGenerating(void);
 
 int main(void)
 {
 	testSharedLibrary();
 	// testModeling();
+	testGenerating();
 
 	system("pause");
 	return 0;
@@ -27,23 +30,9 @@ void testSharedLibrary(void)
 		std::cout << pair.first << ' ' << pair.second->displayName() << std::endl;
 		for (const auto &_pair : pair.second->methods())
 		{
-			std::cout << '\t' << _pair.first << ' ' << _pair.second->displayName() << ' ' << _pair.second->valid(std::map<std::string, std::string>()) << ' ' << _pair.second->lastError() << std::endl;
+			std::cout << '\t' << _pair.first << ' ' << _pair.second->displayName() << std::endl;
 		}
 	}
-	std::cout << std::endl;
-	for (const auto &pair : EAMod->utils())
-	{
-		std::cout << pair.first << ' ' << std::endl;
-		for (const auto &_pair : pair.second->analyzerGroups())
-		{
-			std::cout << '\t' << pair.first << ' ' << std::endl;
-			for (const auto &__pair : _pair.second->analyzers())
-			{
-				std::cout << "\t\t" << __pair.first << ' ' << std::endl;
-			}
-		}
-	}
-
 }
 
 void testModeling(void)
@@ -110,7 +99,7 @@ void testModeling(void)
 	XSDNormalizer::XSDNormalizer normalizer2(model);
 	if (normalizer2.normalize())
 	{
-		normalizer2.getDocument().toFile(SSUtils::File::InitailPath() + "\\testModeling2.xsd", SSUtils::CharType::UTF8);
+		normalizer2.getDocument().toFile(SSUtils::File::InitailPath() + "testModeling2.xsd", SSUtils::CharType::UTF8);
 		std::cout << "normalize model2 well." << std::endl;
 	}
 	else
@@ -120,4 +109,31 @@ void testModeling(void)
 
 	auto _infos = instance->analyze(model);
 	std::cout << "analyze model well." << std::endl;
+}
+
+void testGenerating(void)
+{
+	XSDAnalyzer::XSDAnalyzer analyzer;
+	analyzer.scan(SSUtils::File::InitailPath() + "testModeling2.xsd", SSUtils::CharType::UTF8);
+	auto model = analyzer.getModel();
+
+	std::map<std::string, std::string> attributes =
+	{
+		std::make_pair(std::string("repeat_time"), std::string("4")),
+		std::make_pair(std::string("has_interaction_effect"), std::string("true"))
+	};
+
+	auto instance = CARSDK::ExperimentalDesignMethodModule::instance()->util(std::string("AEDM"))->method("TwoFactorAEDM");
+	auto table = instance->generateExperimentalDesignTable(model, attributes);
+	
+	if (!table.empty())
+	{
+		SSUtils::XML::Document doc;
+		doc.push_back(table.toXML());
+		doc.toFile(SSUtils::File::InitailPath() + "testData.xml", SSUtils::CharType::UTF8);
+	}
+	else
+	{
+		std::cout << instance->lastError();
+	}
 }
