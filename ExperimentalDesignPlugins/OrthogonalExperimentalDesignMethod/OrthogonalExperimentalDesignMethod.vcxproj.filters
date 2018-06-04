@@ -21,6 +21,21 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="OEDMUtils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TwoLevelOEDM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreeLevelOEDM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FourLevelOEDM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiLevelOEDM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -30,6 +45,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreeLevelOEDM.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FourLevelOEDM.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TwoLevelOEDM.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiLevelOEDM.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OEDMUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

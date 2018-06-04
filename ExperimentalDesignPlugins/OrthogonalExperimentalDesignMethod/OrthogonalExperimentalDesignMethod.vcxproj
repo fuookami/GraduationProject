@@ -158,11 +158,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FourLevelOEDM.h" />
+    <ClInclude Include="MultiLevelOEDM.h" />
+    <ClInclude Include="OEDMUtils.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ThreeLevelOEDM.h" />
+    <ClInclude Include="TwoLevelOEDM.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="FourLevelOEDM.cpp" />
+    <ClCompile Include="MultiLevelOEDM.cpp" />
+    <ClCompile Include="OEDMUtils.cpp" />
     <ClCompile Include="OrthogonalExperimentalDesignMethod.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -170,6 +178,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ThreeLevelOEDM.cpp" />
+    <ClCompile Include="TwoLevelOEDM.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
