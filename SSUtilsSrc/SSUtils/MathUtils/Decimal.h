@@ -58,7 +58,7 @@ namespace SSUtils
 			}
 			template<uint32 _Digits>
 			DecimalWrapper(const DecimalWrapper<_Digits> &ano)
-				: DecimalWrapper(ano.get<value_type>(), ano.m_index)
+				: DecimalWrapper(ano.get<value_type>(), ano.getIndex())
 			{
 			}
 
@@ -544,7 +544,6 @@ namespace SSUtils
 			intx<bits> toIntx(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<intx<bits>>(); }
 			template<uint32 bits>
 			uintx<bits> toIntx(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uintx<bits>>(); }
-			integer toInteger(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<integer>(); }
 
 			float toFloat(void) const { return convert_to<float>(); }
 			double toDouble(void) const { return convert_to<double>(); }
@@ -565,7 +564,7 @@ namespace SSUtils
 			typename std::enable_if_t<_Digits != Digits && _Digits != 0, DecimalWrapper<_Digits>> toDecimalWrapper(void) const { return DecimalWrapper<_Digits>(toDecimal<_Digits>()); }
 
 			template<typename T>
-			typename std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return convert_to<T>(); }
+			typename std::enable_if_t<!std::is_same_v<T, value_type>, T> get(void) const { return value_type::convert_to<T>(); }
 			template<typename T>
 			typename std::enable_if_t<std::is_same_v<T, value_type>, const T &> get(void) const { return *this; }
 
@@ -587,7 +586,7 @@ namespace SSUtils
 				return (value() + offset).convert_to<decimal<_Digits>>();
 			}
 
-			integer toInteger(const RoundFlag flag = RoundFlag::round) { return flag == RoundFlag::round ? roundToInteger() : RoundFlag::ceil ? ceilToInteger() : floorToInteger(); }
+			integer toInteger(const RoundFlag flag = RoundFlag::round) const { return flag == RoundFlag::round ? roundToInteger() : flag == RoundFlag::ceil ? ceilToInteger() : floorToInteger(); }
 			integer roundToInteger(void) const { return static_cast<integer>(boost::math::round(value())); }
 			integer ceilToInteger(void) const { return floorToInteger() + 1; }
 			integer floorToInteger(void) const { return static_cast<integer>(value()); }

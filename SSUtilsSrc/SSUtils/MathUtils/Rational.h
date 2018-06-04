@@ -871,7 +871,6 @@ namespace SSUtils
 			intx<bits> toIntx(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<intx<bits>>(); }
 			template<uint32 bits>
 			uintx<bits> toIntx(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<uintx<bits>>(); }
-			integer toInteger(const RoundFlag flag = RoundFlag::round) const { return toInteger(flag).convert_to<integer>(); }
 
 			float toFloat(void) const { return !valid() ? std::numeric_limits<float>::quiet_NaN() : convert_to<float>(); }
 			double toDouble(void) const { return !valid() ? std::numeric_limits<double>::quiet_NaN() : convert_to<double>(); }
@@ -915,7 +914,7 @@ namespace SSUtils
 				return !valid() ? std::numeric_limits<decimal<_Digits>>::quiet_NaN() : (value() + offset).convert_to<decimal<_Digits>>();
 			}
 
-			integer toInteger(const RoundFlag flag = RoundFlag::round) { return flag == RoundFlag::round ? roundToInteger() : RoundFlag::ceil ? ceilToInteger() : floorToInteger(); }
+			integer toInteger(const RoundFlag flag = RoundFlag::round) const { return flag == RoundFlag::round ? roundToInteger() : flag == RoundFlag::ceil ? ceilToInteger() : floorToInteger(); }
 			integer roundToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(boost::math::round(value_dec())); }
 			integer ceilToInteger(void) const { return !valid() ? integer(0) : floorToInteger() + 1; }
 			integer floorToInteger(void) const { return !valid() ? integer(0) : static_cast<integer>(value_dec()); }

@@ -10,6 +10,7 @@ namespace SSUtils
 	namespace Math
 	{
 		static const uint32 DefaultDigits = 50;
+#define PP_DefaultDigits 50
 		static const int32 DefaultPrecisionDigits = -14;
 		SSUtils_API_DECLSPEC const dec50 &_DefaultPrecision();
 		static const dec50 &DefaultPrecision = _DefaultPrecision();

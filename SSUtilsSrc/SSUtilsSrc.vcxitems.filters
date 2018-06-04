@@ -239,6 +239,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\EncryptionUtils\RSA.h">
       <Filter>头文件\EncryptionUtils</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\Combination.h">
+      <Filter>头文件\MathUtils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\DatetimeUtils\Time.cpp">
@@ -366,6 +369,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\EncryptionUtils\RSA.cpp">
       <Filter>源文件\EncryptionUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\Combination.cpp">
+      <Filter>源文件\MathUtils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

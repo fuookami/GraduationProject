@@ -193,7 +193,7 @@ namespace SSUtils
 
 				bool operator()(const rational_type &rational_value) const
 				{
-					return check(rational_value.value());
+					return check(rational_value.value_dec());
 				}
 
 				bool operator()(const power_type &power_value) const
@@ -232,7 +232,7 @@ namespace SSUtils
 
 				bool operator()(const rational_type &rational_value) const
 				{
-					return check(rational_value.value());
+					return check(rational_value.value_dec());
 				}
 
 				bool operator()(const power_type &power_value) const
@@ -387,6 +387,11 @@ namespace SSUtils
 					return std::make_pair(true, integer_type(value.toInteger(flag)));
 				}
 
+				std::pair<bool, integer_type> operator()(const integer_type &value) const
+				{
+					return std::make_pair(true, value);
+				}
+
 				std::pair<bool, integer_type> operator()(const uinteger_type &value) const
 				{
 					return std::make_pair(true, integer_type(value.value()));
@@ -399,8 +404,8 @@ namespace SSUtils
 
 				std::pair<bool, integer_type> operator()(const TranscendentalValue value) const
 				{
-					auto it = TranscendentalValue2Decimal().left.find(value);
-					if (it == TranscendentalValue2Decimal().left.end())
+					auto it = TranscendentalValue2Decimal().find(value);
+					if (it == TranscendentalValue2Decimal().end())
 					{
 						return std::make_pair(false, integer_type(0));
 					}
@@ -1356,7 +1361,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toInt8());
+					return std::make_pair(true, value.second.toInt8());
 				}
 				else
 				{
@@ -1368,7 +1373,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toUInt8());
+					return std::make_pair(true, value.second.toUInt8());
 				}
 				else
 				{
@@ -1380,7 +1385,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toInt16());
+					return std::make_pair(true, value.second.toInt16());
 				}
 				else
 				{
@@ -1392,7 +1397,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toUInt16());
+					return std::make_pair(true, value.second.toUInt16());
 				}
 				else
 				{
@@ -1404,7 +1409,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toInt32());
+					return std::make_pair(true, value.second.toInt32());
 				}
 				else
 				{
@@ -1416,7 +1421,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toUInt32());
+					return std::make_pair(true, value.second.toUInt32());
 				}
 				else
 				{
@@ -1428,7 +1433,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toInt64());
+					return std::make_pair(true, value.second.toInt64());
 				}
 				else
 				{
@@ -1440,7 +1445,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toUInt64());
+					return std::make_pair(true, value.second.toUInt64());
 				}
 				else
 				{
@@ -1452,7 +1457,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toInt128());
+					return std::make_pair(true, value.second.toInt128());
 				}
 				else
 				{
@@ -1464,7 +1469,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toUInt128());
+					return std::make_pair(true, value.second.toUInt128());
 				}
 				else
 				{
@@ -1476,7 +1481,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toInt256());
+					return std::make_pair(true, value.second.toInt256());
 				}
 				else
 				{
@@ -1488,7 +1493,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toUInt256());
+					return std::make_pair(true, value.second.toUInt256());
 				}
 				else
 				{
@@ -1500,7 +1505,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toInt512());
+					return std::make_pair(true, value.second.toInt512());
 				}
 				else
 				{
@@ -1512,7 +1517,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toUInt512());
+					return std::make_pair(true, value.second.toUInt512());
 				}
 				else
 				{
@@ -1524,7 +1529,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toInt1024());
+					return std::make_pair(true, value.second.toInt1024());
 				}
 				else
 				{
@@ -1536,7 +1541,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toUInt1024());
+					return std::make_pair(true, value.second.toUInt1024());
 				}
 				else
 				{
@@ -1550,7 +1555,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toIntx<bits>());
+					return std::make_pair(true, value.second.toIntx<bits>());
 				}
 				else
 				{
@@ -1563,7 +1568,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.toUIntx<bits>());
+					return std::make_pair(true, value.second.toUIntx<bits>());
 				}
 				else
 				{
@@ -1575,7 +1580,7 @@ namespace SSUtils
 				auto value = toIntegerWrapper(flag);
 				if (value.first)
 				{
-					return std::make_pair(true, value.value());
+					return std::make_pair(true, value.second.value());
 				}
 				else
 				{
@@ -1587,7 +1592,7 @@ namespace SSUtils
 				auto value = visit(to_integer_visitor(flag));
 				if (value.first)
 				{
-					return std::make_pair(true, value);
+					return std::make_pair(true, value.second);
 				}
 				else
 				{
@@ -1600,7 +1605,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.toFloat());
+					return std::make_pair(true, value.second.toFloat());
 				}
 				else
 				{
@@ -1612,7 +1617,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.toDouble());
+					return std::make_pair(true, value.second.toDouble());
 				}
 				else
 				{
@@ -1624,7 +1629,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.toFloat32());
+					return std::make_pair(true, value.second.toFloat32());
 				}
 				else
 				{
@@ -1636,7 +1641,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.toFloat64());
+					return std::make_pair(true, value.second.toFloat64());
 				}
 				else
 				{
@@ -1648,7 +1653,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.toFloat128());
+					return std::make_pair(true, value.second.toFloat128());
 				}
 				else
 				{
@@ -1660,7 +1665,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.toFloat256());
+					return std::make_pair(true, value.second.toFloat256());
 				}
 				else
 				{
@@ -1673,7 +1678,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.toDec50());
+					return std::make_pair(true, value.second.toDec50());
 				}
 				else
 				{
@@ -1685,7 +1690,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.toDec100());
+					return std::make_pair(true, value.second.toDec100());
 				}
 				else
 				{
@@ -1697,7 +1702,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.toReal());
+					return std::make_pair(true, value.second.toReal());
 				}
 				else
 				{
@@ -1710,7 +1715,7 @@ namespace SSUtils
 				auto value = toDecimalWrapper<_Digits>();
 				if (value.first)
 				{
-					return std::make_pair(true, value.value());
+					return std::make_pair(true, value.second.value());
 				}
 				else
 				{

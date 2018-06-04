@@ -35,6 +35,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\MailUtils\_pri_mail.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\MailUtils\_pri_mail_global.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\Combination.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\Decimal.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\Integer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\Logarithm.h" />
@@ -88,6 +89,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\MailUtils\MailSender.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\MailUtils\_pri_mail.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\Combination.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\Rational.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\Sort.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SSUtils\MathUtils\_pri_math_global.cpp" />
