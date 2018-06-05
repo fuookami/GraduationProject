@@ -24,7 +24,7 @@
     <ClInclude Include="UEDMUtils.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="OEDM.h">
+    <ClInclude Include="UEDM.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClCompile Include="UEDMUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="OEDM.cpp">
+    <ClCompile Include="UEDM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
