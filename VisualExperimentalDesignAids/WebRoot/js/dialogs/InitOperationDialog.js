@@ -107,7 +107,7 @@ $(document).ready(function() {
 
         interface.attributeResponce.connect(function(data) {
             setLoading(false);
-            refreshAttributes($.parseJSON(data));
+            refreshAttributes($.parseJSON(data)["attributes"]);
         });
 
         setLoading(true);
@@ -136,15 +136,17 @@ function refreshCategories(categories) {
 
     $('#method_category_box').show();
     $('#method_category').html(html5).material_select();
+    $('#attribute_box').html('').hide();
 }
 
 function refreshAttributes(attributes) {
     var html5 = '';
     curr_attribute_names = [];
 
-    for (var name in attributes) {
-        var type = attributes[name]["type"];
-        var display = attributes[name]["name"];
+    for (var i = 0, j = attributes.length; i !== j; ++i) {
+        var type = attributes[i]["type"];
+        var display = attributes[i]["display"];
+        var name = attributes[i]["name"];
 
         curr_attribute_names.push(name);
         curr_attribute_displays.push(display);

@@ -26,9 +26,9 @@ namespace AEDM
 		return ret;
 	}
 
-	const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> &TwoFactorsAEDM::neededAttributes(void) const
+	const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &TwoFactorsAEDM::neededAttributes(void) const
 	{
-		static const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> ret = 
+		static const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> ret = 
 		{
 			std::make_pair(InteractionEffectAttr, std::make_pair(std::string("交互作用"), CARSDK::AttributeType::Boolean)),
 			std::make_pair(RepeatTimeAttr, std::make_pair(std::string("重复次数"), CARSDK::AttributeType::Number))

@@ -25,9 +25,9 @@ namespace UEDM
 		return ret;
 	}
 
-	const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> &UEDM::neededAttributes(void) const
+	const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &UEDM::neededAttributes(void) const
 	{
-		static const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> ret =
+		static const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> ret =
 		{
 			std::make_pair(InteractionEffectAttr, std::make_pair(std::string("交互作用"), CARSDK::AttributeType::Boolean)),
 			std::make_pair(TimeAttr, std::make_pair(std::string("实验次数"), CARSDK::AttributeType::Number)),

@@ -23,13 +23,13 @@ namespace OEDM
 
 	const std::string &ThreeMultiLevelOEDM::displayName(void) const
 	{
-		static const std::string ret("二混合水平正交设计方法");
+		static const std::string ret("三混合水平正交设计方法");
 		return ret;
 	}
 
-	const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> &ThreeMultiLevelOEDM::neededAttributes(void) const
+	const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &ThreeMultiLevelOEDM::neededAttributes(void) const
 	{
-		static const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> ret =
+		static const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> ret =
 		{
 			std::make_pair(InteractionEffectAttr, std::make_pair(std::string("交互作用"), CARSDK::AttributeType::Boolean)),
 			std::make_pair(TimeAttr, std::make_pair(std::string("实验次数"), CARSDK::AttributeType::Number)),

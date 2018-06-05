@@ -28,7 +28,7 @@ namespace UEDM
 		
 		const std::string &category(void) const override;
 		const std::string &displayName(void) const override;
-		const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> &neededAttributes(void) const override;
+		const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &neededAttributes(void) const override;
 		const std::map<std::string, std::string> &factorNeededAttributes(void) const override;
 		const bool valid(const std::map<std::string, std::string> &attributes) override;
 		const bool valid(const std::map<std::string, std::string> &attributes, const CARSDK::DataModelingModule::FactorTypeGroup &factorTypeGroup) override;

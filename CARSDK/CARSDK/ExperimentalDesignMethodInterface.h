@@ -29,7 +29,7 @@ namespace CARSDK
 
 		virtual const std::string &category(void) const = 0;
 		virtual const std::string &displayName(void) const = 0;
-		virtual const std::map<std::string, std::pair<std::string, CARSDK::AttributeType>> &neededAttributes(void) const = 0;
+		virtual const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &neededAttributes(void) const = 0;
 		virtual const std::map<std::string, std::string> &factorNeededAttributes(void) const = 0;
 		virtual const bool valid(const std::map<std::string, std::string> &attributes) = 0;
 		virtual const bool valid(const std::map<std::string, std::string> &attributes, const DataModelingModule::FactorTypeGroup &factorTypeGroup) = 0;

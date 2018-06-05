@@ -34,6 +34,12 @@ namespace OEDM
 	{
 		static const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalDesignMethodInterface>> ret =
 		{
+			make_method(TwoLevelOEDM::create()),
+			make_method(ThreeLevelOEDM::create()),
+			make_method(FourLevelOEDM::create()),
+			make_method(FiveLevelOEDM::create()),
+			make_method(TwoMultiLevelOEDM::create()),
+			make_method(ThreeMultiLevelOEDM::create())
 		};
 
 		return ret;
@@ -54,6 +60,12 @@ namespace OEDM
 	{
 		static const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalAnalyzerInterface>> ret =
 		{
+			make_analyzers(TwoLevelOEDMAnalyzers::create()),
+			make_analyzers(ThreeLevelOEDMAnalyzers::create()),
+			make_analyzers(FourLevelOEDMAnalyzers::create()),
+			make_analyzers(FiveLevelOEDMAnalyzers::create()),
+			make_analyzers(TwoMultiLevelOEDMAnalyzers::create()),
+			make_analyzers(ThreeMultiLevelOEDMAnalyzers::create()),
 		};
 
 		return ret;

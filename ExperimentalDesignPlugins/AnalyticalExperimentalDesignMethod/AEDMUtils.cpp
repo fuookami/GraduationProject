@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "AEDMUtils.h"
 #include "TwoFactorsAEDM.h"
+#include "ThreeFactorsAEDM.h"
 
 #include <boost/make_shared.hpp>
 
@@ -27,9 +28,10 @@ namespace AEDM
 
 	const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalDesignMethodInterface>> &AEDMUtils::methods(void) const
 	{
-		static const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalDesignMethodInterface>> ret = 
+		static const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalDesignMethodInterface>> ret =
 		{
-			make_method(TwoFactorsAEDM::create())
+			make_method(TwoFactorsAEDM::create()),
+			make_method(ThreeFactorsAEDM::create())
 		};
 
 		return ret;
@@ -50,7 +52,8 @@ namespace AEDM
 	{
 		static const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalAnalyzerInterface>> ret =
 		{
-			make_analyzers(TwoFactorsAEDMAnalyzers::create())
+			make_analyzers(TwoFactorsAEDMAnalyzers::create()),
+			make_analyzers(ThreeFactorsAEDMAnalyzers::create())
 		};
 
 		return ret;

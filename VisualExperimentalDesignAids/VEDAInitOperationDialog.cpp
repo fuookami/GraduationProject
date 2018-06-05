@@ -122,6 +122,7 @@ namespace VEDA
 	void VEDAInitOperationDialogInterface::onAttributeRequested(QJsonValue methodValue, QJsonValue categoryValue)
 	{
 		static const QString NameTag("name");
+		static const QString DisplayTag("display");
 		static const QString TypeTag("type");
 
 		std::string method(methodValue.toString().toLocal8Bit());
@@ -132,17 +133,20 @@ namespace VEDA
 		std::thread([this, methodInterface]()
 		{
 			QJsonObject json;
+			QJsonArray attributes;
 
 			for (const auto &pair : methodInterface->neededAttributes())
 			{
 				const auto &info = pair.second;
 
 				QJsonObject attribute;
+				attribute.insert(NameTag, QString::fromLocal8Bit(pair.first.c_str()));
+				attribute.insert(DisplayTag, QString::fromLocal8Bit(info.first.c_str()));
 				attribute.insert(TypeTag, QString::fromLocal8Bit(CARSDK::AttributeType2String().left.find(info.second)->second.c_str()));
-				attribute.insert(NameTag, QString::fromLocal8Bit(info.first.c_str()));
-				json.insert(QString::fromLocal8Bit(pair.first.c_str()), attribute);
+				attributes.push_back(attribute);
 			}
 
+			json.insert(QString::fromLocal8Bit("attributes"), attributes);
 			QJsonDocument document;
 			document.setObject(json);
 			this->emitAttributeResponce(QString(document.toJson(QJsonDocument::Compact)));
