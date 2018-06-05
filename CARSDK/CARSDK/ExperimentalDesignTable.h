@@ -30,6 +30,9 @@ namespace CARSDK
 		ExperimentalDesignTable &operator=(ExperimentalDesignTable &&rhs) = default;
 		~ExperimentalDesignTable(void) = default;
 
+		inline std::set<std::string> &readOnlyTypeNames(void) { return m_readOnlyTypeNames; }
+		inline const std::set<std::string> &readOnlyTypeNames(void) const { return m_readOnlyTypeNames; }
+
 		inline std::vector<std::string> &typeNames(void) { return m_typeNames; }
 		inline const std::vector<std::string> &typeNames(void) const { return m_typeNames; }
 
@@ -47,6 +50,7 @@ namespace CARSDK
 		const bool checkTableStruct(void) const;
 
 	private:
+		std::set<std::string> m_readOnlyTypeNames;
 		std::vector<std::string> m_typeNames;
 		std::vector<Batch> m_batches;
 	};

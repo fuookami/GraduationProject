@@ -108,6 +108,10 @@ namespace AEDM
 		factorInserter(group.experimentalFactors);
 		factorInserter(group.evaluateFactor);
 		factorInserter(group.notEvaluateFactor);
+		for (const auto factorWrapper : group.experimentalFactors)
+		{
+			table.readOnlyTypeNames().insert(factorWrapper.get().name);
+		}
 
 		SSUtils::uint32 repeatTime = std::stoul(attributes.find(RepeatTimeAttr)->second);
 

@@ -41,6 +41,10 @@ namespace CARSDK
 		factorInserter(group.experimentalFactors);
 		factorInserter(group.evaluateFactor);
 		factorInserter(group.notEvaluateFactor);
+		for (const auto factorWrapper : group.experimentalFactors)
+		{
+			ret.m_readOnlyTypeNames.insert(factorWrapper.get().name);
+		}
 
 		for (const auto batchNode : node->getChildren())
 		{
