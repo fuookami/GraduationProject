@@ -11,9 +11,11 @@ namespace CARSDK
 		return ret;
 	}
 
-	std::shared_ptr<SSUtils::XML::Node> DataHandlingModule::normalize(const ExperimentalDesignTable & table) const
+	std::shared_ptr<SSUtils::XML::Node> DataHandlingModule::normalize(const std::shared_ptr<XSDFrontend::XSDModel> model, const ExperimentalDesignTable & table) const
 	{
-		return table.toXML();
+		auto modelingModuleInstance(DataModelingModule::instance());
+		auto infos(modelingModuleInstance->analyzeForData(model));
+		return table.toXML(DataModelingModule::divideToGroup(infos));
 	}
 
 	ExperimentalDesignTable DataHandlingModule::analyze(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data) const

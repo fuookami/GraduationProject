@@ -86,6 +86,32 @@ namespace CARSDK
 		return ret;
 	}
 
+	std::reference_wrapper<const FactorType> FactorTypeGroup::getFactorType(const std::string & name) const
+	{
+		auto it(std::find_if(experimentalFactors.begin(), experimentalFactors.end(), [&name](const std::reference_wrapper<const FactorType> wrapper) 
+		{
+			return wrapper.get().name == name;
+		}));
+		if (it != experimentalFactors.end())
+		{
+			return *it;
+		}
+
+		it = std::find_if(evaluateFactor.begin(), evaluateFactor.end(), [&name](const std::reference_wrapper<const FactorType> wrapper)
+		{
+			return wrapper.get().name == name;
+		});
+		if (it != evaluateFactor.end())
+		{
+			return *it;
+		}
+
+		return *std::find_if(notEvaluateFactor.begin(), notEvaluateFactor.end(), [&name](const std::reference_wrapper<const FactorType> wrapper)
+		{
+			return wrapper.get().name == name;
+		});
+	}
+
 	std::vector<std::reference_wrapper<const FactorType>> FactorTypeGroup::factors(void) const
 	{
 		std::vector<std::reference_wrapper<const FactorType>> ret;

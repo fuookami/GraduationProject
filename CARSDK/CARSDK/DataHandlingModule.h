@@ -19,7 +19,7 @@ namespace CARSDK
 		DataHandlingModule &operator=(DataHandlingModule &&rhs) = delete;
 		~DataHandlingModule(void) = default;
 
-		std::shared_ptr<SSUtils::XML::Node> normalize(const ExperimentalDesignTable &table) const;
+		std::shared_ptr<SSUtils::XML::Node> normalize(const std::shared_ptr<XSDFrontend::XSDModel> model, const ExperimentalDesignTable &table) const;
 		ExperimentalDesignTable analyze(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data) const;
 		const bool check(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data) const;
 		const bool check(const std::shared_ptr<XSDFrontend::XSDModel> model, const ExperimentalDesignTable &table) const;

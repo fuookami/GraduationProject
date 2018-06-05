@@ -66,9 +66,9 @@ namespace CARSDK
 		return ret;
 	}
 
-	std::shared_ptr<SSUtils::XML::Node> ExperimentalDesignTable::toXML(void) const
+	std::shared_ptr<SSUtils::XML::Node> ExperimentalDesignTable::toXML(const FactorTypeGroup &group) const
 	{
-		if (!checkTableStruct())
+		if (!checkTableStruct(group))
 		{
 			return nullptr;
 		}
@@ -82,7 +82,7 @@ namespace CARSDK
 			for (int i(0), j(m_typeNames.size()); i != j; ++i)
 			{
 				auto cellNode(SSUtils::XML::Node::generate(CellTag));
-				cellNode->setContent(batch[i].content);
+				cellNode->setContent(normalizeContent(batch[i].content, group.getFactorType(m_typeNames[i])));
 				cellNode->getAttrs() = batch[i].attrs;
 				cellNode->addAttr(NameAttr, m_typeNames[i]);
 
@@ -114,6 +114,10 @@ namespace CARSDK
 				std::vector<std::string> thisFactors;
 				for (const auto factorNode : batchNode->getChildren())
 				{
+					if (factorNode->getTag() != CellTag)
+					{
+						return false;
+					}
 					thisFactors.push_back(factorNode->getAttr(NameAttr));
 				}
 
@@ -145,7 +149,7 @@ namespace CARSDK
 			const auto firstBatchNode(node->getChildren().front());
 			for (const auto factorNode : firstBatchNode->getChildren())
 			{
-				originFactors.push_back(factorNode->getTag());
+				originFactors.push_back(factorNode->getAttr(NameAttr));
 			}
 
 			if (!checkFactors(node, originFactors))
@@ -164,8 +168,24 @@ namespace CARSDK
 		return true;
 	}
 
-	const bool ExperimentalDesignTable::checkTableStruct(void) const
+	const bool ExperimentalDesignTable::checkTableStruct(const FactorTypeGroup &group) const
 	{
+		static const auto getFactorNames([](const FactorTypeGroup &group)
+		{
+			const auto factors = group.factors();
+			std::vector<std::string> names;
+			for (const auto &factor : factors)
+			{
+				names.push_back(factor.get().name);
+			}
+			return names;
+		});
+
+		if (!group.empty() && m_typeNames != getFactorNames(group))
+		{
+			return false;
+		}
+
 		const int factorNumber = m_typeNames.size();
 		for (const auto &batch : m_batches)
 		{
@@ -176,5 +196,43 @@ namespace CARSDK
 		}
 
 		return true;
+	}
+
+	std::string ExperimentalDesignTable::normalizeContent(const std::string & content, const FactorType & factor)
+	{
+		if (content.empty())
+		{
+			return content;
+		}
+
+		if (factor.simpleType == XSDFrontend::SimpleType::eSimpleType::tNumberType)
+		{
+			SSUtils::Math::Real value(content);
+
+			auto digitIt(factor.attributes.find(DigitAttr()));
+			if (digitIt == factor.attributes.cend())
+			{
+				return value.toString();
+			}
+			else
+			{
+				SSUtils::uint32 digits = SSUtils::Math::DefaultDigits;
+				if (digitIt != factor.attributes.cend() && SSUtils::String::isPositiveDecInteger(digitIt->second))
+				{
+					digits = std::stoul(digitIt->second);
+				}
+				return value.toDecimal().second.str(digits, std::ios::fixed);
+			}
+		}
+		else if (factor.simpleType == XSDFrontend::SimpleType::eSimpleType::tStringType)
+		{
+			return content;
+		}
+		else if (factor.simpleType == XSDFrontend::SimpleType::eSimpleType::tDatetimeType)
+		{
+			return SSUtils::Datetime::DatetimeDuration::fromString(content).toString();
+		}
+		
+		return std::string("");
 	}
 };

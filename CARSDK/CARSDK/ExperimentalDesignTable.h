@@ -44,10 +44,13 @@ namespace CARSDK
 		inline const bool empty(void) const { return m_batches.empty(); }
 
 		static ExperimentalDesignTable fromXML(const std::shared_ptr<SSUtils::XML::Node> node, const FactorTypeGroup &group);
-		std::shared_ptr<SSUtils::XML::Node> toXML(void) const;
+		std::shared_ptr<SSUtils::XML::Node> toXML(const FactorTypeGroup &group = FactorTypeGroup()) const;
 
 		static const bool checkXMLStruct(const std::shared_ptr<SSUtils::XML::Node> node, const FactorTypeGroup &group = FactorTypeGroup());
-		const bool checkTableStruct(void) const;
+		const bool checkTableStruct(const FactorTypeGroup &group = FactorTypeGroup()) const;
+
+	private:
+		static std::string normalizeContent(const std::string &content, const FactorType &factor);
 
 	private:
 		std::set<std::string> m_readOnlyTypeNames;

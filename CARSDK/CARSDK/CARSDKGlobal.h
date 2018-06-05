@@ -83,6 +83,7 @@ namespace CARSDK
 		std::vector<std::reference_wrapper<const FactorType>> evaluateFactor;
 		std::vector<std::reference_wrapper<const FactorType>> notEvaluateFactor;
 
+		std::reference_wrapper<const FactorType> getFactorType(const std::string &name) const;
 		std::vector<std::reference_wrapper<const FactorType>> factors(void) const;
 		inline const bool empty(void) const { return experimentalFactors.empty() && evaluateFactor.empty() && notEvaluateFactor.empty(); }
 	};
