@@ -85,7 +85,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\plugins\</OutDir>
-    <IncludePath>D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\Boost\boost\include;$(SolutionDir)CARSDK\;$(SolutionDir)SSXSDUtils\;$(SolutionDir)SSUtils\;$(IncludePath)</IncludePath>
+    <IncludePath>D:\SDK_API\C_C++\jwsmtp\include;D:\SDK_API\C_C++\CryptoPP\cryptopp5.6.5\x64\include;D:\SDK_API\C_C++\Boost\boost\include;$(SolutionDir)CARSDK\;$(SolutionDir)SSXSDUtilsSrc\;$(SolutionDir)SSUtilsSrc\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
