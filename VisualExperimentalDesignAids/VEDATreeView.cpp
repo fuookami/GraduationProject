@@ -39,7 +39,10 @@ namespace VEDA
 		if (QGuiApplication::mouseButtons() & Qt::LeftButton)
 		{
 			auto current(dynamic_cast<VEDATreeViewItem *>(_item));
-			m_itemHandler->setCurrentClickItem(current);
+			if (current != m_itemHandler->getCurrentClickItem())
+			{
+				m_itemHandler->setCurrentClickItem(current);
+			}
 		}
 		else if (QGuiApplication::mouseButtons() & Qt::RightButton)
 		{

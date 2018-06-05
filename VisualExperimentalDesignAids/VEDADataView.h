@@ -2,6 +2,7 @@
 
 #include "SSUtils/GUI/QWebEngineWidget.h"
 #include "VEDADataFile.h"
+#include "CARSDK/ExperimentalDesignTable.h"
 
 namespace VEDA
 {
@@ -27,6 +28,12 @@ namespace VEDA
 		Q_OBJECT;
 		friend class VEDADataView;
 
+		static const QString ReadOnlyFactorsTag;
+		static const QString FactorsTag;
+		static const QString BatchesTag;
+		static const QString ContentTag;
+		static const QString AttributesTag;
+
 	private:
 		explicit VEDADataViewInterface(VEDADataFile *file, VEDADataView *widget);
 
@@ -39,12 +46,18 @@ namespace VEDA
 
 	signals:
 		void dataResponse(QString);
+		void submitResponse(bool, QString);
+
+	private:
+		void emitDataResponse(const QString &data);
+		void emitSubmitRespnse(const bool ok, const QString &data);
 
 	public:
 		Q_INVOKABLE void dataRequested(void);
-		Q_INVOKABLE void dataSubmit(QJsonValue dataValue);
+		Q_INVOKABLE void dataSubmited(QJsonValue dataValue);
 
 	public:
 		VEDADataFile * m_file;
+		CARSDK::ExperimentalDesignTable m_table;
 	};
 };
