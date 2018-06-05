@@ -33,7 +33,13 @@
     <ClInclude Include="FourLevelOEDM.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MultiLevelOEDM.h">
+    <ClInclude Include="TwoMultiLevelOEDM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreeMultiLevelOEDM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FiveLevelOEDM.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,10 +62,16 @@
     <ClCompile Include="TwoLevelOEDM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MultiLevelOEDM.cpp">
+    <ClCompile Include="OEDMUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="OEDMUtils.cpp">
+    <ClCompile Include="ThreeMultiLevelOEDM.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TwoMultiLevelOEDM.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FiveLevelOEDM.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

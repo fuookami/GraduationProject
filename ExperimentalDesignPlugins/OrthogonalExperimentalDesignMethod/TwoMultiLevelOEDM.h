@@ -5,25 +5,27 @@
 
 namespace OEDM
 {
-	class TwoLevelOEDM : public CARSDK::IExperimentalDesignMethodInterface
+	class TwoMultiLevelOEDM : public CARSDK::IExperimentalDesignMethodInterface
 	{
 	public:
 		static const std::string Category;
 		static const std::string TimeAttr;
 		static const std::string ColumnAttr;
+		static const std::string Level1Number;
+		static const std::string Level2Number;
 		static const std::string InteractionEffectAttr;
 
 	public:
-		static boost::shared_ptr<TwoLevelOEDM> create(void);
+		static boost::shared_ptr<TwoMultiLevelOEDM> create(void);
 
 	private:
-		TwoLevelOEDM(void) = default;
+		TwoMultiLevelOEDM(void) = default;
 	public:
-		TwoLevelOEDM(const TwoLevelOEDM &ano) = delete;
-		TwoLevelOEDM(TwoLevelOEDM &&ano) = delete;
-		TwoLevelOEDM &operator=(const TwoLevelOEDM &rhs) = delete;
-		TwoLevelOEDM &operator=(TwoLevelOEDM &&rhs) = delete;
-		~TwoLevelOEDM(void) = default;
+		TwoMultiLevelOEDM(const TwoMultiLevelOEDM &ano) = delete;
+		TwoMultiLevelOEDM(TwoMultiLevelOEDM &&ano) = delete;
+		TwoMultiLevelOEDM &operator=(const TwoMultiLevelOEDM &rhs) = delete;
+		TwoMultiLevelOEDM &operator=(TwoMultiLevelOEDM &&rhs) = delete;
+		~TwoMultiLevelOEDM(void) = default;
 
 		const std::string &category(void) const override;
 		const std::string &displayName(void) const override;
@@ -37,22 +39,22 @@ namespace OEDM
 		CARSDK::ExperimentalDesignTable::Cell generateCell(const CARSDK::DataModelingModule::FactorType &info, const std::string &value = std::string("")) override;
 	};
 
-	class TwoLevelOEDMAnalyzers : public CARSDK::IExperimentalAnalyzerInterface
+	class TwoMultiLevelOEDMAnalyzers : public CARSDK::IExperimentalAnalyzerInterface
 	{
 	public:
 		static const std::string VarianceOriginFlag;
 
 	public:
-		static boost::shared_ptr<TwoLevelOEDMAnalyzers> create(void);
+		static boost::shared_ptr<TwoMultiLevelOEDMAnalyzers> create(void);
 
 	private:
-		TwoLevelOEDMAnalyzers(void) = default;
+		TwoMultiLevelOEDMAnalyzers(void) = default;
 	public:
-		TwoLevelOEDMAnalyzers(const TwoLevelOEDMAnalyzers &ano) = delete;
-		TwoLevelOEDMAnalyzers(TwoLevelOEDMAnalyzers &&ano) = delete;
-		TwoLevelOEDMAnalyzers &operator=(const TwoLevelOEDMAnalyzers &ano) = delete;
-		TwoLevelOEDMAnalyzers &operator=(TwoLevelOEDMAnalyzers &&ano) = delete;
-		~TwoLevelOEDMAnalyzers(void) = default;
+		TwoMultiLevelOEDMAnalyzers(const TwoMultiLevelOEDMAnalyzers &ano) = delete;
+		TwoMultiLevelOEDMAnalyzers(TwoMultiLevelOEDMAnalyzers &&ano) = delete;
+		TwoMultiLevelOEDMAnalyzers &operator=(const TwoMultiLevelOEDMAnalyzers &ano) = delete;
+		TwoMultiLevelOEDMAnalyzers &operator=(TwoMultiLevelOEDMAnalyzers &&ano) = delete;
+		~TwoMultiLevelOEDMAnalyzers(void) = default;
 
 		const std::string &category(void) const override;
 		AnalyzerGroup generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const override;
