@@ -12,6 +12,8 @@ namespace CARSDK
 	public:
 		static const std::string Tag;
 		static const std::string BatchTag;
+		static const std::string CellTag;
+		static const std::string NameAttr;
 		struct Cell
 		{
 			std::string content;
@@ -21,7 +23,7 @@ namespace CARSDK
 
 	public:
 		ExperimentalDesignTable(void) = default;
-		ExperimentalDesignTable(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors);
+		ExperimentalDesignTable(const std::shared_ptr<SSUtils::XML::Node> node, const FactorTypeGroup &group);
 		ExperimentalDesignTable(const ExperimentalDesignTable &ano) = default;
 		ExperimentalDesignTable(ExperimentalDesignTable &&ano) = default;
 		ExperimentalDesignTable &operator=(const ExperimentalDesignTable &rhs) = default;
@@ -38,10 +40,10 @@ namespace CARSDK
 		inline void clear(void) { m_typeNames.clear(); m_batches.clear(); }
 		inline const bool empty(void) const { return m_batches.empty(); }
 
-		static ExperimentalDesignTable fromXML(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors);
+		static ExperimentalDesignTable fromXML(const std::shared_ptr<SSUtils::XML::Node> node, const FactorTypeGroup &group);
 		std::shared_ptr<SSUtils::XML::Node> toXML(void) const;
 
-		static const bool checkXMLStruct(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors = std::set<std::string>());
+		static const bool checkXMLStruct(const std::shared_ptr<SSUtils::XML::Node> node, const FactorTypeGroup &group = FactorTypeGroup());
 		const bool checkTableStruct(void) const;
 
 	private:

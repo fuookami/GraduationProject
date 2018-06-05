@@ -40,14 +40,7 @@ namespace CARSDK
 		}
 
 		auto modelingModuleInstance(DataModelingModule::instance());
-		auto infos(modelingModuleInstance->analyze(model));
-
-		std::set<std::string> factors;
-		for (const auto &info : infos)
-		{
-			factors.insert(info.name);
-		}
-
-		return ExperimentalDesignTable::fromXML(data, factors);
+		auto infos(modelingModuleInstance->analyzeForData(model));
+		return ExperimentalDesignTable::fromXML(data, DataModelingModule::divideToGroup(infos));
 	}
 };

@@ -53,7 +53,7 @@ namespace AEDM
 		return true;
 	}
 
-	const bool ThreeFactorsAEDM::valid(const std::map<std::string, std::string>& attributes, const CARSDK::DataModelingModule::FactorTypeGroup & factorTypeGroup)
+	const bool ThreeFactorsAEDM::valid(const std::map<std::string, std::string>& attributes, const CARSDK::FactorTypeGroup & factorTypeGroup)
 	{
 		if (!valid(attributes))
 		{
@@ -89,7 +89,7 @@ namespace AEDM
 	CARSDK::ExperimentalDesignTable ThreeFactorsAEDM::generateExperimentalDesignTable(const std::shared_ptr<XSDFrontend::XSDModel>& xsdModel, const std::map<std::string, std::string>& attributes)
 	{
 		auto modelingModule(CARSDK::DataModelingModule::instance());
-		auto infos(modelingModule->analyzeForDesignMethod(xsdModel));
+		auto infos(modelingModule->analyzeForData(xsdModel));
 		auto group(CARSDK::DataModelingModule::divideToGroup(infos));
 
 		if (!valid(attributes, group))
@@ -144,7 +144,7 @@ namespace AEDM
 		return table;
 	}
 
-	CARSDK::ExperimentalDesignTable::Cell ThreeFactorsAEDM::generateCell(const CARSDK::DataModelingModule::FactorType & info, const std::string & value)
+	CARSDK::ExperimentalDesignTable::Cell ThreeFactorsAEDM::generateCell(const CARSDK::FactorType & info, const std::string & value)
 	{
 		return IExperimentalDesignMethodInterface::generateCell(info, value);
 	}

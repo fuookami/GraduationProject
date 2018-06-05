@@ -91,7 +91,7 @@ namespace CARSDK
 		return ret;
 	} 
 
-	DataModelingModule::FactorTypeGroup DataModelingModule::divideToGroup(const std::vector<FactorType>& infos)
+	FactorTypeGroup DataModelingModule::divideToGroup(const std::vector<FactorType>& infos)
 	{
 		FactorTypeGroup group;
 
@@ -126,7 +126,7 @@ namespace CARSDK
 		return ret;
 	}
 
-	std::shared_ptr<XSDFrontend::XSDModel> DataModelingModule::normalize(const std::vector<Info>& infos, std::shared_ptr<XSDFrontend::XSDModel> originModel)
+	std::shared_ptr<XSDFrontend::XSDModel> DataModelingModule::normalize(const std::vector<FactorType>& infos, std::shared_ptr<XSDFrontend::XSDModel> originModel)
 	{
 		if (originModel == nullptr)
 		{
@@ -249,16 +249,16 @@ namespace CARSDK
 		return originModel;
 	}
 
-	std::shared_ptr<XSDFrontend::XSDModel> DataModelingModule::normalizeWithPublicModel(const std::vector<Info>& infos, const std::shared_ptr<XSDFrontend::XSDModel> publicModel, std::shared_ptr<XSDFrontend::XSDModel> originModel)
+	std::shared_ptr<XSDFrontend::XSDModel> DataModelingModule::normalizeWithPublicModel(const std::vector<FactorType>& infos, const std::shared_ptr<XSDFrontend::XSDModel> publicModel, std::shared_ptr<XSDFrontend::XSDModel> originModel)
 	{
 		// to do : normalize infos to origin model and copy needed simple types from public model to origin model
 		// if the type is in the origin model and public model, copy it from public model to origin model to refresh the one in origin model
 		return std::shared_ptr<XSDFrontend::XSDModel>();
 	}
 
-	std::vector<DataModelingModule::Info> DataModelingModule::analyze(const std::shared_ptr<XSDFrontend::XSDModel> model)
+	std::vector<FactorType> DataModelingModule::analyze(const std::shared_ptr<XSDFrontend::XSDModel> model)
 	{
-		std::vector<Info> ret;
+		std::vector<FactorType> ret;
 
 		const auto simpleTypeModel(model->getSimpleTypeModel());
 		const auto attributeModel(model->getAttributeModel());
@@ -267,9 +267,9 @@ namespace CARSDK
 		return ret;
 	}
 
-	std::vector<DataModelingModule::Info> DataModelingModule::analyzeForDesignMethod(const std::shared_ptr<XSDFrontend::XSDModel> model)
+	std::vector<FactorType> DataModelingModule::analyzeForData(const std::shared_ptr<XSDFrontend::XSDModel> model)
 	{
-		std::vector<Info> ret;
+		std::vector<FactorType> ret;
 
 		const auto simpleTypeModel(model->getSimpleTypeModel());
 		const auto attributeModel(model->getAttributeModel());
@@ -283,7 +283,7 @@ namespace CARSDK
 				const auto *simpleType(simpleTypeModel->getSimpleType(factor->getBaseTypeName()));
 				const auto attributeGroup(attributeModel->getAttributeGroup(factor->getAttributeGroupName()));
 
-				Info info;
+				FactorType info;
 
 				if (simpleType->getName() != (BaesTypePrefix + factor->getName()))
 				{
@@ -309,7 +309,7 @@ namespace CARSDK
 				}
 				else
 				{
-					return std::vector<Info>();
+					return std::vector<FactorType>();
 				}
 
 				info.name = factor->getName();
@@ -335,7 +335,7 @@ namespace CARSDK
 		return ret;
 	}
 
-	std::shared_ptr<XSDFrontend::SimpleType::NumberType> DataModelingModule::loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType> type, const Info & info)
+	std::shared_ptr<XSDFrontend::SimpleType::NumberType> DataModelingModule::loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::NumberType> type, const FactorType & info)
 	{
 		auto it(info.validators.find(XSDFrontend::Token::MaxExclusiveTag()));
 		if (it != info.validators.cend() && it->second.type() == typeid(SSUtils::Math::Real))
@@ -387,7 +387,7 @@ namespace CARSDK
 		return type;
 	}
 
-	std::shared_ptr<XSDFrontend::SimpleType::StringType> DataModelingModule::loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::StringType> type, const Info &info)
+	std::shared_ptr<XSDFrontend::SimpleType::StringType> DataModelingModule::loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::StringType> type, const FactorType &info)
 	{
 		auto it(info.validators.find(XSDFrontend::Token::PatternTag()));
 		if (it != info.validators.cend() && it->second.type() == typeid(std::string))
@@ -426,7 +426,7 @@ namespace CARSDK
 		return type;
 	}
 
-	std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> DataModelingModule::loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> type, const Info &info)
+	std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> DataModelingModule::loadSimpleType(std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> type, const FactorType &info)
 	{
 		auto it(info.validators.find(XSDFrontend::Token::MaxExclusiveTag()));
 		if (it != info.validators.cend() && it->second.type() == typeid(std::string))
@@ -466,9 +466,9 @@ namespace CARSDK
 		return type;
 	}
 
-	DataModelingModule::Info DataModelingModule::saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::NumberType> type)
+	FactorType DataModelingModule::saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::NumberType> type)
 	{
-		Info info;
+		FactorType info;
 
 		if (type->getFractionDigits() != XSDFrontend::SimpleType::NumberType::NoDigitValidator)
 		{
@@ -504,9 +504,9 @@ namespace CARSDK
 		return info;
 	}
 
-	DataModelingModule::Info DataModelingModule::saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::StringType> type)
+	FactorType DataModelingModule::saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::StringType> type)
 	{
-		Info info;
+		FactorType info;
 
 		if (!type->getPattern().empty())
 		{
@@ -534,9 +534,9 @@ namespace CARSDK
 		return info;
 	}
 
-	DataModelingModule::Info DataModelingModule::saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> type)
+	FactorType DataModelingModule::saveSimpleType(const std::shared_ptr<XSDFrontend::SimpleType::DatetimeType> type)
 	{
-		Info info;
+		FactorType info;
 
 		if (!type->getIsEnum())
 		{

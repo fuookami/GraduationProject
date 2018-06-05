@@ -48,7 +48,7 @@ namespace OEDM
 		return false;
 	}
 
-	const bool TwoLevelOEDM::valid(const std::map<std::string, std::string>& attributes, const CARSDK::DataModelingModule::FactorTypeGroup & factorTypeGroup)
+	const bool TwoLevelOEDM::valid(const std::map<std::string, std::string>& attributes, const CARSDK::FactorTypeGroup & factorTypeGroup)
 	{
 		m_lastError.assign(std::string("Œ¥ µœ÷"));
 		// to do
@@ -62,7 +62,7 @@ namespace OEDM
 		return CARSDK::ExperimentalDesignTable();
 	}
 
-	CARSDK::ExperimentalDesignTable::Cell TwoLevelOEDM::generateCell(const CARSDK::DataModelingModule::FactorType & info, const std::string & value)
+	CARSDK::ExperimentalDesignTable::Cell TwoLevelOEDM::generateCell(const CARSDK::FactorType & info, const std::string & value)
 	{
 		return IExperimentalDesignMethodInterface::generateCell(info, value);
 	}

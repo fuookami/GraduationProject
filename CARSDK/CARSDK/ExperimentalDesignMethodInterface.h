@@ -32,12 +32,12 @@ namespace CARSDK
 		virtual const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &neededAttributes(void) const = 0;
 		virtual const std::map<std::string, std::string> &factorNeededAttributes(void) const = 0;
 		virtual const bool valid(const std::map<std::string, std::string> &attributes) = 0;
-		virtual const bool valid(const std::map<std::string, std::string> &attributes, const DataModelingModule::FactorTypeGroup &factorTypeGroup) = 0;
+		virtual const bool valid(const std::map<std::string, std::string> &attributes, const FactorTypeGroup &factorTypeGroup) = 0;
 		virtual ExperimentalDesignTable generateExperimentalDesignTable(const std::shared_ptr<XSDFrontend::XSDModel> &xsdModel, const std::map<std::string, std::string> &attributes) = 0;
 		inline const std::string &lastError(void) const { return m_lastError; };
 
 	protected:
-		virtual ExperimentalDesignTable::Cell generateCell(const DataModelingModule::FactorType &info, const std::string &value = std::string(""));
+		virtual ExperimentalDesignTable::Cell generateCell(const FactorType &info, const std::string &value = std::string(""));
 
 	protected:
 		std::string m_lastError;

@@ -86,5 +86,14 @@ namespace CARSDK
 		return ret;
 	}
 
+	std::vector<std::reference_wrapper<const FactorType>> FactorTypeGroup::factors(void) const
+	{
+		std::vector<std::reference_wrapper<const FactorType>> ret;
+		ret.insert(ret.end(), experimentalFactors.cbegin(), experimentalFactors.cend());
+		ret.insert(ret.end(), evaluateFactor.cbegin(), evaluateFactor.cend());
+		ret.insert(ret.end(), notEvaluateFactor.cbegin(), notEvaluateFactor.cend());
+		return ret;
+	}
+
 #undef String_Definition
 };

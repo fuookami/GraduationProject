@@ -5,9 +5,11 @@ namespace CARSDK
 {
 	const std::string ExperimentalDesignTable::Tag("experimental_design_table");
 	const std::string ExperimentalDesignTable::BatchTag("batch");
+	const std::string ExperimentalDesignTable::CellTag("cell");
+	const std::string ExperimentalDesignTable::NameAttr("name");
 
-	ExperimentalDesignTable::ExperimentalDesignTable(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors)
-		: ExperimentalDesignTable(fromXML(node, factors))
+	ExperimentalDesignTable::ExperimentalDesignTable(const std::shared_ptr<SSUtils::XML::Node> node, const FactorTypeGroup &group)
+		: ExperimentalDesignTable(fromXML(node, group))
 	{
 	}
 
@@ -21,15 +23,24 @@ namespace CARSDK
 		return true;
 	}
 
-	ExperimentalDesignTable ExperimentalDesignTable::fromXML(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors)
+	ExperimentalDesignTable ExperimentalDesignTable::fromXML(const std::shared_ptr<SSUtils::XML::Node> node, const FactorTypeGroup &group)
 	{
-		if (!checkXMLStruct(node, factors))
+		if (!checkXMLStruct(node, group))
 		{
 			return ExperimentalDesignTable();
 		}
 
 		ExperimentalDesignTable ret;
-		std::copy(factors.cbegin(), factors.cend(), std::back_inserter(ret.m_typeNames));
+		auto factorInserter = [&ret](const decltype(group.experimentalFactors) &factorWrappers)
+		{
+			for (const auto factorWrapper : factorWrappers)
+			{
+				ret.m_typeNames.push_back(factorWrapper.get().name);
+			}
+		};
+		factorInserter(group.experimentalFactors);
+		factorInserter(group.evaluateFactor);
+		factorInserter(group.notEvaluateFactor);
 
 		for (const auto batchNode : node->getChildren())
 		{
@@ -40,6 +51,7 @@ namespace CARSDK
 				Cell cell;
 				cell.content.assign(factorNode->getContent());
 				cell.attrs = factorNode->getAttrs();
+				cell.attrs.erase(NameAttr);
 
 				batch.push_back(std::move(cell));
 			}
@@ -65,9 +77,10 @@ namespace CARSDK
 
 			for (int i(0), j(m_typeNames.size()); i != j; ++i)
 			{
-				auto cellNode(SSUtils::XML::Node::generate(m_typeNames[i]));
+				auto cellNode(SSUtils::XML::Node::generate(CellTag));
 				cellNode->setContent(batch[i].content);
 				cellNode->getAttrs() = batch[i].attrs;
+				cellNode->addAttr(NameAttr, m_typeNames[i]);
 
 				batchNode->addChild(cellNode);
 			}
@@ -78,16 +91,26 @@ namespace CARSDK
 		return node;
 	}
 
-	const bool ExperimentalDesignTable::checkXMLStruct(const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors)
+	const bool ExperimentalDesignTable::checkXMLStruct(const std::shared_ptr<SSUtils::XML::Node> node, const FactorTypeGroup &group)
 	{
-		static const auto checkFactors([](const std::shared_ptr<SSUtils::XML::Node> node, const std::set<std::string> &factors) -> const bool
+		static const auto getFactorNames([](const FactorTypeGroup &group) 
+		{
+			const auto factors = group.factors();
+			std::vector<std::string> names;
+			for (const auto &factor : factors)
+			{
+				names.push_back(factor.get().name);
+			}
+			return names;
+		});
+		static const auto checkFactors([](const std::shared_ptr<SSUtils::XML::Node> node, const std::vector<std::string> &factors) -> const bool
 		{
 			for (const auto batchNode : node->getChildren())
 			{
-				std::set<std::string> thisFactors;
+				std::vector<std::string> thisFactors;
 				for (const auto factorNode : batchNode->getChildren())
 				{
-					thisFactors.insert(factorNode->getTag());
+					thisFactors.push_back(factorNode->getAttr(NameAttr));
 				}
 
 				if (factors != thisFactors)
@@ -112,13 +135,13 @@ namespace CARSDK
 			}
 		}
 
-		if (factors.empty())
+		if (group.empty())
 		{
-			std::set<std::string> originFactors;
+			std::vector<std::string> originFactors;
 			const auto firstBatchNode(node->getChildren().front());
 			for (const auto factorNode : firstBatchNode->getChildren())
 			{
-				originFactors.insert(factorNode->getTag());
+				originFactors.push_back(factorNode->getTag());
 			}
 
 			if (!checkFactors(node, originFactors))
@@ -128,7 +151,7 @@ namespace CARSDK
 		}
 		else
 		{
-			if (!checkFactors(node, factors))
+			if (!checkFactors(node, getFactorNames(group)))
 			{
 				return false;
 			}

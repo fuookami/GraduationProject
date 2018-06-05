@@ -9,7 +9,7 @@ namespace CARSDK
 		std::make_pair(DigitAttr(), std::string("小数点后位数"))
 	};
 
-	ExperimentalDesignTable::Cell IExperimentalDesignMethodInterface::generateCell(const DataModelingModule::FactorType & info, const std::string & value)
+	ExperimentalDesignTable::Cell IExperimentalDesignMethodInterface::generateCell(const FactorType & info, const std::string & value)
 	{
 		ExperimentalDesignTable::Cell cell;
 		cell.content.assign(value);

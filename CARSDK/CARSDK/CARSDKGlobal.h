@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SSUtils/XSD/XSDModel.h"
+#include <vector>
 #include <functional>
 #include <memory>
 #include <boost/bimap.hpp>
@@ -64,6 +66,26 @@ namespace CARSDK
 	class IExperimentalAnalyzerInterface;
 	class IExperimentalAnalyzerUtilsInterface;
 	class ExperimentalAnalyzerModule;
+
+	struct FactorType
+	{
+		std::string name;
+		std::string type;
+		std::string experimentalFactorType;
+		XSDFrontend::SimpleType::eSimpleType simpleType;
+		std::map<std::string, std::string> infos;
+		std::map<std::string, boost::any> validators;
+		std::map<std::string, std::string> attributes;
+	};
+	struct FactorTypeGroup
+	{
+		std::vector<std::reference_wrapper<const FactorType>> experimentalFactors;
+		std::vector<std::reference_wrapper<const FactorType>> evaluateFactor;
+		std::vector<std::reference_wrapper<const FactorType>> notEvaluateFactor;
+
+		std::vector<std::reference_wrapper<const FactorType>> factors(void) const;
+		inline const bool empty(void) const { return experimentalFactors.empty() && evaluateFactor.empty() && notEvaluateFactor.empty(); }
+	};
 
 #undef String_Declaration
 };

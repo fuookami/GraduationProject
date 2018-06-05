@@ -50,7 +50,7 @@ namespace UEDM
 		return false;
 	}
 
-	const bool UEDM::valid(const std::map<std::string, std::string>& attributes, const CARSDK::DataModelingModule::FactorTypeGroup & factorTypeGroup)
+	const bool UEDM::valid(const std::map<std::string, std::string>& attributes, const CARSDK::FactorTypeGroup & factorTypeGroup)
 	{
 		m_lastError.assign(std::string("Œ¥ µœ÷"));
 		// to do
@@ -64,7 +64,7 @@ namespace UEDM
 		return CARSDK::ExperimentalDesignTable();
 	}
 
-	CARSDK::ExperimentalDesignTable::Cell UEDM::generateCell(const CARSDK::DataModelingModule::FactorType & info, const std::string & value)
+	CARSDK::ExperimentalDesignTable::Cell UEDM::generateCell(const CARSDK::FactorType & info, const std::string & value)
 	{
 		return IExperimentalDesignMethodInterface::generateCell(info, value);
 	}
