@@ -2,6 +2,7 @@
 
 #include "SSUtils/GUI/QWebEngineWidget.h"
 #include "VEDADataFile.h"
+#include "CARSDK/ExperimentalAnalyzerInterface.h"
 
 namespace VEDA
 {
@@ -38,8 +39,12 @@ namespace VEDA
 		~VEDAAnalysisViewInterface(void) = default;
 
 	signals:
-		void analyzerResponse(QString);
-		void analysisResponse(QString);
+		void analyzerResponse(bool, QString);
+		void analysisResponse(bool, QString);
+
+	private:
+		void emitAnalyzerResponse(const bool ok, const QString &data);
+		void emitAnalysisResponse(const bool ok, const QString &data);
 
 	public:
 		Q_INVOKABLE void analyzerRequested(void);
@@ -47,5 +52,9 @@ namespace VEDA
 
 	public:
 		VEDADataFile *m_file;
+		std::vector<CARSDK::FactorType> m_factors;
+		CARSDK::ExperimentalDesignTable m_data;
+		CARSDK::FactorTypeGroup m_group;
+		CARSDK::IExperimentalAnalyzerInterface::AnalyzerGroup m_analyzers;
 	};
 };

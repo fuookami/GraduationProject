@@ -91,13 +91,13 @@ namespace VEDA
 			auto methodUtil(methodModule->util(this->m_operationFile->getDesignMethodName()));
 			if (methodUtil == nullptr)
 			{
-				this->emitInitDataFailed(QString::fromLocal8Bit("找不到实验方法工具集：%1").arg(QString::fromLocal8Bit(this->m_operationFile->getDesignMethodName().c_str())));
+				this->emitInitDataFailed(QString::fromLocal8Bit("找不到实验设计方法工具集：%1").arg(QString::fromLocal8Bit(this->m_operationFile->getDesignMethodName().c_str())));
 				return;
 			}
 			auto methodInterface(methodUtil->method(this->m_operationFile->getDesignMethodCategory()));
 			if (methodInterface == nullptr)
 			{
-				this->emitInitDataFailed(QString::fromLocal8Bit("在%1中找不到实验方法类别：%2").arg(QString::fromLocal8Bit(methodUtil->displayName().c_str())).arg(QString::fromLocal8Bit(this->m_operationFile->getDesignMethodCategory().c_str())));
+				this->emitInitDataFailed(QString::fromLocal8Bit("在%1中找不到实验设计方法类别：%2").arg(QString::fromLocal8Bit(methodUtil->displayName().c_str())).arg(QString::fromLocal8Bit(this->m_operationFile->getDesignMethodCategory().c_str())));
 				return;
 			}
 
