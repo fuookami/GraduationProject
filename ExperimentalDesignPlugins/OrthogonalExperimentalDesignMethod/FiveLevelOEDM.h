@@ -9,6 +9,7 @@ namespace OEDM
 	{
 	public:
 		static const std::string Category;
+		static const std::string DisplayName;
 		static const std::string TimeAttr;
 		static const std::string ColumnAttr;
 		static const std::string InteractionEffectAttr;
@@ -55,6 +56,7 @@ namespace OEDM
 		~FiveLevelOEDMAnalyzers(void) = default;
 
 		const std::string &category(void) const override;
-		AnalyzerGroup generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const override;
+		const std::string &displayName(void) const override;
+		AnalyzerGroup generateAnalyzerGroup(const CARSDK::FactorTypeGroup &group) const override;
 	};
 };

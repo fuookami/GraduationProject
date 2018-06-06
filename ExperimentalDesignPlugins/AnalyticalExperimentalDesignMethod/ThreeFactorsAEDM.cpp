@@ -5,6 +5,7 @@
 namespace AEDM
 {
 	const std::string ThreeFactorsAEDM::Category("ThreeFactorAEDM");
+	const std::string ThreeFactorsAEDM::DisplayName("三因子析因设计方法");
 	const std::string ThreeFactorsAEDM::RepeatTimeAttr("repeat_time");
 	const std::string ThreeFactorsAEDM::InteractionEffectAttr("has_interaction_effect");
 
@@ -22,8 +23,7 @@ namespace AEDM
 
 	const std::string &ThreeFactorsAEDM::displayName(void) const
 	{
-		static const std::string ret("三因子析因设计方法");
-		return ret;
+		return DisplayName;
 	}
 
 	const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &ThreeFactorsAEDM::neededAttributes(void) const
@@ -163,7 +163,12 @@ namespace AEDM
 		return ThreeFactorsAEDM::Category;
 	}
 
-	ThreeFactorsAEDMAnalyzers::AnalyzerGroup ThreeFactorsAEDMAnalyzers::generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const
+	const std::string &ThreeFactorsAEDMAnalyzers::displayName(void) const
+	{
+		return ThreeFactorsAEDM::DisplayName;
+	}
+
+	ThreeFactorsAEDMAnalyzers::AnalyzerGroup ThreeFactorsAEDMAnalyzers::generateAnalyzerGroup(const CARSDK::FactorTypeGroup &group) const
 	{
 		// to do
 		return AnalyzerGroup();

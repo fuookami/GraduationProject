@@ -5,12 +5,12 @@
 
 namespace CARSDK
 {
-	IExperimentalAnalyzerInterface::Analyzer::result_type IExperimentalAnalyzerInterface::AnalyzerGroup::analyze(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data, const std::map<std::string, std::string>& attributes, const std::string & flag) const
+	IExperimentalAnalyzerInterface::Analyzer::result_type IExperimentalAnalyzerInterface::AnalyzerGroup::analyze(const FactorTypeGroup &group, const ExperimentalDesignTable &table, const std::map<std::string, std::string> &attributes, const std::string &flag) const
 	{
 		auto it(analyzers.find(flag));
 		return it == analyzers.cend()
 			? std::make_pair(AnalysisResultType::None, generateNotFoundMessage(flag))
-			: it->second(model, data, attributes, flag);
+			: it->second(group, table, attributes);
 	}
 
 	std::string IExperimentalAnalyzerInterface::AnalyzerGroup::generateNotFoundMessage(const std::string & str) const

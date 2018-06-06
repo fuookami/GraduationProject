@@ -12,6 +12,7 @@
 namespace OEDM
 {
 	const std::string OEDMUtils::Name("OEDM");
+	const std::string OEDMUtils::DisplayName("displayName");
 
 	boost::shared_ptr<OEDMUtils> OEDMUtils::create(void)
 	{
@@ -26,8 +27,7 @@ namespace OEDM
 
 	const std::string &OEDMUtils::displayName(void) const
 	{
-		static const std::string ret("正交设计");
-		return ret;
+		return DisplayName;
 	}
 
 	const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalDesignMethodInterface>> &OEDMUtils::methods(void) const
@@ -54,6 +54,11 @@ namespace OEDM
 	const std::string & OEDMAnalyzerUtils::name(void) const
 	{
 		return OEDMUtils::Name;
+	}
+
+	const std::string & OEDMAnalyzerUtils::displayName(void) const
+	{
+		return OEDMUtils::DisplayName;
 	}
 
 	const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalAnalyzerInterface>>& OEDMAnalyzerUtils::analyzerGroups(void) const

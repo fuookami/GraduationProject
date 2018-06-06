@@ -11,6 +11,7 @@ namespace AEDM
 	{
 	public:
 		static const std::string Name;
+		static const std::string DisplayName;
 
 	public:
 		static boost::shared_ptr<AEDMUtils> create(void);
@@ -44,6 +45,7 @@ namespace AEDM
 		~AEDMAnalyzerUtils(void) = default;
 
 		const std::string &name(void) const override;
+		const std::string &displayName(void) const override;
 		const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalAnalyzerInterface>> &analyzerGroups(void) const override;
 	};
 };

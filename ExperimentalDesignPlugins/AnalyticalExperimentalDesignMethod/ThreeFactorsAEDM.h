@@ -9,6 +9,7 @@ namespace AEDM
 	{
 	public:
 		static const std::string Category;
+		static const std::string DisplayName;
 		static const std::string RepeatTimeAttr;
 		static const std::string InteractionEffectAttr;
 
@@ -54,6 +55,7 @@ namespace AEDM
 		~ThreeFactorsAEDMAnalyzers(void) = default;
 
 		const std::string &category(void) const override;
-		AnalyzerGroup generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const override;
+		const std::string &displayName(void) const override;
+		AnalyzerGroup generateAnalyzerGroup(const CARSDK::FactorTypeGroup &group) const override;
 	};
 };

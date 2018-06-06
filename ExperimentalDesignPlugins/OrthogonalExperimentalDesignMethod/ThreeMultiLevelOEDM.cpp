@@ -4,6 +4,7 @@
 namespace OEDM
 {
 	const std::string ThreeMultiLevelOEDM::Category("ThreeMultiLevelOEDM");
+	const std::string ThreeMultiLevelOEDM::DisplayName("三混合水平正交设计方法");
 	const std::string ThreeMultiLevelOEDM::TimeAttr("time");
 	const std::string ThreeMultiLevelOEDM::ColumnAttr("column");
 	const std::string ThreeMultiLevelOEDM::Level1Number("level_1_number");
@@ -23,8 +24,7 @@ namespace OEDM
 
 	const std::string &ThreeMultiLevelOEDM::displayName(void) const
 	{
-		static const std::string ret("三混合水平正交设计方法");
-		return ret;
+		return DisplayName;
 	}
 
 	const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &ThreeMultiLevelOEDM::neededAttributes(void) const
@@ -83,7 +83,12 @@ namespace OEDM
 		return ThreeMultiLevelOEDM::Category;
 	}
 
-	ThreeMultiLevelOEDMAnalyzers::AnalyzerGroup ThreeMultiLevelOEDMAnalyzers::generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const
+	const std::string & ThreeMultiLevelOEDMAnalyzers::displayName(void) const
+	{
+		return ThreeMultiLevelOEDM::DisplayName;
+	}
+
+	ThreeMultiLevelOEDMAnalyzers::AnalyzerGroup ThreeMultiLevelOEDMAnalyzers::generateAnalyzerGroup(const CARSDK::FactorTypeGroup &group) const
 	{
 		// to do
 		return AnalyzerGroup();

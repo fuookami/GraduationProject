@@ -8,6 +8,7 @@
 namespace AEDM
 {
 	const std::string AEDMUtils::Name("AEDM");
+	const std::string AEDMUtils::DisplayName("析因设计");
 
 	boost::shared_ptr<AEDMUtils> AEDMUtils::create(void)
 	{
@@ -22,8 +23,7 @@ namespace AEDM
 
 	const std::string &AEDMUtils::displayName(void) const
 	{
-		static const std::string ret("析因设计");
-		return ret;
+		return DisplayName;
 	}
 
 	const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalDesignMethodInterface>> &AEDMUtils::methods(void) const
@@ -46,6 +46,11 @@ namespace AEDM
 	const std::string & AEDMAnalyzerUtils::name(void) const
 	{
 		return AEDMUtils::Name;
+	}
+
+	const std::string & AEDMAnalyzerUtils::displayName(void) const
+	{
+		return AEDMUtils::DisplayName;
 	}
 
 	const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalAnalyzerInterface>>& AEDMAnalyzerUtils::analyzerGroups(void) const

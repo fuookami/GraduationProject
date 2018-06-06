@@ -4,6 +4,7 @@
 namespace UEDM
 {
 	const std::string UEDM::Category("UEDM");
+	const std::string UEDM::DisplayName("均匀设计方法");
 	const std::string UEDM::TimeAttr("time");
 	const std::string UEDM::LevelAttr("level");
 	const std::string UEDM::ColumnAttr("column");
@@ -21,8 +22,7 @@ namespace UEDM
 
 	const std::string &UEDM::displayName(void) const
 	{
-		static const std::string ret("均匀设计方法");
-		return ret;
+		return DisplayName;
 	}
 
 	const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &UEDM::neededAttributes(void) const
@@ -79,7 +79,12 @@ namespace UEDM
 		return UEDM::Category;
 	}
 
-	UEDMAnalyzers::AnalyzerGroup UEDMAnalyzers::generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const
+	const std::string &UEDMAnalyzers::displayName(void) const
+	{
+		return UEDM::DisplayName;
+	}
+
+	UEDMAnalyzers::AnalyzerGroup UEDMAnalyzers::generateAnalyzerGroup(const CARSDK::FactorTypeGroup &group) const
 	{
 		// to do
 		return AnalyzerGroup();

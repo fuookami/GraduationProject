@@ -5,10 +5,9 @@
 namespace AEDM
 {
 	const std::string TwoFactorsAEDM::Category("TwoFactorAEDM");
+	const std::string TwoFactorsAEDM::DisplayName("二因子析因设计方法");
 	const std::string TwoFactorsAEDM::RepeatTimeAttr("repeat_time");
 	const std::string TwoFactorsAEDM::InteractionEffectAttr("has_interaction_effect");
-
-	const std::string TwoFactorsAEDMAnalyzers::VarianceOriginFlag("variance_origin");
 
 	boost::shared_ptr<TwoFactorsAEDM> TwoFactorsAEDM::create(void)
 	{
@@ -22,8 +21,7 @@ namespace AEDM
 
 	const std::string &TwoFactorsAEDM::displayName(void) const
 	{
-		static const std::string ret("二因子析因设计方法");
-		return ret;
+		return DisplayName;
 	}
 
 	const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &TwoFactorsAEDM::neededAttributes(void) const
@@ -153,6 +151,54 @@ namespace AEDM
 		return IExperimentalDesignMethodInterface::generateCell(info, value);
 	}
 
+	std::tuple<std::string, std::string, TwoFactorsAEDMAnalyzers::Analyzer> TwoFactorsAEDMAnalyzers::OriginAnalyzer(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder)
+	{
+		std::ostringstream flagSout, displaySout;
+		flagSout << "evaluate_" << evaluateFactorOrder << "_origin";
+		displaySout << "原始（" << group.evaluateFactor[evaluateFactorOrder].get().name << "）";
+		return std::make_tuple(flagSout.str(), displaySout.str(), std::bind(originAnalyse, std::placeholders::_1, evaluateFactorOrder, std::placeholders::_2, std::placeholders::_3));
+	}
+
+	std::tuple<std::string, std::string, TwoFactorsAEDMAnalyzers::Analyzer> TwoFactorsAEDMAnalyzers::VarianceOriginAnalyzer(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder)
+	{
+		std::ostringstream flagSout, displaySout;
+		flagSout << "evaluate_" << evaluateFactorOrder << "_variance_origin";
+		displaySout << "方差法原始（" << group.evaluateFactor[evaluateFactorOrder].get().name << "）";
+		return std::make_tuple(flagSout.str(), displaySout.str(), std::bind(varianceOriginAnalyse, std::placeholders::_1, evaluateFactorOrder, std::placeholders::_2, std::placeholders::_3));
+	}
+
+	std::tuple<std::string, std::string, TwoFactorsAEDMAnalyzers::Analyzer> TwoFactorsAEDMAnalyzers::FactorSumAnalyzer(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder)
+	{
+		std::ostringstream flagSout, displaySout;
+		flagSout << "factor_" << experimentalFactorOrder << "_evaluate_" << evaluateFactorOrder << "_sum";
+		displaySout << group.experimentalFactors[experimentalFactorOrder].get().name << "-" << group.evaluateFactor[evaluateFactorOrder].get().name << "和值";
+		return std::make_tuple(flagSout.str(), displaySout.str(), std::bind(factorSumAnalyse, std::placeholders::_1, experimentalFactorOrder, evaluateFactorOrder, std::placeholders::_2, std::placeholders::_3));
+	}
+
+	std::tuple<std::string, std::string, TwoFactorsAEDMAnalyzers::Analyzer> TwoFactorsAEDMAnalyzers::FactorAverageAnalyzer(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder)
+	{
+		std::ostringstream flagSout, displaySout;
+		flagSout << "factor_" << experimentalFactorOrder << "_evaluate_" << evaluateFactorOrder << "_average";
+		displaySout << group.experimentalFactors[experimentalFactorOrder].get().name << "-" << group.evaluateFactor[evaluateFactorOrder].get().name << "平均值";
+		return std::make_tuple(flagSout.str(), displaySout.str(), std::bind(factorAverageAnalyse, std::placeholders::_1, experimentalFactorOrder, evaluateFactorOrder, std::placeholders::_2, std::placeholders::_3));
+	}
+
+	std::tuple<std::string, std::string, TwoFactorsAEDMAnalyzers::Analyzer> TwoFactorsAEDMAnalyzers::Factor1Factor2SumAnalyzer(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder)
+	{
+		std::ostringstream flagSout, displaySout;
+		flagSout << "evaluate_" << evaluateFactorOrder << "_sum";
+		displaySout << "(" << group.experimentalFactors[0].get().name << ", " << group.experimentalFactors[1].get().name << ")-" << group.evaluateFactor[evaluateFactorOrder].get().name << "和值";
+		return std::make_tuple(flagSout.str(), displaySout.str(), std::bind(factor1Factor2SumAnalyse, std::placeholders::_1, evaluateFactorOrder, std::placeholders::_2, std::placeholders::_3));
+	}
+
+	std::tuple<std::string, std::string, TwoFactorsAEDMAnalyzers::Analyzer> TwoFactorsAEDMAnalyzers::Factor1Factor2AverageAnalyzer(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder)
+	{
+		std::ostringstream flagSout, displaySout;
+		flagSout << "evaluate_" << evaluateFactorOrder << "_average";
+		displaySout << "(" << group.experimentalFactors[0].get().name << ", " << group.experimentalFactors[1].get().name << ")-" << group.evaluateFactor[evaluateFactorOrder].get().name << "平均值";
+		return std::make_tuple(flagSout.str(), displaySout.str(), std::bind(factor1Factor2AverageAnalyse, std::placeholders::_1, evaluateFactorOrder, std::placeholders::_2, std::placeholders::_3));
+	}
+
 	boost::shared_ptr<TwoFactorsAEDMAnalyzers> TwoFactorsAEDMAnalyzers::create(void)
 	{
 		return boost::shared_ptr<TwoFactorsAEDMAnalyzers>(new TwoFactorsAEDMAnalyzers());
@@ -163,41 +209,74 @@ namespace AEDM
 		return TwoFactorsAEDM::Category;
 	}
 
-	TwoFactorsAEDMAnalyzers::AnalyzerGroup TwoFactorsAEDMAnalyzers::generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const
+	const std::string & TwoFactorsAEDMAnalyzers::displayName(void) const
+	{
+		return TwoFactorsAEDM::DisplayName;
+	}
+
+	TwoFactorsAEDMAnalyzers::AnalyzerGroup TwoFactorsAEDMAnalyzers::generateAnalyzerGroup(const CARSDK::FactorTypeGroup &group) const
+	{
+		AnalyzerGroup ret;
+		const auto AddAnalyzer([&ret](const std::tuple<std::string, std::string, Analyzer> &tuple) 
+		{
+			ret.flags.insert(std::make_pair(std::get<0>(tuple), std::get<1>(tuple)));
+			ret.analyzers.insert(std::make_pair(std::get<0>(tuple), std::get<2>(tuple)));
+		});
+
+		for (SSUtils::uint32 i(0), j(group.evaluateFactor.size()); i != j; ++i)
+		{
+			AddAnalyzer(OriginAnalyzer(group, i));
+			AddAnalyzer(VarianceOriginAnalyzer(group, i));
+			AddAnalyzer(FactorSumAnalyzer(group, 0, i));
+			AddAnalyzer(FactorSumAnalyzer(group, 1, i));
+			AddAnalyzer(FactorAverageAnalyzer(group, 0, i));
+			AddAnalyzer(FactorAverageAnalyzer(group, 1, i));
+			AddAnalyzer(Factor1Factor2SumAnalyzer(group, i));
+			AddAnalyzer(Factor1Factor2AverageAnalyzer(group, i));
+		}
+
+		return ret;
+	}
+
+	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::originAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
 	{
 		// to do
-		return AnalyzerGroup();
+
+		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
 	}
 
-	/*
-	const std::map<std::string, std::string>& TwoFactorsAEDMAnalyzers::flags(void) const
+	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::varianceOriginAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
 	{
-		static const std::map<std::string, std::string> ret =
-		{
-			std::make_pair(VarianceOriginFlag, std::string("方差法（原始）")), 
-			std::make_pair(Factor1_2_SumFlag, std::string("无（因子1-因子2-指标和值)"))
-		};
-		return ret;
+		// to do
+
+		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
 	}
 
-	const std::map<std::string, CARSDK::IExperimentalAnalyzerInterface::Analyzer>& TwoFactorsAEDMAnalyzers::analyzers(void) const
+	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::factorSumAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
 	{
-		static const std::map<std::string, CARSDK::IExperimentalAnalyzerInterface::Analyzer> ret = 
-		{
-			std::make_pair(VarianceOriginFlag, variance_origin_anzlyer),
-			std::make_pair(Factor1_2_SumFlag, factor_1_2_sum_anzlyer)
-		};
-		return ret;
-	}
-	*/
+		// to do
 
-	std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::variance_origin_anzlyer(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data, const std::map<std::string, std::string>& attributes, const std::string & flag)
-	{
-		return std::pair<CARSDK::AnalysisResultType, std::string>();
+		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
 	}
 
-	std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::factor_1_2_sum_anzlyer(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data, const std::map<std::string, std::string>& attributes, const std::string & flag)
+	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::factorAverageAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
 	{
-		return std::pair<CARSDK::AnalysisResultType, std::string>();
+		// to do
+
+		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
+	}
+
+	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::factor1Factor2SumAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
+	{
+		// to do
+
+		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
+	}
+
+	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::factor1Factor2AverageAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
+	{
+		// to do
+
+		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
 	}
 };

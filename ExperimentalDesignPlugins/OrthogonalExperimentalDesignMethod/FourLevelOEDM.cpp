@@ -4,6 +4,7 @@
 namespace OEDM
 {
 	const std::string FourLevelOEDM::Category("FourLevelOEDM");
+	const std::string FourLevelOEDM::DisplayName("四水平正交设计方法");
 	const std::string FourLevelOEDM::TimeAttr("time");
 	const std::string FourLevelOEDM::ColumnAttr("column");
 	const std::string FourLevelOEDM::InteractionEffectAttr("has_interaction_effect");
@@ -20,8 +21,7 @@ namespace OEDM
 
 	const std::string &FourLevelOEDM::displayName(void) const
 	{
-		static const std::string ret("四水平正交设计方法");
-		return ret;
+		return DisplayName;
 	}
 
 	const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &FourLevelOEDM::neededAttributes(void) const
@@ -77,7 +77,12 @@ namespace OEDM
 		return FourLevelOEDM::Category;
 	}
 
-	FourLevelOEDMAnalyzers::AnalyzerGroup FourLevelOEDMAnalyzers::generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const
+	const std::string & FourLevelOEDMAnalyzers::displayName(void) const
+	{
+		return FourLevelOEDM::DisplayName;
+	}
+
+	FourLevelOEDMAnalyzers::AnalyzerGroup FourLevelOEDMAnalyzers::generateAnalyzerGroup(const CARSDK::FactorTypeGroup &group) const
 	{
 		// to do
 		return AnalyzerGroup();

@@ -4,6 +4,7 @@
 namespace OEDM
 {
 	const std::string TwoLevelOEDM::Category("TwoLevelOEDM");
+	const std::string TwoLevelOEDM::DisplayName("二水平正交设计方法");
 	const std::string TwoLevelOEDM::TimeAttr("time");
 	const std::string TwoLevelOEDM::ColumnAttr("column");
 	const std::string TwoLevelOEDM::InteractionEffectAttr("has_interaction_effect");
@@ -20,8 +21,7 @@ namespace OEDM
 
 	const std::string &TwoLevelOEDM::displayName(void) const
 	{
-		static const std::string ret("二水平正交设计方法");
-		return ret;
+		return DisplayName;
 	}
 
 	const std::vector<std::pair<std::string, std::pair<std::string, CARSDK::AttributeType>>> &TwoLevelOEDM::neededAttributes(void) const
@@ -77,7 +77,12 @@ namespace OEDM
 		return TwoLevelOEDM::Category;
 	}
 
-	TwoLevelOEDMAnalyzers::AnalyzerGroup TwoLevelOEDMAnalyzers::generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const
+	const std::string & TwoLevelOEDMAnalyzers::displayName(void) const
+	{
+		return TwoLevelOEDM::DisplayName;
+	}
+
+	TwoLevelOEDMAnalyzers::AnalyzerGroup TwoLevelOEDMAnalyzers::generateAnalyzerGroup(const CARSDK::FactorTypeGroup &group) const
 	{
 		// to do
 		return AnalyzerGroup();

@@ -7,6 +7,7 @@
 namespace UEDM
 {
 	const std::string UEDMUtils::Name("UEDM");
+	const std::string UEDMUtils::DisplayName("均匀设计");
 
 	boost::shared_ptr<UEDMUtils> UEDMUtils::create(void)
 	{
@@ -21,8 +22,7 @@ namespace UEDM
 
 	const std::string &UEDMUtils::displayName(void) const
 	{
-		static const std::string ret("均匀设计");
-		return ret;
+		return DisplayName;
 	}
 
 	const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalDesignMethodInterface>> &UEDMUtils::methods(void) const
@@ -44,6 +44,11 @@ namespace UEDM
 	const std::string & UEDMAnalyzerUtils::name(void) const
 	{
 		return UEDMUtils::Name;
+	}
+
+	const std::string & UEDMAnalyzerUtils::displayName(void) const
+	{
+		return UEDMUtils::DisplayName;
 	}
 
 	const std::map<std::string, boost::shared_ptr<CARSDK::IExperimentalAnalyzerInterface>> &UEDMAnalyzerUtils::analyzerGroups(void) const

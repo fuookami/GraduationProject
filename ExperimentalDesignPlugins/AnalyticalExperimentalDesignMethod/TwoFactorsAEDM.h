@@ -2,6 +2,7 @@
 
 #include "CARSDK/ExperimentalDesignMethodInterface.h"
 #include "CARSDK/ExperimentalAnalyzerInterface.h"
+#include <tuple>
 
 namespace AEDM
 {
@@ -9,6 +10,7 @@ namespace AEDM
 	{
 	public:
 		static const std::string Category;
+		static const std::string DisplayName;
 		static const std::string RepeatTimeAttr;
 		static const std::string InteractionEffectAttr;
 
@@ -39,7 +41,12 @@ namespace AEDM
 	class TwoFactorsAEDMAnalyzers : public CARSDK::IExperimentalAnalyzerInterface
 	{
 	public:
-		static const std::string VarianceOriginFlag;
+		static std::tuple<std::string, std::string, Analyzer> OriginAnalyzer(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 evaluateFactorOrder);
+		static std::tuple<std::string, std::string, Analyzer> VarianceOriginAnalyzer(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 evaluateFactorOrder);
+		static std::tuple<std::string, std::string, Analyzer> FactorSumAnalyzer(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder);
+		static std::tuple<std::string, std::string, Analyzer> FactorAverageAnalyzer(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder);
+		static std::tuple<std::string, std::string, Analyzer> Factor1Factor2SumAnalyzer(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 evaluateFactorOrder);
+		static std::tuple<std::string, std::string, Analyzer> Factor1Factor2AverageAnalyzer(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 evaluateFactorOrder);
 
 	public:
 		static boost::shared_ptr<TwoFactorsAEDMAnalyzers> create(void);
@@ -54,10 +61,15 @@ namespace AEDM
 		~TwoFactorsAEDMAnalyzers(void) = default;
 
 		const std::string &category(void) const override;
-		AnalyzerGroup generateAnalyzerGroup(const std::shared_ptr<XSDFrontend::XSDModel> model) const override;
+		const std::string &displayName(void) const override;
+		AnalyzerGroup generateAnalyzerGroup(const CARSDK::FactorTypeGroup &group) const override;
 
 	private:
-		static std::pair<CARSDK::AnalysisResultType, std::string> variance_origin_anzlyer(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data, const std::map<std::string, std::string> &attributes, const std::string &flag);
-		static std::pair<CARSDK::AnalysisResultType, std::string> factor_1_2_sum_anzlyer(const std::shared_ptr<XSDFrontend::XSDModel> model, const std::shared_ptr<SSUtils::XML::Node> data, const std::map<std::string, std::string> &attributes, const std::string &flag);
+		static const std::pair<CARSDK::AnalysisResultType, std::string> originAnalyse(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 experimentalFactorOrder, const CARSDK::ExperimentalDesignTable &table, const std::map<std::string, std::string> &attributes);
+		static const std::pair<CARSDK::AnalysisResultType, std::string> varianceOriginAnalyse(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 experimentalFactorOrder, const CARSDK::ExperimentalDesignTable &table, const std::map<std::string, std::string> &attributes);
+		static const std::pair<CARSDK::AnalysisResultType, std::string> factorSumAnalyse(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable &table, const std::map<std::string, std::string> &attributes);
+		static const std::pair<CARSDK::AnalysisResultType, std::string> factorAverageAnalyse(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable &table, const std::map<std::string, std::string> &attributes);
+		static const std::pair<CARSDK::AnalysisResultType, std::string> factor1Factor2SumAnalyse(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable &table, const std::map<std::string, std::string> &attributes);
+		static const std::pair<CARSDK::AnalysisResultType, std::string> factor1Factor2AverageAnalyse(const CARSDK::FactorTypeGroup &group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable &table, const std::map<std::string, std::string> &attributes);
 	};
 };

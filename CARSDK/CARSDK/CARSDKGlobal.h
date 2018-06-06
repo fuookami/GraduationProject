@@ -67,7 +67,7 @@ namespace CARSDK
 	class IExperimentalAnalyzerUtilsInterface;
 	class ExperimentalAnalyzerModule;
 
-	struct FactorType
+	struct CARSDK_API_DECLSPEC FactorType
 	{
 		std::string name;
 		std::string type;
@@ -77,7 +77,7 @@ namespace CARSDK
 		std::map<std::string, boost::any> validators;
 		std::map<std::string, std::string> attributes;
 	};
-	struct FactorTypeGroup
+	struct CARSDK_API_DECLSPEC FactorTypeGroup
 	{
 		std::vector<std::reference_wrapper<const FactorType>> experimentalFactors;
 		std::vector<std::reference_wrapper<const FactorType>> evaluateFactor;
