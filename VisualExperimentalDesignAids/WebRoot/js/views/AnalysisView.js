@@ -59,10 +59,15 @@ $(document).ready(function() {
             $('#add_result_btn').removeAttr('disabled');
         }
     }).on('change', 'select', function(e){
-        var analyzer = $(e.currentTarget);
-        CurrentResult = Number(analyzer.attr("id").split("_")[1]);
-        setLoading(true);
-        interface.analysisRequested(analyzer.val());
+        var target = $(e.currentTarget);
+        var parts = target.attr("id").split("_");
+        CurrentResult = Number(parts[1]);
+        if (parts[0] === "analyzer") {
+            setLoading(true);
+            interface.analysisRequested(target.val());
+        } else if (parts[0] === "type") {
+            refreshCharts(target.val());
+        }
     });
 });
 
@@ -94,8 +99,9 @@ function refreshResult(result) {
     } else if (result["type"] === "Table") {
         Results[CurrentResult] = {
             "type": "Table",
-            "data": $.parseJSON(result["data"])
+            "data": normalizeData($.parseJSON(result["data"]))
         };
+        $('#charts_' + CurrentResult).html("").hide();
         refreshType();
     } else if (result["type"] === "Html5") {
         Results[CurrentResult] = {
@@ -114,22 +120,174 @@ function refreshResult(result) {
 }
 
 function refreshType() {
-
+    var factorNumber = 0;
+    for (var key in Results[CurrentResult]["data"]) {
+        if (key === "xCategories") {
+            ++factorNumber;
+        }
+        if (key === "yCategories") {
+            ++factorNumber;
+        }
+    }
+    if (factorNumber === 1) {
+        refreshOneFactorType();
+    } else if (factorNumber === 2) {
+        refreshTwoFactorType();
+    }
 }
 
 function refreshOneFactorType() {
-
+    var html = "";
+    html += "<option selected disabled>请选择图表类型</option>";
+    html += "<option value='line'>折线图</option>";
+    html += "<option value='area'>面积图</option>";
+    var type = $('#type_' + CurrentResult);
+    type.parent().show();
+    type.html(html).material_select();
 }
 
 function refreshTwoFactorType() {
-
+    var html = "";
+    html += "<option selected disabled>请选择图表类型</option>";
+    html += "<option value='heat'>热力图</option>";
+    var type = $('#type_' + CurrentResult);
+    type.parent().show();
+    type.html(html).material_select();
 }
 
-function refreshCharts() {
+function refreshCharts(key) {
+    if (key === "line") {
+        refreshLine();
+    } else if (key === "area") {
+        refreshArea();
+    } else if (key === "heat") {
+        refreshHeatMap();
+    }
+}
 
+function refreshLine() {
+    $('#charts_' + CurrentResult).highcharts({
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: ''
+        },
+        credits: {
+            enabled: false
+        },
+        yAxis: {
+            title: null
+        },
+        xAxis: {
+            xCategories: Results[CurrentResult]["data"]["xCategories"]
+        },
+        tooltip: {
+            split: true
+        },
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        },
+        series: [{
+            data: Results[CurrentResult]["data"]["datas"]
+        }]
+    }).show();
+}
+
+function refreshArea() {
+    $('#charts_' + CurrentResult).highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: null
+        },
+        credits: {
+            enabled: false
+        },
+        yAxis: {
+            title: null
+        },
+        xAxis: {
+            xCategories: Results[CurrentResult]["data"]["xCategories"]
+        },
+        tooltip: {
+            split: true
+        },
+        plotOptions: {
+            area: {
+                stacking: 'normal',
+                lineColor: '#666666',
+                lineWidth: 1,
+                marker: {
+                    lineWidth: 1,
+                    lineColor: '#666666'
+                }
+            }
+        },
+        series: [{
+            data: Results[CurrentResult]["data"]["datas"]
+        }]
+    }).show();
 }
 
 function refreshHeatMap() {
+    $('#charts_' + CurrentResult).highcharts({
+        credits: {
+            enabled: false
+        },
+        chart: {
+            type: 'heatmap',
+            marginTop: 40,
+            marginBottom: 80,
+            plotBorderWidth: 1
+        },
+        title: {
+            text: ""
+        },
+        yAxis: {
+            categories: Results[CurrentResult]["data"]["yCategories"],
+            title: null
+        },
+        xAxis: {
+            categories: Results[CurrentResult]["data"]["xCategories"]
+        },
+        colorAxis: {
+            min: 0,
+            minColor: '#FFFFFF',
+            maxColor: Highcharts.getOptions().colors[0]
+        },
+        legend: {
+            align: 'right',
+            layout: 'vertical',
+            margin: 0,
+            verticalAlign: 'top',
+            y: 25,
+            symbolHeight: 280
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.xAxis.categories[this.point.x] + '</b>, <b>' +
+                    this.series.yAxis.categories[this.point.y] + '</b>: <b>' + this.point.value + '</b>';
+            }
+        },
+        series: [{
+            borderWidth: 1,
+            data: Results[CurrentResult]["data"]["datas"],
+            dataLabels: {
+                enabled: true,
+                color: '#000000'
+            }
+        }]
+    }).show();
 }
 
 function addResult() {
@@ -138,20 +296,20 @@ function addResult() {
             "            <i class=\"material-icons delete_btn\" style=\"position: absolute; right: 1em; top: .5em; cursor: pointer;\">close</i>\n" +
             "\n" +
             "            <div class=\"row\" style=\"margin: .25em; \">\n" +
-            "                <div class=\"col s6 input-field\">\n" +
+            "                <div class=\"col s6 input-field\"  style='z-index: 1;'>\n" +
             "                    <select id=\"analyzer_" + CurrentResultNumber + "\">\n" +
                                      generateAnalyzerOptions() +
             "                    </select>\n" +
             "                    <label>统计分析方法：</label>\n" +
             "                </div>\n" +
             "\n" +
-            "                <div class=\"col s6 input-field\" style='display: none;'>\n" +
+            "                <div class=\"col s6 input-field\" style='z-index: 1;'>\n" +
             "                    <select id=\"type_" + CurrentResultNumber + "\">\n" +
             "                    </select>\n" +
             "                    <label>图表类型：</label>\n" +
             "                </div>\n" +
             "\n" +
-            "                <div class=\"col s12\" id=\"charts_" + CurrentResultNumber + "\" style='display: none;'></div>\n" +
+            "                <div class=\"col s12\" id=\"charts_" + CurrentResultNumber + "\" style='display: none; z-index: 0;'></div>\n" +
             "            </div>\n" +
             "        </div>" +
             "        <div class=\"divider\"></div>";
@@ -170,4 +328,17 @@ function generateAnalyzerOptions() {
         }
     }
     return html;
+}
+
+function normalizeData(data) {
+    var _datas = [];
+    for (var i = 0, j = data["datas"].length; i !== j; ++i) {
+        var thisData = [];
+        for (var p = 0, q = data["datas"][i].length; p !== q; ++p) {
+            thisData[p] = Number(data["datas"][i][p]);
+        }
+        _datas.push(thisData);
+    }
+    data["datas"] = _datas;
+    return data;
 }

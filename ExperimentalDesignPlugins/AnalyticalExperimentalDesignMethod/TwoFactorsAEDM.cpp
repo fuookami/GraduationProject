@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "TwoFactorsAEDM.h"
 #include "SSUtils\MathUtils.h"
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 namespace AEDM
 {
@@ -187,7 +189,7 @@ namespace AEDM
 	{
 		std::ostringstream flagSout, displaySout;
 		flagSout << "evaluate_" << evaluateFactorOrder << "_sum";
-		displaySout << "(" << group.experimentalFactors[0].get().name << ", " << group.experimentalFactors[1].get().name << ")-" << group.evaluateFactor[evaluateFactorOrder].get().name << "和值";
+		displaySout << "(" << group.experimentalFactors[0].get().name << ", " << group.experimentalFactors[1].get().name << "）-" << group.evaluateFactor[evaluateFactorOrder].get().name << "和值";
 		return std::make_tuple(flagSout.str(), displaySout.str(), std::bind(factor1Factor2SumAnalyse, std::placeholders::_1, evaluateFactorOrder, std::placeholders::_2, std::placeholders::_3));
 	}
 
@@ -195,7 +197,7 @@ namespace AEDM
 	{
 		std::ostringstream flagSout, displaySout;
 		flagSout << "evaluate_" << evaluateFactorOrder << "_average";
-		displaySout << "(" << group.experimentalFactors[0].get().name << ", " << group.experimentalFactors[1].get().name << ")-" << group.evaluateFactor[evaluateFactorOrder].get().name << "平均值";
+		displaySout << "(" << group.experimentalFactors[0].get().name << ", " << group.experimentalFactors[1].get().name << "）-" << group.evaluateFactor[evaluateFactorOrder].get().name << "平均值";
 		return std::make_tuple(flagSout.str(), displaySout.str(), std::bind(factor1Factor2AverageAnalyse, std::placeholders::_1, evaluateFactorOrder, std::placeholders::_2, std::placeholders::_3));
 	}
 
@@ -226,13 +228,16 @@ namespace AEDM
 		for (SSUtils::uint32 i(0), j(group.evaluateFactor.size()); i != j; ++i)
 		{
 			AddAnalyzer(OriginAnalyzer(group, i));
-			AddAnalyzer(VarianceOriginAnalyzer(group, i));
-			AddAnalyzer(FactorSumAnalyzer(group, 0, i));
-			AddAnalyzer(FactorSumAnalyzer(group, 1, i));
-			AddAnalyzer(FactorAverageAnalyzer(group, 0, i));
-			AddAnalyzer(FactorAverageAnalyzer(group, 1, i));
-			AddAnalyzer(Factor1Factor2SumAnalyzer(group, i));
-			AddAnalyzer(Factor1Factor2AverageAnalyzer(group, i));
+			if (group.evaluateFactor[i].get().simpleType == XSDFrontend::SimpleType::eSimpleType::tNumberType)
+			{
+				AddAnalyzer(VarianceOriginAnalyzer(group, i));
+				AddAnalyzer(FactorSumAnalyzer(group, 0, i));
+				AddAnalyzer(FactorSumAnalyzer(group, 1, i));
+				AddAnalyzer(FactorAverageAnalyzer(group, 0, i));
+				AddAnalyzer(FactorAverageAnalyzer(group, 1, i));
+				AddAnalyzer(Factor1Factor2SumAnalyzer(group, i));
+				AddAnalyzer(Factor1Factor2AverageAnalyzer(group, i));
+			}
 		}
 
 		return ret;
@@ -240,9 +245,55 @@ namespace AEDM
 
 	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::originAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
 	{
-		// to do
+		auto factor1Enum(CARSDK::DataModelingModule::getEnumString(group.experimentalFactors[0])), factor2Enum(CARSDK::DataModelingModule::getEnumString(group.experimentalFactors[1]));
+		std::string factor1Unit, factor2Unit;
+		if (group.experimentalFactors[0].get().attributes.find(CARSDK::UnitAttr()) != group.experimentalFactors[0].get().attributes.cend())
+		{
+			auto unit = group.experimentalFactors[0].get().attributes.find(CARSDK::UnitAttr())->second;
+			factor1Unit = unit;
+			for (auto &value : factor1Enum)
+			{
+				value += unit;
+			}
+		}
+		if (group.experimentalFactors[1].get().attributes.find(CARSDK::UnitAttr()) != group.experimentalFactors[1].get().attributes.cend())
+		{
+			auto unit = group.experimentalFactors[1].get().attributes.find(CARSDK::UnitAttr())->second;
+			factor2Unit = unit;
+			for (auto &value : factor2Enum)
+			{
+				value += unit;
+			}
+		}
 
-		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
+		std::map<std::string, std::map<std::string, std::vector<std::string>>> strings;
+		for (const auto &batch : table.batches())
+		{
+			strings[batch[0].content + factor1Unit][batch[1].content + factor2Unit].push_back(batch[2 + evaluateFactorOrder].content);
+		}
+
+		std::ostringstream html5;
+		html5 << "<table class=\"centered\"><thead><tr>";
+		html5 << "<td rowspan=\"2\" class=\"center\">" << group.experimentalFactors[0].get().name << "</td>";
+		html5 << "<td colspan=\"" << factor2Enum.size() << "\" class=\"center\">" << group.experimentalFactors[1].get().name << "</td>";
+		html5 << "</tr><tr>";
+		for (const auto &factor2 : factor2Enum)
+		{
+			html5 << "<td class=\"center\">" << factor2 << "</td>";
+		}
+		html5 << "</tr></thead><tbody>";
+		for (const auto &factor1 : factor1Enum)
+		{
+			html5 << "<tr><td>" << factor1 << "</td>";
+			for (const auto &factor2 : factor2Enum)
+			{
+				const auto &values = strings[factor1][factor2];
+				html5 << "<td>" << SSUtils::String::join(values.cbegin(), values.cend(), std::string(", ")) << "</td>" ;
+			}
+		}
+		html5 << "</tbody></table>";
+
+		return std::make_pair(CARSDK::AnalysisResultType::Html5, html5.str());
 	}
 
 	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::varianceOriginAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
@@ -254,29 +305,301 @@ namespace AEDM
 
 	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::factorSumAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
 	{
-		// to do
+		using namespace boost::property_tree;
+		auto factorEnum(CARSDK::DataModelingModule::getEnumString(group.experimentalFactors[experimentalFactorOrder]));
+		std::string factorUnit;
+		if (group.experimentalFactors[experimentalFactorOrder].get().attributes.find(CARSDK::UnitAttr()) != group.experimentalFactors[experimentalFactorOrder].get().attributes.cend())
+		{
+			auto unit = group.experimentalFactors[0].get().attributes.find(CARSDK::UnitAttr())->second;
+			factorUnit = unit;
+			for (auto &value : factorEnum)
+			{
+				value += unit;
+			}
+		}
 
-		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
+		std::map<std::string, std::vector<std::string>> strings;
+		for (const auto &batch : table.batches())
+		{
+			strings[batch[experimentalFactorOrder].content + factorUnit].push_back(batch[2 + evaluateFactorOrder].content);
+		}
+
+		SSUtils::uint32 digits = SSUtils::Math::DefaultDigits;
+		auto digitIt(group.evaluateFactor[evaluateFactorOrder].get().attributes.find(CARSDK::DigitAttr()));
+		if (digitIt != group.evaluateFactor[evaluateFactorOrder].get().attributes.cend() && SSUtils::String::isPositiveDecInteger(digitIt->second))
+		{
+			digits = std::stoul(digitIt->second);
+		}
+		std::map<std::string, std::string> values;
+		for (const auto &row : strings)
+		{
+			SSUtils::dec50 thisValue(.0f);
+			for (const auto &value : row.second)
+			{
+				thisValue += SSUtils::dec50(value);
+			}
+			values[row.first] = thisValue.str(digits, std::ios::fixed);
+		}
+
+		ptree json, xCategories, datas;
+		for (const auto &factor1 : factorEnum)
+		{
+			ptree value;
+			value.put(std::string(""), factor1);
+			xCategories.push_back(std::make_pair(std::string(""), value));
+		}
+		for (SSUtils::uint32 i(0), j(factorEnum.size()); i != j; ++i)
+		{
+			ptree data, x, value;
+			x.put(std::string(""), i);
+			value.put(std::string(""), values[factorEnum[i]]);
+			data.push_back(std::make_pair(std::string(""), x));
+			data.push_back(std::make_pair(std::string(""), value));
+			datas.push_back(std::make_pair(std::string(""), data));
+		}
+
+		json.push_back(std::make_pair(std::string("xCategories"), xCategories));
+		json.push_back(std::make_pair(std::string("datas"), datas));
+		std::ostringstream sout;
+		write_json(sout, json);
+		return std::make_pair(CARSDK::AnalysisResultType::Table, sout.str());
 	}
 
 	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::factorAverageAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 experimentalFactorOrder, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
 	{
-		// to do
+		using namespace boost::property_tree;
+		auto factorEnum(CARSDK::DataModelingModule::getEnumString(group.experimentalFactors[experimentalFactorOrder]));
+		std::string factorUnit;
+		if (group.experimentalFactors[experimentalFactorOrder].get().attributes.find(CARSDK::UnitAttr()) != group.experimentalFactors[experimentalFactorOrder].get().attributes.cend())
+		{
+			auto unit = group.experimentalFactors[0].get().attributes.find(CARSDK::UnitAttr())->second;
+			factorUnit = unit;
+			for (auto &value : factorEnum)
+			{
+				value += unit;
+			}
+		}
 
-		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
+		std::map<std::string, std::vector<std::string>> strings;
+		for (const auto &batch : table.batches())
+		{
+			strings[batch[experimentalFactorOrder].content + factorUnit].push_back(batch[2 + evaluateFactorOrder].content);
+		}
+
+		SSUtils::uint32 digits = SSUtils::Math::DefaultDigits;
+		auto digitIt(group.evaluateFactor[evaluateFactorOrder].get().attributes.find(CARSDK::DigitAttr()));
+		if (digitIt != group.evaluateFactor[evaluateFactorOrder].get().attributes.cend() && SSUtils::String::isPositiveDecInteger(digitIt->second))
+		{
+			digits = std::stoul(digitIt->second);
+		}
+		std::map<std::string, std::string> values;
+		for (const auto &row : strings)
+		{
+			SSUtils::dec50 thisValue(.0f);
+			for (const auto &value : row.second)
+			{
+				thisValue += SSUtils::dec50(value);
+			}
+			thisValue /= row.second.size();
+			values[row.first] = thisValue.str(digits, std::ios::fixed);
+		}
+
+		ptree json, xCategories, datas;
+		for (const auto &factor1 : factorEnum)
+		{
+			ptree value;
+			value.put(std::string(""), factor1);
+			xCategories.push_back(std::make_pair(std::string(""), value));
+		}
+		for (SSUtils::uint32 i(0), j(factorEnum.size()); i != j; ++i)
+		{
+			ptree data, x, value;
+			x.put(std::string(""), i);
+			value.put(std::string(""), values[factorEnum[i]]);
+			data.push_back(std::make_pair(std::string(""), x));
+			data.push_back(std::make_pair(std::string(""), value));
+			datas.push_back(std::make_pair(std::string(""), data));
+		}
+
+		json.push_back(std::make_pair(std::string("xCategories"), xCategories));
+		json.push_back(std::make_pair(std::string("datas"), datas));
+		std::ostringstream sout;
+		write_json(sout, json);
+		return std::make_pair(CARSDK::AnalysisResultType::Table, sout.str());
 	}
 
 	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::factor1Factor2SumAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
 	{
-		// to do
+		using namespace boost::property_tree;
 
-		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
+		auto factor1Enum(CARSDK::DataModelingModule::getEnumString(group.experimentalFactors[0])), factor2Enum(CARSDK::DataModelingModule::getEnumString(group.experimentalFactors[1]));
+		std::string factor1Unit, factor2Unit;
+		if (group.experimentalFactors[0].get().attributes.find(CARSDK::UnitAttr()) != group.experimentalFactors[0].get().attributes.cend())
+		{
+			auto unit = group.experimentalFactors[0].get().attributes.find(CARSDK::UnitAttr())->second;
+			factor1Unit = unit;
+			for (auto &value : factor1Enum)
+			{
+				value += unit;
+			}
+		}
+		if (group.experimentalFactors[1].get().attributes.find(CARSDK::UnitAttr()) != group.experimentalFactors[1].get().attributes.cend())
+		{
+			auto unit = group.experimentalFactors[1].get().attributes.find(CARSDK::UnitAttr())->second;
+			factor2Unit = unit;
+			for (auto &value : factor2Enum)
+			{
+				value += unit;
+			}
+		}
+
+		std::map<std::string, std::map<std::string, std::vector<std::string>>> strings;
+		for (const auto &batch : table.batches())
+		{
+			strings[batch[0].content + factor1Unit][batch[1].content + factor2Unit].push_back(batch[2 + evaluateFactorOrder].content);
+		}
+
+		SSUtils::uint32 digits = SSUtils::Math::DefaultDigits;
+		auto digitIt(group.evaluateFactor[evaluateFactorOrder].get().attributes.find(CARSDK::DigitAttr()));
+		if (digitIt != group.evaluateFactor[evaluateFactorOrder].get().attributes.cend() && SSUtils::String::isPositiveDecInteger(digitIt->second))
+		{
+			digits = std::stoul(digitIt->second);
+		}
+		std::map<std::string, std::map<std::string, std::string>> values;
+		for (const auto &row : strings)
+		{
+			for (const auto &column : row.second)
+			{
+				SSUtils::dec50 thisValue(.0f);
+				for (const auto &value : column.second)
+				{
+					thisValue += SSUtils::dec50(value);
+				}
+				values[row.first][column.first] = thisValue.str(digits, std::ios::fixed);
+			}
+		}
+
+		ptree json, xCategories, yCategories, datas;
+		for (const auto &factor1 : factor1Enum)
+		{
+			ptree value;
+			value.put(std::string(""), factor1);
+			xCategories.push_back(std::make_pair(std::string(""), value));
+		}
+		for (const auto &factor2 : factor2Enum)
+		{
+			ptree value;
+			value.put(std::string(""), factor2);
+			yCategories.push_back(std::make_pair(std::string(""), value));
+		}
+		for (SSUtils::uint32 i(0), j(factor1Enum.size()); i != j; ++i)
+		{
+			for (SSUtils::uint32 p(0), q(factor2Enum.size()); p != q; ++p)
+			{
+				ptree data, x, y, value;
+				x.put(std::string(""), i);
+				y.put(std::string(""), p);
+				value.put(std::string(""), values[factor1Enum[i]][factor2Enum[p]]);
+				data.push_back(std::make_pair(std::string(""), x));
+				data.push_back(std::make_pair(std::string(""), y));
+				data.push_back(std::make_pair(std::string(""), value));
+				datas.push_back(std::make_pair(std::string(""), data));
+			}
+		}
+
+		json.push_back(std::make_pair(std::string("xCategories"), xCategories));
+		json.push_back(std::make_pair(std::string("yCategories"), yCategories));
+		json.push_back(std::make_pair(std::string("datas"), datas));
+		std::ostringstream sout;
+		write_json(sout, json);
+		return std::make_pair(CARSDK::AnalysisResultType::Table, sout.str());
 	}
 
 	const std::pair<CARSDK::AnalysisResultType, std::string> TwoFactorsAEDMAnalyzers::factor1Factor2AverageAnalyse(const CARSDK::FactorTypeGroup & group, const SSUtils::uint32 evaluateFactorOrder, const CARSDK::ExperimentalDesignTable & table, const std::map<std::string, std::string>& attributes)
 	{
-		// to do
+		using namespace boost::property_tree;
 
-		return std::make_pair(CARSDK::AnalysisResultType::Raw, std::string("未实现"));
+		auto factor1Enum(CARSDK::DataModelingModule::getEnumString(group.experimentalFactors[0])), factor2Enum(CARSDK::DataModelingModule::getEnumString(group.experimentalFactors[1]));
+		std::string factor1Unit, factor2Unit;
+		if (group.experimentalFactors[0].get().attributes.find(CARSDK::UnitAttr()) != group.experimentalFactors[0].get().attributes.cend())
+		{
+			auto unit = group.experimentalFactors[0].get().attributes.find(CARSDK::UnitAttr())->second;
+			factor1Unit = unit;
+			for (auto &value : factor1Enum)
+			{
+				value += unit;
+			}
+		}
+		if (group.experimentalFactors[1].get().attributes.find(CARSDK::UnitAttr()) != group.experimentalFactors[1].get().attributes.cend())
+		{
+			auto unit = group.experimentalFactors[1].get().attributes.find(CARSDK::UnitAttr())->second;
+			factor2Unit = unit;
+			for (auto &value : factor2Enum)
+			{
+				value += unit;
+			}
+		}
+
+		std::map<std::string, std::map<std::string, std::vector<std::string>>> strings;
+		for (const auto &batch : table.batches())
+		{
+			strings[batch[0].content + factor1Unit][batch[1].content + factor2Unit].push_back(batch[2 + evaluateFactorOrder].content);
+		}
+
+		SSUtils::uint32 digits = SSUtils::Math::DefaultDigits;
+		auto digitIt(group.evaluateFactor[evaluateFactorOrder].get().attributes.find(CARSDK::DigitAttr()));
+		if (digitIt != group.evaluateFactor[evaluateFactorOrder].get().attributes.cend() && SSUtils::String::isPositiveDecInteger(digitIt->second))
+		{
+			digits = std::stoul(digitIt->second);
+		}
+		std::map<std::string, std::map<std::string, std::string>> values;
+		for (const auto &row : strings)
+		{
+			for (const auto &column : row.second)
+			{
+				SSUtils::dec50 thisValue(.0f);
+				for (const auto &value : column.second)
+				{
+					thisValue += SSUtils::dec50(value);
+				}
+				thisValue /= column.second.size();
+				values[row.first][column.first] = thisValue.str(digits, std::ios::fixed);
+			}
+		}
+
+		ptree json, xCategories, yCategories, datas;
+		for (const auto &factor1 : factor1Enum)
+		{
+			ptree value;
+			value.put(std::string(""), factor1);
+			xCategories.push_back(std::make_pair(std::string(""), value));
+		}
+		for (const auto &factor2 : factor2Enum)
+		{
+			ptree value;
+			value.put(std::string(""), factor2);
+			yCategories.push_back(std::make_pair(std::string(""), value));
+		}
+		for (SSUtils::uint32 i(0), j(factor1Enum.size()); i != j; ++i)
+		{
+			for (SSUtils::uint32 p(0), q(factor2Enum.size()); p != q; ++p)
+			{
+				ptree data, x, y, value;
+				x.put(std::string(""), i);
+				y.put(std::string(""), p);
+				value.put(std::string(""), values[factor1Enum[i]][factor2Enum[p]]);
+				data.push_back(std::make_pair(std::string(""), x));
+				data.push_back(std::make_pair(std::string(""), y));
+				data.push_back(std::make_pair(std::string(""), value));
+				datas.push_back(std::make_pair(std::string(""), data));
+			}
+		}
+
+		json.push_back(std::make_pair(std::string("xCategories"), xCategories));
+		json.push_back(std::make_pair(std::string("yCategories"), yCategories));
+		json.push_back(std::make_pair(std::string("datas"), datas));
+		std::ostringstream sout;
+		write_json(sout, json);
+		return std::make_pair(CARSDK::AnalysisResultType::Table, sout.str());
 	}
 };

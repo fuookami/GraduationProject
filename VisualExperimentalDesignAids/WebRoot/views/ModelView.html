@@ -71,7 +71,7 @@
                             <div class="row col s12">
                                 <p class="col">
                                     <input type="checkbox" class="filled-in" id="has_min_1"/>
-                                    <label for="has_max_1">是否有最小值</label>
+                                    <label for="has_min_1">是否有最小值</label>
                                 </p>
                             </div>
 
@@ -92,11 +92,11 @@
                             <div class="row col s12">
                                 <p class="col s2">
                                     <input type="checkbox" class="filled-in" id="has_enum_1" checked="checked"/>
-                                    <label for="has_max_1">是否有枚举值</label>
+                                    <label for="has_enum_1">是否有枚举值</label>
                                 </p>
 
                                 <div class="input-field col s10">
-                                    <div class="chips chips-placeholder"></div>
+                                    <div id="enum_1" class="chips chips-placeholder"></div>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +198,7 @@
                             <div class="row col s12">
                                 <p class="col s2">
                                     <input type="checkbox" class="filled-in" id="has_enum_2" checked="checked"/>
-                                    <label for="has_max_2">是否有枚举值</label>
+                                    <label id="enum_2" for="has_max_2">是否有枚举值</label>
                                 </p>
 
                                 <div class="input-field col s10">
@@ -330,7 +330,7 @@
                             <div class="row col s12">
                                 <p class="col s2">
                                     <input type="checkbox" class="filled-in" id="has_enum_3"/>
-                                    <label for="has_max_3">是否有枚举值</label>
+                                    <label id="enum_3" for="has_max_3">是否有枚举值</label>
                                 </p>
                             </div>
                         </div>
@@ -395,6 +395,24 @@
             $('.chips-placeholder').material_chip({
                 placeholder: '（回车间隔）',
                 secondaryPlaceholder: '+添加枚举值'
+            });
+            $('#enum_1').material_chip({
+                data: [{
+                    "tag": "1"
+                }, {
+                    "tag": "2"
+                }, {
+                    "tag": "3"
+                }]
+            });
+            $('#enum_2').material_chip({
+                data: [{
+                    "tag": "15"
+                }, {
+                    "tag": "70"
+                }, {
+                    "tag": "125"
+                }]
             });
         });
     </script>
