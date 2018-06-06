@@ -38,7 +38,6 @@ namespace VEDA
 	public:
 		void emitLoadingBegin(void);
 		void emitLoadingEnd(void);
-	private:
 		void emitOpenProjectFinished(const bool ok, const QString &info);
 		void emitCloseProjectFinished(const bool ok, const QString &info);
 

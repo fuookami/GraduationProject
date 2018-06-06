@@ -4,6 +4,8 @@
 #include "VEDADataView.h"
 #include "VEDAAnalysisView.h"
 #include "VEDAGUIGlobal.h"
+#include "VEDAMainView.h"
+#include "VEDAProjectHandler.h"
 #include "SSUtils/GUI/QMessageBoxUtils.h"
 #include <QtWidgets/QApplication>
 
@@ -16,6 +18,7 @@ namespace VEDA
 		homeView->move(1, 1);
 		m_currView = dynamic_cast<QWidget *>(homeView);
 		connect(homeView, &VEDAHomeView::loadFinished, this, &VEDAMainView::onHomeViewLoadFinished);
+		connect(VEDAProjectHandler::getInstance().get(), &VEDAProjectHandler::closeProjectFinished, this, &VEDAMainView::onProjectClosed);
 	}
 
 	void VEDAMainView::resizeEvent(QResizeEvent * event)
@@ -34,6 +37,7 @@ namespace VEDA
 		}
 
 		m_currFile = modelFile;
+		m_type = Type::Model;
 		refreshCurrentView(new VEDAModelView(modelFile, this));
 	}
 
@@ -53,6 +57,7 @@ namespace VEDA
 		}
 
 		m_currFile = dataFile;
+		m_type = Type::Data;
 		refreshCurrentView(new VEDADataView(dataFile, this));
 	}
 
@@ -72,6 +77,7 @@ namespace VEDA
 		}
 
 		m_currFile = dataFile;
+		m_type = Type::Analysis;
 		refreshCurrentView(new VEDAAnalysisView(dataFile, this));
 	}
 
@@ -85,6 +91,21 @@ namespace VEDA
 		else
 		{
 			emit loadingEnd();
+		}
+	}
+
+	void VEDAMainView::onProjectClosed(bool ok, QString)
+	{
+		if (ok)
+		{
+			if (m_type != Type::Home)
+			{
+				closeCurrentView();
+			}
+
+			m_currFile = nullptr;
+			m_type = Type::Home;
+			refreshCurrentView(new VEDAHomeView(this));
 		}
 	}
 

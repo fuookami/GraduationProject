@@ -46,7 +46,15 @@ namespace VEDA
 
 		void onCloseBtnClicked(void)
 		{
-			qDebug() << "to do: on close btn clicked.";
+			auto projectHandler(VEDAProjectHandler::getInstance());
+
+			std::thread([projectHandler]()
+			{
+				projectHandler->emitLoadingBegin();
+				projectHandler->closeCurrProject();
+				projectHandler->emitCloseProjectFinished(true, QString(""));
+				projectHandler->emitLoadingEnd();
+			}).detach();
 		}
 
 		void onCloseProjectBtnClicked(void)

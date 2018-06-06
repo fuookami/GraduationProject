@@ -76,26 +76,29 @@ namespace VEDA
 	{
 		m_currClickItem = currItem;
 
-		switch (m_currClickItem->type())
+		if (m_currClickItem != nullptr)
 		{
-		case VEDAFile::Type::PublicModel:
-			break;
-		case VEDAFile::Type::Model:
-			onModelOpen(currItem);
-			break;
-		case VEDAFile::Type::Data:
-			onDataOpen(currItem);
-			break;
-		case VEDAFile::Type::ReportConfiguration:
-			break;
-		case VEDAFile::Type::ReportData:
-			break;
-		case VEDAFile::Type::Project:
-		case VEDAFile::Type::Process:
-		case VEDAFile::Type::Operation:
-		case VEDAFile::Type::Report:
-		default:
-			break;
+			switch (m_currClickItem->type())
+			{
+			case VEDAFile::Type::PublicModel:
+				break;
+			case VEDAFile::Type::Model:
+				onModelOpen(currItem);
+				break;
+			case VEDAFile::Type::Data:
+				onDataOpen(currItem);
+				break;
+			case VEDAFile::Type::ReportConfiguration:
+				break;
+			case VEDAFile::Type::ReportData:
+				break;
+			case VEDAFile::Type::Project:
+			case VEDAFile::Type::Process:
+			case VEDAFile::Type::Operation:
+			case VEDAFile::Type::Report:
+			default:
+				break;
+			}
 		}
 	}
 

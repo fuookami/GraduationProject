@@ -48,6 +48,7 @@ namespace VEDA
 
 	private:
 		void onHomeViewLoadFinished(bool, QString);
+		void onProjectClosed(bool, QString);
 		void onLoadingBegin(void);
 		void onLoadingEnd(void);
 

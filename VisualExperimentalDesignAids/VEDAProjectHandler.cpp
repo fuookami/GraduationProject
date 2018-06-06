@@ -308,13 +308,14 @@ namespace VEDA
 		{
 			saveCurrProject();
 		}
+		m_currProject.reset();
 	}
 
 	void VEDAProjectHandler::saveCurrProject(void)
 	{
 		if (m_currProject != nullptr)
 		{
-
+			m_currProject->save();
 		}
 	}
 };
