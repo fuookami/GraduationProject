@@ -12,7 +12,7 @@
 namespace OEDM
 {
 	const std::string OEDMUtils::Name("OEDM");
-	const std::string OEDMUtils::DisplayName("displayName");
+	const std::string OEDMUtils::DisplayName("正交设计");
 
 	boost::shared_ptr<OEDMUtils> OEDMUtils::create(void)
 	{

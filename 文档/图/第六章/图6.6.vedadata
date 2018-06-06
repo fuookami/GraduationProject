@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<veda_data>
+	<Index>
+		<PublicKey>MIGdMA0GCSqGSIb3DQEBAQUAA4GLADCBhwKBgQCg6JEbEqGCwawoMLRxZ93AyE2vY3D91FMHSGKyaXMWZQRYys+5Q1NYlb7Mhlbc8vJAOpMN2Y1sLqztiR++uf6jrV82CZpTlBl996NuxpU+XLl5mXoqnjHpANa2MNRPtdG82QemBjfnbzZs+NmARbiUNNBrYh5Jq3JMOKE6SG0h/QIBEQAA</PublicKey>
+		<PrivateKey>MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKDokRsSoYLBrCgwtHFn3cDITa9jcP3UUwdIYrJpcxZlBFjKz7lDU1iVvsyGVtzy8kA6kw3ZjWwurO2JH765/qOtXzYJmlOUGX33o27GlT5cuXmZeiqeMekA1rYw1E+10bzZB6YGN+dvNmz42YBFuJQ00GtiHkmrckw4oTpIbSH9AgERAoGAKpfqLNA5z8nav1gvw6qNhdqrJuWd6NZSNqI4PkkW71b5nwiCR6DhWzaygW7awgQS8uJUGkEd5+481Xce/cfSdjM4x8rD2huvBF4sUB6jXwxUlnRbHdKcA7Vg3tZhzNxW0P76jsxB3LvwvCk/38S3AFMEDZ1AqLDj3wEgG29ceu8CQQDWcXqSIRvngHW02cRSHKKRI+xnZBdBfirxt7x8XhGSadokhAPmfe4xuhiF5nspYbbmWC87laHUJ2IkAGNJCr2XAkEAwBc6eXjjRAPbUMztjvL71eQ4XhMw67uwDJSTbiE4OFjNKiZqOIhFk+7i84/wpvjcFNqzYrDVOwqDLNI2dyF3iwJBALCZsDwbRCgPb/5Y/Adi4DtKwq9/mq5n5yFqIsDF8Fp1Sjwwe67CD3Q+5wTb7PTnDxgMYyICwYGJ2FniM6WQX+UCQHD+mt4K4AnkJqgAE0UHZvZKAwopaBIyK1KxwCKqIRIWHlUHicbmv4QyKyXcMzUK29AILUkcuapCa0eKtqBuChUCQQCpi0NgjSP9vTfVeMqkmhWwJ7kPjmJzMuP8h2k16E5SGlVIeHtL3yY/MAkd99Dh0UNaqD1iz+XUnfLm3sT+YR9N</PrivateKey>
+		<SignationToken OriginName="PKP">MjVCM0RDQjQyMTJCQzI2QzMyQzE2RjgyNThCMkQ1MTlGQUI2REI2QjBDNjk4QjA5RUE3NkYzRTE2NzQ3OEVFQkUzQkZDOURCMTU0ODE0NkI1MkE0NzQwNkY1RTJGQ0E4MzlFREQ1M0EyMDdBQTgwQTcwREYzQUE5MkE2ODc4Q0M5OThEQjkwMjE5N0UxQjlGRkJCODU5NEFEQzc5NUVDQUU2QURDMjczQTYxQUI5QjA3RENDMDkxMjg0NjVGMUI1Njc5M0Y2MkM1MDI5NkVCN0ZFNkUwODc2RDQ5MzBDNjc2OTYzNDY3QkU5OEI1NEZDMjUwQUI5NkMzNkRFNTY4QQAA</SignationToken>
+		<VerificationToken>wx+VeleHrKecI+igIBQ4JqvHrVEAPevbEnlCp7fiYWThJMAbeWvs6FsTw3P60jS2LhNJJSHGYf1phEml20PVno0TsiZW9bT/iKh6ggkjDl3qvIKxAD9dQn57PzaN9ELUAJEGqoyTQDhC8xSJtgbtwIHF6I+Doybxofd+O1AYJfcA</VerificationToken>
+	</Index>
+	<xs:schema version="3.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+		<xs:simpleType name="b电池有效寿命">
+			<xs:restriction base="xs:decimal"/>
+		</xs:simpleType>
+		<xs:simpleType name="b电极材料">
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="1"/>
+				<xs:enumeration value="2"/>
+				<xs:enumeration value="3"/>
+			</xs:restriction>
+		</xs:simpleType>
+		<xs:simpleType name="b温度">
+			<xs:restriction base="xs:decimal">
+				<xs:enumeration value="15.00000000000000000000000000000000000000000000000000"/>
+				<xs:enumeration value="70.00000000000000000000000000000000000000000000000000"/>
+				<xs:enumeration value="125.00000000000000000000000000000000000000000000000000"/>
+			</xs:restriction>
+		</xs:simpleType>
+		<xs:complexType digits="2" experimental_factor_type="EvaluateFactor" name="电池有效寿命" unit="h">
+			<xs:simpleContent>
+				<xs:extension base="b电池有效寿命">
+					<xs:attribute fixed="3" name="digits" type="xs:string"/>
+					<xs:attribute fixed="h" name="unit" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+		<xs:complexType experimental_factor_type="ExperimentalFactor" name="电极材料">
+			<xs:simpleContent>
+				<xs:extension base="b电极材料"/>
+			</xs:simpleContent>
+		</xs:complexType>
+		<xs:complexType digits="2" experimental_factor_type="ExperimentalFactor" name="温度" unit="°F">
+			<xs:simpleContent>
+				<xs:extension base="b温度">
+					<xs:attribute fixed="3" name="digits" type="xs:string"/>
+					<xs:attribute fixed="°F" name="unit" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:schema>
+	<experimental_design_table>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">150.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">130.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">20.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">138.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">155.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">110.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">168.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">174.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">120.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">188.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">136.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">150.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">96.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">159.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">25.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">104.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">160.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">74.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">70.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">122.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">70.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">106.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">58.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">82.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">139.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">34.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">40.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">82.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">80.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">75.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">180.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">45.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">15.00</cell>
+			<cell name="电池有效寿命" unit="h">126.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">3</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">60.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">1</cell>
+			<cell name="温度" unit="°F">125.00</cell>
+			<cell name="电池有效寿命" unit="h">58.00</cell>
+		</batch>
+		<batch>
+			<cell name="电极材料">2</cell>
+			<cell name="温度" unit="°F">70.00</cell>
+			<cell name="电池有效寿命" unit="h">115.00</cell>
+		</batch>
+	</experimental_design_table>
+</veda_data>
